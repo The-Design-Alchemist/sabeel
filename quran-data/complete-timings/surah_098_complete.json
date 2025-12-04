@@ -291,22 +291,18 @@
       {
         "segmentNumber": 1,
         "start": 0,
-        "end": 15.679194294117647,
+        "end": 16.88,
         "startWord": 0,
         "endWord": 12,
-        "wordCount": 13,
-        "type": "compulsory_stop",
-        "waqfMark": "ۚ"
+        "audioFile": "098/segments/098005_seg1.mp3"
       },
       {
         "segmentNumber": 2,
-        "start": 15.779194294117646,
-        "end": 20.534330999999998,
+        "start": 17.08,
+        "end": 20.534,
         "startWord": 13,
         "endWord": 16,
-        "wordCount": 3,
-        "type": "verse_end",
-        "waqfMark": null
+        "audioFile": "098/segments/098005_seg2.mp3"
       }
     ]
   },
@@ -405,22 +401,18 @@
       {
         "segmentNumber": 1,
         "start": 0,
-        "end": 12.70680305882353,
+        "end": 12.91,
         "startWord": 0,
         "endWord": 11,
-        "wordCount": 12,
-        "type": "compulsory_stop",
-        "waqfMark": "ۚ"
+        "audioFile": "098/segments/098006_seg1.mp3"
       },
       {
         "segmentNumber": 2,
-        "start": 12.80680305882353,
-        "end": 18.042970999999998,
+        "start": 13.01,
+        "end": 18.043,
         "startWord": 12,
         "endWord": 16,
-        "wordCount": 4,
-        "type": "verse_end",
-        "waqfMark": null
+        "audioFile": "098/segments/098006_seg2.mp3"
       }
     ]
   },
@@ -598,36 +590,22 @@
         "end": 26.998277
       }
     ],
-    "segments": [
+     "segments": [
       {
         "segmentNumber": 1,
         "start": 0,
-        "end": 13.986057565217392,
+        "end": 21.129,
         "startWord": 0,
-        "endWord": 11,
-        "wordCount": 12,
-        "type": "small_stop",
-        "waqfMark": "ۖ"
+        "endWord": 17,
+        "audioFile": "098/segments/098008_seg1.mp3"
       },
       {
         "segmentNumber": 2,
-        "start": 14.086057565217391,
-        "end": 21.029086347826087,
-        "startWord": 12,
-        "endWord": 17,
-        "wordCount": 5,
-        "type": "compulsory_stop",
-        "waqfMark": "ۚ"
-      },
-      {
-        "segmentNumber": 3,
-        "start": 21.12908634782609,
-        "end": 26.898277,
+        "start": 21.129,
+        "end": 26.998277,
         "startWord": 18,
         "endWord": 22,
-        "wordCount": 4,
-        "type": "verse_end",
-        "waqfMark": null
+        "audioFile": "098/segments/098008_seg2.mp3"
       }
     ]
   }

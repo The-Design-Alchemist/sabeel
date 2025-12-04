@@ -130,22 +130,18 @@
       {
         "segmentNumber": 1,
         "start": 0,
-        "end": 4.897347000000001,
+        "end": 4.4,
         "startWord": 0,
         "endWord": 3,
-        "wordCount": 4,
-        "type": "compulsory_stop",
-        "waqfMark": "ۚ"
+        "audioFile": "110/segments/110003_seg1.mp3"
       },
       {
         "segmentNumber": 2,
-        "start": 4.997347,
-        "end": 9.894694000000001,
+        "start": 4.5,
+        "end": 9.895,
         "startWord": 4,
         "endWord": 7,
-        "wordCount": 3,
-        "type": "verse_end",
-        "waqfMark": null
+        "audioFile": "110/segments/110003_seg2.mp3"
       }
     ]
   }

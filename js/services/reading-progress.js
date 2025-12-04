@@ -28,16 +28,27 @@ class ReadingProgress {
         }
     }
     
-    // Save current position for a surah
-    savePosition(surahNumber, verseIndex, verseNumber) {
-        this.progress[surahNumber] = {
-            verseIndex: verseIndex,
-            verseNumber: verseNumber,
-            timestamp: Date.now()
-        };
-        this.saveProgress();
-        console.log(`Saved position: Surah ${surahNumber}, Verse ${verseNumber} (index ${verseIndex})`);
-    }
+// Save current position for a surah
+savePosition(surahNumber, verseIndex, verseNumber, segmentIndex = null) {
+    this.progress[surahNumber] = {
+        verseIndex: verseIndex,
+        verseNumber: verseNumber,
+        segmentIndex: segmentIndex,  // NEW: Store segment index
+        timestamp: Date.now()
+    };
+    this.saveProgress();
+    
+    // CRITICAL: Convert 'Bismillah' to 0 for progress tracking
+    const lastVerseNumber = verseNumber === 'Bismillah' ? 0 : parseInt(verseNumber);
+    
+    // Also update the localStorage format that home.js expects
+    localStorage.setItem(`progress_${surahNumber}`, JSON.stringify({
+        lastVerse: lastVerseNumber,
+        lastPlayed: Date.now()
+    }));
+    
+    console.log(`Saved position: Surah ${surahNumber}, Verse ${verseNumber} (index ${verseIndex})${segmentIndex !== null ? `, Segment ${segmentIndex + 1}` : ''}`);
+}
     
     // Get saved position for a surah
     getPosition(surahNumber) {
@@ -94,23 +105,29 @@ class ReadingProgress {
         }
     }
     
-    // Add a surah to recent list
-    addToRecent(surahNumber) {
-        // Remove if already exists (to avoid duplicates)
-        this.recentSurahs = this.recentSurahs.filter(item => item.surahNumber !== surahNumber);
-        
-        // Add to beginning with timestamp
-        this.recentSurahs.unshift({
-            surahNumber: surahNumber,
-            timestamp: Date.now(),
-            lastVerse: this.progress[surahNumber]?.verseNumber || 1
-        });
-        
-        // Keep only last 6 recent surahs
-        this.recentSurahs = this.recentSurahs.slice(0, 6);
-        
-        this.saveRecentSurahs();
-    }
+// Add a surah to recent list
+addToRecent(surahNumber) {
+    // Remove if already exists (to avoid duplicates)
+    this.recentSurahs = this.recentSurahs.filter(item => item.surahNumber !== surahNumber);
+    
+    const currentProgress = this.progress[surahNumber];
+    
+    // Add to beginning with timestamp
+    this.recentSurahs.unshift({
+        surahNumber: surahNumber,
+        timestamp: Date.now(),
+        lastVerse: currentProgress?.verseNumber || 0
+    });
+    
+    // Keep only last 6 recent surahs
+    this.recentSurahs = this.recentSurahs.slice(0, 6);
+    
+    this.saveRecentSurahs();
+    
+    // Update the format home.js expects
+    const recentIds = this.recentSurahs.map(item => item.surahNumber);
+    localStorage.setItem('recentSurahs', JSON.stringify(recentIds));
+}
     
     // Get recent surahs
     getRecentSurahs() {

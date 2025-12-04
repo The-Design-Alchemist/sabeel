@@ -1,132 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- iOS specific meta tags -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Learn Qur'an - Dynamic Surah Loader</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Learn and memorize the Qur'an with word-by-word highlighting and audio recitation">
+    <meta name="theme-color" content="#042A2B">
+
+    <!-- iOS PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Sabeel">
+
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-72.png">
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <title>Sabeel - Learn Qur'an</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/styles.css">
+    
+    <!-- Google Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
 </head>
+
 <body>
     <div class="container">
-        <div class="header">
-            <a href="index.html" class="back-button">
-                ← Back to Home
+
+        <!-- New Header Design -->
+        <div class="header-new">
+            <a href="index.html" class="back-button-new">
+                <span class="material-symbols-outlined">arrow_back</span>
+                Back to List
             </a>
-            <h1 class="surah-title" id="surah-title">Loading...</h1>
-            <div class="surah-info" id="surah-info">Loading Surah...</div>
+            <div class="surah-info-center">
+                <div class="surah-number-badge" id="surah-number-badge">1</div>
+                <div class="surah-arabic-title" id="surah-arabic-title">Loading...</div>
+                <div class="surah-english-title" id="surah-english-title">Loading Surah...</div>
+                <div class="surah-chapter-label" id="surah-chapter-label">The Chapter</div>
+            </div>
+            <button class="settings-icon-btn" onclick="toggleSettings()">
+                <span class="material-symbols-outlined">settings</span>
+            </button>
         </div>
 
+        <!-- Loading State -->
         <div class="loading" id="loading">
             Loading Surah data and verses...
         </div>
 
+        <!-- Error State -->
         <div class="error" id="error" style="display: none;">
             <h3>Error Loading Surah</h3>
             <p id="error-message"></p>
-            <button onclick="window.location.href='index.html'" style="margin-top: 15px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">Back to Home</button>
+            <button onclick="window.location.href='index.html'" class="error-back-btn">Back to Home</button>
         </div>
 
-<div class="audio-controls" id="audio-controls" style="display: none;">
-    <div class="control-row">
-        <button class="control-button" id="play-pause-btn" onclick="togglePlayPause()">
-            <span id="play-pause-icon">▶️</span>
-            <span id="play-pause-text">Play</span>
-        </button>
-        
-        <button class="control-button" onclick="startFromBeginning()">
-            ⏮️ Start Over
-        </button>
-        
-        <button class="control-button toggle-button" id="repeat-btn" onclick="toggleRepeat()">
-            🔁 Repeat
-        </button>
+<!-- Bismillah Screen (Initial View) -->
+<div class="bismillah-screen" id="bismillah-screen" style="display: none;">
+    <div class="bismillah-card">
+        <div class="bismillah-content">
+            <div class="bismillah-arabic">بِسْمِ اللّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+            
+            <div class="verse-divider">
+                <svg width="112" height="13" viewBox="0 0 112 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 6.36389H42M69.3137 6.36389H111.314M55.6569 0.707031L61.3137 6.36389L55.6569 12.0207L50 6.36389L55.6569 0.707031Z" stroke="#E9E9E9"/>
+                </svg>
+            </div>
+            
+            <div class="bismillah-transliteration">Bismillah ir-Rahman ir-Raheem</div>
+            
+            <div class="verse-divider">
+                <svg width="112" height="13" viewBox="0 0 112 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 6.36389H42M69.3137 6.36389H111.314M55.6569 0.707031L61.3137 6.36389L55.6569 12.0207L50 6.36389L55.6569 0.707031Z" stroke="#E9E9E9"/>
+                </svg>
+            </div>
+            
+            <div class="bismillah-translation">In the name of Allah, the Most Gracious, the Most Merciful</div>
+        </div>
     </div>
     
-    <div class="verse-status" id="status">Ready to recite</div>
-</div>
-
-<!-- Add this after the audio-controls div -->
-<div class="settings-container">
-    <button class="settings-toggle-btn" id="settings-toggle" onclick="toggleSettings()">
-        ⚙️ Settings
+    <button class="start-recitation-btn" onclick="startRecitation()">
+        <span>START</span>
+        <span>RECITATION</span>
     </button>
-    
-    <div class="settings-menu" id="settings-menu" style="display: none;">
-        <div class="settings-header">
-            <h3>Display Settings</h3>
-            <button class="settings-close" onclick="closeSettings()">✕</button>
+</div>
+
+        <!-- Audio Controls (New Design) -->
+        <div class="audio-controls-new" id="audio-controls" style="display: none;">
+            <button class="control-btn control-btn-light" onclick="startFromBeginning()">
+                <span class="material-symbols-outlined">autoplay</span>
+                START OVER
+            </button>
+            <button class="control-btn control-btn-filled" id="play-pause-btn" onclick="togglePlayPause()">
+                <span id="play-pause-text">PLAY RECITATION</span>
+            </button>
+            <button class="control-btn control-btn-outline" id="repeat-btn" onclick="toggleRepeat()">
+                <span class="material-symbols-outlined">autorenew</span>
+                REPEAT
+            </button>
         </div>
-        
-        <div class="settings-content">
-    <div class="setting-item">
-        <label class="setting-label">
-            <span>English Translation</span>
-            <label class="toggle-switch">
-                <input type="checkbox" id="translation-toggle" checked onchange="toggleTranslation()">
-                <span class="toggle-slider"></span>
-            </label>
-        </label>
+
+        <!-- Repeat Mode Notification Strip -->
+        <div class="repeat-notification" id="repeat-notification">
+            Repeat Mode - Turned On
+        </div>
+
+        <!-- Settings Modal (New Design) -->
+        <div class="settings-modal" id="settings-modal" style="display: none;">
+            <div class="settings-modal-content">
+                <div class="settings-modal-header">
+                    <h3>Settings</h3>
+                    <button class="settings-close-btn" onclick="closeSettings()">✕</button>
+                </div>
+                <div class="settings-modal-body">
+                    <div class="setting-row">
+                        <span>English Translation</span>
+                        <label class="toggle-switch-new">
+                            <input type="checkbox" id="translation-toggle" checked onchange="toggleTranslation()">
+                            <span class="toggle-slider-new"></span>
+                        </label>
+                    </div>
+                    <div class="setting-row">
+                        <span>Transliteration</span>
+                        <label class="toggle-switch-new">
+                            <input type="checkbox" id="transliteration-toggle" checked
+                                onchange="toggleTransliteration()">
+                            <span class="toggle-slider-new"></span>
+                        </label>
+                    </div>
+                    <div class="setting-row">
+                        <span>Word Highlighting</span>
+                        <label class="toggle-switch-new">
+                            <input type="checkbox" id="highlighting-toggle" checked onchange="toggleHighlighting()">
+                            <span class="toggle-slider-new"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resume Modal -->
+<div class="resume-modal" id="resume-modal" style="display: none;">
+    <div class="resume-modal-overlay" onclick="closeResumeModal()"></div>
+    <div class="resume-modal-content">
+        <div class="resume-icon">
+            <span class="material-symbols-outlined">not_started</span>
+        </div>
+        <div class="resume-text">
+            <h3 class="resume-title">Continue from where<br>you left off?</h3>
+            <p class="resume-info">
+                You were at <span class="resume-verse" id="resume-verse-text">Verse 2</span><span class="resume-segment" id="resume-segment-text" style="display: none;">, Part 3</span>
+            </p>
+            <p class="resume-time" id="resume-time-text">1 hour ago</p>
+        </div>
+        <div class="resume-buttons">
+            <button class="resume-btn resume-btn-outline" onclick="startFromBeginning(); closeResumeModal();">
+                START OVER
+            </button>
+            <button class="resume-btn resume-btn-filled" onclick="continueFromProgress(); closeResumeModal();">
+                CONTINUE
+            </button>
+        </div>
     </div>
-
-    <div class="setting-item">
-        <label class="setting-label">
-            <span>Transliteration</span>
-            <label class="toggle-switch">
-                <input type="checkbox" id="transliteration-toggle" checked onchange="toggleTransliteration()">
-                <span class="toggle-slider"></span>
-            </label>
-        </label>
-    </div>
-
-    <div class="setting-item">
-    <label class="setting-label">
-        <span>Word Highlighting</span>
-        <label class="toggle-switch">
-            <input type="checkbox" id="highlighting-toggle" checked onchange="toggleHighlighting()">
-            <span class="toggle-slider"></span>
-        </label>
-    </label>
-</div>
-    
 </div>
 
+<!-- Start Over Confirmation Modal -->
+<div class="start-over-modal" id="start-over-modal" style="display: none;">
+    <div class="start-over-modal-overlay" onclick="closeStartOverModal()"></div>
+    <div class="start-over-modal-content">
+        <div class="start-over-icon">
+            <span class="material-symbols-outlined">autoplay</span>
+        </div>
+        <div class="start-over-text">
+            <h3 class="start-over-title">Would you like to start over?</h3>
+        </div>
+        <div class="start-over-buttons">
+            <button class="start-over-btn start-over-btn-outline" onclick="closeStartOverModal();">
+                NO
+            </button>
+            <button class="start-over-btn start-over-btn-filled" onclick="confirmStartOver();">
+                YES
+            </button>
+        </div>
     </div>
 </div>
 
-        <div class="verse-container" id="verse-container" style="display: none;">
+        <!-- Verse Container -->
+        <div class="verse-container-new" id="verse-container" style="display: none;">
             <!-- Verses will be dynamically generated here -->
         </div>
 
-
-        <div class="navigation-controls" id="navigation-controls" style="display: none;">
-    <button class="nav-button" id="prev-btn" onclick="previousVerse()">◀️ Previous</button>
+<!-- Segment Navigation (Conditional - only for segmented verses) -->
+<div class="segment-navigation" id="segment-navigation" style="display: none;">
+    <button class="segment-nav-btn" id="prev-segment-btn" onclick="previousSegment()">
+        <span class="material-symbols-outlined">arrow_back</span>
+        <span>Previous</span>
+    </button>
     
-    <div class="verse-selector-container">
-        <label for="verse-selector" class="verse-selector-label">Verse:</label>
-        <select id="verse-selector" class="verse-selector" onchange="jumpToVerse()">
-            <!-- Options will be populated dynamically -->
-        </select>
-        <span class="verse-total" id="verse-total">of 0</span>
+    <div class="segment-indicator">
+        <div class="segment-dots" id="segment-dots">
+            <!-- Dots will be dynamically generated -->
+        </div>
+        <span id="segment-text">
+            Part <span class="segment-number">1</span> of <span class="segment-number">2</span>
+        </span>
     </div>
     
-    <button class="nav-button" id="next-btn" onclick="nextVerse()">Next ▶️</button>
+    <button class="segment-nav-btn" id="next-segment-btn" onclick="nextSegment()">
+        <span>Next</span>
+        <span class="material-symbols-outlined">arrow_forward</span>
+    </button>
+</div>
+
+<!-- Bottom Verse Navigation (Always visible) -->
+<div class="bottom-navigation" id="bottom-navigation" style="display: none;">
+    <!-- Desktop buttons with text -->
+    <button class="bottom-nav-btn" id="prev-verse-btn" onclick="previousVerse()">
+        <span class="material-symbols-outlined">chevron_left</span>
+        PREVIOUS VERSE
+    </button>
+    
+    <!-- Mobile icon buttons -->
+    <button class="bottom-nav-btn-icon" id="prev-verse-btn-mobile" onclick="previousVerse()">
+        <span class="material-symbols-outlined">chevron_left</span>
+    </button>
+    
+<!-- Custom Verse Dropdown -->
+<div class="verse-dropdown-container" id="verse-dropdown-container" onclick="toggleVerseDropdown(event)">
+    <div class="verse-dropdown-display">
+        <span class="verse-dropdown-label">Verse</span>
+        <span class="verse-dropdown-current" id="verse-dropdown-current">1</span>
+        <span class="verse-dropdown-label">:</span>
+        <span class="verse-dropdown-label" id="verse-total-label">286</span>
+    </div>
+    <div class="verse-dropdown-arrow"></div>
+    
+    <!-- Custom Dropdown List -->
+    <div class="verse-dropdown-list" id="verse-dropdown-list">
+        <!-- Items will be populated dynamically -->
+    </div>
+    
+    <!-- Hidden native select for form compatibility -->
+    <select id="verse-selector" class="verse-selector-new" onchange="jumpToVerse()">
+        <!-- Options will be populated dynamically -->
+    </select>
+</div>
+    
+    <!-- Desktop buttons with text -->
+    <button class="bottom-nav-btn" id="next-verse-btn" onclick="nextVerse()">
+        NEXT VERSE
+        <span class="material-symbols-outlined">chevron_right</span>
+    </button>
+    
+    <!-- Mobile icon buttons -->
+    <button class="bottom-nav-btn-icon" id="next-verse-btn-mobile" onclick="nextVerse()">
+        <span class="material-symbols-outlined">chevron_right</span>
+    </button>
 </div>
     </div>
 
     <!-- JavaScript Files -->
     <script src="js/data/surah-database.js"></script>
     <script src="js/utils/url-utils.js"></script>
+    <script src="js/core/state-store.js"></script>
+    <script src="js/utils/migration-helpers.js"></script>
+    <script src="js/services/network-manager.js"></script>
+    <script src="js/components/network-status.js"></script>
     <script src="js/services/api-service.js"></script>
     <script src="js/services/audio-service.js"></script>
     <script src="js/services/reading-progress.js"></script>
     <script src="js/components/verse-display.js"></script>
     <script src="js/components/controls.js"></script>
     <script src="js/components/word-highlighting.js"></script>
+    <script src="js/components/verse-dropdown.js"></script>
     <script src="js/components/settings.js"></script>
     <script src="js/main.js"></script>
+
+    <!-- Service Worker -->
+    <script src="js/services/sw-manager.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                window.swManager.init();
+            });
+        }
+    </script>
 </body>
+
 </html>

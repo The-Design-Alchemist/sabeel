@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iOS Audio Test - Quran App</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            margin: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 1.8rem;
+        }
+        
+        .device-info {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        
+        .test-section {
+            margin-bottom: 25px;
+        }
+        
+        .test-section h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.2rem;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 8px;
+        }
+        
+        .test-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            margin: 12px 0;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .test-btn:active {
+            transform: translateY(0);
+        }
+        
+        .test-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .status {
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+            min-height: 60px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+        
+        .status.success { 
+            background: rgba(76, 175, 80, 0.3); 
+            border-color: #4CAF50;
+        }
+        
+        .status.error { 
+            background: rgba(244, 67, 54, 0.3);
+            border-color: #f44336;
+        }
+        
+        .status.warning {
+            background: rgba(255, 193, 7, 0.3);
+            border-color: #FFC107;
+        }
+        
+        .clear-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #4CAF50;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .audio-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .small-btn {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎵 iOS Audio Test</h1>
+        <p>Test and debug iOS audio functionality</p>
+    </div>
+
+    <div class="device-info" id="deviceInfo">
+        Loading device information...
+    </div>
+
+    <div id="status" class="status">Ready for testing. Tap any test button to begin...</div>
+    <button class="clear-btn" onclick="clearStatus()">Clear Log</button>
+
+    <div class="test-section">
+        <h3>🔧 Basic Audio Tests</h3>
+        <button class="test-btn" onclick="testDeviceDetection()">1. Test Device Detection</button>
+        <button class="test-btn" onclick="testAudioContext()">2. Test Audio Context</button>
+        <button class="test-btn" onclick="testAudioUnlock()">3. Unlock Audio Context</button>
+    </div>
+
+    <div class="test-section">
+        <h3>🎯 Audio Playback Tests</h3>
+        <button class="test-btn" onclick="testAudioLoad()">4. Test Audio Loading</button>
+        <button class="test-btn" onclick="testAudioPlay()">5. Test Audio Playback</button>
+        <div class="audio-controls">
+            <button class="small-btn" onclick="testPause()">Pause</button>
+            <button class="small-btn" onclick="testResume()">Resume</button>
+            <button class="small-btn" onclick="testStop()">Stop</button>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h3>📱 iOS Specific Tests</h3>
+        <button class="test-btn" onclick="testBackgroundMode()">6. Test Background Handling</button>
+        <button class="test-btn" onclick="testMultipleAudio()">7. Test Audio Pool</button>
+        <button class="test-btn" onclick="testErrorRecovery()">8. Test Error Recovery</button>
+    </div>
+
+    <div class="test-section">
+        <h3>🔗 Integration Tests</h3>
+        <button class="test-btn" onclick="testFullIntegration()">9. Full Audio Service Test</button>
+        <button class="test-btn" onclick="openMainApp()">10. Open Main App</button>
+    </div>
+
+    <script src="js/services/audio-service.js"></script>
+    <script>
+        let currentAudio = null;
+        let testResults = {};
+
+        // Initialize device info
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDeviceInfo();
+            logStatus('🚀 iOS Audio Test Page Loaded');
+            
+            if (window.audioService) {
+                logStatus(`📱 AudioService loaded. iOS detected: ${audioService.isIOS}`);
+                logStatus(`🎵 Audio pool size: ${audioService.audioPool?.length || 'N/A'}`);
+            } else {
+                logStatus('❌ AudioService not found - check if audio-service.js is loaded', 'error');
+            }
+        });
+
+        function updateDeviceInfo() {
+            const info = {
+                'User Agent': navigator.userAgent,
+                'iOS Detected': audioService?.isIOS || 'N/A',
+                'Safari Detected': audioService?.isSafari || 'N/A', 
+                'Audio Context': window.AudioContext ? 'Supported' : 'Not Supported',
+                'Web Audio': window.webkitAudioContext ? 'Supported' : 'Not Supported',
+                'Screen Size': `${window.innerWidth}x${window.innerHeight}`,
+                'Pixel Ratio': window.devicePixelRatio,
+                'Touch Support': 'ontouchstart' in window ? 'Yes' : 'No'
+            };
+
+            document.getElementById('deviceInfo').innerHTML = Object.entries(info)
+                .map(([key, value]) => `<div><strong>${key}:</strong> ${value}</div>`)
+                .join('');
+        }
+
+        function logStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            
+            status.textContent = status.textContent + '\n' + logEntry;
+            status.className = `status ${type}`;
+            status.scrollTop = status.scrollHeight;
+            
+            console.log(logEntry);
+        }
+
+        function clearStatus() {
+            document.getElementById('status').textContent = 'Status cleared. Ready for new tests...';
+            document.getElementById('status').className = 'status';
+        }
+
+        async function testDeviceDetection() {
+            logStatus('🔍 Testing device detection...');
+            
+            try {
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+                
+                logStatus(`✅ iOS Detection: ${isIOS}`, 'success');
+                logStatus(`✅ Safari Detection: ${isSafari}`, 'success');
+                logStatus(`✅ AudioService iOS: ${audioService?.isIOS}`, 'success');
+                
+                testResults.deviceDetection = true;
+            } catch (error) {
+                logStatus(`❌ Device detection failed: ${error.message}`, 'error');
+                testResults.deviceDetection = false;
+            }
+        }
+
+        async function testAudioContext() {
+            logStatus('🎵 Testing Audio Context...');
+            
+            try {
+                if (!audioService) {
+                    throw new Error('AudioService not available');
+                }
+                
+                const contextState = audioService.audioContext?.state || 'No context';
+                logStatus(`✅ Audio Context State: ${contextState}`, 'success');
+                logStatus(`✅ Audio Context Unlocked: ${audioService.isUnlocked}`, 'success');
+                logStatus(`✅ Audio Pool Length: ${audioService.audioPool?.length || 0}`, 'success');
+                
+                testResults.audioContext = true;
+            } catch (error) {
+                logStatus(`❌ Audio context test failed: ${error.message}`, 'error');
+                testResults.audioContext = false;
+            }
+        }
+
+        async function testAudioUnlock() {
+            logStatus('🔓 Testing audio unlock...');
+            
+            try {
+                if (!audioService) {
+                    throw new Error('AudioService not available');
+                }
+                
+                const result = await audioService.unlockAudioContext();
+                logStatus(`✅ Audio unlock result: ${result}`, 'success');
+                logStatus(`✅ Context state: ${audioService.audioContext?.state}`, 'success');
+                logStatus(`✅ Is unlocked: ${audioService.isUnlocked}`, 'success');
+                
+                testResults.audioUnlock = true;
+            } catch (error) {
+                logStatus(`❌ Audio unlock failed: ${error.message}`, 'error');
+                testResults.audioUnlock = false;
+            }
+        }
+
+        async function testAudioLoad() {
+            logStatus('📥 Testing audio loading...');
+            
+            try {
+                if (!audioService) {
+                    throw new Error('AudioService not available');
+                }
+                
+                // Test with a sample audio file
+                const audioUrl = './quran-data/audio/001/001001.mp3';
+                logStatus(`🔄 Loading: ${audioUrl}`);
+                
+                const audio = await audioService.getAudioElement(audioUrl);
+                currentAudio = audio;
+                
+                logStatus(`✅ Audio loaded successfully`, 'success');
+                logStatus(`✅ Audio duration: ${audio.duration || 'Unknown'}s`, 'success');
+                logStatus(`✅ Audio ready state: ${audio.readyState}`, 'success');
+                
+                testResults.audioLoad = true;
+            } catch (error) {
+                logStatus(`❌ Audio loading failed: ${error.message}`, 'error');
+                testResults.audioLoad = false;
+            }
+        }
+
+        async function testAudioPlay() {
+            logStatus('▶️ Testing audio playback...');
+            
+            try {
+                if (!currentAudio) {
+                    await testAudioLoad();
+                }
+                
+                if (!currentAudio) {
+                    throw new Error('No audio loaded');
+                }
+                
+                await audioService.playAudio(currentAudio);
+                
+                logStatus(`✅ Audio playing successfully`, 'success');
+                logStatus(`✅ Current time: ${currentAudio.currentTime}s`, 'success');
+                logStatus(`✅ Paused: ${currentAudio.paused}`, 'success');
+                
+                // Monitor progress
+                const progressMonitor = setInterval(() => {
+                    if (currentAudio && !currentAudio.paused) {
+                        const progress = (currentAudio.currentTime / currentAudio.duration) * 100;
+                        document.getElementById('progressFill').style.width = `${progress}%`;
+                    } else {
+                        clearInterval(progressMonitor);
+                    }
+                }, 100);
+                
+                testResults.audioPlay = true;
+            } catch (error) {
+                logStatus(`❌ Audio playback failed: ${error.message}`, 'error');
+                testResults.audioPlay = false;
+            }
+        }
+
+        function testPause() {
+            try {
+                if (currentAudio) {
+                    audioService.pauseAudio();
+                    logStatus('⏸️ Audio paused', 'success');
+                } else {
+                    logStatus('❌ No audio to pause', 'warning');
+                }
+            } catch (error) {
+                logStatus(`❌ Pause failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function testResume() {
+            try {
+                if (currentAudio) {
+                    await audioService.resumeAudio();
+                    logStatus('▶️ Audio resumed', 'success');
+                } else {
+                    logStatus('❌ No audio to resume', 'warning');
+                }
+            } catch (error) {
+                logStatus(`❌ Resume failed: ${error.message}`, 'error');
+            }
+        }
+
+        function testStop() {
+            try {
+                audioService.stopAudio();
+                currentAudio = null;
+                document.getElementById('progressFill').style.width = '0%';
+                logStatus('⏹️ Audio stopped', 'success');
+            } catch (error) {
+                logStatus(`❌ Stop failed: ${error.message}`, 'error');
+            }
+        }
+
+        function testBackgroundMode() {
+            logStatus('📱 Testing background mode handling...');
+            logStatus('💡 Switch to another app and come back to test background handling', 'warning');
+            
+            // Simulate background events
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    logStatus('📵 App went to background');
+                } else {
+                    logStatus('📱 App returned to foreground');
+                }
+            });
+        }
+
+        async function testMultipleAudio() {
+            logStatus('🔄 Testing audio pool...');
+            
+            try {
+                if (!audioService.isIOS) {
+                    logStatus('💡 Audio pool test is iOS-specific', 'warning');
+                    return;
+                }
+                
+                const poolSize = audioService.audioPool.length;
+                logStatus(`✅ Audio pool size: ${poolSize}`);
+                
+                // Test getting multiple audio elements
+                for (let i = 0; i < Math.min(3, poolSize); i++) {
+                    const audio = await audioService.getAudioElement('./quran-data/audio/001/001001.mp3');
+                    logStatus(`✅ Got audio element ${i + 1} from pool`);
+                }
+                
+                testResults.audioPool = true;
+            } catch (error) {
+                logStatus(`❌ Audio pool test failed: ${error.message}`, 'error');
+                testResults.audioPool = false;
+            }
+        }
+
+        async function testErrorRecovery() {
+            logStatus('🔧 Testing error recovery...');
+            
+            try {
+                // Test with invalid URL
+                try {
+                    await audioService.getAudioElement('invalid-url.mp3');
+                } catch (expectedError) {
+                    logStatus(`✅ Error handling works: ${expectedError.message}`, 'success');
+                }
+                
+                // Test unlock after error
+                const unlockResult = await audioService.unlockAudioContext();
+                logStatus(`✅ Recovery unlock: ${unlockResult}`, 'success');
+                
+                testResults.errorRecovery = true;
+            } catch (error) {
+                logStatus(`❌ Error recovery test failed: ${error.message}`, 'error');
+                testResults.errorRecovery = false;
+            }
+        }
+
+        async function testFullIntegration() {
+            logStatus('🚀 Running full integration test...');
+            
+            try {
+                // Run all tests in sequence
+                await testDeviceDetection();
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                await testAudioContext();
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                await testAudioUnlock();
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                await testAudioLoad();
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Count successful tests
+                const successCount = Object.values(testResults).filter(Boolean).length;
+                const totalTests = Object.keys(testResults).length;
+                
+                logStatus(`🎯 Integration test complete: ${successCount}/${totalTests} tests passed`, 
+                         successCount === totalTests ? 'success' : 'warning');
+                
+                if (successCount === totalTests) {
+                    logStatus('🎉 All tests passed! Your iOS audio should work correctly.', 'success');
+                } else {
+                    logStatus('⚠️ Some tests failed. Check the main app for issues.', 'warning');
+                }
+                
+            } catch (error) {
+                logStatus(`❌ Integration test failed: ${error.message}`, 'error');
+            }
+        }
+
+        function openMainApp() {
+            logStatus('🔗 Opening main app...');
+            // Assuming your main app is in the same directory
+            window.location.href = './quran-learning.html';
+        }
+
+        // Handle iOS-specific events
+        window.addEventListener('pagehide', () => {
+            logStatus('📵 Page hidden (iOS background)');
+        });
+
+        window.addEventListener('pageshow', () => {
+            logStatus('📱 Page shown (iOS foreground)');
+        });
+
+        // Error handling
+        window.addEventListener('error', (event) => {
+            logStatus(`❌ Global error: ${event.error?.message || event.message}`, 'error');
+        });
+
+        // Unhandled promise rejections
+        window.addEventListener('unhandledrejection', (event) => {
+            logStatus(`❌ Unhandled promise rejection: ${event.reason}`, 'error');
+        });
+    </script>
+</body>
+</html>

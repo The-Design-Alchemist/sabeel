@@ -9,8 +9,8 @@
   "verses": [
     {
       "key": "98:1",
-      "arabic": " لَمْ يَكُنِ ٱلَّذِينَ كَفَرُوا۟ مِنْ أَهْلِ ٱلْكِتَـٰبِ وَٱلْمُشْرِكِينَ مُنفَكِّينَ حَتَّىٰ تَأْتِيَهُمُ ٱلْبَيِّنَةُ",
-      "arabicSimple": " لَمْ يَكُنِ ٱلَّذِينَ كَفَرُوا۟ مِنْ أَهْلِ ٱلْكِتَـٰبِ وَٱلْمُشْرِكِينَ مُنفَكِّينَ حَتَّىٰ تَأْتِيَهُمُ ٱلْبَيِّنَةُ",
+      "arabic": " لَمْ يَكُنِ ٱلَّذِينَ كَفَرُوا۟ مِنْ أَهْلِ ٱلْكِتَـٰبِ وَٱلْمُشْرِكِينَ مُنفَكِّينَ حَتَّىٰ تَأْتِيَهُمُ ٱلْبَيِّنَةُ",
+      "arabicSimple": " لَمْ يَكُنِ ٱلَّذِينَ كَفَرُوا۟ مِنْ أَهْلِ ٱلْكِتَـٰبِ وَٱلْمُشْرِكِينَ مُنفَكِّينَ حَتَّىٰ تَأْتِيَهُمُ ٱلْبَيِّنَةُ",
       "translation": "Those who disbelieved among the People of the Scripture and the polytheists were not to be parted [from misbelief] until there came to them clear evidence -",
       "transliteration": "Lam ya kunil lazeena kafaru min ahlil kitaabi wal mushri keena mun fak keena hattaa ta-tiya humul bayyinah",
       "sajda": false,
@@ -29,7 +29,7 @@
           "transliteration": "yakuni"
         },
         {
-          "arabic": "ٱلَّذِينَ",
+          "arabic": "ٱلَّذِينَ",
           "translation": "those who",
           "transliteration": "alladhīna"
         },
@@ -50,7 +50,7 @@
         },
         {
           "arabic": "ٱلْكِتَـٰبِ",
-          "translation": "of the Book",
+          "translation": "(of) the Book",
           "transliteration": "l-kitābi"
         },
         {
@@ -59,50 +59,50 @@
           "transliteration": "wal-mush'rikīna"
         },
         {
-          "arabic": "مُنفَكِّينَ",
-          "translation": "to be abandoned",
+          "arabic": "مُنفَكِّينَ",
+          "translation": "separated",
           "transliteration": "munfakkīna"
         },
         {
-          "arabic": "حَتَّىٰ",
+          "arabic": "حَتَّىٰ",
           "translation": "until",
           "transliteration": "ḥattā"
         },
         {
           "arabic": "تَأْتِيَهُمُ",
           "translation": "(there) comes to them",
-          "transliteration": "tatiyahumu"
+          "transliteration": "ta'tiyahum"
         },
         {
-          "arabic": "ٱلْبَيِّنَةُ",
+          "arabic": "ٱلْبَيِّنَةُ",
           "translation": "the clear evidence",
-          "transliteration": "l-bayinatu"
+          "transliteration": "l-bayyinatu"
         }
       ]
     },
     {
       "key": "98:2",
-      "arabic": "رَسُولٌ مِّنَ ٱللَّهِ يَتْلُوا۟ صُحُفًا مُّطَهَّرَةً",
-      "arabicSimple": "رَسُولٌ مِّنَ ٱللَّهِ يَتْلُوا۟ صُحُفًا مُّطَهَّرَةً",
+      "arabic": "رَسُولٌ مِّنَ ٱللَّهِ يَتْلُوا۟ صُحُفًا مُّطَهَّرَةً",
+      "arabicSimple": "رَسُولٌ مِّنَ ٱللَّهِ يَتْلُوا۟ صُحُفًا مُّطَهَّرَةً",
       "translation": "A Messenger from Allah, reciting purified scriptures",
-      "transliteration": "Rasoolum minal laahi yatlu suhufam mutahharah",
+      "transliteration": "Rasoolu minal laahi yatloo suhufam mutahharah",
       "sajda": false,
       "waqfMarks": [],
       "segments": null,
       "wordCount": 6,
       "words": [
         {
-          "arabic": "رَسُولٌۭ",
+          "arabic": "رَسُولٌ",
           "translation": "A Messenger",
           "transliteration": "rasūlun"
         },
         {
-          "arabic": "مِّنَ",
+          "arabic": "مِّنَ",
           "translation": "from",
           "transliteration": "mina"
         },
         {
-          "arabic": "ٱللَّهِ",
+          "arabic": "ٱللَّهِ",
           "translation": "Allah",
           "transliteration": "l-lahi"
         },
@@ -112,12 +112,12 @@
           "transliteration": "yatlū"
         },
         {
-          "arabic": "صُحُفًۭا",
+          "arabic": "صُحُفًا",
           "translation": "pages",
           "transliteration": "ṣuḥufan"
         },
         {
-          "arabic": "مُّطَهَّرَةًۭ",
+          "arabic": "مُّطَهَّرَةً",
           "translation": "purified",
           "transliteration": "muṭahharatan"
         }
@@ -125,10 +125,10 @@
     },
     {
       "key": "98:3",
-      "arabic": "فِيهَا كُتُبٌ قَيِّمَةٌ",
-      "arabicSimple": "فِيهَا كُتُبٌ قَيِّمَةٌ",
+      "arabic": "فِيهَا كُتُبٌ قَيِّمَةٌ",
+      "arabicSimple": "فِيهَا كُتُبٌ قَيِّمَةٌ",
       "translation": "Within which are correct writings.",
-      "transliteration": "Feeha kutubun qaiyimah",
+      "transliteration": "Feehaa kutubun qaiyimah",
       "sajda": false,
       "waqfMarks": [],
       "segments": null,
@@ -140,12 +140,12 @@
           "transliteration": "fīhā"
         },
         {
-          "arabic": "كُتُبٌۭ",
+          "arabic": "كُتُبٌ",
           "translation": "(are) writings",
           "transliteration": "kutubun"
         },
         {
-          "arabic": "قَيِّمَةٌۭ",
+          "arabic": "قَيِّمَةٌ",
           "translation": "correct",
           "transliteration": "qayyimatun"
         }
@@ -153,10 +153,10 @@
     },
     {
       "key": "98:4",
-      "arabic": "وَمَا تَفَرَّقَ ٱلَّذِينَ أُوتُوا۟ ٱلْكِتَـٰبَ إِلَّا مِنۢ بَعْدِ مَا جَآءَتْهُمُ ٱلْبَيِّنَةُ",
-      "arabicSimple": "وَمَا تَفَرَّقَ ٱلَّذِينَ أُوتُوا۟ ٱلْكِتَـٰبَ إِلَّا مِنۢ بَعْدِ مَا جَآءَتْهُمُ ٱلْبَيِّنَةُ",
-      "translation": "Nor did those who were given the Scripture become divided until after there had come to them clear evidence.",
-      "transliteration": "Wa maa tafarraqal lazeena ootul kitaaba il-la mim b'adi ma jaa-at humul baiyyinah",
+      "arabic": "وَمَا تَفَرَّقَ ٱلَّذِينَ أُوتُوا۟ ٱلْكِتَـٰبَ إِلَّا مِنۢ بَعْدِ مَا جَآءَتْهُمُ ٱلْبَيِّنَةُ",
+      "arabicSimple": "وَمَا تَفَرَّقَ ٱلَّذِينَ أُوتُوا۟ ٱلْكِتَـٰبَ إِلَّا مِنۢ بَعْدِ مَا جَآءَتْهُمُ ٱلْبَيِّنَةُ",
+      "translation": "And those who were given the Scripture did not become divided until after there had come to them clear evidence.",
+      "transliteration": "Wa maa tafarraqal lazeena ootul kitaaba illaa mim ba'di maa jaaa'at humul baiyinah",
       "sajda": false,
       "waqfMarks": [],
       "segments": null,
@@ -168,12 +168,12 @@
           "transliteration": "wamā"
         },
         {
-          "arabic": "تَفَرَّقَ",
+          "arabic": "تَفَرَّقَ",
           "translation": "became divided",
           "transliteration": "tafarraqa"
         },
         {
-          "arabic": "ٱلَّذِينَ",
+          "arabic": "ٱلَّذِينَ",
           "translation": "those who",
           "transliteration": "alladhīna"
         },
@@ -188,8 +188,8 @@
           "transliteration": "l-kitāba"
         },
         {
-          "arabic": "إِلَّا",
-          "translation": "until",
+          "arabic": "إِلَّا",
+          "translation": "except",
           "transliteration": "illā"
         },
         {
@@ -200,35 +200,35 @@
         {
           "arabic": "بَعْدِ",
           "translation": "after",
-          "transliteration": "baʿdi"
+          "transliteration": "ba'di"
         },
         {
           "arabic": "مَا",
-          "translation": "what",
+          "translation": "[that]",
           "transliteration": "mā"
         },
         {
-          "arabic": "جَآءَتْهُمُ",
-          "translation": "came (to) them",
-          "transliteration": "jāathumu"
+          "arabic": "جَآءَتْهُمُ",
+          "translation": "came to them",
+          "transliteration": "jā'at'hum"
         },
         {
-          "arabic": "ٱلْبَيِّنَةُ",
-          "translation": "(of) the clear evidence",
-          "transliteration": "l-bayinatu"
+          "arabic": "ٱلْبَيِّنَةُ",
+          "translation": "the clear evidence",
+          "transliteration": "l-bayyinatu"
         }
       ]
     },
     {
       "key": "98:5",
-      "arabic": "وَمَآ أُمِرُوٓا۟ إِلَّا لِيَعْبُدُوا۟ ٱللَّهَ مُخْلِصِينَ لَهُ ٱلدِّينَ حُنَفَآءَ وَيُقِيمُوا۟ ٱلصَّلَوٰةَ وَيُؤْتُوا۟ ٱلزَّكَوٰةَ ۚ وَذَٰلِكَ دِينُ ٱلْقَيِّمَةِ",
-      "arabicSimple": "وَمَآ أُمِرُوٓا۟ إِلَّا لِيَعْبُدُوا۟ ٱللَّهَ مُخْلِصِينَ لَهُ ٱلدِّينَ حُنَفَآءَ وَيُقِيمُوا۟ ٱلصَّلَوٰةَ وَيُؤْتُوا۟ ٱلزَّكَوٰةَ ۚ وَذَٰلِكَ دِينُ ٱلْقَيِّمَةِ",
+      "arabic": "وَمَآ أُمِرُوٓا۟ إِلَّا لِيَعْبُدُوا۟ ٱللَّهَ مُخْلِصِينَ لَهُ ٱلدِّينَ حُنَفَآءَ وَيُقِيمُوا۟ ٱلصَّلَوٰةَ وَيُؤْتُوا۟ ٱلزَّكَوٰةَ ۚ وَذَٰلِكَ دِينُ ٱلْقَيِّمَةِ",
+      "arabicSimple": "وَمَآ أُمِرُوٓا۟ إِلَّا لِيَعْبُدُوا۟ ٱللَّهَ مُخْلِصِينَ لَهُ ٱلدِّينَ حُنَفَآءَ وَيُقِيمُوا۟ ٱلصَّلَوٰةَ وَيُؤْتُوا۟ ٱلزَّكَوٰةَ ۚ وَذَٰلِكَ دِينُ ٱلْقَيِّمَةِ",
       "translation": "And they were not commanded except to worship Allah, [being] sincere to Him in religion, inclining to truth, and to establish prayer and to give zakah. And that is the correct religion.",
-      "transliteration": "Wa maa umiroo il-la liy'abu dul laaha mukhliseena lahud-deena huna faa-a wa yuqeemus salaahta wa yu-tuz zakaata; wa zaalika deenul qaiyimah",
+      "transliteration": "Wa maaa umirooo illaa liya'budul laaha mukhliseena lahud deena hunafaaa'a wa yuqeemus salaata wa yu'tuz zakaah; wa zaalika deenul qaiyimah",
       "sajda": false,
       "waqfMarks": [
         {
-          "position": 133,
+          "position": 137,
           "character": "ۚ",
           "type": "preferred_pause",
           "wordIndex": 13
@@ -236,23 +236,25 @@
       ],
       "segments": [
         {
-          "arabic": "وَمَآ أُمِرُوٓا۟ إِلَّا لِيَعْبُدُوا۟ ٱللَّهَ مُخْلِصِينَ لَهُ ٱلدِّينَ حُنَفَآءَ وَيُقِيمُوا۟ ٱلصَّلَوٰةَ وَيُؤْتُوا۟ ٱلزَّكَوٰةَ ۚ",
-          "translation": "And not they were commanded except to worship Allah being sincere to Him in the religion upright and to establish the prayer and to give the zakah",
-          "transliteration": "wamā umirū illā liyaʿbudū l-laha mukh'liṣīna lahu l-dīna ḥunafāa wayuqīmū l-ṣalata wayu'tū l-zakata",
-          "type": "compulsory_stop",
-          "waqfMark": "ۚ"
+          "arabic": "وَمَآ أُمِرُوٓا۟ إِلَّا لِيَعْبُدُوا۟ ٱللَّهَ مُخْلِصِينَ لَهُ ٱلدِّينَ حُنَفَآءَ وَيُقِيمُوا۟ ٱلصَّلَوٰةَ وَيُؤْتُوا۟ ٱلزَّكَوٰةَ ۚ",
+          "translation": "And they were not commanded except to worship Allah, [being] sincere to Him in religion, inclining to truth, and to establish prayer and to give zakah.",
+          "transliteration": "Wa maaa umirooo illaa liya'budul laaha mukhliseena lahud deena hunafaaa'a wa yuqeemus salaata wa yu'tuz zakaah;",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ",
+          "segmentNumber": 1
         },
         {
-          "arabic": "وَذَٰلِكَ دِينُ ٱلْقَيِّمَةِ",
-          "translation": "And that is the religion the correct",
-          "transliteration": "wadhālika dīnu l-qayimati",
-          "type": "verse_end"
+          "arabic": "وَذَٰلِكَ دِينُ ٱلْقَيِّمَةِ",
+          "translation": "And that is the correct religion.",
+          "transliteration": "wa zaalika deenul qaiyimah",
+          "type": "verse_end",
+          "segmentNumber": 2
         }
       ],
       "wordCount": 17,
       "words": [
         {
-          "arabic": "وَمَآ",
+          "arabic": "وَمَآ",
           "translation": "And not",
           "transliteration": "wamā"
         },
@@ -262,17 +264,17 @@
           "transliteration": "umirū"
         },
         {
-          "arabic": "إِلَّا",
+          "arabic": "إِلَّا",
           "translation": "except",
           "transliteration": "illā"
         },
         {
           "arabic": "لِيَعْبُدُوا۟",
           "translation": "to worship",
-          "transliteration": "liyaʿbudū"
+          "transliteration": "liya'budū"
         },
         {
-          "arabic": "ٱللَّهَ",
+          "arabic": "ٱللَّهَ",
           "translation": "Allah",
           "transliteration": "l-laha"
         },
@@ -287,14 +289,14 @@
           "transliteration": "lahu"
         },
         {
-          "arabic": "ٱلدِّينَ",
+          "arabic": "ٱلدِّينَ",
           "translation": "(in) the religion",
           "transliteration": "l-dīna"
         },
         {
-          "arabic": "حُنَفَآءَ",
+          "arabic": "حُنَفَآءَ",
           "translation": "upright",
-          "transliteration": "ḥunafāa"
+          "transliteration": "ḥunafā'a"
         },
         {
           "arabic": "وَيُقِيمُوا۟",
@@ -302,7 +304,7 @@
           "transliteration": "wayuqīmū"
         },
         {
-          "arabic": "ٱلصَّلَوٰةَ",
+          "arabic": "ٱلصَّلَوٰةَ",
           "translation": "the prayer",
           "transliteration": "l-ṣalata"
         },
@@ -312,8 +314,8 @@
           "transliteration": "wayu'tū"
         },
         {
-          "arabic": "ٱلزَّكَوٰةَ ۚ",
-          "translation": "the zakah",
+          "arabic": "ٱلزَّكَوٰةَ ۚ",
+          "translation": "zakah",
           "transliteration": "l-zakata"
         },
         {
@@ -327,22 +329,22 @@
           "transliteration": "dīnu"
         },
         {
-          "arabic": "ٱلْقَيِّمَةِ",
+          "arabic": "ٱلْقَيِّمَةِ",
           "translation": "the correct",
-          "transliteration": "l-qayimati"
+          "transliteration": "l-qayyimati"
         }
       ]
     },
     {
       "key": "98:6",
-      "arabic": "إِنَّ ٱلَّذِينَ كَفَرُوا۟ مِنْ أَهْلِ ٱلْكِتَـٰبِ وَٱلْمُشْرِكِينَ فِى نَارِ جَهَنَّمَ خَـٰلِدِينَ فِيهَآ ۚ أُو۟لَـٰٓئِكَ هُمْ شَرُّ ٱلْبَرِيَّةِ",
-      "arabicSimple": "إِنَّ ٱلَّذِينَ كَفَرُوا۟ مِنْ أَهْلِ ٱلْكِتَـٰبِ وَٱلْمُشْرِكِينَ فِى نَارِ جَهَنَّمَ خَـٰلِدِينَ فِيهَآ ۚ أُو۟لَـٰٓئِكَ هُمْ شَرُّ ٱلْبَرِيَّةِ",
+      "arabic": "إِنَّ ٱلَّذِينَ كَفَرُوا۟ مِنْ أَهْلِ ٱلْكِتَـٰبِ وَٱلْمُشْرِكِينَ فِى نَارِ جَهَنَّمَ خَـٰلِدِينَ فِيهَآ ۚ أُو۟لَـٰٓئِكَ هُمْ شَرُّ ٱلْبَرِيَّةِ",
+      "arabicSimple": "إِنَّ ٱلَّذِينَ كَفَرُوا۟ مِنْ أَهْلِ ٱلْكِتَـٰبِ وَٱلْمُشْرِكِينَ فِى نَارِ جَهَنَّمَ خَـٰلِدِينَ فِيهَآ ۚ أُو۟لَـٰٓئِكَ هُمْ شَرُّ ٱلْبَرِيَّةِ",
       "translation": "Indeed, they who disbelieved among the People of the Scripture and the polytheists will be in the fire of Hell, abiding eternally therein. Those are the worst of creatures.",
-      "transliteration": "Innal lazeena kafaru min ahlil kitaabi wal mushri keena fee nari jahan nama khaali deena feeha; ulaa-ika hum shar rul ba reeyah",
+      "transliteration": "Innal lazeena kafaroo min ahlil kitaabi wal mushri keena fee nari jahannama khaalideena feehaaa; ulaaa'ika hum sharrul bareey yah",
       "sajda": false,
       "waqfMarks": [
         {
-          "position": 107,
+          "position": 104,
           "character": "ۚ",
           "type": "preferred_pause",
           "wordIndex": 12
@@ -350,28 +352,30 @@
       ],
       "segments": [
         {
-          "arabic": "إِنَّ ٱلَّذِينَ كَفَرُوا۟ مِنْ أَهْلِ ٱلْكِتَـٰبِ وَٱلْمُشْرِكِينَ فِى نَارِ جَهَنَّمَ خَـٰلِدِينَ فِيهَآ ۚ",
-          "translation": "Indeed those who disbelieve from the People of the Book and the polytheists will be in the Fire of Hell abiding eternally therein",
-          "transliteration": "inna alladhīna kafarū min ahli l-kitābi wal-mush'rikīna fī nāri jahannama khālidīna fīhā",
-          "type": "compulsory_stop",
-          "waqfMark": "ۚ"
+          "arabic": "إِنَّ ٱلَّذِينَ كَفَرُوا۟ مِنْ أَهْلِ ٱلْكِتَـٰبِ وَٱلْمُشْرِكِينَ فِى نَارِ جَهَنَّمَ خَـٰلِدِينَ فِيهَآ ۚ",
+          "translation": "Indeed, they who disbelieved among the People of the Scripture and the polytheists will be in the fire of Hell, abiding eternally therein.",
+          "transliteration": "Innal lazeena kafaroo min ahlil kitaabi wal mushri keena fee nari jahannama khaalideena feehaaa;",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ",
+          "segmentNumber": 1
         },
         {
-          "arabic": "أُو۟لَـٰٓئِكَ هُمْ شَرُّ ٱلْبَرِيَّةِ",
-          "translation": "Those they are the worst of the creatures",
-          "transliteration": "ulāika hum sharru l-bariyati",
-          "type": "verse_end"
+          "arabic": "أُو۟لَـٰٓئِكَ هُمْ شَرُّ ٱلْبَرِيَّةِ",
+          "translation": "Those are the worst of creatures.",
+          "transliteration": "ulaaa'ika hum sharrul bareey yah",
+          "type": "verse_end",
+          "segmentNumber": 2
         }
       ],
       "wordCount": 17,
       "words": [
         {
-          "arabic": "إِنَّ",
+          "arabic": "إِنَّ",
           "translation": "Indeed",
           "transliteration": "inna"
         },
         {
-          "arabic": "ٱلَّذِينَ",
+          "arabic": "ٱلَّذِينَ",
           "translation": "those who",
           "transliteration": "alladhīna"
         },
@@ -411,7 +415,7 @@
           "transliteration": "nāri"
         },
         {
-          "arabic": "جَهَنَّمَ",
+          "arabic": "جَهَنَّمَ",
           "translation": "(of) Hell",
           "transliteration": "jahannama"
         },
@@ -421,50 +425,50 @@
           "transliteration": "khālidīna"
         },
         {
-          "arabic": "فِيهَآ ۚ",
-          "translation": "therein",
+          "arabic": "فِيهَآ ۚ",
+          "translation": "in it",
           "transliteration": "fīhā"
         },
         {
           "arabic": "أُو۟لَـٰٓئِكَ",
-          "translation": "Those ",
-          "transliteration": "ulāika"
+          "translation": "Those",
+          "transliteration": "ulā'ika"
         },
         {
           "arabic": "هُمْ",
-          "translation": "they",
+          "translation": "[they]",
           "transliteration": "hum"
         },
         {
-          "arabic": "شَرُّ",
+          "arabic": "شَرُّ",
           "translation": "(are the) worst",
           "transliteration": "sharru"
         },
         {
-          "arabic": "ٱلْبَرِيَّةِ",
+          "arabic": "ٱلْبَرِيَّةِ",
           "translation": "(of) the creatures",
-          "transliteration": "l-bariyati"
+          "transliteration": "l-bariyyati"
         }
       ]
     },
     {
       "key": "98:7",
-      "arabic": "إِنَّ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ أُو۟لَـٰٓئِكَ هُمْ خَيْرُ ٱلْبَرِيَّةِ",
-      "arabicSimple": "إِنَّ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ أُو۟لَـٰٓئِكَ هُمْ خَيْرُ ٱلْبَرِيَّةِ",
+      "arabic": "إِنَّ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ أُو۟لَـٰٓئِكَ هُمْ خَيْرُ ٱلْبَرِيَّةِ",
+      "arabicSimple": "إِنَّ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ أُو۟لَـٰٓئِكَ هُمْ خَيْرُ ٱلْبَرِيَّةِ",
       "translation": "Indeed, they who have believed and done righteous deeds - those are the best of creatures.",
-      "transliteration": "Innal lazeena aamanu wa 'amilus saalihaati ula-ika hum khairul bareey yah",
+      "transliteration": "Innal lazeena aamanoo wa 'amilus saalihaati ulaaa'ika hum khairul bareey yah",
       "sajda": false,
       "waqfMarks": [],
       "segments": null,
       "wordCount": 9,
       "words": [
         {
-          "arabic": "إِنَّ",
+          "arabic": "إِنَّ",
           "translation": "Indeed",
           "transliteration": "inna"
         },
         {
-          "arabic": "ٱلَّذِينَ",
+          "arabic": "ٱلَّذِينَ",
           "translation": "those who",
           "transliteration": "alladhīna"
         },
@@ -476,21 +480,21 @@
         {
           "arabic": "وَعَمِلُوا۟",
           "translation": "and do",
-          "transliteration": "waʿamilū"
+          "transliteration": "wa'amilū"
         },
         {
-          "arabic": "ٱلصَّـٰلِحَـٰتِ",
+          "arabic": "ٱلصَّـٰلِحَـٰتِ",
           "translation": "righteous deeds",
           "transliteration": "l-ṣāliḥāti"
         },
         {
           "arabic": "أُو۟لَـٰٓئِكَ",
-          "translation": "those ",
-          "transliteration": "ulāika"
+          "translation": "those",
+          "transliteration": "ulā'ika"
         },
         {
           "arabic": "هُمْ",
-          "translation": "they",
+          "translation": "[they]",
           "transliteration": "hum"
         },
         {
@@ -499,16 +503,16 @@
           "transliteration": "khayru"
         },
         {
-          "arabic": "ٱلْبَرِيَّةِ",
+          "arabic": "ٱلْبَرِيَّةِ",
           "translation": "(of) the creatures",
-          "transliteration": "l-bariyati"
+          "transliteration": "l-bariyyati"
         }
       ]
     },
     {
       "key": "98:8",
-      "arabic": "جَزَآؤُهُمْ عِندَ رَبِّهِمْ جَنَّـٰتُ عَدْنٍ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ خَـٰلِدِينَ فِيهَآ أَبَدًا ۖ رَّضِىَ ٱللَّهُ عَنْهُمْ وَرَضُوا۟ عَنْهُ ۚ ذَٰلِكَ لِمَنْ خَشِىَ رَبَّهُۥ",
-      "arabicSimple": "جَزَآؤُهُمْ عِندَ رَبِّهِمْ جَنَّـٰتُ عَدْنٍ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ خَـٰلِدِينَ فِيهَآ أَبَدًا ۖ رَّضِىَ ٱللَّهُ عَنْهُمْ وَرَضُوا۟ عَنْهُ ۚ ذَٰلِكَ لِمَنْ خَشِىَ رَبَّهُۥ",
+      "arabic": "جَزَآؤُهُمْ عِندَ رَبِّهِمْ جَنَّـٰتُ عَدْنٍ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ خَـٰلِدِينَ فِيهَآ أَبَدًا ۖ رَّضِىَ ٱللَّهُ عَنْهُمْ وَرَضُوا۟ عَنْهُ ۚ ذَٰلِكَ لِمَنْ خَشِىَ رَبَّهُۥ",
+      "arabicSimple": "جَزَآؤُهُمْ عِندَ رَبِّهِمْ جَنَّـٰتُ عَدْنٍ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ خَـٰلِدِينَ فِيهَآ أَبَدًا ۖ رَّضِىَ ٱللَّهُ عَنْهُمْ وَرَضُوا۟ عَنْهُ ۚ ذَٰلِكَ لِمَنْ خَشِىَ رَبَّهُۥ",
       "translation": "Their reward with Allah will be gardens of perpetual residence beneath which rivers flow, wherein they will abide forever, Allah being pleased with them and they with Him. That is for whoever has feared his Lord.",
       "transliteration": "Jazaa-uhum inda rabbihim jan naatu 'adnin tajree min tahtihal an haaru khalideena feeha abada; radiy-yallaahu 'anhum wa ra du 'an zaalika liman khashiya rabbah.",
       "sajda": false,
@@ -528,30 +532,25 @@
       ],
       "segments": [
         {
-          "arabic": "جَزَآؤُهُمْ عِندَ رَبِّهِمْ جَنَّـٰتُ عَدْنٍ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ خَـٰلِدِينَ فِيهَآ أَبَدًا ۖ",
-          "translation": "Their reward is with their Lord Gardens of Eternity flow from underneath them the rivers will abide therein forever",
-          "transliteration": "jazāuhum ʿinda rabbihim jannātu ʿadnin tajrī min taḥtihā l-anhāru khālidīna fīhā abadan",
-          "type": "small_stop",
-          "waqfMark": "ۖ"
+          "arabic": "جَزَآؤُهُمْ عِندَ رَبِّهِمْ جَنَّـٰتُ عَدْنٍ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ خَـٰلِدِينَ فِيهَآ أَبَدًا ۖ رَّضِىَ ٱللَّهُ عَنْهُمْ وَرَضُوا۟ عَنْهُ ۚ",
+          "translation": "Their reward with Allah will be gardens of perpetual residence beneath which rivers flow, wherein they will abide forever, Allah being pleased with them and they with Him.",
+          "transliteration": "Jazaa-uhum inda rabbihim jan naatu 'adnin tajree min tahtihal an haaru khalideena feeha abada; radiy-yallaahu 'anhum wa ra du 'an",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ",
+          "segmentNumber": 1
         },
         {
-          "arabic": "رَّضِىَ ٱللَّهُ عَنْهُمْ وَرَضُوا۟ عَنْهُ ۚ",
-          "translation": "will be pleased Allah with them and they will be pleased with Him",
-          "transliteration": "raḍiya l-lahu ʿanhum waraḍū ʿanhu",
-          "type": "compulsory_stop",
-          "waqfMark": "ۚ"
-        },
-        {
-          "arabic": "ذَٰلِكَ لِمَنْ خَشِىَ رَبَّهُۥ",
-          "translation": "That is for whoever feared his Lord",
-          "transliteration": "dhālika liman khashiya rabbahu",
-          "type": "verse_end"
+          "arabic": "ذَٰلِكَ لِمَنْ خَشِىَ رَبَّهُۥ",
+          "translation": "That is for whoever has feared his Lord.",
+          "transliteration": "zaalika liman khashiya rabbah",
+          "type": "verse_end",
+          "segmentNumber": 2
         }
       ],
       "wordCount": 23,
       "words": [
         {
-          "arabic": "جَزَآؤُهُمْ",
+          "arabic": "جَزَآؤُهُمْ",
           "translation": "Their reward",
           "transliteration": "jazāuhum"
         },
@@ -561,12 +560,12 @@
           "transliteration": "ʿinda"
         },
         {
-          "arabic": "رَبِّهِمْ",
+          "arabic": "رَبِّهِمْ",
           "translation": "their Lord ",
           "transliteration": "rabbihim"
         },
         {
-          "arabic": "جَنَّـٰتُ",
+          "arabic": "جَنَّـٰتُ",
           "translation": "Gardens",
           "transliteration": "jannātu"
         },
@@ -601,7 +600,7 @@
           "transliteration": "khālidīna"
         },
         {
-          "arabic": "فِيهَآ",
+          "arabic": "فِيهَآ",
           "translation": "therein",
           "transliteration": "fīhā"
         },
@@ -611,12 +610,12 @@
           "transliteration": "abadan"
         },
         {
-          "arabic": "رَّضِىَ",
+          "arabic": "رَّضِىَ",
           "translation": "(will be) pleased",
           "transliteration": "raḍiya"
         },
         {
-          "arabic": "ٱللَّهُ",
+          "arabic": "ٱللَّهُ",
           "translation": "Allah",
           "transliteration": "l-lahu"
         },
@@ -651,7 +650,7 @@
           "transliteration": "khashiya"
         },
         {
-          "arabic": "رَبَّهُۥ",
+          "arabic": "رَبَّهُۥ",
           "translation": "his Lord",
           "transliteration": "rabbahu"
         }

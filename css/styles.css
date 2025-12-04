@@ -3,29 +3,5 @@
  * Import all modular CSS files
  */
 
-/* Base styles and resets */
-@import url('./base.css');
-
-/* Layout and container styles */
-@import url('./layout.css');
-
-/* Typography and text styles */
-@import url('./typography.css');
-
-/* UI Components (buttons, controls, etc.) */
-@import url('./components.css');
-
-/* Settings menu and controls */
-@import url('./settings.css');
-
-/* Word highlighting feature */
-@import url('./word-highlighting.css');
-
-/* Animations and transitions */
-@import url('./animations.css');
-
-/* Responsive design and media queries */
-@import url('./responsive.css');
-
-/* for resuming modals */
-@import url('./resume-modal.css');
+/* For new surah page design */
+ @import url('./surah.css');

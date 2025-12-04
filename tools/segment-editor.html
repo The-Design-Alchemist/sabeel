@@ -290,7 +290,16 @@
                 <div id="segments-list"></div>
             </div>
 
-            <div class="actions">
+<div class="actions">
+    <div style="margin-bottom: 15px; padding: 10px; background: #fff3cd; border-radius: 8px; border: 2px solid #ffc107;">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600;">
+            <input type="checkbox" id="split-audio-checkbox" checked style="width: 20px; height: 20px; cursor: pointer;"> 
+            <span>🔪 Auto-split audio files (RECOMMENDED)</span>
+        </label>
+        <p style="margin: 8px 0 0 30px; font-size: 12px; color: #856404;">
+            This will physically split the audio file at segment boundaries for cleaner playback.
+        </p>
+    </div>
     <button class="export-btn" onclick="exportTimings()">💾 Export Updated Timings</button>
     <button onclick="resetToOriginal()">↩️ Reset to Original</button>
     <button onclick="showEditSummary()">📊 Show Edit History</button>
@@ -680,6 +689,8 @@ async function exportTimings() {
         return;
     }
     
+    const splitAudio = document.getElementById('split-audio-checkbox').checked;
+    
     // Prepare segments data
     const segments = currentTimingData.segments.map(seg => ({
         segmentNumber: seg.segmentNumber || seg.segmentIndex + 1,
@@ -690,26 +701,69 @@ async function exportTimings() {
     }));
     
     try {
-        // Send to server to save directly to file
+        // First, save timing data
+        showStatus('Saving timing data...', 'info');
+        
         const response = await fetch('http://localhost:3333/api/save-timing', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 surahNumber: parseInt(surahNum),
                 verseNumber: parseInt(verseNum),
                 segments: segments,
-                enhancedSegments: currentEnhancedData.segments // Include enhanced segments if needed
+                enhancedSegments: currentEnhancedData.segments
             })
         });
         
         const result = await response.json();
         
-        if (result.success) {
-            showStatus(`✅ ${result.message} - File updated: ${result.file}`, 'success');
+        if (!result.success) {
+            showStatus(`Error: ${result.error}`, 'error');
+            return;
+        }
+        
+        showStatus(`✅ Timing data saved!`, 'success');
+        
+        // If split audio is enabled, split the audio files
+        if (splitAudio) {
+            showStatus('🔪 Splitting audio files... (this may take 5-10 seconds)', 'info');
             
-            // Also download a backup copy
+            const splitResponse = await fetch('http://localhost:3333/api/split-audio', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    surahNumber: parseInt(surahNum),
+                    verseNumber: parseInt(verseNum),
+                    segments: segments
+                })
+            });
+            
+            const splitResult = await splitResponse.json();
+            
+            if (splitResult.success) {
+                showStatus(`✅ COMPLETE! Split audio into ${segments.length} files and updated timing data!`, 'success');
+                
+                // Download backup
+                const dataStr = JSON.stringify({ 
+                    verse: currentTimingData.verseNumber,
+                    segments: segments,
+                    audioFiles: splitResult.files
+                }, null, 2);
+                const blob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `backup_verse_${surahNum}_${verseNum}_complete.json`;
+                a.click();
+            } else {
+                showStatus(`⚠️ Timing saved but audio splitting failed: ${splitResult.message}`, 'warning');
+                console.error('Split error:', splitResult);
+            }
+        } else {
+            // Just timing saved, no audio split
+            showStatus(`✅ Timing data saved (audio not split)`, 'success');
+            
+            // Download backup
             const dataStr = JSON.stringify({ 
                 verse: currentTimingData.verseNumber,
                 segments: segments 
@@ -720,10 +774,8 @@ async function exportTimings() {
             a.href = url;
             a.download = `backup_verse_${surahNum}_${verseNum}_segments.json`;
             a.click();
-            
-        } else {
-            showStatus(`Error: ${result.error}`, 'error');
         }
+        
     } catch (error) {
         showStatus(`Failed to save: ${error.message}`, 'error');
         console.error('Save error:', error);

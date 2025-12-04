@@ -1,4 +1,5 @@
-// word-highlighting.js - Word-by-word highlighting system with SMART ESTIMATION
+// word-highlighting.js - Production-Ready Word Highlighting System
+// Handles word-by-word highlighting and click-to-jump functionality
 
 class WordHighlighter {
     constructor() {
@@ -6,609 +7,387 @@ class WordHighlighter {
         this.wordTimings = null;
         this.highlightInterval = null;
         this.currentVerseWords = [];
-        this.syncOffset = parseInt(localStorage.getItem('syncOffset') || '300'); // Default 300ms offset
+        this.syncOffset = parseInt(localStorage.getItem('syncOffset') || '300');
+        this.highlightColor = '#0D8E91';
+        this.isInitialized = false;
     }
+    
 
-    initializeVerse(verseNumber) {
+    /**
+     * Initialize word highlighting for a verse
+     * @param {number} verseNumber - The verse number to initialize
+     */
+    async initializeVerse(verseNumber) {
+        console.log(`[WordHighlighter] Initializing for verse ${verseNumber}`);
+        
+        // Always cleanup first
         this.cleanup();
         
-        // Check if highlighting is enabled
-    if (!window.appState.highlightingEnabled) {
-        console.log('Word highlighting is disabled');
-        // Still wrap words for clicking, but without highlighting classes
-        this.initializeForClickOnly();
-        return;
-    }
-    
-    if (!window.appState.highlightingEnabled) {
-        return;
-    }
-    
-    this.reset();
-
-    const verseElement = document.querySelector('.verse-display.active .arabic-text');
-    if (!verseElement) return;
-
-    if (!verseElement.dataset.originalText) {
-        verseElement.dataset.originalText = verseElement.textContent;
-    }
-
-    const arabicText = verseElement.textContent;
-    const words = arabicText.split(/\s+/).filter(word => word.length > 0);
-    
-    // Wrap words but exclude waqf marks and verse end numbers
-    verseElement.innerHTML = words.map((word, index) => {
-        // Check if word contains waqf mark
-        if (/[\u06D6-\u06DD]/.test(word)) {
-            return `<span class="waqf-mark">${word}</span>`;
-        }
-        // Check if it's a verse end marker (Arabic-Indic numerals)
-        if (/^[\u06DD][\u0660-\u0669]+$/.test(word) || /^[\u06DD][\u0660-\u0669]+[\u06DD]$/.test(word)) {
-            return `<span class="verse-end-marker">${word}</span>`;
-        }
-        return `<span class="arabic-word" data-word-index="${index}">${word}</span>`;
-    }).join(' ');
-
-    // Only get actual words for highlighting, not waqf marks or verse numbers
-    this.currentVerseWords = document.querySelectorAll('.verse-display.active .arabic-word');
-
-    this.currentVerseWords.forEach((wordElement, index) => {
-        wordElement.addEventListener('click', (e) => {
-            e.stopPropagation();
-            this.jumpToWord(index);
-        });
-    });
-}
-
-   // Replace the loadWordTimings method in word-highlighting.js
-async loadWordTimings(surahNumber, verseNumber) {
-    // Don't load separately - use the timing data already loaded by controls.js
-    // The timing data is set globally as window.currentVerseTimings
-    if (window.currentVerseTimings && window.currentVerseTimings.words) {
-        this.wordTimings = window.currentVerseTimings.words;
-        console.log(`✅ Using loaded timings for verse ${verseNumber}`);
-    } else {
-        this.wordTimings = null;
-        console.log('⚠️ No timing data available for highlighting');
-    }
-}
-
-    
-initializeForClickOnly() {
-    const verseElement = document.querySelector('.verse-display.active .arabic-text');
-    if (!verseElement) return;
-
-    if (!verseElement.dataset.originalText) {
-        verseElement.dataset.originalText = verseElement.textContent;
-    }
-
-    const arabicText = verseElement.textContent;
-    const words = arabicText.split(/\s+/).filter(word => word.length > 0);
-    
-    // Wrap words but exclude waqf marks and verse end numbers
-    verseElement.innerHTML = words.map((word, index) => {
-        // Check if word contains waqf mark
-        if (/[\u06D6-\u06DD]/.test(word)) {
-            return `<span class="waqf-mark">${word}</span>`;
-        }
-        // Check if it's a verse end marker
-        if (/^[\u06DD][\u0660-\u0669]+$/.test(word) || /^[\u06DD][\u0660-\u0669]+[\u06DD]$/.test(word)) {
-            return `<span class="verse-end-marker">${word}</span>`;
-        }
-        // Add clickable words WITHOUT storing them in currentVerseWords
-        return `<span class="arabic-word-clickable" data-word-index="${index}">${word}</span>`;
-    }).join(' ');
-
-    // Add click handlers for word jumping
-    document.querySelectorAll('.arabic-word-clickable').forEach((wordElement, index) => {
-        wordElement.addEventListener('click', (e) => {
-            e.stopPropagation();
-            this.jumpToWord(index);
-        });
-    });
-}
-    
-
-    // Replace the existing startHighlighting method
-    startHighlighting() {
-   // Check if highlighting is enabled
-    if (!window.appState.highlightingEnabled) {
-        console.log('Word highlighting is disabled');
-        return;
-    }
-
-    const audio = audioService.getCurrentAudio();
-    if (!audio || !this.currentVerseWords.length) return;
-    
-    if (this.highlightInterval) {
-        clearInterval(this.highlightInterval);
-    }
-    
-    // Use precise timing data if available
-    if (window.currentVerseTimings && window.currentVerseTimings.words) {
-        this.startPreciseHighlighting(audio, window.currentVerseTimings.words);
-    } else {
-        // Fallback to estimate-based highlighting
-        this.startEstimatedHighlighting(audio);
-    }
-}
-    
-// Replace the startPreciseHighlighting method completely:
-startPreciseHighlighting(audio, wordTimings) {
-    if (!wordTimings || !this.currentVerseWords) return;
-    
-    let currentHighlightedIndex = -1;
-    const verse = window.appState.verses[window.appState.currentVerseIndex];
-    
-    this.highlightInterval = setInterval(() => {
-        if (!audio || audio.paused || audio.ended) {
-            if (audio?.ended) this.reset();
+        const verseElement = document.querySelector('.verse-arabic-new');
+        if (!verseElement) {
+            console.error('[WordHighlighter] Verse element not found!');
             return;
         }
+
+        // Get timing data (should already be loaded by controls.js)
+        if (window.currentVerseTimings && window.currentVerseTimings.words) {
+            this.wordTimings = window.currentVerseTimings.words;
+            console.log(`[WordHighlighter] ✅ Timing data available: ${this.wordTimings.length} words`);
+        } else {
+            this.wordTimings = null;
+            console.warn('[WordHighlighter] ⚠️ No timing data available');
+        }
+
+        // Wrap words in spans for both highlighting AND clicking
+        this.wrapWords(verseElement);
         
-        const currentTime = audio.currentTime;
+        // Set up click handlers (works regardless of highlighting enabled/disabled)
+        this.setupClickHandlers();
+        
+        this.isInitialized = true;
+        
+        // Start highlighting if enabled
+        if (window.appStore.get('highlightingEnabled')) {
+            console.log('[WordHighlighter] Highlighting enabled - will start on play');
+        } else {
+            console.log('[WordHighlighter] Highlighting disabled - click-to-jump ready');
+        }
+    }
+
+    /**
+     * Wrap words in clickable spans
+     * @param {HTMLElement} verseElement - The verse container element
+     */
+    wrapWords(verseElement) {
+        // Store original text if not already stored
+        if (!verseElement.dataset.originalText) {
+            verseElement.dataset.originalText = verseElement.textContent;
+        }
+
+        const arabicText = verseElement.textContent;
+        const words = arabicText.split(/\s+/).filter(word => word.length > 0);
+
+        // Wrap each word in a span
+        verseElement.innerHTML = words.map((word, index) => {
+            // Check if word contains waqf mark
+            if (/[\u06D6-\u06DD]/.test(word)) {
+                return `<span class="waqf-mark">${word}</span>`;
+            }
+            // Check if it's a verse end marker
+            if (/^[\u06DD][\u0660-\u0669]+$/.test(word) || /^[\u06DD][\u0660-\u0669]+[\u06DD]$/.test(word)) {
+                return `<span class="verse-end-marker">${word}</span>`;
+            }
+            return `<span class="arabic-word" data-word-index="${index}">${word}</span>`;
+        }).join(' ');
+
+        // Get all wrapped word elements
+        this.currentVerseWords = Array.from(verseElement.querySelectorAll('.arabic-word'));
+        console.log(`[WordHighlighter] Wrapped ${this.currentVerseWords.length} words`);
+    }
+
+    /**
+     * Set up click handlers for all words
+     */
+    setupClickHandlers() {
+        if (!this.currentVerseWords || this.currentVerseWords.length === 0) {
+            console.warn('[WordHighlighter] No words to set up click handlers');
+            return;
+        }
+
+        this.currentVerseWords.forEach((word, index) => {
+            word.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.handleWordClick(index);
+            });
+        });
+
+        console.log(`[WordHighlighter] ✅ Click handlers set for ${this.currentVerseWords.length} words`);
+    }
+
+    /**
+     * Handle word click event
+     * @param {number} index - The index of the clicked word
+     */
+handleWordClick(index) {
+    console.log(`[WordHighlighter] Word clicked: index ${index}`);
+
+    if (!this.wordTimings || this.wordTimings.length === 0) {
+        console.warn('[WordHighlighter] No timing data available for click');
+        return;
+    }
+
+    // Calculate global word index for segmented verses
+    const verses = window.appStore.get('verses');
+    const verse = verses[window.appStore.get('currentVerseIndex')];
+    let globalWordIndex = index;
+
+    if (verse && verse.segments && verse.segments.length > 1) {
+        const segmentIndex = window.verseDisplay.getCurrentSegmentIndex();
         const timing = window.currentVerseTimings;
         
-        // Handle segmented verses
-        if (verse?.segments?.length > 1 && timing?.segments) {
-            const segmentIndex = window.verseDisplay.getCurrentSegmentIndex();
+        if (timing && timing.segments && timing.segments[segmentIndex]) {
             const segment = timing.segments[segmentIndex];
-            
-            if (!segment) return;
-            
-            // Use pre-calculated word indices
-            const { startWord, endWord } = segment;
-            
-            // Find current word in range
-            for (let i = startWord; i <= endWord && i < wordTimings.length; i++) {
-                if (currentTime >= wordTimings[i].start && currentTime < wordTimings[i].end) {
-                    const localIndex = i - startWord;
-                    
-                    if (localIndex !== currentHighlightedIndex && 
-                        localIndex < this.currentVerseWords.length) {
-                        currentHighlightedIndex = localIndex;
-                        this.highlightWord(localIndex);
-                    }
-                    break;
-                }
-            }
-        } else {
-            // Non-segmented verse
-            for (let i = 0; i < wordTimings.length; i++) {
-                if (currentTime >= wordTimings[i].start && currentTime < wordTimings[i].end) {
-                    if (i !== currentHighlightedIndex && i < this.currentVerseWords.length) {
-                        currentHighlightedIndex = i;
-                        this.highlightWord(i);
-                    }
-                    break;
-                }
-            }
+            globalWordIndex = segment.startWord + index;
+            console.log(`[WordHighlighter] Segment ${segmentIndex + 1}: local ${index} → global ${globalWordIndex}`);
         }
-    }, 30);
-}
-
-// Helper method to check if word is a waqf mark
-isWaqfMark(word) {
-    const waqfMarks = ['\u06D6', '\u06D7', '\u06D8', '\u06D9', '\u06DA', '\u06DB', '۞', 'ۚ', 'ۛ'];
-    return waqfMarks.some(mark => word.includes(mark));
-}
-
-// Helper method to check if word is verse end mark
-isVerseEndMark(word) {
-    // Arabic-Indic digits used in verse end marks
-    return /^۞[۰-۹]+$/.test(word);
-}
-
-// Add helper method to check if segment should advance
-// Replace checkSegmentAdvance method:
-checkSegmentAdvance(currentTime, verse, currentWordIndex) {
-    if (!verse || !verse.segments || verse.segments.length <= 1) return;
-    if (!window.currentVerseTimings || !window.currentVerseTimings.words) return;
-    
-    const currentSegmentIndex = window.verseDisplay.getCurrentSegmentIndex();
-    let expectedWordCount = 0;
-    
-    // Calculate expected word count up to current segment
-    for (let i = 0; i <= currentSegmentIndex; i++) {
-        const segmentText = verse.segments[i].arabic;
-        const words = segmentText.split(/\s+/).filter(w => 
-            w.length > 0 && !this.isWaqfMark(w)
-        );
-        expectedWordCount += words.length;
     }
-    
-}
 
-
-// Add helper to check if a word is a waqf mark
-isWaqfMark(word) {
-    const waqfMarks = ['\u06D6', '\u06D7', '\u06D8', '\u06D9', '\u06DA', '\u06DB'];
-    return waqfMarks.some(mark => word.includes(mark));
-}
-
-reinitializeForSegment() {
-    // Don't reset completely, just update the word elements
-    this.currentWordIndex = -1;
-    
-    const verseElement = document.querySelector('.verse-display.active .arabic-text');
-    if (!verseElement) return;
-    
-    // Store original text
-    if (!verseElement.dataset.originalText) {
-        verseElement.dataset.originalText = verseElement.textContent;
+    const wordTiming = this.wordTimings[globalWordIndex];
+    if (!wordTiming) {
+        console.warn(`[WordHighlighter] No timing for word ${globalWordIndex}`);
+        return;
     }
+
+// ✅ CRITICAL FIX: Adjust seek time for split audio
+const timing = window.currentVerseTimings;
+let seekTime = wordTiming.start;
+
+if (verse && verse.segments && verse.segments.length > 1 && timing && timing.segments) {
+    const segmentIndex = window.verseDisplay.getCurrentSegmentIndex();
+    const segment = timing.segments[segmentIndex];
     
-    // Split into words and wrap
-    const arabicText = verseElement.textContent;
-    const words = arabicText.split(/\s+/).filter(word => word.length > 0);
-    
-    // Track actual word index (excluding waqf marks)
-    let actualWordIndex = 0;
-    
-    verseElement.innerHTML = words.map((word) => {
-        // Check if word contains waqf mark
-        if (/[\u06D6-\u06DD]/.test(word)) {
-            return `<span class="waqf-mark">${word}</span>`;
-        }
-        // Check if it's a verse end marker
-        if (/^[\u06DD][\u0660-\u0669]+$/.test(word) || /^[\u06DD][\u0660-\u0669]+[\u06DD]$/.test(word)) {
-            return `<span class="verse-end-marker">${word}</span>`;
-        }
-        // Only increment index for actual words
-        const span = `<span class="arabic-word" data-word-index="${actualWordIndex}">${word}</span>`;
-        actualWordIndex++;
-        return span;
-    }).join(' ');
-    
-    // Only select actual words, not waqf marks or verse numbers
-    this.currentVerseWords = document.querySelectorAll('.verse-display.active .arabic-word');
-    
-    // Re-add click handlers
-    this.currentVerseWords.forEach((wordElement, index) => {
-        wordElement.addEventListener('click', (e) => {
-            e.stopPropagation();
-            this.jumpToWord(index);
-        });
-    });
-    
-    console.log(`Reinitialized for segment with ${this.currentVerseWords.length} actual words`);
+    if (segment && segment.audioFile && segment.audioFile.includes('_seg')) {
+        // Using split audio - adjust time relative to segment start
+         // ✅ SMART OFFSET: Use first word's start time
+        const firstWordInSegment = this.wordTimings[segment.startWord];
+        const offset = firstWordInSegment ? firstWordInSegment.start : segment.start;
+        seekTime = wordTiming.start - segment.start;
+        console.log(`[WordHighlighter] Split audio: global ${wordTiming.start.toFixed(2)}s → local ${seekTime.toFixed(2)}s`);
+    }
 }
 
-    // Keep the estimated highlighting as fallback
-startEstimatedHighlighting(audio) {
-    // Your existing estimated highlighting code
-    const duration = audio.duration || 10;
-    const wordCount = this.currentVerseWords.length;
+console.log(`[WordHighlighter] Jumping to ${seekTime.toFixed(2)}s`);
+
+const audio = audioService.getCurrentAudio();
+if (!audio) {
+    console.warn('[WordHighlighter] No audio available');
+    return;
+}
+
+// Seek to adjusted position
+audio.currentTime = seekTime;
     
-    this.highlightInterval = setInterval(() => {
-        if (!audio || audio.paused || audio.ended) {
-            this.pauseHighlighting();
+// Handle playback state after seeking
+const isPaused = window.appStore.get('isPaused');
+const isReciting = window.appStore.get('isReciting');
+
+if (audio.paused || !isReciting) {
+    // Audio is not playing, start it
+    console.log('[WordHighlighter] Starting playback from word');
+    window.playbackControls.resumeRecitation();
+} else {
+    // Audio is already playing, just seeked - keep it playing
+    console.log('[WordHighlighter] Seeked to word, continuing playback');
+    
+    // Restart highlighting from this point if enabled
+    if (window.appStore.get('highlightingEnabled') && window.wordHighlighter) {
+        window.wordHighlighter.pauseHighlighting();
+        setTimeout(() => {
+            window.wordHighlighter.startHighlighting();
+        }, 50);
+    }
+}
+    // If already playing, just the seek above is enough
+}
+
+    /**
+     * Start highlighting (called when audio plays)
+     */
+    startHighlighting() {
+        // Check if highlighting is enabled
+        if (!window.appStore.get('highlightingEnabled')) {
+            console.log('[WordHighlighter] Highlighting disabled - skipping');
             return;
         }
-        
-        const currentTime = audio.currentTime;
-        const progressPercent = currentTime / duration;
-        const targetIndex = Math.min(
-            Math.floor(progressPercent * wordCount),
-            wordCount - 1
-        );
-        
-        if (targetIndex !== this.currentWordIndex && targetIndex >= 0) {
-            this.highlightWord(targetIndex);
+
+        const audio = audioService.getCurrentAudio();
+        if (!audio || !this.currentVerseWords || this.currentVerseWords.length === 0) {
+            console.warn('[WordHighlighter] Cannot start highlighting - missing audio or words');
+            return;
         }
-    }, 100);
-}
-    
-    // NEW METHOD: Smart estimation with word weighting
-    highlightWithSmartEstimation(audio) {
-        // Word weight map based on Arabic word length
-        const WORD_WEIGHT_MAP = {
-            short: 0.7,   // 1-2 letters (faster pronunciation)
-            medium: 1.0,  // 3-4 letters (normal speed)
-            long: 1.3,    // 5+ letters (slower pronunciation)
-            veryLong: 1.6 // 7+ letters (much slower)
-        };
-        
-        // Calculate weighted durations for each word
-        const wordDurations = Array.from(this.currentVerseWords).map(wordEl => {
-            const word = wordEl.textContent;
-            const wordLength = word.length;
-            
-            // Special handling for words with special characters
-            const hasSpecialChars = /[ًٌٍَُِّْٰ]/.test(word); // Arabic diacritics
-            const extraWeight = hasSpecialChars ? 0.2 : 0;
-            
-            // Determine base weight
-            let weight;
-            if (wordLength <= 2) weight = WORD_WEIGHT_MAP.short;
-            else if (wordLength <= 4) weight = WORD_WEIGHT_MAP.medium;
-            else if (wordLength <= 6) weight = WORD_WEIGHT_MAP.long;
-            else weight = WORD_WEIGHT_MAP.veryLong;
-            
-            return weight + extraWeight;
-        });
-        
-        // Calculate total weight and normalize
-        const totalWeight = wordDurations.reduce((sum, w) => sum + w, 0);
-        const normalizedDurations = wordDurations.map(w => w / totalWeight);
-        
-        // Build cumulative time points (0 to 1)
-        const timePoints = [0];
-        for (let i = 0; i < normalizedDurations.length; i++) {
-            const previousTime = timePoints[timePoints.length - 1];
-            timePoints.push(previousTime + normalizedDurations[i]);
+
+        // Clear any existing interval
+        if (this.highlightInterval) {
+            clearInterval(this.highlightInterval);
+            this.highlightInterval = null;
         }
-        
-        console.log('Time points calculated:', timePoints);
-        console.log('Sync offset:', this.syncOffset + 'ms');
-        
-        // Highlighting interval
+
+        // Use precise timing if available
+        if (this.wordTimings && this.wordTimings.length > 0) {
+            console.log('[WordHighlighter] Starting precise highlighting');
+            this.startPreciseHighlighting(audio, this.wordTimings);
+        } else {
+            console.warn('[WordHighlighter] No timing data - highlighting disabled');
+        }
+    }
+
+    /**
+     * Start precise highlighting using timing data
+     * @param {HTMLAudioElement} audio - The audio element
+     * @param {Array} wordTimings - Array of word timing objects
+     */
+    startPreciseHighlighting(audio, wordTimings) {
+        if (!wordTimings || !this.currentVerseWords || this.currentVerseWords.length === 0) {
+            console.warn('[WordHighlighter] Cannot start precise highlighting');
+            return;
+        }
+
+        let currentHighlightedIndex = -1;
+        const verses = window.appStore.get('verses');
+        const verse = verses[window.appStore.get('currentVerseIndex')];
+        const timing = window.currentVerseTimings;
+
         this.highlightInterval = setInterval(() => {
+            // Check if audio is still valid
             if (!audio || audio.paused || audio.ended) {
-                this.pauseHighlighting();
+                if (audio?.ended) {
+                    this.reset();
+                }
                 return;
             }
-            
+
             const currentTime = audio.currentTime;
-            const duration = audio.duration || 10;
-            
-            // Apply sync offset (positive offset = highlight earlier)
-            const adjustedTime = (currentTime + (this.syncOffset / 1000)) / duration;
-            
-            // Ensure adjusted time is within bounds
-            const clampedTime = Math.max(0, Math.min(1, adjustedTime));
-            
-            // Find corresponding word based on time points
-            let targetWord = 0;
-            for (let i = 0; i < timePoints.length - 1; i++) {
-                if (clampedTime >= timePoints[i] && clampedTime < timePoints[i + 1]) {
-                    targetWord = i;
-                    break;
-                }
-            }
-            
-            // Handle end of verse
-            if (clampedTime >= timePoints[timePoints.length - 1]) {
-                targetWord = this.currentVerseWords.length - 1;
-            }
-            
-            // Only update if word changed
-            if (targetWord !== this.currentWordIndex && targetWord >= 0) {
-                this.highlightWord(targetWord);
-            }
-        }, 30); // 30ms for smooth updates
+
+            // Handle segmented verses
+// Handle segmented verses
+if (verse?.segments?.length > 1 && timing?.segments) {
+    const segmentIndex = window.verseDisplay.getCurrentSegmentIndex();
+    const segment = timing.segments[segmentIndex];
+
+    if (!segment) {
+        console.warn('[WordHighlighter] No segment data for index:', segmentIndex);
+        return;
     }
 
-    // Jump to specific word when clicked
-    jumpToWord(wordIndex) {
-        const audio = audioService.getCurrentAudio();
-        if (!audio || !audio.duration) return;
+    const { startWord, endWord } = segment;
+    
+    // ✅ CRITICAL FIX: Check if using split audio
+    const usingSplitAudio = segment.audioFile && segment.audioFile.includes('_seg');
+    
+    // ✅ SMART OFFSET: Use first word's start time instead of segment.start
+    let timeOffset = 0;
+    if (usingSplitAudio && startWord < wordTimings.length) {
+        const firstWordInSegment = wordTimings[startWord];
+        timeOffset = firstWordInSegment ? firstWordInSegment.start : segment.start;
+        console.log(`[WordHighlighter] Smart offset for segment ${segmentIndex + 1}: ${timeOffset.toFixed(3)}s (from word ${startWord})`);
+    }
 
-        // Check if we have precise timing data
-        if (window.currentVerseTimings && window.currentVerseTimings.words) {
-            // For segmented verses, we need to find the correct word timing
-            const currentSegmentIndex = window.verseDisplay.getCurrentSegmentIndex();
-            const verse = window.appState.verses[window.appState.currentVerseIndex];
+    // Find current word in segment range
+    for (let i = startWord; i <= endWord && i < wordTimings.length; i++) {
+        const wordTiming = wordTimings[i];
         
-            if (verse && verse.segments && verse.segments.length > 1) {
-                // Calculate word offset for current segment
-                let wordOffset = 0;
-                for (let i = 0; i < currentSegmentIndex; i++) {
-                    const segmentWords = verse.segments[i].arabic.split(/\s+/).filter(w => w.length > 0);
-                    wordOffset += segmentWords.length;
-                }
-            
-                // Adjust word index for the full verse
-                const fullVerseWordIndex = wordOffset + wordIndex;
-            
-                // Find the timing for this word
-                if (fullVerseWordIndex < window.currentVerseTimings.words.length) {
-                    const wordTiming = window.currentVerseTimings.words[fullVerseWordIndex];
-                    audio.currentTime = wordTiming.start;
-                
-                    console.log(`Jumping to word ${wordIndex + 1} (verse word ${fullVerseWordIndex + 1}) at ${wordTiming.start.toFixed(2)}s`);
-                }
-            } else {
-                // Non-segmented verse - use direct word timing
-                if (wordIndex < window.currentVerseTimings.words.length) {
-                    const wordTiming = window.currentVerseTimings.words[wordIndex];
-                    audio.currentTime = wordTiming.start;
+        // ✅ Adjust timing comparison for split audio
+        const adjustedStart = wordTiming.start - timeOffset;
+        const adjustedEnd = wordTiming.end - timeOffset;
+
+        if (currentTime >= adjustedStart && currentTime < adjustedEnd) {
+            const localIndex = i - startWord;
+
+            // Verify localIndex is within bounds
+            if (localIndex >= 0 && localIndex < this.currentVerseWords.length) {
+                if (localIndex !== currentHighlightedIndex) {
+                    currentHighlightedIndex = localIndex;
+                    this.highlightWord(localIndex);
                 }
             }
-        } else {
-
-            // Check if audio is playing or paused
-            const wasPlaying = window.appState.isReciting && !window.appState.isPaused;
-
-            // Calculate the time position for this word using the same weighting
-            const WORD_WEIGHT_MAP = {
-                short: 0.7,
-                medium: 1.0,
-                long: 1.3,
-                veryLong: 1.6
-            };
-        
-            // Calculate weights for all words
-            const wordDurations = Array.from(this.currentVerseWords).map(wordEl => {
-                const wordLength = wordEl.textContent.length;
-                const hasSpecialChars = /[ًٌٍَُِّْٰ]/.test(wordEl.textContent);
-                const extraWeight = hasSpecialChars ? 0.2 : 0;
-            
-                let weight;
-                if (wordLength <= 2) weight = WORD_WEIGHT_MAP.short;
-                else if (wordLength <= 4) weight = WORD_WEIGHT_MAP.medium;
-                else if (wordLength <= 6) weight = WORD_WEIGHT_MAP.long;
-                else weight = WORD_WEIGHT_MAP.veryLong;
-            
-                return weight + extraWeight;
-            });
-        
-            const totalWeight = wordDurations.reduce((sum, w) => sum + w, 0);
-            const normalizedDurations = wordDurations.map(w => w / totalWeight);
-        
-            // Calculate target time
-            let targetTimePercent = 0;
-            for (let i = 0; i < wordIndex; i++) {
-                targetTimePercent += normalizedDurations[i];
-            }
-        
-            // Apply to audio (subtract offset since we're jumping directly)
-            const targetTime = (targetTimePercent * audio.duration) - (this.syncOffset / 1000);
-            audio.currentTime = Math.max(0, Math.min(audio.duration, targetTime));
-
-            console.log(`Jumping to word ${wordIndex + 1} at ${targetTime.toFixed(2)}s`);
-
-            // Update the highlighting immediately
-            this.highlightWord(wordIndex);
-
-            // If audio was playing, ensure it continues
-            if (wasPlaying && audio.paused) {
-                audio.play().catch(error => {
-                    console.error('Error resuming playback:', error);
-                });
-            }
-
-            // Update status
-            if (window.playbackControls) {
-                window.playbackControls.updateStatus(
-                    `Jumped to word ${wordIndex + 1} of ${this.currentVerseWords.length}`
-                );
-            }
-
-            // Visual feedback - brief pulse effect
-            const clickedWord = this.currentVerseWords[wordIndex];
-            clickedWord.classList.add('word-jumped');
-            setTimeout(() => {
-                clickedWord.classList.remove('word-jumped');
-            }, 500);
+            break;
         }
     }
+} else {
+                // Non-segmented verse - simple highlighting
+                for (let i = 0; i < wordTimings.length && i < this.currentVerseWords.length; i++) {
+                    const wordTiming = wordTimings[i];
+                    
+                    if (currentTime >= wordTiming.start && currentTime < wordTiming.end) {
+                        if (i !== currentHighlightedIndex) {
+                            currentHighlightedIndex = i;
+                            this.highlightWord(i);
+                        }
+                        break;
+                    }
+                }
+            }
+        }, 30);
 
-    // Highlight specific word
-    highlightWord(wordIndex) {
+        console.log('[WordHighlighter] ✅ Precise highlighting started');
+    }
+
+    /**
+     * Highlight a specific word
+     * @param {number} index - The word index to highlight
+     */
+    highlightWord(index) {
+        if (!this.currentVerseWords || index < 0 || index >= this.currentVerseWords.length) {
+            return;
+        }
+
         // Remove previous highlights
         this.currentVerseWords.forEach(word => {
             word.classList.remove('word-highlight', 'word-previous');
         });
 
-        // Add current highlight
-        if (wordIndex >= 0 && wordIndex < this.currentVerseWords.length) {
-            const wordElement = this.currentVerseWords[wordIndex];
-            wordElement.classList.add('word-highlight');
+        // Add highlight to current word
+        this.currentVerseWords[index].classList.add('word-highlight');
 
-            // Add previous word styling for context
-            if (wordIndex > 0) {
-                this.currentVerseWords[wordIndex - 1].classList.add('word-previous');
-            }
-
-            this.currentWordIndex = wordIndex;
-
-            // Optional: Smooth scroll to word if it's out of view
-            const container = document.querySelector('.verse-container');
-            const wordRect = wordElement.getBoundingClientRect();
-            const containerRect = container.getBoundingClientRect();
-            
-            if (wordRect.bottom > containerRect.bottom || wordRect.top < containerRect.top) {
-                wordElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
+        // Optionally mark previous word
+        if (index > 0) {
+            this.currentVerseWords[index - 1].classList.add('word-previous');
         }
+
+        this.currentWordIndex = index;
     }
 
-    // Pause highlighting
+    /**
+     * Pause highlighting (stop interval)
+     */
     pauseHighlighting() {
         if (this.highlightInterval) {
             clearInterval(this.highlightInterval);
             this.highlightInterval = null;
+            console.log('[WordHighlighter] Highlighting paused');
+        }
+
+        // Remove all highlights
+        if (this.currentVerseWords) {
+            this.currentVerseWords.forEach(word => {
+                word.classList.remove('word-highlight', 'word-previous');
+            });
         }
     }
 
-    // Resume highlighting
-    resumeHighlighting() {
-        if (!this.highlightInterval && this.currentVerseWords.length) {
-            this.startHighlighting();
-        }
+    /**
+     * Reset highlighter state
+     */
+    reset() {
+        this.pauseHighlighting();
+        this.currentWordIndex = 0;
+        console.log('[WordHighlighter] Reset');
     }
 
-    // Reset highlighting
-    // Update the reset method to clear intervals properly:
-reset() {
-    // Clear any running intervals first
-    if (this.highlightInterval) {
-        clearInterval(this.highlightInterval);
-        this.highlightInterval = null;
-    }
-    
-    this.currentWordIndex = -1;
-    this.wordTimings = null;
-    
-    // Remove all highlights from single verse display
-    document.querySelectorAll('.verse-display .arabic-word').forEach(word => {
-        word.classList.remove('word-highlight', 'word-previous', 'word-jumped');
-    });
-}
-    
-    // Clean up
+    /**
+     * Clean up all state and event listeners
+     */
     cleanup() {
-        this.reset();
-        this.currentVerseWords = [];
+        console.log('[WordHighlighter] Cleaning up');
         
-        // Ensure we clean up from the single verse display
-        const verseDisplay = document.querySelector('.verse-display');
-        if (verseDisplay) {
-            const arabicText = verseDisplay.querySelector('.arabic-text');
-            if (arabicText && arabicText.dataset.originalText) {
-                // Restore original text if we stored it
-                arabicText.textContent = arabicText.dataset.originalText;
-                delete arabicText.dataset.originalText;
-            }
-        }
-    }
-
-    // Method to adjust sync offset
-    setSyncOffset(offset) {
-        this.syncOffset = offset;
-        localStorage.setItem('syncOffset', offset);
-        console.log('Sync offset updated to:', offset + 'ms');
-    }
-}
-
-// Add Debug Helper HERE - before creating global instance
-function debugSegmentMapping() {
-    const verse = window.appState.verses[window.appState.currentVerseIndex];
-    const timing = window.currentVerseTimings;
-    const segmentIndex = window.verseDisplay.getCurrentSegmentIndex();
-    
-    if (!timing || !timing.segments) {
-        console.log('No timing data available');
-        return;
-    }
-    
-    const currentSegment = timing.segments[segmentIndex];
-    const audio = audioService.getCurrentAudio();
-    
-    console.table({
-        'Current Segment': segmentIndex + 1,
-        'Segment Start Time': currentSegment?.start,
-        'Segment End Time': currentSegment?.end,
-        'Start Word Index': currentSegment?.startWord || 'Not set',
-        'End Word Index': currentSegment?.endWord || 'Not set',
-        'Displayed Words': document.querySelectorAll('.arabic-word').length,
-        'Audio Current Time': audio?.currentTime.toFixed(2),
-        'Audio Paused': audio?.paused
-    });
-    
-    // Also log the words in current segment
-    if (currentSegment?.startWord !== undefined && currentSegment?.endWord !== undefined) {
-        console.log('Words in this segment:');
-        for (let i = currentSegment.startWord; i <= currentSegment.endWord && i < timing.words.length; i++) {
-            console.log(`  Word ${i}: "${timing.words[i].word}" (${timing.words[i].start.toFixed(2)} - ${timing.words[i].end.toFixed(2)})`);
+        // Stop highlighting
+        this.pauseHighlighting();
+        
+        // Clear word array
+        this.currentVerseWords = [];
+        this.currentWordIndex = 0;
+        this.isInitialized = false;
+        
+        // Remove highlights from DOM
+        const verseElement = document.querySelector('.verse-arabic-new');
+        if (verseElement) {
+            const highlightedWords = verseElement.querySelectorAll('.word-highlight, .word-previous');
+            highlightedWords.forEach(word => {
+                word.classList.remove('word-highlight', 'word-previous');
+            });
         }
     }
 }
-
-// Make it globally accessible for debugging
-window.debugSegment = debugSegmentMapping;
-
 
 // Create global instance
 window.wordHighlighter = new WordHighlighter();

@@ -1,0 +1,2116 @@
+/* ========================================
+   NEW DESIGN STYLES - MATCHING FIGMA
+   ======================================== */
+
+/* Import Noto Naskh Arabic font */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+
+/* ========================================
+   HEADER - NEW DESIGN
+   ======================================== */
+
+
+   /* Override container to be full width for new design */
+body {
+    margin: 0;
+    padding: 0;
+    background: #042A2B; /* Make sure body is also green */
+}
+
+.container {
+ max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100vh;  /* ADD: Fixed viewport height */
+    display: flex;
+    flex-direction: column;
+    background: #042A2B;
+    overflow: hidden;  /* ADD: Prevent container scroll */
+}
+
+.header-new {
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    background: #042A2B;
+    padding: 40px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 10001;
+    min-height: 185px; /* Match Figma height */
+}
+
+.back-button-new {
+    background: #FFFFFF;
+    border: none;
+    color: #042A2B;
+    padding: 4px 8px 4px 4px;
+    border-radius: 40px;
+    font-family: 'Urbanist', sans-serif;  /* ADD THIS */
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: 550;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.back-button-new .material-symbols-outlined {
+    font-size: 20px;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+}
+
+.back-button-new:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.surah-info-center {
+    position: absolute;
+    left: 50%;
+    top: 40px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    width: auto;
+    max-width: 400px;
+}
+
+.surah-number-badge {
+    width: 29px;
+    height: 29px;
+    background: #FFFFFF;
+    color: #042A2B;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.surah-arabic-title {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #FFFFFF;
+    direction: rtl;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.surah-english-title {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.surah-chapter-label {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #B6B6B6;
+    text-align: center;
+    line-height: normal;
+}
+
+.settings-icon-btn {
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.settings-icon-btn .material-symbols-outlined {
+    font-size: 24px;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.settings-icon-btn:hover .material-symbols-outlined {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}
+
+/* ========================================
+   BISMILLAH SCREEN
+   ======================================== */
+
+.bismillah-screen {
+    background: #F6F6F6;
+    border-radius: 40px 40px 0 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px;
+    gap: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+/* White card container */
+.bismillah-card {
+ background: #FFFFFF;
+    border-radius: 24px;
+    padding-top: 40px;
+    width: 100%;
+    height: 100%;  /* KEEP: Fill available space */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;  /* ADD: Enable flexbox */
+    justify-content: center;  /* ADD: Center content horizontally */
+}
+
+.bismillah-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 40px;
+    text-align: center;
+}
+
+.bismillah-arabic {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 40px;
+    font-weight: 400;
+    color: #042A2B;
+    line-height: 56px;
+    direction: rtl;
+}
+
+.bismillah-transliteration {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #042A2B;
+}
+
+.bismillah-translation {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #7D7D7D;
+}
+
+/* Start Recitation Button - Half Circle */
+.start-recitation-btn {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 327px;
+    height: 170px;
+    border-radius: 327px 327px 0 0;
+    background: linear-gradient(180deg, #0D8E91 0%, #042A2B 100%);
+    color: #FFFFFF;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 56px;
+    gap: 4px;
+    letter-spacing: 0.5px;
+    z-index: 999;
+    animation: buttonPulse 2.5s ease-in-out infinite;
+}
+
+/* Pulse Animation */
+@keyframes buttonPulse {
+    0%, 100% {
+        box-shadow: 0 -8px 32px rgba(13, 142, 145, 0.3);
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        box-shadow: 0 -12px 48px rgba(13, 142, 145, 0.5);
+        transform: translateX(-50%) scale(1.02);
+    }
+}
+
+.start-recitation-btn:hover {
+    animation: none;
+    box-shadow: 0 -12px 48px rgba(13, 142, 145, 0.6);
+    transform: translateX(-50%) scale(1.03);
+}
+
+.start-recitation-btn:active {
+    transform: translateX(-50%) scale(0.98);
+}
+
+.start-recitation-btn span {
+    line-height: 1.2;
+}
+
+/* ========================================
+   AUDIO CONTROLS - NEW DESIGN
+   ======================================== */
+
+   /* Repeat Mode Notification Strip */
+.repeat-notification {
+    background: linear-gradient(135deg, #0D8E91 0%, #042A2B 100%);
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0 20px;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    z-index: 98;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+    display: none; /* ADD THIS */
+    align-items: center; /* ADD THIS */
+    justify-content: center; /* ADD THIS */
+}
+
+.repeat-notification.show {
+    max-height: 50px;
+    opacity: 1;
+    padding: 12px 20px; /* Expand vertical padding when shown */
+    display: flex;
+}
+
+.audio-controls-new {
+    background: #FFFFFF;
+    border-radius: 40px 40px 0 0;
+    border-bottom: 1px solid #E9E9E9;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    transition: margin-top 0.3s ease;
+     overflow: visible;
+}
+
+.control-btn {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 14px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 48px;
+    white-space: nowrap;
+    justify-content: center; 
+    overflow: visible;
+    box-sizing: border-box;
+}
+
+.control-btn .material-symbols-outlined {
+    font-size: 24px;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+/* Light gray button - START OVER */
+.control-btn-light {
+    background: #F6F6F6;
+    color: #2B2B2B;
+    border: none;
+    width: 180px;
+}
+
+.control-btn-light:hover {
+    background: #ECECEC;
+}
+
+/* Dark filled button - PAUSE/PLAY RECITATION */
+.control-btn-filled {
+    background: #042A2B;
+    color: #FFFFFF;
+    border: none;
+    width: 239px;
+    justify-content: center;
+}
+
+.control-btn-filled:hover {
+    background: #063a3c;
+}
+
+/* White outline button - REPEAT */
+.control-btn-outline {
+ background: #FFFFFF;
+    border: 2px solid #042A2B;
+    color: #042A2B;
+    width: 180px;
+    position: relative; /* ADD THIS */
+    background-clip: padding-box; /* ADD THIS */
+}
+
+.control-btn-outline:hover {
+    background: rgba(4, 42, 43, 0.05);
+}
+
+.control-btn:active {
+    transform: scale(0.98);
+}
+
+/* Active state for repeat button */
+.control-btn-outline.active {
+ background: linear-gradient(135deg, #0D8E91 0%, #042A2B 100%);
+    color: #FFFFFF;
+    border: 2px solid transparent; /* Keep border width but transparent */
+    background-clip: padding-box; /* Ensure gradient shows fully */
+}
+
+.control-btn-outline.active .material-symbols-outlined {
+    color: #FFFFFF;
+}
+
+
+/* Ensure notification is completely hidden on load */
+.repeat-notification:not(.show) {
+    display: flex;
+}
+
+.repeat-notification.show {
+    display: flex;
+}
+
+/* ========================================
+   SETTINGS MODAL - NEW DESIGN
+   ======================================== */
+
+.settings-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100002;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 80px;
+}
+
+.settings-modal-content {
+    background: #FFFFFF;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.settings-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #E1E5E6;
+}
+
+.settings-modal-header h3 {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2B2B2B;
+    margin: 0;
+}
+
+.settings-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: #7D7D7D;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+}
+
+.settings-close-btn:hover {
+    color: #2B2B2B;
+}
+
+.settings-modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2B2B2B;
+}
+
+/* New Toggle Switch Design */
+.toggle-switch-new {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.toggle-switch-new input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider-new {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #E1E5E6;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.toggle-slider-new:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+.toggle-switch-new input:checked + .toggle-slider-new {
+    background: linear-gradient(90deg, #0D8E91 0%, #042A2B 100%);
+}
+
+.toggle-switch-new input:checked + .toggle-slider-new:before {
+    transform: translateX(20px);
+}
+
+/* ========================================
+   VERSE CONTAINER - NEW DESIGN
+   ======================================== */
+.verse-container-new {
+background: #F6F6F6;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px 80px;
+    gap: 16px;
+    overflow-y: auto;
+    overflow-x: visible;  /* CHANGE: From hidden to visible to allow slide animations */
+    min-height: 0;
+    position: relative;  /* ADD: Create positioning context */
+}
+
+.verse-display {
+ display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 632px;
+    position: relative;  /* ADD: Enable positioning for animations */
+    transition: opacity 0.3s ease, transform 0.3s ease;  /* ADD: Smooth transitions */
+}
+
+/* Animation states for verse transitions */
+.verse-display.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.verse-display.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Slide animations - Apply to verse-display */
+.verse-display.slide-out-left {
+    animation: slideOutLeft 0.3s ease-in forwards;
+}
+
+.verse-display.slide-out-right {
+    animation: slideOutRight 0.3s ease-in forwards;
+}
+
+.verse-display.slide-in-left {
+    animation: slideInLeft 0.3s ease-out forwards;
+}
+
+.verse-display.slide-in-right {
+    animation: slideInRight 0.3s ease-out forwards;
+}
+
+/* Arabic Text */
+.verse-arabic-new {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 40px;
+    font-weight: 400;
+    color: #2B2B2B;
+    line-height: 56px;
+    text-align: center;
+    direction: rtl;
+    width: 100%;
+}
+
+/* Highlighted word in teal */
+.verse-arabic-new .word-highlight,
+.verse-arabic-new .highlighted-word {
+    color: #0D8E91;
+}
+
+/* ========================================
+   SIMPLE HOVER STATE FOR WORDS
+   ======================================== */
+
+/* Base word styling - make them look clickable with hover */
+.verse-arabic-new .arabic-word {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-radius: 4px;
+    /* NO PADDING in base state - prevents layout shift */
+}
+
+/* Hover state - ALWAYS show for all words */
+.verse-arabic-new .arabic-word:hover {
+    background-color: rgba(13, 142, 145, 0.15);
+    /* Add padding only on hover to prevent shift */
+    padding: 2px 4px;
+    margin: -2px -4px; /* Negative margin compensates for padding */
+}
+
+/* Active/clicked state - brief feedback */
+.verse-arabic-new .arabic-word:active {
+    background-color: rgba(13, 142, 145, 0.25);
+    padding: 2px 4px;
+    margin: -2px -4px;
+}
+
+/* Mobile - disable hover but keep click working */
+@media (hover: none) and (pointer: coarse) {
+    .verse-arabic-new .arabic-word:hover {
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+    }
+}
+/* Divider Ornament */
+.verse-divider {
+    width: 111.314px;
+    height: 11.314px;
+    flex-shrink: 0;
+}
+
+.verse-divider svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Transliteration */
+.verse-transliteration-new {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #042A2B;
+    text-align: center;
+    line-height: normal;
+    width: 100%;
+}
+
+/* Translation */
+.verse-translation-new {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #7D7D7D;
+    text-align: center;
+    line-height: normal;
+    width: 100%;
+}
+
+/* Verse end marker styling */
+.verse-end-number {
+    display: inline-block;
+    color: #0D8E91;
+    font-size: 0.8em;
+    margin: 0 5px;
+    opacity: 0.7;
+    pointer-events: none; /* Make sure it can't be clicked */
+}
+
+/* Don't highlight verse end markers */
+.verse-end-number.highlighted {
+    background: none !important;
+    color: #0D8E91 !important;
+}
+
+/* ========================================
+   SEGMENT NAVIGATION (WAQF CONTROLLER)
+   ======================================== */
+
+.segment-navigation {
+    background: #F6F6F6;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-shrink: 0;
+    height: auto;
+}
+
+.segment-nav-btn {
+    background: #FFFFFF;
+    border: none;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #042A2B;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 30px;
+    height: 40px;
+    min-width: 109px; /* Changed to min-width for flexibility */
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    white-space: nowrap;
+}
+
+.segment-nav-btn:hover:not(:disabled) {
+    background: #F6F6F6;
+}
+
+.segment-nav-btn:disabled {
+    color: #C0C0C0;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.segment-nav-btn .material-symbols-outlined {
+    font-size: 24px;
+}
+
+/* Center segment indicator - FLEX AUTO-LAYOUT */
+.segment-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 61px; /* Minimum width, grows with content */
+}
+
+/* Text on top */
+#segment-text {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #7D7D7D;
+    text-align: center;
+    white-space: nowrap;
+    order: 1; /* Text appears first (on top) */
+}
+
+#segment-text .segment-number {
+    font-weight: 700;
+    color: #2B2B2B;
+}
+
+/* Dots below text */
+.segment-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap; /* Keep dots in one line */
+    order: 2; /* Dots appear second (below text) */
+}
+
+.segment-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: transparent;
+    border: 2px solid #2B2B2B;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    flex-shrink: 0; /* Prevent dots from shrinking */
+}
+
+.segment-dot:hover {
+    transform: scale(1.2);
+}
+
+.segment-dot.active {
+    background: #2B2B2B;
+    border-color: #2B2B2B;
+}
+
+/* ========================================
+   BOTTOM NAVIGATION
+   ======================================== */
+
+.bottom-navigation {
+    background: #ffffff;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    border-top: 1px solid #E1E5E6;
+    flex-shrink: 0;
+}
+
+/* Desktop text buttons - Match audio controls exactly */
+.bottom-nav-btn {
+    background: #042A2B;
+    color: #FFFFFF;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 10px 12px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 48px;
+    width: 220px;
+    white-space: nowrap;
+    justify-content: center;
+}
+
+.bottom-nav-btn .material-symbols-outlined {
+    font-size: 24px;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.bottom-nav-btn:hover {
+    background: #063a3c;
+}
+
+.bottom-nav-btn:disabled {
+    background: #C0C0C0;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Mobile-specific circular icon buttons - Hidden by default */
+.bottom-nav-btn-icon {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    max-width: 60px;
+    border-radius: 50%;
+    padding: 0;
+    display: none; /* Hidden by default, shown on mobile */
+    align-items: center;
+    justify-content: center;
+    background: #042A2B;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.bottom-nav-btn-icon .material-symbols-outlined {
+    font-size: 28px;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 28;
+}
+
+.bottom-nav-btn-icon:hover {
+    background: #063a3c;
+    transform: scale(1.02);
+}
+
+.bottom-nav-btn-icon:active {
+    transform: scale(0.98);
+}
+
+.bottom-nav-btn-icon:disabled {
+    background: #E1E5E6;
+    color: #B6B6B6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* ========================================
+   LOADING & ERROR STATES
+   ======================================== */
+
+.loading {
+    background: #F6F6F6;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    color: #7D7D7D;
+}
+
+.error {
+    background: #F6F6F6;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.error h3 {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #2B2B2B;
+    margin-bottom: 12px;
+}
+
+.error p {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    color: #7D7D7D;
+    margin-bottom: 24px;
+}
+
+.error-back-btn {
+    background: #042A2B;
+    color: #FFFFFF;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 24px;
+    border: none;
+    cursor: pointer;
+}
+
+/* ========================================
+   CUSTOM VERSE DROPDOWN
+   ======================================== */
+
+.verse-dropdown-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border: 2px solid #042A2B;
+    border-radius: 32px;
+    padding: 10px 16px;
+    height: 48px;
+    width: 239px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.verse-dropdown-container:hover {
+    border-color: #0D8E91;
+}
+
+.verse-dropdown-container.open {
+    border-color: #0D8E91;
+    box-shadow: 0 4px 12px rgba(13, 142, 145, 0.2);
+}
+
+.verse-dropdown-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px; /* Reduced from 6px */
+}
+
+.verse-dropdown-label {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #2B2B2B;
+    white-space: nowrap;
+    margin: 0 2px; /* Tight spacing */
+}
+
+.verse-dropdown-current {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #042A2B;
+    text-align: center;
+    margin: 0 2px;
+}
+
+.verse-dropdown-arrow {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #2B2B2B;
+    margin-left: 6px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.verse-dropdown-container.open .verse-dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* Hide native select */
+.verse-selector-new {
+    display: none !important;
+}
+
+/* Remove the ::after pseudo element that creates duplicate arrow */
+.verse-dropdown-container::after {
+    display: none !important;
+}
+
+/* Custom Dropdown List - Opens UPWARD */
+.verse-dropdown-list {
+    position: absolute;
+    bottom: calc(100% + 8px); /* Changed from top to bottom */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px); /* Reverse animation direction */
+    width: 220px;
+    max-height: 200px; /* Show ~5 items at 40px each */
+    background: #FFFFFF;
+    border: 8px solid #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.15); /* Upward shadow */
+    overflow-y: auto;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.verse-dropdown-container.open .verse-dropdown-list {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Scrollbar styling */
+.verse-dropdown-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.verse-dropdown-list::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 6px;
+}
+
+.verse-dropdown-list::-webkit-scrollbar-thumb {
+    background: #E1E5E6;
+    border-radius: 6px;
+}
+
+.verse-dropdown-list::-webkit-scrollbar-thumb:hover {
+    background: #B6B6B6;
+}
+
+/* Dropdown Items */
+.verse-dropdown-item {
+    padding: 10px 16px;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #2B2B2B;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 40px;
+    box-sizing: border-box;
+}
+
+.verse-dropdown-item:hover {
+    background: #F6F6F6; /* Light gray on hover */
+}
+
+.verse-dropdown-item.active {
+    background: #042A2B; /* Dark green background */
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+/* Waqf count badge */
+.verse-waqf-count {
+    font-size: 14px;
+    font-weight: 500;
+    color: #7D7D7D;
+    margin-left: auto;
+    padding-left: 8px;
+}
+
+.verse-dropdown-item.active .verse-waqf-count {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* ========================================
+   RESUME MODAL - NEW DESIGN
+   ======================================== */
+
+.resume-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000; /* Very high z-index to be above everything */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: all; /* Ensure it captures all clicks */
+}
+
+resume-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.32);
+    z-index: 1;
+    cursor: default; /* Show it's not clickable */
+}
+
+
+.resume-modal-content {
+position: relative;
+    z-index: 2;
+    background: #FFFFFF;
+    border-radius: 24px;
+    width: 400px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    pointer-events: all; /* Ensure modal content is clickable */
+}
+
+/* Icon */
+.resume-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.resume-icon .material-symbols-outlined {
+    font-size: 40px;
+    color: #042A2B;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 40;
+}
+
+/* Text Content */
+.resume-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+.resume-title {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #2B2B2B;
+    line-height: normal;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.resume-info {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #7D7D7D;
+    line-height: normal;
+    margin: 0;
+}
+
+.resume-verse,
+.resume-segment {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0D8E91;
+}
+
+.resume-time {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #7D7D7D;
+    line-height: normal;
+    margin: 0;
+}
+
+/* Buttons */
+.resume-buttons {
+    display: flex;
+    gap: 14px;
+    width: 100%;
+}
+
+.resume-btn {
+    flex: 1;
+    height: 48px;
+    border-radius: 30px;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resume-btn-outline {
+    background: #FFFFFF;
+    border: 2px solid #042A2B;
+    color: #042A2B;
+}
+
+.resume-btn-outline:hover {
+    background: rgba(4, 42, 43, 0.05);
+}
+
+.resume-btn-filled {
+    background: #042A2B;
+    color: #FFFFFF;
+}
+
+.resume-btn-filled:hover {
+    background: #063a3c;
+}
+
+.resume-btn:active {
+    transform: scale(0.98);
+}
+
+/* ========================================
+   START OVER CONFIRMATION MODAL
+   ======================================== */
+
+.start-over-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-over-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.32);
+    z-index: 1;
+    cursor: default;
+}
+
+.start-over-modal-content {
+    position: relative;
+    z-index: 2;
+    background: #FFFFFF;
+    border-radius: 24px;
+    width: 400px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* Icon */
+.start-over-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.start-over-icon .material-symbols-outlined {
+    font-size: 40px;
+    color: #042A2B;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 40;
+}
+
+/* Text Content */
+.start-over-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+.start-over-title {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #2B2B2B;
+    line-height: normal;
+    margin: 0;
+}
+
+/* Buttons */
+.start-over-buttons {
+    display: flex;
+    gap: 14px;
+    width: 100%;
+}
+
+.start-over-btn {
+    flex: 1;
+    height: 48px;
+    border-radius: 30px;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-over-btn-outline {
+    background: #FFFFFF;
+    border: 2px solid #042A2B;
+    color: #042A2B;
+}
+
+.start-over-btn-outline:hover {
+    background: rgba(4, 42, 43, 0.05);
+}
+
+.start-over-btn-filled {
+    background: #042A2B;
+    color: #FFFFFF;
+}
+
+.start-over-btn-filled:hover {
+    background: #063a3c;
+}
+
+.start-over-btn:active {
+    transform: scale(0.98);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Header adjustments for mobile - Flexbox layout */
+    .header-new {
+        padding: 16px 20px;
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+        position: relative;
+    }
+    
+    /* First row container for back button and settings */
+    .back-button-new {
+        font-size: 14px;
+        padding: 4px 12px 4px 8px;
+        height: auto;
+        width: fit-content;
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+    }
+    
+    .back-button-new .material-symbols-outlined {
+        font-size: 20px;
+    }
+    
+    /* Settings button - position absolute within header */
+    .settings-icon-btn {
+        width: 32px;
+        height: 32px;
+        position: absolute !important;
+        top: 16px;
+        right: 20px;
+        left: auto !important;
+        transform: none !important;
+    }
+    
+    .settings-icon-btn .material-symbols-outlined {
+        font-size: 24px;
+    }
+    
+    /* Surah info - reset absolute positioning */
+    .surah-info-center {
+        position: static !important;
+        transform: none !important;
+        left: auto !important;
+        top: auto !important;
+        display: grid !important;
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 0 12px;
+        align-items: center;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+    
+    .surah-number-badge {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+        grid-column: 1;
+        grid-row: 1 / 3;
+        align-self: center;
+    }
+    
+    .surah-english-title {
+        font-size: 18px;
+        text-align: left;
+        grid-column: 2;
+        grid-row: 1;
+        line-height: 1.2;
+        margin: 0;
+    }
+    
+    .surah-chapter-label {
+        font-size: 14px;
+        text-align: left;
+        grid-column: 2;
+        grid-row: 2;
+        color: #B6B6B6;
+        margin: 0;
+    }
+    
+    .surah-arabic-title {
+        font-size: 20px;
+        text-align: right;
+        grid-column: 3;
+        grid-row: 1 / 3;
+        align-self: center;
+        white-space: nowrap;
+    }
+    
+    /* Audio controls - horizontal layout */
+    .audio-controls-new {
+        padding: 16px;
+        gap: 12px;
+        border-radius: 30px 30px 0 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    /* Start Over - circular icon only */
+    .control-btn-light {
+        width: 60px !important;
+        min-width: 60px !important;
+        max-width: 60px !important;
+        height: 60px !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0;
+        overflow: hidden;
+        text-indent: -9999px;
+        line-height: 60px;
+        position: relative;
+    }
+    
+    .control-btn-light .material-symbols-outlined {
+        font-size: 28px !important;
+        color: #2B2B2B !important;
+        margin: 0 !important;
+        text-indent: 0;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    /* Pause/Play - keep text visible */
+    .control-btn-filled {
+        flex: 1;
+        height: 60px;
+        font-size: 16px !important;
+        padding: 16px 24px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+        white-space: nowrap;
+        width: auto !important;
+    }
+    
+    .control-btn-filled #play-pause-text,
+    .control-btn-filled span {
+        display: inline !important;
+        font-size: 16px !important;
+        visibility: visible !important;
+    }
+    
+    /* Repeat - circular icon only, gradient filled */
+    .control-btn-outline {
+        width: 60px !important;
+        min-width: 60px !important;
+        max-width: 60px !important;
+        height: 60px !important;
+        border-radius: 50% !important;
+        background: linear-gradient(135deg, #0D8E91 0%, #042A2B 100%) !important;
+        border: none !important;
+        color: #FFFFFF !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0;
+        overflow: hidden;
+        text-indent: -9999px;
+        line-height: 60px;
+        position: relative;
+    }
+    
+    .control-btn-outline .material-symbols-outlined {
+        font-size: 28px !important;
+        color: #FFFFFF !important;
+        margin: 0 !important;
+        text-indent: 0;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .control-btn-outline.active {
+        background: linear-gradient(135deg, #0D8E91 0%, #042A2B 100%) !important;
+    }
+    
+    /* Hide notification strip on mobile by default */
+.repeat-notification {
+        font-size: 14px;
+        max-height: 0;
+        padding: 0 16px;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+    }
+
+    .repeat-notification.show {
+        max-height: 50px;
+        padding: 10px 16px;
+        opacity: 1;
+    }
+    
+    /* Verse display */
+    .verse-arabic-new {
+        font-size: 22px;
+    }
+    
+    /* Bismillah screen */
+    .bismillah-arabic {
+        font-size: 24px;
+    }
+    
+    .start-recitation-btn {
+        width: 160px;
+        height: 160px;
+        font-size: 14px;
+    }
+    
+    /* Bottom Navigation - Mobile */
+    .bottom-navigation {
+        padding: 12px 16px;
+        gap: 12px;
+    }
+    
+    /* Hide text buttons on mobile */
+    .bottom-nav-btn {
+        display: none !important;
+    }
+    
+    /* Show icon buttons on mobile - Match audio control circular buttons */
+    .bottom-nav-btn-icon {
+        display: flex !important;
+        width: 60px !important;
+        height: 60px !important;
+        min-width: 60px !important;
+        max-width: 60px !important;
+    }
+    
+    .bottom-nav-btn-icon .material-symbols-outlined {
+        font-size: 28px !important;
+    }
+    
+    /* Verse dropdown - flexible width on mobile */
+    .verse-dropdown-container {
+        flex: 1;
+        min-width: 0;
+        height: 60px;
+        width: auto;
+    }
+    
+    .verse-dropdown-list {
+        width: 300px;
+        max-height: 200px;
+    }
+    
+    .verse-dropdown-item {
+        padding: 8px 14px;
+        font-size: 16px;
+        min-height: 36px;
+    }
+    
+    .verse-waqf-count {
+        font-size: 14px;
+    }
+
+   .segment-navigation {
+        padding: 16px 20px;
+        gap: 24px;
+    }
+    
+    .segment-nav-btn {
+        min-width: 90px;
+        height: 36px;
+        font-size: 14px;
+        padding: 8px;
+    }
+    
+    .segment-nav-btn .material-symbols-outlined {
+        font-size: 20px;
+    }
+    
+    .segment-indicator {
+        min-width: 55px;
+        gap: 6px;
+    }
+    
+    .segment-dot {
+        width: 7px;
+        height: 7px;
+        border-width: 1.5px;
+        gap: 5px;
+    }
+    
+    #segment-text {
+        font-size: 14px;
+    }
+
+    .verse-container-new {
+        padding: 40px 40px;
+    }
+    
+    .verse-arabic-new {
+        font-size: 28px;
+        line-height: 42px;
+    }
+    
+    .verse-divider {
+        width: 80px;
+        height: 8px;
+    }
+
+    .bismillah-screen {
+        padding: 40px 40px;
+    }
+    
+    .bismillah-card {
+        padding-top: 40px;
+    }
+    
+    .bismillah-arabic {
+        font-size: 28px;
+        line-height: 42px;
+    }
+    
+    .start-recitation-btn {
+        width: 350px;
+        height: 180px;
+        border-radius: 240px 240px 0 0;
+        font-size: 24px;
+        padding-top: 56px;
+    }
+
+    .resume-modal-content {
+        width: 340px;
+        padding: 20px;
+        gap: 20px;
+    }
+    
+    .resume-title {
+        font-size: 20px;
+    }
+    
+    .resume-info,
+    .resume-time {
+        font-size: 16px;
+    }
+    
+    .resume-verse,
+    .resume-segment {
+        font-size: 16px;
+    }
+    
+    .resume-btn {
+        font-size: 14px;
+        height: 44px;
+    }
+
+     .start-over-modal-content {
+        width: 340px;
+        padding: 20px;
+        gap: 20px;
+    }
+    
+    .start-over-title {
+        font-size: 20px;
+    }
+    
+    .start-over-btn {
+        font-size: 14px;
+        height: 44px;
+    }
+}
+
+@media (max-width: 480px) {
+        .header-new {
+        padding: 12px 16px;
+        gap: 12px;
+    }
+
+    .back-button-new {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    .surah-number-badge {
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+    }
+
+    .settings-icon-btn {
+        font-size: 20px;
+    }
+     .surah-english-title {
+        font-size: 16px;
+    }
+    
+    .surah-chapter-label {
+        font-size: 13px;
+    }
+    
+    .surah-arabic-title {
+        font-size: 18px;
+    }
+    
+    .control-btn-light,
+    .control-btn-outline {
+        width: 56px !important;
+        height: 56px;
+    }
+    
+    .control-btn-filled {
+        height: 56px;
+        font-size: 14px;
+    }
+
+    .control-btn {
+        font-size: 13px;
+        height: 40px;
+        padding: 8px 12px;
+    }
+     .repeat-notification {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+     /* Bottom nav smaller buttons */
+    .bottom-nav-btn-icon {
+        width: 56px !important;
+        height: 56px !important;
+        min-width: 56px !important;
+        max-width: 56px !important;
+    }
+    
+    .bottom-nav-btn-icon .material-symbols-outlined {
+        font-size: 24px !important;
+    }
+    
+    .verse-dropdown-container {
+        height: 56px;
+        padding: 10px 12px;
+    }
+    
+    .verse-dropdown-label {
+        font-size: 14px;
+    }
+    
+    .verse-dropdown-current {
+        font-size: 14px;
+        font-weight: 700;
+    }
+    
+    .verse-dropdown-list {
+        width: 170px;
+        max-height: 180px;
+    }
+    
+    .verse-dropdown-item {
+        padding: 7px 12px;
+        font-size: 12px;
+        min-height: 34px;
+    }
+
+    .segment-navigation {
+        padding: 12px 16px;
+        gap: 16px;
+    }
+    
+    .segment-nav-btn {
+        min-width: 80px;
+        height: 32px;
+        font-size: 12px;
+        padding: 6px;
+    }
+    
+    .segment-nav-btn .material-symbols-outlined {
+        font-size: 18px;
+    }
+    
+    .segment-indicator {
+        min-width: 50px;
+        gap: 4px;
+    }
+    
+    .segment-dot {
+        width: 6px;
+        height: 6px;
+        gap: 4px;
+    }
+    
+    #segment-text {
+        font-size: 12px;
+    }
+
+    .verse-container-new {
+        padding: 16px 20px;
+    }
+    
+    .verse-arabic-new {
+        font-size: 24px;
+        line-height: 36px;
+    }
+    
+    .verse-transliteration-new,
+    .verse-translation-new {
+        font-size: 14px;
+    }
+    
+    .verse-divider {
+        width: 70px;
+        height: 7px;
+    }
+
+    .bismillah-card {
+        padding: 30px 20px;
+    }
+    
+    .bismillah-arabic {
+        font-size: 24px;
+        line-height: 36px;
+    }
+    
+    .bismillah-transliteration,
+    .bismillah-translation {
+        font-size: 14px;
+    }
+    
+    .start-recitation-btn {
+        width: 200px;
+        height: 200px;
+        border-radius: 200px 200px 0 0;
+        font-size: 16px;
+        padding-top: 30px;
+        gap: 2px;
+    }
+
+    .resume-modal-content {
+        width: calc(100% - 40px);
+        max-width: 340px;
+    }
+    
+    .resume-icon .material-symbols-outlined {
+        font-size: 36px;
+    }
+
+    .start-over-modal-content {
+        width: calc(100% - 40px);
+        max-width: 340px;
+    }
+    
+    .start-over-icon .material-symbols-outlined {
+        font-size: 36px;
+    }
+
+}
+
+/* Hide old segment controls when new design is active */
+.segment-indicator-old,
+.segment-controls-old {
+    display: none !important;
+}
+
+/* Verse Transition Animations */
+.verse-slide-out-left {
+    animation: slideOutLeft 0.3s ease-in forwards;
+}
+
+.verse-slide-out-right {
+    animation: slideOutRight 0.3s ease-in forwards;
+}
+
+.verse-slide-in-left {
+    animation: slideInLeft 0.3s ease-out forwards;
+}
+
+.verse-slide-in-right {
+    animation: slideInRight 0.3s ease-out forwards;
+}
+
+@keyframes slideOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* Loading State */
+.loading-new {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--primary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+}
+
+.loading-spinner {
+    font-size: 60px;
+    animation: spin 2s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-new h2 {
+    font-size: 24px;
+    margin: 0 0 10px 0;
+    font-weight: 500;
+}
+
+.loading-new p {
+    font-size: 16px;
+    opacity: 0.8;
+    margin: 0;
+}
+
+/* Error State */
+.error-new {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--bg-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.error-content {
+    text-align: center;
+    padding: 40px;
+    max-width: 500px;
+}
+
+.error-new h2 {
+    font-size: 28px;
+    color: var(--text-dark);
+    margin: 0 0 15px 0;
+}
+
+.error-new p {
+    font-size: 16px;
+    color: var(--text-gray);
+    margin: 0 0 30px 0;
+}
+
+.error-back-btn {
+    padding: 12px 30px;
+    background: var(--primary-dark);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.error-back-btn:hover {
+    background: var(--accent-teal);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 142, 145, 0.3);
+}
+

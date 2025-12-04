@@ -2,65 +2,182 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- iOS specific meta tags -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Learn Qur'an - Choose a Surah</title>
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="manifest" href="manifest.json">
+<meta name="description" content="Learn and memorize the Qur'an with word-by-word highlighting and audio recitation by Mishary Alafasy">
+<meta name="theme-color" content="#042A2B">
 
+<!-- iOS PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sabeel">
+
+<!-- iOS Icons -->
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-152.png">
+
+<!-- iOS Splash Screens (optional but recommended) -->
+<link rel="apple-touch-startup-image" href="/icons/icon-512.png">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-72.png">
+
+<!-- Manifest -->
+<link rel="manifest" href="/manifest.json">
+
+<title>Sabeel - Learn Qur'an</title>
+
+<!-- Preconnect for performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <h1 class="main-title">القرآن الكريم</h1>
-            <div class="main-subtitle">Learn the Holy Qur'an</div>
-            <div class="description">
-                Choose a surah to begin your learning journey with authentic recitation,
-                beautiful Arabic text, and English translations
-            </div>
+    <div class="page-container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <svg class="logo" width="167" height="51" viewBox="0 0 168 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M71.0557 15.584H74.9199C74.9199 15.584 79.5917 15.5204 84.3916 17.6963C88.6156 19.6803 93.1597 23.8403 94.0557 30.9443H97V15.584H99.5596C99.5596 15.584 104.168 15.5203 108.968 17.6963C113.215 19.6477 117.768 23.8637 118.663 30.9443H122V15.584H124.56C124.56 15.584 129.168 15.5203 133.968 17.6963C138.215 19.6477 142.768 23.8637 143.663 30.9443H147V0H152.056V30.9443H167.096V36H127.056V39.0635C127.056 43.8634 129.936 45.5283 132.88 45.5283C135.824 45.5283 138.704 43.8635 138.704 39.0635H143.824C143.824 46.2315 138.32 50.6475 132.88 50.6475C127.504 50.6474 122 46.2314 122 39.0635V36H102.056V39.0635C102.056 43.8634 104.936 45.5283 107.88 45.5283C110.824 45.5283 113.704 43.8635 113.704 39.0635H118.824C118.824 46.2315 113.32 50.6475 107.88 50.6475C102.504 50.6474 97 46.2314 97 39.0635V36H0V30.9443H33.0879C32.3199 26.0803 29.5676 23.7762 26.5596 22.3682C22.9117 20.7043 19.2637 20.6396 19.2637 20.6396H0V18.1445C0 9.50453 5.05599 4.51194 9.79199 2.33594C14.5685 0.170613 19.2183 0.223064 19.2637 0.223633H21.8242V5.28027H19.2637C19.2233 5.28102 15.5321 5.35293 11.9678 7.00781C8.89584 8.4158 6.20846 10.7201 5.44043 15.584H19.2637C19.2637 15.584 23.8719 15.5203 28.6719 17.6963C32.9599 19.6803 37.4399 23.8403 38.3359 30.9443H41.1592C42.0439 23.8638 46.5449 19.6477 50.792 17.6963C55.5687 15.5308 60.2187 15.5834 60.2637 15.584H62.8242V30.9443H66V0H71.0557V15.584ZM57.7041 20.96C56.3601 21.216 54.6318 21.6002 52.9678 22.3682C49.8959 23.7762 47.2084 26.0805 46.4404 30.9443H57.7041V20.96ZM71.0557 30.9443H88.7441C87.9761 26.0803 85.2878 23.7762 82.2158 22.3682C78.6318 20.7042 74.9199 20.6396 74.9199 20.6396H71.0557V30.9443ZM102.056 30.9443H113.32C112.552 26.0804 109.864 23.7762 106.792 22.3682C105.128 21.6002 103.464 21.216 102.056 20.96V30.9443ZM127.056 30.9443H138.32C137.552 26.0804 134.864 23.7762 131.792 22.3682C130.128 21.6002 128.464 21.216 127.056 20.96V30.9443Z" fill="white"/>
+                <path d="M17 43.5L13.5 47L10 43.5L13.5 40L17 43.5Z" fill="white"/>
+                <path d="M28.3428 43.5L24.8428 47L21.3428 43.5L24.8428 40L28.3428 43.5Z" fill="white"/>
+            </svg>
         </div>
 
-          <div class="recent-section" id="recent-section" style="display: none;">
-            <div class="content">
-                <h2 class="section-title">🕐 Recently Played</h2>
-                    <div class="recent-grid" id="recentGrid">
+        <!-- Recent Cards Section -->
+        <div class="recent-section" id="recent-section" style="display: none;">
+            <div class="recent-container">
+                <div class="recent-grid" id="recentGrid">
                     <!-- Recent surahs will be populated here -->
-                    </div>
+                </div>
+                <!-- Pagination Dots -->
+                <div class="pagination-dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
             </div>
         </div>
 
-        <div class="search-section">
-            <div class="search-box">
-                <input type="text" class="search-input" placeholder="Search for a surah..." id="searchInput"
-                    oninput="searchSurahs()">
-                <div class="search-icon">🔍</div>
+        <!-- Content Background with Search and Surah Grid -->
+        <div class="content-background">
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search for Surah" id="searchInput" oninput="searchSurahs()">
+                    <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="#7D7D7D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="main-content">
+                <div class="surah-grid-container" id="surahGrid">
+                    <!-- The complete list of 114 surahs will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <div class="footer-left">v1.1</div>
+                <div class="footer-right">
+                    Design & Developed by <span class="developer-name">Aaqil Jamal</span>
+                </div>
             </div>
         </div>
+    </div> 
 
-
-        <div class="content">
-            <h2 class="section-title">📚 All Surahs (114 Chapters)</h2>
-            <div class="surah-grid" id="surahGrid">
-                <!-- The complete list of 114 surahs will be populated by JavaScript -->
-            </div>
-        </div>
-
-        <div class="footer">
-            <div class="footer-links">
-                <a href="#about" class="footer-link">About</a>
-                <a href="#features" class="footer-link">Features</a>
-                <a href="#contact" class="footer-link">Contact</a>
-                <a href="#help" class="footer-link">Help</a>
-            </div>
-            <p>Continue your Qur'an learning journey • May Allah guide us all</p>
-        </div>
-    </div>
-
+    
     <script src="js/home.js"></script>
+    <script src="js/services/sw-manager.js"></script>
+    <script src="js/services/network-manager.js"></script>
+    <script src="js/components/network-status.js"></script>
+    <script>
+        // Initialize Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                window.swManager.init();
+            });
+        }
+    </script>
+
+    <!-- PWA Install Prompt -->
+<div class="pwa-install-prompt" id="pwa-install-prompt" style="display: none;">
+    <div class="install-prompt-content">
+        <img src="/icons/icon-96.png" alt="Sabeel" class="install-icon">
+        <div class="install-text">
+            <strong>Install Sabeel</strong>
+            <span>Add to home screen for the best experience</span>
+        </div>
+        <button class="install-btn" id="install-btn">Install</button>
+        <button class="install-dismiss" id="install-dismiss">✕</button>
+    </div>
+</div>
+
+<script src="/js/home.js"></script>
+<script src="/js/services/sw-manager.js"></script>
+<script src="/js/services/network-manager.js"></script>
+<script src="/js/components/network-status.js"></script>
+<script>
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            window.swManager.init();
+        });
+    }
+    
+    // PWA Install Prompt Handler
+    let deferredPrompt;
+    const installPrompt = document.getElementById('pwa-install-prompt');
+    const installBtn = document.getElementById('install-btn');
+    const installDismiss = document.getElementById('install-dismiss');
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show install prompt after 30 seconds or on second visit
+        const visitCount = parseInt(localStorage.getItem('sabeel_visits') || '0') + 1;
+        localStorage.setItem('sabeel_visits', visitCount);
+        
+        if (visitCount >= 2 || localStorage.getItem('sabeel_install_dismissed') !== 'true') {
+            setTimeout(() => {
+                if (deferredPrompt) {
+                    installPrompt.style.display = 'flex';
+                }
+            }, visitCount >= 2 ? 5000 : 30000);
+        }
+    });
+    
+    installBtn?.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        
+        console.log('Install outcome:', outcome);
+        deferredPrompt = null;
+        installPrompt.style.display = 'none';
+    });
+    
+    installDismiss?.addEventListener('click', () => {
+        installPrompt.style.display = 'none';
+        localStorage.setItem('sabeel_install_dismissed', 'true');
+    });
+    
+    window.addEventListener('appinstalled', () => {
+        console.log('Sabeel PWA installed successfully');
+        installPrompt.style.display = 'none';
+        deferredPrompt = null;
+    });
+</script>
 </body>
+
 </html>

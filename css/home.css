@@ -1,413 +1,836 @@
 * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
+body {
+    font-family: 'Urbanist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #042A2B;
+    min-height: 100vh;
+    color: #2B2B2B;
+    margin: 0;
+    padding: 0;
+    display: flex; /* ADD THIS */
+    flex-direction: column; /* ADD THIS */
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
+.page-container {
+    position: relative;
+    width: 100%;
+    background: #042A2B;
+    display: flex; /* ADD THIS */
+    flex-direction: column; /* ADD THIS */
+    min-height: 100vh; /* ADD THIS */
+}
 
-        .header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-        }
+/* Logo Section - Update padding */
+.logo-section {
+    position: relative; /* Changed from absolute */
+    width: 100%;
+    padding: 40px 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #042A2B;
+    z-index: 3;
+}
 
-        .main-title {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+.logo {
+    width: 167px;
+    height: 51px;
+}
 
-        .main-subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            margin-bottom: 10px;
-        }
-
-        .description {
-            font-size: 1.1rem;
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .search-section {
-            padding: 30px;
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            text-align: center;
-        }
-
-        .search-box {
-            max-width: 500px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 15px 50px 15px 20px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            background: rgba(255, 255, 255, 0.9);
-            color: #2c3e50;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .search-input::placeholder {
-            color: #7f8c8d;
-        }
-
-        .search-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #7f8c8d;
-            font-size: 1.2rem;
-        }
-
-        .content {
-            padding: 30px;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .surah-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .surah-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-
-        .surah-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            border-color: #3498db;
-        }
-
-        .surah-card.available {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        }
-
-        .surah-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .surah-number {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .surah-status {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .status-available {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .surah-arabic {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 10px;
-            direction: rtl;
-        }
-
-        .surah-english {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #34495e;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .surah-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-top: 15px;
-        }
-
-        .surah-revelation {
-            background: rgba(52, 152, 219, 0.1);
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-weight: 500;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 30px 20px;
-            background: #f8f9fa;
-            color: #6c757d;
-            border-top: 1px solid #e9ecef;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .footer-link {
-            color: #6c757d;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .footer-link:hover {
-            color: #3498db;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        /* Recent Section Styles */
+/* Recent Cards Section - Remove absolute positioning */
 .recent-section {
-    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-    padding: 30px 0;
+    position: relative; /* Changed from absolute */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 40px 40px;
+    background: #042A2B;
+    z-index: 3;
 }
 
-.recent-section .content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 30px;
+.recent-container {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
 }
 
-.recent-section .section-title {
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
-
+/* Recent Grid - Add transition */
 .recent-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    margin-bottom: 20px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
 }
 
+/* Recent Card - Add slide animation */
 .recent-card {
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+    max-width: calc((100% - 48px) / 3);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Add these slide animations after the existing @keyframes slideIn */
+
+@keyframes slideOutToLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slideOutToRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animation classes */
+.recent-grid.slide-out-left {
+    animation: slideOutToLeft 0.3s ease-in forwards;
+}
+
+.recent-grid.slide-out-right {
+    animation: slideOutToRight 0.3s ease-in forwards;
+}
+
+.recent-card.slide-in-right {
+    animation: slideInFromRight 0.4s ease-out;
+}
+
+.recent-card.slide-in-left {
+    animation: slideInFromLeft 0.4s ease-out;
 }
 
 .recent-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    border-color: #ff6b6b;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(43, 43, 43, 0.1);
 }
 
-.recent-header {
+.recent-main-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    width: 100%;
 }
 
-.recent-badge {
-    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: bold;
+.recent-left-content {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 179px;
 }
 
-.recent-arabic {
-    font-size: 1.6rem;
-    font-weight: bold;
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 8px;
-    direction: rtl;
+.recent-number {
+    background: #042A2B;
+    color: #FFFFFF;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    font-family: 'Urbanist', sans-serif;
+}
+
+.recent-text-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
 }
 
 .recent-english {
-    font-size: 1.1rem;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 18px;
     font-weight: 600;
-    color: #34495e;
-    text-align: center;
-    margin-bottom: 15px;
+    color: #2B2B2B;
+    line-height: normal;
+    margin-bottom: 0;
 }
 
-.recent-info {
-    border-top: 1px solid #e0e0e0;
-    padding-top: 15px;
+.recent-meaning {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #7D7D7D;
+    line-height: normal;
+    margin: 0;
 }
 
-.recent-progress {
-    margin-bottom: 10px;
+.recent-arabic {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #2B2B2B;
+    direction: rtl;
+    text-align: right;
+    line-height: normal;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    height: 36px;
 }
 
-.progress-bar {
+.recent-progress-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.recent-progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recent-progress-text {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #2d2d2d;
+}
+
+.recent-progress-bar {
     width: 100%;
-    height: 8px;
-    background: #e0e0e0;
-    border-radius: 4px;
+    height: 6px;
+    background: #E1E5E6;
+    border-radius: 3px;
     overflow: hidden;
-    margin-bottom: 8px;
 }
 
-.progress-fill {
+.recent-progress-fill {
     height: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 4px;
+    background: linear-gradient(90deg, #0D8E91 0%, #042A2B 100%);
+    border-radius: 3px;
     transition: width 0.3s ease;
 }
 
-.progress-text {
-    font-size: 0.85rem;
-    color: #7f8c8d;
+/* Pagination Dots - Center aligned */
+.pagination-dots {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center; /* Added */
+    margin-top: 12px;
+    width: 100%;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #FFFFFF;
+}
+
+/* Content Background - Remove absolute positioning */
+.content-background {
+    position: relative;
+    width: 100%;
+    flex: 1; 
+    background: #F6F6F6;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 40px 80px;
+    padding-bottom: 40px;
+}
+
+/* Search Section */
+.search-section {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-input {
+    width: 100%;
+    height: 48px;
+    padding: 12px 16px;
+    padding-right: 48px;
+    border: 1px solid #B6B6B6;
+    border-radius: 12px;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    background: #FFFFFF;
+    color: #2B2B2B;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+    color: #7D7D7D;
     font-weight: 500;
 }
 
-.recent-time {
-    font-size: 0.8rem;
-    color: #95a5a6;
+
+.search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Main Content */
+.main-content {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* ADD THIS - allows it to grow */
+    gap: 0;
+}
+
+/* Surah Grid Container - This is the correct element */
+.surah-grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+
+
+.surah-grid-row {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+}
+
+.surah-grid-row:last-child {
+    margin-bottom: 0;
+}
+
+.surah-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+.surah-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(43, 43, 43, 0.1);
+}
+
+.surah-main-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.surah-left-content {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 179px;
+}
+
+.surah-number {
+    background: #042A2B;
+    color: #FFFFFF;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    font-family: 'Urbanist', sans-serif;
+}
+
+.surah-text-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.surah-english {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2B2B2B;
+    line-height: normal;
+    margin-bottom: 0;
+}
+
+.surah-meaning {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #7D7D7D;
+    line-height: normal;
+    margin: 0;
+}
+
+.surah-arabic {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #2B2B2B;
+    direction: rtl;
+    text-align: right;
+    line-height: normal;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    height: 36px;
+}
+
+.surah-divider {
+    width: 100%;
+    height: 1px;
+    background: #E1E5E6;
+}
+
+.surah-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.surah-chapter-info {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.surah-chapter-text {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #2B2B2B;
+    line-height: normal;
+}
+
+.surah-dot {
+    width: 3px;
+    height: 3px;
+    background: #7D7D7D;
+    border-radius: 50%;
+}
+
+.surah-verses-text {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #2B2B2B;
+    line-height: normal;
+}
+
+.surah-revelation {
+    background: #E1E5E6;
+    padding: 0 2px;
+    padding-bottom: 1px;
+    border-radius: 2px;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #042A2B;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Footer - Reduce margin */
+.footer {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    margin-top: auto; /* ADD THIS - pushes footer to bottom */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    color: #7D7D7D;
+}
+
+.footer-right {
     text-align: right;
 }
 
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                border-radius: 15px;
-            }
+.footer-right .developer-name {
+    color: #2B2B2B;
+}
 
-            .main-title {
-                font-size: 2.2rem;
-            }
+/* Responsive Design */
+@media (max-width: 1440px) {
+    .recent-section,
+    .content-background {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
 
-            .main-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .content {
-                padding: 20px 15px;
-            }
-
-            .surah-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .surah-card {
-                padding: 20px;
-            }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .recent-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
+@media (max-width: 1024px) {
+    .surah-grid-row {
+        flex-direction: column;
+        gap: 16px;
     }
     
-    .recent-section {
-        padding: 20px 0;
+    .recent-section,
+    .content-background {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-section {
+        height: 80px;
     }
     
-    .recent-section .content {
-        padding: 0 15px;
+    .logo {
+        width: 140px;
+        height: 43px;
     }
     
-    .recent-card {
-        padding: 15px;
+.recent-section {
+        padding: 16px 24px 40px;
     }
-        }
-        
-        /* Horizontal scroll for mobile */
-@media (max-width: 480px) {
+    
+    .content-background {
+        padding: 40px 24px;
+    }
+    
     .recent-grid {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 15px;
-        padding-bottom: 10px;
+        overflow: hidden;
     }
     
-    .recent-card {
-        min-width: 280px;
-        scroll-snap-align: start;
+.recent-card {
+        min-width: 100%;
+        max-width: 100%;
+    }
+    .pagination-dots {
+        gap: 8px;
     }
     
-    /* Custom scrollbar for recent section */
-    .recent-grid::-webkit-scrollbar {
-        height: 6px;
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .surah-left-content,
+    .recent-left-content {
+        width: 140px;
     }
     
-    .recent-grid::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.1);
-        border-radius: 3px;
+    .surah-english,
+    .recent-english {
+        font-size: 16px;
     }
     
-    .recent-grid::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 3px;
+    .surah-arabic,
+    .recent-arabic {
+        font-size: 18px;
+    }
+}
+
+/* Hidden utility class */
+.hidden {
+    display: none !important;
+}
+
+/* Smooth animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.surah-card,
+.recent-card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Focus states for accessibility */
+.search-input:focus {
+    border: 2px solid #042A2B;
+    outline: none;
+}
+
+.surah-card:focus,
+.recent-card:focus {
+    outline: 2px solid #042A2B;
+    outline-offset: 2px;
+}
+
+
+/* Network Status - Hide or position properly */
+.network-status {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    z-index: 1000;
+    display: none; /* Hide by default */
+}
+
+.network-status.show {
+    display: block;
+}
+
+/* Or if you want to completely hide it for now */
+.network-status,
+[class*="network"] {
+    display: none !important;
+}
+
+/* Only center when no results */
+.main-content.no-results-active {
+    justify-content: center;
+}
+
+/* No Results Container */
+.no-results-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.no-results-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+}
+
+.no-results-subtitle {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2B2B2B;
+    margin: 0;
+    max-width: 350px;
+}
+
+/* PWA Install Prompt */
+.pwa-install-prompt {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: calc(100vw - 40px);
+    animation: slideUpPrompt 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpPrompt {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.install-prompt-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.install-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+}
+
+.install-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.install-text strong {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.install-text span {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.install-btn {
+    background: white;
+    color: #667eea;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.install-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.install-dismiss {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 8px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.install-dismiss:hover {
+    opacity: 1;
+}
+
+@media (max-width: 480px) {
+    .pwa-install-prompt {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        transform: none;
+        max-width: none;
+    }
+    
+    @keyframes slideUpPrompt {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 }
