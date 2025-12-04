@@ -10,53 +10,53 @@ const AUDIO_CACHE_NAME = 'quran-audio-v1.0.0';
 
 // Essential files that must be cached for offline functionality
 const ESSENTIAL_FILES = [
-    '/',
-    '/index.html',
-    '/quran-learning.html',
-    '/offline.html',
-    '/manifest.json',
+    '/sabeel/',
+    '/sabeel/index.html',
+    '/sabeel/quran-learning.html',
+    '/sabeel/offline.html',
+    '/sabeel/manifest.json',
 
     // CSS files
-    '/css/surah.css',
-    '/css/styles.css',
-    '/css/home.css',
+    '/sabeel/css/surah.css',
+    '/sabeel/css/styles.css',
+    '/sabeel/css/home.css',
     
     // Core JavaScript
-    '/js/main.js',
-    '/js/home.js',
-    '/js/service-worker.js',
+    '/sabeel/js/main.js',
+    '/sabeel/js/home.js',
+    '/sabeel/js/service-worker.js',
     
     // Core
-    '/js/core/state-store.js',
+    '/sabeel/js/core/state-store.js',
 
     // Data
-    '/js/data/surah-database.js',
+    '/sabeel/js/data/surah-database.js',
     
     // Utils
-    '/js/utils/url-utils.js',
-    '/js/utils/migration-helpers.js',
+    '/sabeel/js/utils/url-utils.js',
+    '/sabeel/js/utils/migration-helpers.js',
     
     // Services
-    '/js/services/api-service.js',
-    '/js/services/audio-service.js',
-    '/js/services/reading-progress.js',
-    '/js/services/sw-manager.js',
-    '/js/services/network-manager.js',
-    '/js/services/media-session.js',
+    '/sabeel/js/services/api-service.js',
+    '/sabeel/js/services/audio-service.js',
+    '/sabeel/js/services/reading-progress.js',
+    '/sabeel/js/services/sw-manager.js',
+    '/sabeel/js/services/network-manager.js',
+    '/sabeel/js/services/media-session.js',
     
     // Components
-    '/js/components/verse-display.js',
-    '/js/components/controls.js',
-    '/js/components/word-highlighting.js',
-    '/js/components/settings.js',
-    '/js/components/network-status.js',
-    '/js/components/verse-dropdown.js'
+    '/sabeel/js/components/verse-display.js',
+    '/sabeel/js/components/controls.js',
+    '/sabeel/js/components/word-highlighting.js',
+    '/sabeel/js/components/settings.js',
+    '/sabeel/js/components/network-status.js',
+    '/sabeel/js/components/verse-dropdown.js'
 ];
 
 // Surah data files (1-114)
 const SURAH_DATA_FILES = Array.from({length: 114}, (_, i) => {
     const num = String(i + 1).padStart(3, '0');
-    return `/quran-data/enhanced/${num}.json`;
+    return `/sabeel/quran-data/enhanced/${num}.json`;
 });
 
 // Install event - cache essential files
