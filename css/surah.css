@@ -15,6 +15,13 @@ body {
     margin: 0;
     padding: 0;
     background: #042A2B; /* Make sure body is also green */
+     height: 100%;
+    overflow: hidden;
+}
+
+html {
+    height: 100%;
+    overflow: hidden;
 }
 
 .container {
@@ -22,11 +29,15 @@ body {
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-    height: 100vh;  /* ADD: Fixed viewport height */
+   /* Use dvh for dynamic viewport height (mobile-friendly) */
+    height: 100vh;
+    height: 100dvh; /* Modern browsers - accounts for mobile browser chrome */
     display: flex;
     flex-direction: column;
     background: #042A2B;
-    overflow: hidden;  /* ADD: Prevent container scroll */
+    overflow: hidden;
+    /* Safe area for notched phones */
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 .header-new {
@@ -398,10 +409,10 @@ body {
 }
 
 
-/* Ensure notification is completely hidden on load */
+/* Ensure notification is completely hidden on load 
 .repeat-notification:not(.show) {
     display: flex;
-}
+} */
 
 .repeat-notification.show {
     display: flex;

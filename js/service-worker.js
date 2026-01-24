@@ -10,47 +10,47 @@ const AUDIO_CACHE_NAME = 'quran-audio-v1.0.0';
 
 // Essential files that must be cached for offline functionality
 const ESSENTIAL_FILES = [
-    '/sabeel/',
-    '/sabeel/index.html',
-    '/sabeel/quran-learning.html',
-    '/sabeel/offline.html',
-    '/sabeel/manifest.json',
+    '${BASE_PATH}/',
+    '${BASE_PATH}/index.html',
+    '${BASE_PATH}/quran-learning.html',
+    '${BASE_PATH}/offline.html',
+    '${BASE_PATH}/manifest.json',
 
     // CSS files
-    '/sabeel/css/surah.css',
-    '/sabeel/css/styles.css',
-    '/sabeel/css/home.css',
+    '${BASE_PATH}/css/surah.css',
+    '${BASE_PATH}/css/styles.css',
+    '${BASE_PATH}/css/home.css',
     
     // Core JavaScript
-    '/sabeel/js/main.js',
-    '/sabeel/js/home.js',
-    '/sabeel/js/service-worker.js',
+    '${BASE_PATH}/js/main.js',
+    '${BASE_PATH}/js/home.js',
+    '${BASE_PATH}/js/service-worker.js',
     
     // Core
-    '/sabeel/js/core/state-store.js',
+    '${BASE_PATH}/js/core/state-store.js',
 
     // Data
-    '/sabeel/js/data/surah-database.js',
+    '${BASE_PATH}/js/data/surah-database.js',
     
     // Utils
-    '/sabeel/js/utils/url-utils.js',
-    '/sabeel/js/utils/migration-helpers.js',
+    '${BASE_PATH}/js/utils/url-utils.js',
+    '${BASE_PATH}/js/utils/migration-helpers.js',
     
     // Services
-    '/sabeel/js/services/api-service.js',
-    '/sabeel/js/services/audio-service.js',
-    '/sabeel/js/services/reading-progress.js',
-    '/sabeel/js/services/sw-manager.js',
-    '/sabeel/js/services/network-manager.js',
-    '/sabeel/js/services/media-session.js',
+    '${BASE_PATH}/js/services/api-service.js',
+    '${BASE_PATH}/js/services/audio-service.js',
+    '${BASE_PATH}/js/services/reading-progress.js',
+    '${BASE_PATH}/js/services/sw-manager.js',
+    '${BASE_PATH}/js/services/network-manager.js',
+    '${BASE_PATH}/js/services/media-session.js',
     
     // Components
-    '/sabeel/js/components/verse-display.js',
-    '/sabeel/js/components/controls.js',
-    '/sabeel/js/components/word-highlighting.js',
-    '/sabeel/js/components/settings.js',
-    '/sabeel/js/components/network-status.js',
-    '/sabeel/js/components/verse-dropdown.js'
+    '${BASE_PATH}/js/components/verse-display.js',
+    '${BASE_PATH}/js/components/controls.js',
+    '${BASE_PATH}/js/components/word-highlighting.js',
+    '${BASE_PATH}/js/components/settings.js',
+    '${BASE_PATH}/js/components/network-status.js',
+    '${BASE_PATH}/js/components/verse-dropdown.js'
 ];
 
 // Surah data files (1-114)
