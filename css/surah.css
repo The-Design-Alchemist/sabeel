@@ -710,14 +710,12 @@ height: var(--viewport-height, 100vh); /* Use JS-calculated height in PWA */
    ======================================== */
 
 .segment-navigation {
-    background: #FFFFFF;
+    background: #F6F6F6;
     padding: 16px 24px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 24px;
-    border-top: 1px solid #E1E5E6;
-    border-bottom: 1px solid #E1E5E6;
+    gap: 40px;
     flex-shrink: 0; /* ADD: Don't let it shrink */
 }
 
@@ -1539,7 +1537,9 @@ position: relative;
     /* Pause/Play - keep text visible */
     .control-btn-filled {
         flex: 1 0 auto;
-        height: 60px;
+        height: 60px !important;
+        min-height: 60px !important;
+        max-height: 60px !important;
         font-size: 16px !important;
         padding: 16px 24px !important;
         display: flex;

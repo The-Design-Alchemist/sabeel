@@ -1,16 +1,23 @@
-// Fix viewport height for PWA standalone mode on Android
+// Fix viewport height for both PWA and mobile browsers
 function setViewportHeight() {
     // Check if running as PWA
     const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
                   window.navigator.standalone ||
                   document.referrer.includes('android-app://');
     
-    if (isPWA) {
-        // Use visualViewport if available (better for PWA)
+    // Check if mobile
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
+    // Apply fix for PWA OR mobile browsers
+    if (isPWA || isMobile) {
+        // Use visualViewport if available, otherwise innerHeight
         const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
         document.documentElement.style.setProperty('--viewport-height', `${vh}px`);
         
-        console.log('PWA Mode: Set viewport height to', vh);
+        console.log(`${isPWA ? 'PWA' : 'Mobile Browser'} Mode: Set viewport height to`, vh);
+    } else {
+        // Desktop - use default 100vh
+        document.documentElement.style.setProperty('--viewport-height', '100vh');
     }
 }
 
@@ -24,7 +31,15 @@ window.addEventListener('orientationchange', setViewportHeight);
 // For visualViewport (modern approach)
 if (window.visualViewport) {
     window.visualViewport.addEventListener('resize', setViewportHeight);
+    window.visualViewport.addEventListener('scroll', setViewportHeight);
 }
+
+// Also run when page becomes visible (for PWA)
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+        setViewportHeight();
+    }
+});
 
 // Main application logic with state management
 
