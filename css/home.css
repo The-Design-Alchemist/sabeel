@@ -59,6 +59,7 @@ body {
     position: relative;
     width: 100%;
     max-width: 1280px;
+    overflow: hidden;
 }
 
 /* Recent Grid - Add transition */
@@ -600,7 +601,7 @@ body {
     }
     
     .recent-grid {
-        overflow: hidden;
+        overflow: visible;
     }
     
 .recent-card {

@@ -1,6 +1,12 @@
 // controls.js - Complete Clean Version with State Store and iOS Optimization
 // Playback Controls with segment support
 
+const BASE_PATH = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' || 
+                  window.location.hostname.startsWith('192.168')
+    ? '' 
+    : '/sabeel';
+
 class PlaybackControls {
     constructor() {
         this.statusElement = document.getElementById('status');
@@ -9,8 +15,8 @@ class PlaybackControls {
         this.playbackMonitor = null;
     }
 
-// Start recitation
-start() {
+    // Start recitation
+    start() {
     console.log('Starting fresh recitation...');
     audioService.stopAudio();
     window.appStore.update({ isReciting: true, isPaused: false });
@@ -225,7 +231,7 @@ async playCurrentVerse() {
                 
                 if (segment.audioFile) {
                     // ✅ Use split audio file
-                    audioUrl = `/quran-data/audio/${segment.audioFile}`;
+                    audioUrl = `${BASE_PATH}/quran-data/audio/${segment.audioFile}`;
                     usingSplitAudio = true;
                     console.log(`✅ Using split audio: ${audioUrl}`);
                 }
@@ -234,7 +240,7 @@ async playCurrentVerse() {
 
         // Fallback to full verse audio if no split audio available
         if (!audioUrl) {
-            audioUrl = `./quran-data/audio/${surahNum}/${surahNum}${verseNum}.mp3`;
+            audioUrl = `${BASE_PATH}/quran-data/audio/${surahNum}/${surahNum}${verseNum}.mp3`;
             console.log(`Loading full verse audio: ${audioUrl}`);
         }
 

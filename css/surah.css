@@ -29,8 +29,6 @@ html {
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-   /* Use dvh for dynamic viewport height (mobile-friendly) */
-    height: 100vh;
     height: 100dvh; /* Modern browsers - accounts for mobile browser chrome */
     display: flex;
     flex-direction: column;
