@@ -275,11 +275,11 @@ function handleGesture() {
         if (diffX < 0 && currentPage < totalPages - 1) {
             // Swipe left - next page
             currentPage++;
-            updateRecentCards('left');
+            updateRecentCards('right');
         } else if (diffX > 0 && currentPage > 0) {
             // Swipe right - previous page
             currentPage--;
-            updateRecentCards('right');
+            updateRecentCards('left');
         }
     }
     isSwiping = false;

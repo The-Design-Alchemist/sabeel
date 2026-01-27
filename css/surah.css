@@ -25,17 +25,17 @@ html {
 }
 
 .container {
- max-width: 100% !important;
+    max-width: 100% !important;
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-    height: 100dvh; /* Modern browsers - accounts for mobile browser chrome */
+    height: 100vh; /* Use 100vh for now */
+    height: 100dvh; /* Modern browsers will use this */
     display: flex;
     flex-direction: column;
     background: #042A2B;
     overflow: hidden;
-    /* Safe area for notched phones */
-    padding-bottom: env(safe-area-inset-bottom);
+    position: relative;
 }
 
 .header-new {
@@ -48,7 +48,8 @@ html {
     justify-content: space-between;
     align-items: flex-start;
     z-index: 10001;
-    min-height: 185px; /* Match Figma height */
+    min-height: 185px;
+    flex-shrink: 0; /* ADD: Don't let it shrink */
 }
 
 .back-button-new {
@@ -310,16 +311,13 @@ html {
 
 .audio-controls-new {
     background: #FFFFFF;
-    border-radius: 40px 40px 0 0;
-    border-bottom: 1px solid #E9E9E9;
     padding: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 24px;
-    flex-wrap: wrap;
-    transition: margin-top 0.3s ease;
-     overflow: visible;
+    border-bottom: 1px solid #E1E5E6;
+    flex-shrink: 0; /* ADD: Don't let it shrink */
 }
 
 .control-btn {
@@ -551,18 +549,18 @@ html {
    VERSE CONTAINER - NEW DESIGN
    ======================================== */
 .verse-container-new {
-background: #F6F6F6;
-    flex: 1;
+    background: #F6F6F6;
+    flex: 1 1 auto; /* CHANGED: Allow it to grow and shrink */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     padding: 40px 80px;
     gap: 16px;
-    overflow-y: auto;
-    overflow-x: visible;  /* CHANGE: From hidden to visible to allow slide animations */
-    min-height: 0;
-    position: relative;  /* ADD: Create positioning context */
+    overflow-y: auto; /* Scroll when content overflows */
+    overflow-x: visible;
+    min-height: 0; /* Important for flexbox scrolling */
+    position: relative;
 }
 
 .verse-display {
@@ -712,14 +710,15 @@ background: #F6F6F6;
    ======================================== */
 
 .segment-navigation {
-    background: #F6F6F6;
-    padding: 16px 20px;
+    background: #FFFFFF;
+    padding: 16px 24px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 40px;
-    flex-shrink: 0;
-    height: auto;
+    gap: 24px;
+    border-top: 1px solid #E1E5E6;
+    border-bottom: 1px solid #E1E5E6;
+    flex-shrink: 0; /* ADD: Don't let it shrink */
 }
 
 .segment-nav-btn {
@@ -819,12 +818,13 @@ background: #F6F6F6;
 .bottom-navigation {
     background: #ffffff;
     padding: 24px;
+    padding-bottom: max(24px, env(safe-area-inset-bottom)); /* ADD: Safe area */
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 24px;
     border-top: 1px solid #E1E5E6;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Don't let it shrink */
 }
 
 /* Desktop text buttons - Match audio controls exactly */
@@ -1626,11 +1626,11 @@ position: relative;
     }
     
     /* Bottom Navigation - Mobile */
-    .bottom-navigation {
-        padding: 12px 16px;
-        gap: 12px;
-    }
-    
+.bottom-navigation {
+    padding: 12px 16px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom)); /* ADD: Safe area */
+    gap: 12px;
+}
     /* Hide text buttons on mobile */
     .bottom-nav-btn {
         display: none !important;
