@@ -262,19 +262,27 @@ function goToPage(page) {
 // Add touch gesture support for mobile
 let touchStartX = 0;
 let touchEndX = 0;
+let touchStartY = 0;
+let isSwiping = false;
 
 function handleGesture() {
     const totalPages = getTotalPages();
-    if (touchEndX < touchStartX - 50 && currentPage < totalPages - 1) {
-        // Swipe left - next page
-        currentPage++;
-        updateRecentCards();
+    const diffX = touchEndX - touchStartX;
+    const diffY = Math.abs(touchStartY - touchEndX);
+    
+    // Only trigger if horizontal swipe is more significant than vertical
+    if (Math.abs(diffX) > 50 && isSwiping) {
+        if (diffX < 0 && currentPage < totalPages - 1) {
+            // Swipe left - next page
+            currentPage++;
+            updateRecentCards('left');
+        } else if (diffX > 0 && currentPage > 0) {
+            // Swipe right - previous page
+            currentPage--;
+            updateRecentCards('right');
+        }
     }
-    if (touchEndX > touchStartX + 50 && currentPage > 0) {
-        // Swipe right - previous page
-        currentPage--;
-        updateRecentCards();
-    }
+    isSwiping = false;
 }
 
 // Initialize recent surahs from localStorage
@@ -292,14 +300,30 @@ function initializeRecentSurahs() {
         
         // Add touch event listeners
         const recentGrid = document.getElementById('recentGrid');
+        
         recentGrid.addEventListener('touchstart', e => {
             touchStartX = e.changedTouches[0].screenX;
-        });
+            touchStartY = e.changedTouches[0].screenY;
+            isSwiping = true;
+        }, { passive: true });
+        
+        recentGrid.addEventListener('touchmove', e => {
+            if (!isSwiping) return;
+            
+            const touchCurrentX = e.changedTouches[0].screenX;
+            const diffX = Math.abs(touchCurrentX - touchStartX);
+            const diffY = Math.abs(e.changedTouches[0].screenY - touchStartY);
+            
+            // If horizontal swipe is more significant, prevent vertical scroll
+            if (diffX > diffY && diffX > 10) {
+                e.preventDefault();
+            }
+        }, { passive: false });
         
         recentGrid.addEventListener('touchend', e => {
             touchEndX = e.changedTouches[0].screenX;
             handleGesture();
-        });
+        }, { passive: true });
     } else {
         recentSection.style.display = 'none';
     }

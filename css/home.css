@@ -59,7 +59,6 @@ body {
     position: relative;
     width: 100%;
     max-width: 1280px;
-    overflow: hidden;
 }
 
 /* Recent Grid - Add transition */
@@ -71,6 +70,8 @@ body {
     max-width: 1280px;
     justify-content: center;
     transition: transform 0.3s ease-in-out;
+    touch-action: pan-y; /* ADD: Allow vertical scroll, capture horizontal swipes */
+    user-select: none; /* ADD: Prevent text selection during swipe */
 }
 
 /* Recent Card - Add slide animation */
@@ -601,7 +602,7 @@ body {
     }
     
     .recent-grid {
-        overflow: visible;
+        overflow: hidden;
     }
     
 .recent-card {
