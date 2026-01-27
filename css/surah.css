@@ -1794,44 +1794,69 @@ position: relative;
     }
     
     .surah-number-badge {
-        width: 44px;
-        height: 44px;
+        width: 24px;
+        height: 24px;
         font-size: 16px;
     }
 
     .settings-icon-btn {
-        font-size: 20px;
+        font-size: 24px;
     }
      .surah-english-title {
-        font-size: 16px;
+        font-size: 20px;
     }
     
     .surah-chapter-label {
-        font-size: 13px;
+        font-size: 14px;
     }
     
     .surah-arabic-title {
         font-size: 18px;
     }
     
-    .control-btn-light,
-    .control-btn-outline {
-        width: 56px !important;
-        height: 56px;
-    }
-    
-    .control-btn-filled {
-        height: 56px;
-        font-size: 14px;
-    }
+/* Repeat - circular icon only */
+.control-btn-outline {
+    width: 60px !important;
+    min-width: 60px !important;
+    max-width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    background: #FFFFFF !important; /* CHANGED: White background when inactive */
+    border: 2px solid #042A2B !important; /* CHANGED: Add border for inactive state */
+    color: #042A2B !important; /* CHANGED: Dark icon when inactive */
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0;
+    overflow: hidden;
+    text-indent: -9999px;
+    line-height: 60px;
+    position: relative;
+}
 
-    .control-btn {
-        font-size: 13px;
-        height: 40px;
-        padding: 8px 12px;
-    }
+.control-btn-outline .material-symbols-outlined {
+    font-size: 28px !important;
+    color: #042A2B !important; /* CHANGED: Dark icon when inactive */
+    margin: 0 !important;
+    text-indent: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.control-btn-outline.active {
+    background: linear-gradient(135deg, #0D8E91 0%, #042A2B 100%) !important;
+    border: 0px solid transparent !important;
+}
+
+.control-btn-outline.active .material-symbols-outlined {
+    color: #FFFFFF !important; /* ADDED: White icon when active */
+}
+
      .repeat-notification {
-        font-size: 12px;
+        font-size: 14px;
         padding: 8px 12px;
     }
 
@@ -1853,23 +1878,24 @@ position: relative;
     }
     
     .verse-dropdown-label {
-        font-size: 14px;
+        font-size: 18px;
     }
     
     .verse-dropdown-current {
-        font-size: 14px;
+        font-size: 18px;
         font-weight: 700;
     }
     
     .verse-dropdown-list {
-        width: 170px;
-        max-height: 180px;
+        width: 320px;
+        max-height: 300px;
+        margin-bottom: 20px;
     }
     
     .verse-dropdown-item {
         padding: 7px 12px;
-        font-size: 12px;
-        min-height: 34px;
+        font-size: 16px;
+        min-height: 48px;
     }
 
     .segment-navigation {
@@ -1878,29 +1904,29 @@ position: relative;
     }
     
     .segment-nav-btn {
-        min-width: 80px;
-        height: 32px;
-        font-size: 12px;
+        min-width: 100px;
+        height: 40px;
+        font-size: 14px;
         padding: 6px;
     }
     
     .segment-nav-btn .material-symbols-outlined {
-        font-size: 18px;
+        font-size: 24px;
     }
     
     .segment-indicator {
-        min-width: 50px;
-        gap: 4px;
+        min-width: 64px;
+        gap: 8px;
     }
     
     .segment-dot {
-        width: 6px;
-        height: 6px;
+        width: 10px;
+        height: 10px;
         gap: 4px;
     }
     
     #segment-text {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .verse-container-new {
@@ -1908,18 +1934,20 @@ position: relative;
     }
     
     .verse-arabic-new {
-        font-size: 24px;
-        line-height: 36px;
+        padding-top: 20px;
+        font-size: 32px;
+        line-height: 56px;
     }
     
     .verse-transliteration-new,
     .verse-translation-new {
-        font-size: 14px;
+        font-size: 20px;
+        font-weight: 400;
     }
     
     .verse-divider {
-        width: 70px;
-        height: 7px;
+        width: 100px;
+        height: 12px;
     }
 
     .bismillah-card {
@@ -1927,20 +1955,21 @@ position: relative;
     }
     
     .bismillah-arabic {
-        font-size: 24px;
+        font-size: 32px;
         line-height: 36px;
     }
     
     .bismillah-transliteration,
     .bismillah-translation {
-        font-size: 14px;
+        font-size: 20px;
+        font-weight: 400;
     }
     
     .start-recitation-btn {
-        width: 200px;
-        height: 200px;
+        width: 300px;
+        height: 150px;
         border-radius: 200px 200px 0 0;
-        font-size: 16px;
+        font-size: 20px;
         padding-top: 30px;
         gap: 2px;
     }
