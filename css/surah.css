@@ -29,8 +29,8 @@ html {
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-    height: 100vh; /* Use 100vh for now */
-    height: 100dvh; /* Modern browsers will use this */
+height: 100vh; /* Fallback */
+height: var(--viewport-height, 100vh); /* Use JS-calculated height in PWA */
     display: flex;
     flex-direction: column;
     background: #042A2B;
@@ -1538,7 +1538,7 @@ position: relative;
     
     /* Pause/Play - keep text visible */
     .control-btn-filled {
-        flex: 1;
+        flex: 1 0 auto;
         height: 60px;
         font-size: 16px !important;
         padding: 16px 24px !important;

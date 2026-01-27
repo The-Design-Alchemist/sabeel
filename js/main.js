@@ -1,3 +1,31 @@
+// Fix viewport height for PWA standalone mode on Android
+function setViewportHeight() {
+    // Check if running as PWA
+    const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
+                  window.navigator.standalone ||
+                  document.referrer.includes('android-app://');
+    
+    if (isPWA) {
+        // Use visualViewport if available (better for PWA)
+        const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        document.documentElement.style.setProperty('--viewport-height', `${vh}px`);
+        
+        console.log('PWA Mode: Set viewport height to', vh);
+    }
+}
+
+// Run on load
+setViewportHeight();
+
+// Run on resize and orientation change
+window.addEventListener('resize', setViewportHeight);
+window.addEventListener('orientationchange', setViewportHeight);
+
+// For visualViewport (modern approach)
+if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', setViewportHeight);
+}
+
 // Main application logic with state management
 
 // Initialize state subscriptions
