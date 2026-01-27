@@ -662,6 +662,69 @@ setupAudioEventHandlers(audio, verse) {
         this.updateStatus('Verse completed - Click Play to recite again');
         this.updatePlayPauseButton('play');
     }
+
+    // ADD THIS ENTIRE METHOD HERE ↓↓↓
+    // iOS-specific repeat setup - must be called BEFORE audio ends
+    setupIOSRepeat(audio, verse) {
+        if (!audioService.isIOS) return;
+        
+        const repeatMode = window.appStore.get('repeatMode');
+        if (repeatMode !== 'verse') return;
+        
+        console.log('Setting up iOS repeat for verse', verse.number);
+        
+        // Remove any existing timeupdate listener
+        if (audio._iosRepeatHandler) {
+            audio.removeEventListener('timeupdate', audio._iosRepeatHandler);
+        }
+        
+        // Flag to prevent highlighting from resetting during repeat
+        audio._isRepeating = false;
+        
+        // Create new handler
+        audio._iosRepeatHandler = () => {
+            // Check if we're near the end (within 0.3 seconds)
+            if (audio.currentTime >= audio.duration - 0.3 && !audio._isRepeating) {
+                console.log('iOS: Near end, preparing repeat');
+                audio._isRepeating = true;
+                
+                // CRITICAL: Set flag to prevent highlighting from seeing "ended" state
+                audio._preventEndedCheck = true;
+                
+                // Schedule restart
+                setTimeout(() => {
+                    console.log('iOS: Restarting audio for repeat');
+                    
+                    // Restart audio
+                    audio.currentTime = 0;
+                    
+                    // Reset highlighting WITHOUT stopping it
+                    if (window.wordHighlighter) {
+                        // Reset visual state but keep interval running
+                        window.wordHighlighter.currentHighlightedIndex = -1;
+                        window.wordHighlighter.reset();
+                        
+                        // Small delay for audio to stabilize
+                        setTimeout(() => {
+                            window.wordHighlighter.initializeVerse(verse.number);
+                            window.wordHighlighter.startHighlighting();
+                            
+                            // Allow ended check again
+                            audio._preventEndedCheck = false;
+                            audio._isRepeating = false;
+                            
+                            // Re-setup for next loop
+                            this.setupIOSRepeat(audio, verse);
+                        }, 50);
+                    }
+                }, 100);
+            }
+        };
+        
+        audio.addEventListener('timeupdate', audio._iosRepeatHandler);
+    }
+    // ↑↑↑ END OF NEW METHOD
+
     // Play from segment start
     playFromSegmentStart(segmentIndex) {
         const audio = audioService.getCurrentAudio();

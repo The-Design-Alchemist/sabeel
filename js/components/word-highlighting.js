@@ -239,12 +239,12 @@ if (audio.paused || !isReciting) {
 
         this.highlightInterval = setInterval(() => {
             // Check if audio is still valid
-            if (!audio || audio.paused || audio.ended) {
-                if (audio?.ended) {
-                    this.reset();
-                }
-                return;
-            }
+if (!audio || audio.paused || (audio.ended && !audio._preventEndedCheck)) {
+    if (audio?.ended && !audio._preventEndedCheck) {
+        this.reset();
+    }
+    return;
+}
 
             const currentTime = audio.currentTime;
 
