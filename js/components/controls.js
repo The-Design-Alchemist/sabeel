@@ -1,7 +1,11 @@
 // controls.js - Complete Clean Version with State Store and iOS Optimization
 // Playback Controls with segment support and iOS repeat functionality
 
-const BASE_PATH = '';
+const BASE_PATH = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' || 
+                  window.location.hostname.startsWith('192.168')
+    ? '' 
+    : '/sabeel';
 
 class PlaybackControls {
     constructor() {

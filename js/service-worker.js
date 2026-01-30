@@ -1,5 +1,5 @@
 // service-worker.js - Progressive Web App Service Worker
-const CACHE_NAME = 'quran-app-v1.1.0';
+const CACHE_NAME = 'quran-app-v1.0.0';
 const DATA_CACHE_NAME = 'quran-data-v1.0.0';
 const AUDIO_CACHE_NAME = 'quran-audio-v1.0.0';
 
@@ -10,53 +10,53 @@ const AUDIO_CACHE_NAME = 'quran-audio-v1.0.0';
 
 // Essential files that must be cached for offline functionality
 const ESSENTIAL_FILES = [
-    '/',
-    '/index.html',
-    '/quran-learning.html',
-    '/offline.html',
-    '/manifest.json',
+    '${BASE_PATH}/',
+    '${BASE_PATH}/index.html',
+    '${BASE_PATH}/quran-learning.html',
+    '${BASE_PATH}/offline.html',
+    '${BASE_PATH}/manifest.json',
 
     // CSS files
-    '/css/surah.css',
-    '/css/styles.css',
-    '/css/home.css',
+    '${BASE_PATH}/css/surah.css',
+    '${BASE_PATH}/css/styles.css',
+    '${BASE_PATH}/css/home.css',
     
     // Core JavaScript
-    '/js/main.js',
-    '/js/home.js',
-    '/js/service-worker.js',
+    '${BASE_PATH}/js/main.js',
+    '${BASE_PATH}/js/home.js',
+    '${BASE_PATH}/js/service-worker.js',
     
     // Core
-    '/js/core/state-store.js',
+    '${BASE_PATH}/js/core/state-store.js',
 
     // Data
-    '/js/data/surah-database.js',
+    '${BASE_PATH}/js/data/surah-database.js',
     
     // Utils
-    '/js/utils/url-utils.js',
-    '/js/utils/migration-helpers.js',
+    '${BASE_PATH}/js/utils/url-utils.js',
+    '${BASE_PATH}/js/utils/migration-helpers.js',
     
     // Services
-    '/js/services/api-service.js',
-    '/js/services/audio-service.js',
-    '/js/services/reading-progress.js',
-    '/js/services/sw-manager.js',
-    '/js/services/network-manager.js',
-    '/js/services/media-session.js',
+    '${BASE_PATH}/js/services/api-service.js',
+    '${BASE_PATH}/js/services/audio-service.js',
+    '${BASE_PATH}/js/services/reading-progress.js',
+    '${BASE_PATH}/js/services/sw-manager.js',
+    '${BASE_PATH}/js/services/network-manager.js',
+    '${BASE_PATH}/js/services/media-session.js',
     
     // Components
-    '/js/components/verse-display.js',
-    '/js/components/controls.js',
-    '/js/components/word-highlighting.js',
-    '/js/components/settings.js',
-    '/js/components/network-status.js',
-    '/js/components/verse-dropdown.js'
+    '${BASE_PATH}/js/components/verse-display.js',
+    '${BASE_PATH}/js/components/controls.js',
+    '${BASE_PATH}/js/components/word-highlighting.js',
+    '${BASE_PATH}/js/components/settings.js',
+    '${BASE_PATH}/js/components/network-status.js',
+    '${BASE_PATH}/js/components/verse-dropdown.js'
 ];
 
 // Surah data files (1-114)
 const SURAH_DATA_FILES = Array.from({length: 114}, (_, i) => {
     const num = String(i + 1).padStart(3, '0');
-    return `/quran-data/enhanced/${num}.json`;
+    return `/sabeel/quran-data/enhanced/${num}.json`;
 });
 
 // Install event - cache essential files
