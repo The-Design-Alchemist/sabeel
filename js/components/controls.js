@@ -233,7 +233,7 @@ if (this.isCurrentAudioCorrect(audioUrl)) {
 }
 
         // Load new audio
-        const newAudio = await audioService.loadAudio(audioUrl);
+        const newAudio = await audioService.getAudioElement(audioUrl);
 
         if (!newAudio) {
             console.error('Failed to load audio');
