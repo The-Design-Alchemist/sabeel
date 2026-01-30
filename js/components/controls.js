@@ -1,5 +1,5 @@
 // controls.js - Complete Clean Version with State Store and iOS Optimization
-// Playback Controls with segment support
+// Playback Controls with segment support and iOS repeat functionality
 
 const BASE_PATH = window.location.hostname === 'localhost' || 
                   window.location.hostname === '127.0.0.1' || 
@@ -15,8 +15,8 @@ class PlaybackControls {
         this.playbackMonitor = null;
     }
 
-    // Start recitation
-    start() {
+// Start recitation
+start() {
     console.log('Starting fresh recitation...');
     audioService.stopAudio();
     window.appStore.update({ isReciting: true, isPaused: false });
@@ -104,147 +104,104 @@ pause() {
             
             console.log(`Paused at ${currentTime.toFixed(2)}s`);
             
-            // Pause word highlighting
+            // Stop highlighting but keep it ready to resume
             if (window.wordHighlighter) {
                 window.wordHighlighter.pauseHighlighting();
             }
-        } else {
-            window.appStore.update({ isPaused: true });
-        }
-
-        this.updatePlayPauseButton('play');
-        this.updateStatus('Paused');
-
-        if (this.playbackMonitor) {
-            clearInterval(this.playbackMonitor);
-            this.playbackMonitor = null;
+            
+            this.updatePlayPauseButton('play');
+            this.updateStatus('Paused');
         }
     }
 }
 
-    // Stop recitation
-    stop() {
-        console.log('Stopping recitation...');
-
-        if (this.audioTimeout) {
-            clearTimeout(this.audioTimeout);
-            this.audioTimeout = null;
-        }
-
-        if (this.playbackMonitor) {
-            clearInterval(this.playbackMonitor);
-            this.playbackMonitor = null;
-        }
-
-        window.appStore.update({
-            isReciting: false,
-            isPaused: false,
-            autoAdvance: false,
-            currentRepeatCount: 0,
-            surahRepeatCount: 0
-        });
-
-        // Use new audio service stop method
-        audioService.stopAudio();
-
-        window.verseDisplay.removeAllHighlights();
-
-        if (window.wordHighlighter) {
-            window.wordHighlighter.cleanup();
-        }
-
-        this.updatePlayPauseButton('play');
-        this.updateStatus('Recitation stopped');
+// Stop playback completely
+stop() {
+    console.log('Stopping playback...');
+    
+    audioService.stopAudio();
+    
+    window.appStore.update({
+        isReciting: false,
+        isPaused: false,
+        pausedAt: null,
+        autoAdvance: false
+    });
+    
+    // Clean up word highlighting
+    if (window.wordHighlighter) {
+        window.wordHighlighter.cleanup();
     }
+    
+    this.updatePlayPauseButton('play');
+    this.updateStatus('Stopped');
+}
 
-// Play current verse - iOS Optimized
+// Play current verse
 async playCurrentVerse() {
-    if (this.isLoading || !window.appStore.get('isReciting')) {
-        console.log('Already loading or stopped, ignoring request');
+    const verses = window.appStore.get('verses');
+    const currentIndex = window.appStore.get('currentVerseIndex');
+    const verse = verses[currentIndex];
+
+    if (!verse) {
+        console.error('Verse not found at index', currentIndex);
         return;
     }
 
-    this.isLoading = true;
+    const verseNumber = verse.number;
+    const surahNum = getSurahFromURL();
 
-    if (this.playbackMonitor) {
-        clearInterval(this.playbackMonitor);
-        this.playbackMonitor = null;
+    console.log(`Playing verse: ${verseNumber}, has audio: ${verse.hasAudio}`);
+
+    // Check if verse has audio
+    if (!verse.hasAudio) {
+        console.log(`Verse ${verseNumber} has no audio, skipping...`);
+        this.updateStatus(`Verse ${verseNumber} has no audio`);
+        this.updatePlayPauseButton('play');
+        return;
     }
 
-    try {
-        const verse = window.appStore.get('verses')[window.appStore.get('currentVerseIndex')];
+    // Update state
+    window.appStore.update({
+        isReciting: true,
+        isPaused: false
+    });
 
-        if (!verse) {
-            console.error('No verse found at index:', window.appStore.get('currentVerseIndex'));
-            this.isLoading = false;
-            return;
-        }
+    // Load timing data
+    const timingData = await audioService.loadTimingData(surahNum, verseNumber);
+    
+    if (!timingData) {
+        console.warn('No timing data available');
+    }
 
-        const verseNumber = verse.number || verse.numberInSurah;
-        console.log('Playing verse:', verseNumber);
+    // Determine audio URL
+    let audioUrl;
+    let usingSplitAudio = false;
 
-        // Skip Bismillah (has no audio)
-        if (!verse.hasAudio || verseNumber === 'Bismillah' || !verseNumber) {
-            this.updateStatus('Displaying verse...');
-            this.isLoading = false;
-
-            if (window.appStore.get('autoAdvance') && window.appStore.get('currentVerseIndex') < window.appStore.get('verses').length - 1) {
-                this.audioTimeout = setTimeout(() => {
-                    if (window.appStore.get('isReciting') && !window.appStore.get('isPaused')) {
-                        window.appStore.set('currentVerseIndex', window.appStore.get('currentVerseIndex') + 1);
-                        window.verseDisplay.show(window.appStore.get('currentVerseIndex'), 'right');
-                        this.playCurrentVerse();
-                    }
-                }, 1500);
-            }
-            return;
-        }
-
-        let statusMessage = `Loading verse ${verseNumber} audio...`;
-        if (verse.segments && verse.segments.length > 1) {
-            const segmentIndex = window.verseDisplay.getCurrentSegmentIndex();
-            statusMessage = `Loading verse ${verseNumber} (Part ${segmentIndex + 1}/${verse.segments.length}) audio...`;
-        }
-        this.updateStatus(statusMessage);
-
-        // Update play button to loading state
-        this.updatePlayPauseButton('loading');
-
-        const surahNumber = getSurahFromURL();
-        const surahNum = String(surahNumber).padStart(3, '0');
-        const verseNum = String(verseNumber).padStart(3, '0');
-
-        // ✅ NEW: Check if this is a segmented verse with split audio files
-        let audioUrl;
-        let usingSplitAudio = false;
-        let timingData = null;
-
-        // Load timing data first
-        timingData = await audioService.loadTimingData(surahNumber, verseNumber);
+    // Check if it's a segmented verse and has split audio
+    if (verse.segments && verse.segments.length > 1 && timingData && timingData.segments) {
+        const currentSegmentIndex = window.verseDisplay.getCurrentSegmentIndex();
+        console.log(`Segmented verse - checking segment ${currentSegmentIndex + 1}`);
         
-        if (verse.segments && verse.segments.length > 1 && timingData) {
-            const currentSegmentIndex = window.verseDisplay.getCurrentSegmentIndex();
-            console.log(`Segmented verse - checking segment ${currentSegmentIndex + 1}`);
+        if (timingData.segments && timingData.segments[currentSegmentIndex]) {
+            const segment = timingData.segments[currentSegmentIndex];
             
-            if (timingData.segments && timingData.segments[currentSegmentIndex]) {
-                const segment = timingData.segments[currentSegmentIndex];
-                
-                if (segment.audioFile) {
-                    // ✅ Use split audio file
-                    audioUrl = `${BASE_PATH}/quran-data/audio/${segment.audioFile}`;
-                    usingSplitAudio = true;
-                    console.log(`✅ Using split audio: ${audioUrl}`);
-                }
+            if (segment.audioFile) {
+                // ✅ Use split audio file
+                audioUrl = `${BASE_PATH}/quran-data/audio/${segment.audioFile}`;
+                usingSplitAudio = true;
+                console.log(`✅ Using split audio: ${audioUrl}`);
             }
         }
+    }
 
-        // Fallback to full verse audio if no split audio available
-        if (!audioUrl) {
-            audioUrl = `${BASE_PATH}/quran-data/audio/${surahNum}/${surahNum}${verseNum}.mp3`;
-            console.log(`Loading full verse audio: ${audioUrl}`);
-        }
+    // Fallback to full verse audio if no split audio available
+    if (!audioUrl) {
+        audioUrl = `${BASE_PATH}/quran-data/audio/${surahNum}/${surahNum}${verseNumber}.mp3`;
+        console.log(`Loading full verse audio: ${audioUrl}`);
+    }
 
-        // Check if we already have the correct audio loaded
+    // Check if we already have the correct audio loaded
 if (this.isCurrentAudioCorrect(audioUrl)) {
     const currentAudio = audioService.getCurrentAudio();
     console.log('✅ Correct audio already loaded, just playing');
@@ -255,40 +212,38 @@ if (this.isCurrentAudioCorrect(audioUrl)) {
     }
     
     try {
-        await currentAudio.play();
-        window.appStore.update({ isPaused: false, isReciting: true });
+        await audioService.playAudio(currentAudio);
         this.updatePlayPauseButton('pause');
-        this.isLoading = false;
-        return; // Exit early - no need to reload
+        
+        // Setup iOS repeat if enabled
+        if (audioService.isIOS && window.appStore.get('repeatMode') === 'verse') {
+            this.setupIOSRepeat(currentAudio, verse);
+        }
+        
+        if (window.wordHighlighter && verse.hasAudio) {
+            if (window.appStore.get('highlightingEnabled')) {
+                window.wordHighlighter.startHighlighting();
+            }
+        }
+        
+        return;
     } catch (error) {
-        console.log('Play failed, will reload audio');
-        // Continue with normal flow
+        console.error('Play error with existing audio:', error);
     }
 }
 
-// Stop any existing audio (only if we need to load new audio)
-audioService.stopAudio();
+        // Load new audio
+        const newAudio = await audioService.loadAudio(audioUrl);
 
-        // Get audio element using new iOS-optimized service
-        const newAudio = await audioService.getAudioElement(audioUrl);
-        audioService.setCurrentAudio(newAudio);
-
-        // Store timing data globally
-        if (timingData) {
-            console.log(`Loaded timing data for verse ${verseNumber}`);
-            this.currentTimingData = timingData;
-            window.currentVerseTimings = timingData;
-        } else {
-            console.log(`No timing data for verse ${verseNumber}`);
-            window.currentVerseTimings = null;
+        if (!newAudio) {
+            console.error('Failed to load audio');
+            this.updatePlayPauseButton('play');
+            this.updateStatus('Failed to load audio');
+            return;
         }
 
-        this.updateStatus(`Playing verse ${verseNumber} - Mishary Alafasy${this.getRepeatInfo()}`);
-        window.verseDisplay.addHighlight(verse.id);
-
-        // ✅ Set up event handlers based on audio type
+// For split audio - use simple ended handler
 if (usingSplitAudio) {
-    // For split audio - use simple ended handler
     console.log('Setting up split audio handlers');
     
 newAudio.addEventListener('ended', () => {
@@ -346,6 +301,12 @@ newAudio.addEventListener('ended', () => {
 
             // Update button to pause state
             this.updatePlayPauseButton('pause');
+            
+            // ✅ Setup iOS repeat if enabled
+            if (audioService.isIOS && window.appStore.get('repeatMode') === 'verse') {
+                this.setupIOSRepeat(newAudio, verse);
+                console.log('[iOS Repeat] Setup after successful play');
+            }
 
         } catch (playError) {
             console.error('Play error:', playError);
@@ -359,6 +320,11 @@ newAudio.addEventListener('ended', () => {
                     try {
                         await audioService.playAudio(newAudio);
                         this.updatePlayPauseButton('pause');
+                        
+                        // Setup iOS repeat after recovery
+                        if (audioService.isIOS && window.appStore.get('repeatMode') === 'verse') {
+                            this.setupIOSRepeat(newAudio, verse);
+                        }
                     } catch (e) {
                         console.error('Recovery failed:', e);
                         this.updatePlayPauseButton('play');
@@ -378,226 +344,38 @@ if (window.wordHighlighter && verse.hasAudio) {
             await window.wordHighlighter.initializeVerse(verseNumber);
             
             // Start highlighting if enabled
-            if (window.appStore.get('highlightingEnabled')) {
+            if (window.appStore.get('highlightingEnabled') && window.appStore.get('isReciting') && !window.appStore.get('isPaused')) {
                 window.wordHighlighter.startHighlighting();
             }
         }
-    }, 200);
+    }, 100);
 }
-
-    } catch (error) {
-        console.error(`Failure loading verse:`, error);
-        this.updateStatus(`Cannot load verse audio. Skipping...`);
-        this.updatePlayPauseButton('play');
-
-        // Show iOS-specific error handling
-        if (audioService.isIOS) {
-            this.showIOSAudioError();
-        }
-
-        if (window.appStore.get('autoAdvance') && window.appStore.get('isReciting') && !window.appStore.get('isPaused')) {
-            this.audioTimeout = setTimeout(() => {
-                this.handleVerseCompletion();
-            }, 1500);
-        }
-    } finally {
-        this.isLoading = false;
-    }
-}
-
-    // Update play/pause button state
-    // Update play/pause button state
-    updatePlayPauseButton(state) {
-        const btn = document.getElementById('play-pause-btn');
-        const text = document.getElementById('play-pause-text');
-
-        if (!btn || !text) return;
-
-        switch (state) {
-            case 'play':
-                text.textContent = 'PLAY RECITATION';
-                btn.disabled = false;
-                btn.classList.remove('loading');
-                break;
-
-            case 'pause':
-                text.textContent = 'PAUSE RECITATION';
-                btn.disabled = false;
-                btn.classList.remove('loading');
-                break;
-
-            case 'loading':
-                text.textContent = 'LOADING...';
-                btn.disabled = true;
-                btn.classList.add('loading');
-                break;
-
-            case 'stop':
-                text.textContent = 'PLAY RECITATION';
-                btn.disabled = false;
-                btn.classList.remove('loading');
-                break;
-        }
     }
 
-    // Show iOS-specific error handling
-    showIOSAudioError() {
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'ios-audio-error';
-        errorDiv.innerHTML = `
-            <div class="error-content">
-                <span>⚠️ Audio playback requires interaction</span>
-                <button onclick="window.playbackControls.retryIOSAudio()" class="retry-btn">Tap to Play</button>
-            </div>
-        `;
-        errorDiv.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 9999;
-            text-align: center;
-        `;
-
-        document.body.appendChild(errorDiv);
-    }
-
-    // Retry iOS audio after error
-    async retryIOSAudio() {
-        document.querySelector('.ios-audio-error')?.remove();
-
-        // Unlock audio context first
-        await audioService.unlockAudioContext();
-
-        // Retry playback
-        this.start();
-    }
-
-    // Setup precise playback monitoring for segments
-    setupPrecisePlayback(audio, verse, timingData) {
-        this.setupSegmentBoundaries(audio, verse, timingData);
-    }
-
-setupSegmentBoundaries(audio, verse, timingData) {
-    if (!timingData || !verse.segments || verse.segments.length <= 1) return;
-
-    const currentSegmentIndex = window.verseDisplay.getCurrentSegmentIndex();
-
-    if (timingData.segments && timingData.segments[currentSegmentIndex]) {
-        const segmentTiming = timingData.segments[currentSegmentIndex];
-        const startTime = segmentTiming.start;
-        const endTime = segmentTiming.end;
-
-        console.log(`Setting up segment ${currentSegmentIndex + 1}: ${startTime.toFixed(2)}s - ${endTime.toFixed(2)}s`);
-
-        // Set audio to segment start
-        audio.currentTime = startTime;
-
-        // Remove any existing boundary handlers to prevent duplicates
-        if (audio._boundaryHandler) {
-            audio.removeEventListener('timeupdate', audio._boundaryHandler);
-            audio._boundaryHandler = null;
-        }
-
-        // Create boundary handler
-        const boundaryHandler = () => {
-            if (audio.currentTime >= endTime - 0.1) {  // Small buffer to catch the end
-                
-                if (window.appStore.get('repeatMode') === 'segment') {
-                    // Segment repeat mode
-                    console.log('Segment repeat - looping back');
-                    audio.currentTime = startTime;
-                    
-                    // Reset word highlighting
-                    if (window.wordHighlighter) {
-                        window.wordHighlighter.reset();
-                        setTimeout(() => {
-                            window.wordHighlighter.reinitializeForSegment();
-                            if (window.currentVerseTimings?.words) {
-                                window.wordHighlighter.startPreciseHighlighting(audio, window.currentVerseTimings.words);
-                            }
-                        }, 50);
-                    }
-                } else {
-                    // Normal mode - pause at segment end
-                    audio.pause();
-                    console.log(`Segment ${currentSegmentIndex + 1} ended`);
-                    
-                    // Remove the boundary handler since segment is complete
-                    audio.removeEventListener('timeupdate', audio._boundaryHandler);
-                    audio._boundaryHandler = null;
-                    
-                    // Check if this is the last segment
-                    if (currentSegmentIndex >= verse.segments.length - 1) {
-                        console.log('Last segment - triggering verse completion');
-                        const endedEvent = new Event('ended');
-                        audio.dispatchEvent(endedEvent);
-                    }
-                }
-            }
-        };
-
-        audio._boundaryHandler = boundaryHandler;
-        audio.addEventListener('timeupdate', boundaryHandler);
-    }
-}
-
-    // Setup audio event handlers
+// Set up standard audio event handlers
 setupAudioEventHandlers(audio, verse) {
-   const endedHandler = () => {
-    console.log(`Verse ${verse.number} playback ended`);
-    window.verseDisplay.removeHighlight(verse.id);
-
-    if (window.wordHighlighter) {
-        window.wordHighlighter.reset();
-    }
-
-    // Mark as ended and stopped
-    window.appStore.update({
-        isPaused: true,
-        isReciting: false,
-        pausedAt: null
+    // Remove any existing handlers first
+    audio.onended = null;
+    audio.ontimeupdate = null;
+    audio.onerror = null;
+    
+    // Store handlers so we can remove them later if needed
+    const endedHandler = () => {
+        console.log('Audio ended');
+        this.handleVerseCompletion();
+    };
+    
+    audio.addEventListener('ended', endedHandler);
+    audio._endedHandler = endedHandler; // Store reference for cleanup
+    
+    // Error handling
+    audio.addEventListener('error', (e) => {
+        console.error('Audio error:', e);
+        this.updateStatus('Audio playback error');
+        this.updatePlayPauseButton('play');
     });
     
-    this.updatePlayPauseButton('play');
-
-    // Handle completion immediately
-    if (this.audioTimeout) {
-        clearTimeout(this.audioTimeout);
-    }
-
-    this.handleVerseCompletion();
-};
-
-    const errorHandler = (event) => {
-        console.error(`Audio playback error for verse ${verse.number}:`, event);
-        window.verseDisplay.removeHighlight(verse.id);
-        this.updateStatus(`Audio error for verse ${verse.number}`);
-
-        // FIXED: Prevent infinite loop
-        if (window.appStore.get('isReciting')) {
-            this.stop();
-        }
-    };
-
-    // Remove old handlers
-    if (audio._endedHandler) {
-        audio.removeEventListener('ended', audio._endedHandler);
-    }
-    if (audio._errorHandler) {
-        audio.removeEventListener('error', audio._errorHandler);
-    }
-
-    audio._endedHandler = endedHandler;
-    audio._errorHandler = errorHandler;
-
-    // IMPORTANT: Remove { once: true } to allow multiple triggers for repeat
-    audio.addEventListener('ended', endedHandler);
-    audio.addEventListener('error', errorHandler);
+    console.log('✅ Audio event handlers set up');
 }
 
     // Handle verse completion
@@ -614,23 +392,28 @@ setupAudioEventHandlers(audio, verse) {
         if (repeatMode !== 'none' && audio) {
             if (repeatMode === 'verse') {
                 console.log('Repeating verse', verse.number);
-                audio.currentTime = 0;
+                
+                // iOS repeat is handled by setupIOSRepeat via timeupdate
+                // Android/Desktop use simple restart on ended event
+                if (!audioService.isIOS) {
+                    audio.currentTime = 0;
 
-                // Keep reciting state active for repeat
-                window.appStore.update({
-                    isReciting: true,
-                    isPaused: false
-                });
+                    // Keep reciting state active for repeat
+                    window.appStore.update({
+                        isReciting: true,
+                        isPaused: false
+                    });
 
-                audio.play().catch(e => console.error('Repeat play error:', e));
+                    audio.play().catch(e => console.error('Repeat play error:', e));
 
-                // Reinitialize word highlighting
-                if (window.wordHighlighter) {
-                    window.wordHighlighter.reset();
-                    setTimeout(() => {
-                        window.wordHighlighter.initializeVerse(verse.number);
-                        window.wordHighlighter.startHighlighting();
-                    }, 100);
+                    // Reinitialize word highlighting
+                    if (window.wordHighlighter) {
+                        window.wordHighlighter.reset();
+                        setTimeout(() => {
+                            window.wordHighlighter.initializeVerse(verse.number);
+                            window.wordHighlighter.startHighlighting();
+                        }, 100);
+                    }
                 }
                 return; // Exit early for repeat
             }
@@ -662,69 +445,75 @@ setupAudioEventHandlers(audio, verse) {
         this.updateStatus('Verse completed - Click Play to recite again');
         this.updatePlayPauseButton('play');
     }
-
-    // ADD THIS ENTIRE METHOD HERE ↓↓↓
-    // iOS-specific repeat setup - must be called BEFORE audio ends
+    
+    // ✅ iOS-specific repeat setup - must be called BEFORE audio ends
     setupIOSRepeat(audio, verse) {
         if (!audioService.isIOS) return;
         
         const repeatMode = window.appStore.get('repeatMode');
         if (repeatMode !== 'verse') return;
         
-        console.log('Setting up iOS repeat for verse', verse.number);
+        console.log('[iOS Repeat] Setting up for verse', verse.number);
         
-        // Remove any existing timeupdate listener
+        // Remove any existing handler
         if (audio._iosRepeatHandler) {
             audio.removeEventListener('timeupdate', audio._iosRepeatHandler);
+            audio._iosRepeatHandler = null;
         }
-        
-        // Flag to prevent highlighting from resetting during repeat
-        audio._isRepeating = false;
         
         // Create new handler
         audio._iosRepeatHandler = () => {
-            // Check if we're near the end (within 0.3 seconds)
+            // Only trigger near the end
             if (audio.currentTime >= audio.duration - 0.3 && !audio._isRepeating) {
-                console.log('iOS: Near end, preparing repeat');
+                console.log('[iOS Repeat] Near end, preparing restart');
                 audio._isRepeating = true;
                 
-                // CRITICAL: Set flag to prevent highlighting from seeing "ended" state
+                // Prevent highlighting from seeing ended state
                 audio._preventEndedCheck = true;
                 
-                // Schedule restart
+                // Wait a tiny bit then restart
                 setTimeout(() => {
-                    console.log('iOS: Restarting audio for repeat');
+                    console.log('[iOS Repeat] Restarting audio at 0');
                     
                     // Restart audio
                     audio.currentTime = 0;
                     
-                    // Reset highlighting WITHOUT stopping it
-                    if (window.wordHighlighter) {
-                        // Reset visual state but keep interval running
-                        window.wordHighlighter.currentHighlightedIndex = -1;
-                        window.wordHighlighter.reset();
+                    // Keep playing state
+                    window.appStore.update({
+                        isReciting: true,
+                        isPaused: false
+                    });
+                    
+                    // Restart highlighting smoothly WITHOUT full reset
+                    if (window.wordHighlighter && window.appStore.get('highlightingEnabled')) {
+                        // Just restart the highlighting loop - don't cleanup
+                        if (window.wordHighlighter.highlightInterval) {
+                            clearInterval(window.wordHighlighter.highlightInterval);
+                        }
                         
-                        // Small delay for audio to stabilize
+                        // Start fresh highlighting
                         setTimeout(() => {
-                            window.wordHighlighter.initializeVerse(verse.number);
                             window.wordHighlighter.startHighlighting();
                             
-                            // Allow ended check again
+                            // Clear flags
                             audio._preventEndedCheck = false;
                             audio._isRepeating = false;
                             
-                            // Re-setup for next loop
-                            this.setupIOSRepeat(audio, verse);
-                        }, 50);
+                            console.log('[iOS Repeat] ✅ Restarted successfully');
+                        }, 100);
+                    } else {
+                        // No highlighting, just clear flags
+                        audio._preventEndedCheck = false;
+                        audio._isRepeating = false;
                     }
-                }, 100);
+                }, 150);
             }
         };
         
         audio.addEventListener('timeupdate', audio._iosRepeatHandler);
+        console.log('[iOS Repeat] ✅ Handler attached');
     }
-    // ↑↑↑ END OF NEW METHOD
-
+    
     // Play from segment start
     playFromSegmentStart(segmentIndex) {
         const audio = audioService.getCurrentAudio();
@@ -796,6 +585,103 @@ setupAudioEventHandlers(audio, verse) {
         }
         return '';
     }
+
+    // Setup segment boundaries for verse with multiple segments
+setupSegmentBoundaries(audio, verse, timing) {
+    if (!verse.segments || verse.segments.length <= 1) return;
+    if (!timing || !timing.segments) return;
+
+    console.log(`Setting up segment boundaries for ${verse.segments.length} segments`);
+
+    // We'll use a timeupdate listener to track segment changes
+    audio.addEventListener('timeupdate', () => {
+        if (!window.currentVerseTimings || !window.currentVerseTimings.segments) return;
+
+        const currentTime = audio.currentTime;
+        const segments = window.currentVerseTimings.segments;
+        const currentSegmentIndex = window.verseDisplay.getCurrentSegmentIndex();
+
+        // Check if we've crossed into a new segment
+        for (let i = 0; i < segments.length; i++) {
+            const segment = segments[i];
+            const nextSegment = segments[i + 1];
+
+            if (currentTime >= segment.start) {
+                // Check if we should move to next segment
+                if (nextSegment && currentTime >= nextSegment.start) {
+                    if (i + 1 !== currentSegmentIndex) {
+                        console.log(`Crossed into segment ${i + 2}`);
+                        // We'll let the natural flow handle this
+                        // Don't force segment change here to avoid interrupting repeat mode
+                    }
+                }
+            }
+        }
+    });
+}
+
+    updatePlayPauseButton(state) {
+        const btn = document.getElementById('play-pause-btn');
+        const text = document.getElementById('play-pause-text');
+
+        if (!btn || !text) return;
+
+        switch (state) {
+            case 'play':
+                text.textContent = 'PLAY RECITATION';
+                btn.disabled = false;
+                btn.classList.remove('loading');
+                break;
+
+            case 'pause':
+                text.textContent = 'PAUSE RECITATION';
+                btn.disabled = false;
+                btn.classList.remove('loading');
+                break;
+
+            case 'loading':
+                text.textContent = 'LOADING...';
+                btn.disabled = true;
+                btn.classList.add('loading');
+                break;
+
+            case 'stop':
+                text.textContent = 'PLAY RECITATION';
+                btn.disabled = false;
+                btn.classList.remove('loading');
+                break;
+        }
+    }
+
+    // Show iOS-specific error handling
+    showIOSAudioError() {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'ios-audio-error';
+        errorDiv.innerHTML = `
+            <div class="error-content">
+                <span>⚠️ Audio playback requires interaction</span>
+                <button onclick="window.playbackControls.retryIOSAudio()" class="retry-btn">Tap to Play</button>
+            </div>
+        `;
+        errorDiv.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 10000;
+        `;
+        document.body.appendChild(errorDiv);
+    }
+
+    retryIOSAudio() {
+        const errorDiv = document.querySelector('.ios-audio-error');
+        if (errorDiv) errorDiv.remove();
+        this.playCurrentVerse();
+    }
 }
 
 // === Standalone Control Functions ===
@@ -817,7 +703,7 @@ function togglePlayPause() {
         window.playbackControls.resumeRecitation();
         if (text) text.textContent = 'PAUSE RECITATION';
     }
-    // If stopped completely, start fresh
+    // If stopped, start fresh
     else {
         console.log('Starting fresh recitation...');
         window.playbackControls.start();
@@ -825,7 +711,13 @@ function togglePlayPause() {
     }
 }
 
+function playRecitation() {
+    window.playbackControls.start();
+}
+
 function startFromBeginning() {
+    console.log('Start Over button clicked');
+    
     // Show confirmation modal instead of directly starting over
     showStartOverModal();
 }
@@ -949,6 +841,15 @@ function toggleRepeat() {
 
         // Add active class for gradient
         btn.classList.add('active');
+        
+        // ✅ Setup iOS repeat if audio is currently playing
+        if (audioService.isIOS && window.appStore.get('isReciting')) {
+            const audio = audioService.getCurrentAudio();
+            if (audio && !audio.paused) {
+                window.playbackControls.setupIOSRepeat(audio, verse);
+                console.log('[iOS Repeat] Setup triggered by toggle ON');
+            }
+        }
 
         // Show notification strip
         if (notification) {
@@ -972,6 +873,18 @@ function toggleRepeat() {
         // Disable repeat
         window.appStore.set('repeatMode', 'none');
         btn.classList.remove('active');
+        
+        // ✅ iOS: Clean up repeat handler
+        if (audioService.isIOS) {
+            const audio = audioService.getCurrentAudio();
+            if (audio && audio._iosRepeatHandler) {
+                audio.removeEventListener('timeupdate', audio._iosRepeatHandler);
+                audio._iosRepeatHandler = null;
+                audio._isRepeating = false;
+                audio._preventEndedCheck = false;
+                console.log('[iOS Repeat] Handler removed (toggle OFF)');
+            }
+        }
 
         // Show notification strip for turned off
         if (notification) {
