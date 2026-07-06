@@ -12,9 +12,10 @@ class ServiceWorkerManager {
         }
         
         try {
-            // Register service worker
-            this.registration = await navigator.serviceWorker.register('/service-worker.js', {
-                scope: '/sabeel/'
+            // Register service worker. Root-relative path + relative scope so it
+            // works whether served from '/sabeel/' (GitHub Pages) or a domain root.
+            this.registration = await navigator.serviceWorker.register('service-worker.js', {
+                scope: './'
             });
             
             console.log('ServiceWorker registered:', this.registration);

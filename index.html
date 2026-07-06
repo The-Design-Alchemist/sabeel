@@ -26,7 +26,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-72.png">
 
 <!-- Manifest -->
-<link rel="manifest" href="/sabeel/manifest.json">
+<link rel="manifest" href="manifest.json">
 
 <title>Sabeel - Learn Qur'an</title>
 
@@ -121,18 +121,7 @@
     </div>
 </div>
 
-<script src="/js/home.js"></script>
-<script src="/js/services/sw-manager.js"></script>
-<script src="/js/services/network-manager.js"></script>
-<script src="/js/components/network-status.js"></script>
 <script>
-    // Service Worker Registration
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            window.swManager.init();
-        });
-    }
-    
     // PWA Install Prompt Handler
     let deferredPrompt;
     const installPrompt = document.getElementById('pwa-install-prompt');

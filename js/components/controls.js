@@ -1063,7 +1063,7 @@ function startRecitation() {
 
     // Auto-play after a short delay
     setTimeout(() => {
-        playRecitation();
+        window.playbackControls.start();
     }, 300);
 }
 

@@ -73,21 +73,8 @@ class VerseDisplay {
             segments: verse.segments
         });
 
-        // When showing verse, use the direction parameter
-// When showing verse, use the direction parameter
-if (verse.segments && verse.segments.length > 1) {
-    // ✅ FIX: Don't reset segment index if already set (for resume functionality)
-    // Only reset to 0 if coming from a different verse
-    if (window.appStore.get('currentVerseIndex') !== index) {
-        this.currentSegmentIndex = 0;
-    }
-    window.appStore.set('isSegmentedVerse', true);
-    this.showSegmented(verse, this.currentSegmentIndex, direction);
-        } else {
-            // Non-segmented verse
-            window.appStore.set('isSegmentedVerse', false);
-            this.showSingle(verse, direction); // ✅ Pass direction
-        }
+        // Render happens once below (the dispatch at "Check if verse has segments").
+        // A duplicate dispatch used to render every verse twice per navigation.
 
         // Clean up word highlighting from previous verse
         if (window.wordHighlighter && window.appStore.get('currentVerseIndex') !== index) {
@@ -659,8 +646,7 @@ navigateSegment(direction) {
                     verseDisplay.classList.remove('slide-in-right', 'slide-in-left', 'slide-out-left', 'slide-out-right');
                 }, 300);
             }
-            // Update segment navigation UI
-            this.updateSegmentIndicator(segmentIndex, verse.segments.length);
+            // (non-segmented verse: no segment indicator to update)
         }, delay);
     }
 
