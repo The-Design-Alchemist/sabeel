@@ -55,7 +55,7 @@ export function RecentSection({ recents, onOpen }: Props) {
       className="flex flex-col items-center gap-3 px-6 pb-10 md:px-10 xl:px-20"
     >
       <div
-        className="w-full max-w-[1280px] overflow-hidden"
+        className="w-full max-w-[1280px]"
         onTouchStart={(e) => (touchX.current = e.changedTouches[0].screenX)}
         onTouchEnd={(e) => onTouchEnd(e.changedTouches[0].screenX)}
       >

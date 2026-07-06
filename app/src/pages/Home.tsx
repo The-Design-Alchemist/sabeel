@@ -42,7 +42,7 @@ export default function Home() {
       variants={staggerContainer}
       initial="hidden"
       animate="show"
-      className="flex min-h-screen flex-col bg-teal-deep"
+      className="flex min-h-screen flex-col overflow-x-clip bg-teal-deep"
     >
       <motion.header
         variants={fadeRise}

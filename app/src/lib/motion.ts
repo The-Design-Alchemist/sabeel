@@ -1,38 +1,37 @@
 import type { Transition, Variants } from "motion/react"
 
 /**
- * Shared motion language for Sabeel. Principles: motion is fast, spring-based,
- * transform/opacity only (GPU), interruptible, and always subtle + purposeful.
- * The whole app is wrapped in <MotionConfig reducedMotion="user"> so every one of
- * these respects the user's OS "reduce motion" setting automatically.
+ * Shared motion language for Sabeel, following Emil Kowalski's design-engineering
+ * standards (.claude/skills/emil-design-eng): fast (<300ms), strong custom easing,
+ * transform/opacity only, interruptible springs, subtle + purposeful. The whole app
+ * is wrapped in <MotionConfig reducedMotion="user"> so all of this honors the OS
+ * "reduce motion" setting (keeps opacity, drops transform-based movement).
  */
 
-/** Snappy spring for pointer feedback (hover / press) — natural and interruptible. */
-export const springSnappy: Transition = {
-  type: "spring",
-  stiffness: 420,
-  damping: 30,
-  mass: 0.8,
-}
+/** Emil's strong ease-out — starts fast, settles gently (built-in easings are too weak). */
+const EASE_OUT = [0.23, 1, 0.32, 1] as const
 
-/** A touch firmer spring for the press-down (returns quickly). */
-export const springPress: Transition = { type: "spring", stiffness: 600, damping: 32 }
+/** Subtle-life spring for hover (Apple-style: duration + small bounce). */
+export const springSnappy: Transition = { type: "spring", duration: 0.4, bounce: 0.18 }
 
-/** Softer spring for larger element / layout movement (carousels, sheets). */
-export const springSoft: Transition = { type: "spring", stiffness: 320, damping: 34 }
+/** Crisp press feedback — no overshoot, snappy return (fits a calm learning app). */
+export const springPress: Transition = { type: "spring", duration: 0.24, bounce: 0 }
 
-/** Ease-out (expo-ish) for entrances — quick start, gentle settle. */
-export const easeOut: Transition = { duration: 0.28, ease: [0.16, 1, 0.3, 1] }
-export const easeOutFast: Transition = { duration: 0.18, ease: [0.16, 1, 0.3, 1] }
+/** Softer spring for larger element / layout movement (sheets, drawers). */
+export const springSoft: Transition = { type: "spring", duration: 0.5, bounce: 0.15 }
 
-/** Subtle fade + rise, used for section / element entrances. */
+/** Ease-out for entrances/exits — under 300ms. */
+export const easeOut: Transition = { duration: 0.26, ease: EASE_OUT }
+export const easeOutFast: Transition = { duration: 0.16, ease: EASE_OUT }
+
+/** Subtle fade + rise for section / element entrances (never scale from 0). */
 export const fadeRise: Variants = {
   hidden: { opacity: 0, y: 10 },
   show: { opacity: 1, y: 0, transition: easeOut },
 }
 
-/** Stagger children as a group enters (orchestrated, not gratuitous). */
+/** Stagger children as a group enters — 30–80ms between items; decorative, non-blocking. */
 export const staggerContainer: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.03 } },
+  show: { transition: { staggerChildren: 0.06, delayChildren: 0.03 } },
 }

@@ -1,6 +1,7 @@
 import { motion } from "motion/react"
 import { Badge } from "@/components/ui/badge"
 import { springSnappy, springPress } from "@/lib/motion"
+import { useHasHover } from "@/hooks/useHasHover"
 import type { Surah } from "@/data/surahs"
 
 type Props = {
@@ -11,13 +12,14 @@ type Props = {
 /** A surah tile in the browse grid. Rendered as a real <button> so it is
  *  keyboard-focusable and screen-reader friendly (the old app used a div+onclick). */
 export function SurahCard({ surah, onOpen }: Props) {
+  const hasHover = useHasHover()
   return (
     <motion.button
       type="button"
       onClick={() => onOpen(surah.id)}
       aria-label={`Open Surah ${surah.id}, ${surah.englishName} — ${surah.englishMeaning}, ${surah.verses} verses, ${surah.revelation}`}
-      whileHover={{ y: -3, transition: springSnappy }}
-      whileTap={{ scale: 0.985, transition: springPress }}
+      whileHover={hasHover ? { y: -3, transition: springSnappy } : undefined}
+      whileTap={{ scale: 0.97, transition: springPress }}
       className="group flex w-full flex-col gap-3 rounded-[12px] bg-surface p-3 text-left shadow-card transition-shadow duration-200 hover:shadow-card-hover"
     >
       <div className="flex w-full items-center justify-between gap-3">

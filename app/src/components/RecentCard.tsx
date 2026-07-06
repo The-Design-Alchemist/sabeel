@@ -2,6 +2,7 @@ import { motion } from "motion/react"
 import type { RecentEntry } from "@/hooks/useRecents"
 import { formatTimeAgo } from "@/lib/utils"
 import { springSnappy, springPress } from "@/lib/motion"
+import { useHasHover } from "@/hooks/useHasHover"
 
 type Props = {
   entry: RecentEntry
@@ -11,13 +12,14 @@ type Props = {
 /** A "continue where you left off" card with a reading-progress bar. */
 export function RecentCard({ entry, onOpen }: Props) {
   const { surah, currentVerse, progressPercent, lastPlayed } = entry
+  const hasHover = useHasHover()
   return (
     <motion.button
       type="button"
       onClick={() => onOpen(surah.id)}
       aria-label={`Continue Surah ${surah.id}, ${surah.englishName}, verse ${currentVerse} of ${surah.verses}`}
-      whileHover={{ y: -3, transition: springSnappy }}
-      whileTap={{ scale: 0.985, transition: springPress }}
+      whileHover={hasHover ? { y: -3, transition: springSnappy } : undefined}
+      whileTap={{ scale: 0.97, transition: springPress }}
       className="flex w-full flex-col gap-3 rounded-[12px] bg-surface p-3 text-left shadow-card transition-shadow duration-200 hover:shadow-card-hover"
     >
       <div className="flex w-full items-center justify-between gap-3">
