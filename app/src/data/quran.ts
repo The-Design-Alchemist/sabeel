@@ -45,6 +45,34 @@ export interface SurahData {
   verses: Verse[]
 }
 
+// ---- audio timing data (complete-timings/surah_NNN_complete.json) ----
+// Real per-word start/end seconds (cpfair alignment) + per-segment ranges.
+
+export interface TimingWord {
+  word: string
+  start: number
+  end: number
+}
+
+export interface TimingSegment {
+  segmentNumber: number
+  start: number
+  end: number
+  startWord: number
+  endWord: number
+  wordCount: number
+  type: string
+  waqfMark: string | null
+}
+
+export interface TimingVerse {
+  surahNumber: number
+  verseNumber: number
+  duration: number
+  words: TimingWord[]
+  segments: TimingSegment[] | null
+}
+
 // Resolves against the app base (Vite BASE_URL). In dev the data is symlinked into
 // public/quran-data; in production it sits alongside the app under the same base.
 const DATA_BASE = `${import.meta.env.BASE_URL}quran-data/`
@@ -54,6 +82,19 @@ export async function loadSurah(id: number): Promise<SurahData> {
   const res = await fetch(`${DATA_BASE}enhanced/${num}.json`)
   if (!res.ok) throw new Error(`Could not load Surah ${id} (${res.status})`)
   return res.json()
+}
+
+export async function loadTimings(id: number): Promise<TimingVerse[]> {
+  const num = String(id).padStart(3, "0")
+  const res = await fetch(`${DATA_BASE}complete-timings/surah_${num}_complete.json`)
+  if (!res.ok) throw new Error(`Could not load timings for Surah ${id} (${res.status})`)
+  return res.json()
+}
+
+export function audioUrl(surah: number, verse: number): string {
+  const sss = String(surah).padStart(3, "0")
+  const aaa = String(verse).padStart(3, "0")
+  return `${DATA_BASE}audio/${sss}/${sss}${aaa}.mp3`
 }
 
 /** A verse is shown as multiple waqf segments only when it has 2+ of them. */

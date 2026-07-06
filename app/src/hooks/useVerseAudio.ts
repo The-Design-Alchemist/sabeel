@@ -53,9 +53,14 @@ export function useVerseAudio() {
     }
   }, [])
 
+  const seek = useCallback((sec: number) => {
+    const a = audioRef.current
+    if (a) a.currentTime = sec
+  }, [])
+
   const setOnEnded = useCallback((cb?: () => void) => {
     onEndedRef.current = cb
   }, [])
 
-  return { playing, play, pause, stop, setOnEnded }
+  return { playing, play, pause, stop, seek, setOnEnded, audioRef }
 }

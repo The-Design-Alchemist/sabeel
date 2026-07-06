@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react"
 import { useSurah } from "@/hooks/useSurah"
+import { useTimings } from "@/hooks/useTimings"
 import { useVerseAudio } from "@/hooks/useVerseAudio"
-import { isSegmented } from "@/data/quran"
+import { audioUrl, isSegmented, type TimingVerse } from "@/data/quran"
 import {
   Select,
   SelectContent,
@@ -19,6 +20,7 @@ import { AudioControls } from "@/components/reader/AudioControls"
 import { BismillahScreen } from "@/components/reader/BismillahScreen"
 import { SettingsDialog, type ReaderSettings } from "@/components/reader/SettingsDialog"
 import { easeOut, springPress } from "@/lib/motion"
+import { activeWordAt } from "@/lib/highlight"
 
 const DEFAULT_SETTINGS: ReaderSettings = {
   translation: true,
@@ -44,7 +46,8 @@ export default function Reader() {
   const { id } = useParams()
   const surahId = Number(id)
   const { data, loading, error } = useSurah(surahId)
-  const { playing, play, pause, stop, setOnEnded } = useVerseAudio()
+  const timings = useTimings(surahId)
+  const { playing, play, pause, stop, seek, setOnEnded, audioRef } = useVerseAudio()
 
   const [started, setStarted] = useState(false)
   const [verseIndex, setVerseIndex] = useState(0)
@@ -52,6 +55,7 @@ export default function Reader() {
   const [dir, setDir] = useState(0)
   const [repeat, setRepeat] = useState(false)
   const [settings, setSettings] = useState<ReaderSettings>(loadSettings)
+  const [activeWord, setActiveWord] = useState(-1) // global word index into timing.words
 
   const updateSettings = (patch: Partial<ReaderSettings>) => {
     setSettings((s) => {
@@ -63,20 +67,27 @@ export default function Reader() {
 
   const verses = data?.verses ?? []
   const verse = verses[verseIndex]
+  const verseNum = verse ? Number(verse.key.split(":")[1]) : 0
+  const timing = timings.get(verseNum)
   const segmented = verse ? isSegmented(verse) : false
   const segments = verse?.segments ?? []
 
   const srcFor = useCallback(
     (i: number) => {
       const v = verses[i]
-      if (!v) return ""
-      const [s, a] = v.key.split(":")
-      const sss = s.padStart(3, "0")
-      const aaa = a.padStart(3, "0")
-      return `${import.meta.env.BASE_URL}quran-data/audio/${sss}/${sss}${aaa}.mp3`
+      return v ? audioUrl(surahId, Number(v.key.split(":")[1])) : ""
     },
-    [verses]
+    [verses, surahId]
   )
+
+  // Refs so the rAF loop reads live values without re-subscribing every frame.
+  const timingRef = useRef<TimingVerse | undefined>(undefined)
+  const segIdxRef = useRef(0)
+  const highlightRef = useRef(true)
+  const activeRef = useRef(-1)
+  timingRef.current = timing
+  segIdxRef.current = segmentIndex
+  highlightRef.current = settings.highlighting
 
   // Reset when the surah changes.
   useEffect(() => {
@@ -90,7 +101,6 @@ export default function Reader() {
   // Persist reading progress + mark recent (drives the Home cards).
   useEffect(() => {
     if (!verse) return
-    const verseNum = Number(verse.key.split(":")[1])
     localStorage.setItem(
       `progress_${surahId}`,
       JSON.stringify({ lastVerse: verseNum, lastPlayed: Date.now() })
@@ -104,9 +114,9 @@ export default function Reader() {
     } catch {
       /* ignore */
     }
-  }, [surahId, verseIndex, verse])
+  }, [surahId, verseIndex, verse, verseNum])
 
-  // When a verse's audio ends: repeat it, or advance and keep playing.
+  // Natural end of a verse's audio: repeat it, or advance and keep playing.
   useEffect(() => {
     setOnEnded(() => {
       if (repeat) {
@@ -121,6 +131,46 @@ export default function Reader() {
     })
   }, [repeat, verseIndex, verses.length, play, srcFor, setOnEnded])
 
+  // Playback sync loop: highlight the spoken word + follow segments as audio plays.
+  useEffect(() => {
+    if (!playing) {
+      activeRef.current = -1
+      setActiveWord(-1)
+      return
+    }
+    let raf = 0
+    const loop = () => {
+      const a = audioRef.current
+      const tm = timingRef.current
+      if (a && tm) {
+        const t = a.currentTime
+        // follow the current segment during continuous playback
+        if (tm.segments && tm.segments.length > 1) {
+          const si = tm.segments.findIndex((s) => t >= s.start && t < s.end)
+          if (si >= 0 && si !== segIdxRef.current) {
+            segIdxRef.current = si
+            setDir(1)
+            setSegmentIndex(si)
+          }
+        }
+        // highlight the active word (only when the toggle is on)
+        if (highlightRef.current) {
+          const idx = activeWordAt(tm.words, t)
+          if (idx !== activeRef.current) {
+            activeRef.current = idx
+            setActiveWord(idx)
+          }
+        } else if (activeRef.current !== -1) {
+          activeRef.current = -1
+          setActiveWord(-1)
+        }
+      }
+      raf = requestAnimationFrame(loop)
+    }
+    raf = requestAnimationFrame(loop)
+    return () => cancelAnimationFrame(raf)
+  }, [playing, audioRef])
+
   const goVerse = (i: number) => {
     if (!verses.length) return
     const clamped = Math.max(0, Math.min(verses.length - 1, i))
@@ -134,6 +184,12 @@ export default function Reader() {
     const clamped = Math.max(0, Math.min(segments.length - 1, i))
     setDir(clamped >= segmentIndex ? 1 : -1)
     setSegmentIndex(clamped)
+    segIdxRef.current = clamped
+    const seg = timing?.segments?.[clamped]
+    if (playing && seg) {
+      seek(seg.start)
+      play(srcFor(verseIndex))
+    }
   }
 
   const handleStart = () => {
@@ -148,9 +204,38 @@ export default function Reader() {
     play(srcFor(0))
   }
 
+  // Words to render as spans (timing words for the verse, sliced to the segment).
+  const renderWords = useMemo(() => {
+    if (!timing) return undefined
+    if (segmented && timing.segments) {
+      const seg = timing.segments[segmentIndex]
+      if (seg) return timing.words.slice(seg.startWord, seg.endWord + 1).map((w) => w.word)
+    }
+    return timing.words.map((w) => w.word)
+  }, [timing, segmented, segmentIndex])
+
+  const activeLocal = useMemo(() => {
+    if (activeWord < 0 || !timing) return -1
+    if (segmented && timing.segments) {
+      const seg = timing.segments[segmentIndex]
+      if (!seg) return -1
+      const local = activeWord - seg.startWord
+      return local >= 0 && local <= seg.endWord - seg.startWord ? local : -1
+    }
+    return activeWord
+  }, [activeWord, segmented, timing, segmentIndex])
+
+  const onWordClick = (localIdx: number) => {
+    if (!timing) return
+    const base = segmented && timing.segments ? timing.segments[segmentIndex].startWord : 0
+    const w = timing.words[base + localIdx]
+    if (!w) return
+    seek(w.start)
+    play(srcFor(verseIndex))
+  }
+
   const view = useMemo(() => {
     if (!verse) return null
-    const verseNum = Number(verse.key.split(":")[1])
     if (segmented) {
       const seg = segments[segmentIndex]
       const isLast = segmentIndex === segments.length - 1
@@ -167,9 +252,7 @@ export default function Reader() {
       translation: verse.translation,
       verseNumber: verseNum,
     }
-  }, [verse, segmented, segments, segmentIndex])
-
-  const verseNum = verse ? verse.key.split(":")[1] : ""
+  }, [verse, segmented, segments, segmentIndex, verseNum])
 
   return (
     <div className="flex min-h-screen flex-col bg-teal-deep">
@@ -249,6 +332,10 @@ export default function Reader() {
                 >
                   <VerseView
                     arabic={view.arabic}
+                    words={settings.highlighting ? renderWords : undefined}
+                    activeWord={activeLocal}
+                    onWordClick={onWordClick}
+                    highlight={settings.highlighting}
                     transliteration={view.transliteration}
                     translation={view.translation}
                     verseNumber={view.verseNumber}
