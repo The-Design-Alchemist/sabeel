@@ -256,38 +256,29 @@ export default function Reader() {
 
   return (
     <div className="flex min-h-screen flex-col bg-teal-deep">
-      {/* Header */}
-      <header className="grid grid-cols-[1fr_auto_1fr] items-start gap-2 px-5 pb-6 pt-9 sm:px-12">
-        <div className="justify-self-start">
-          <Link
-            to="/"
-            className="inline-flex h-8 items-center gap-1 rounded-full bg-white pl-1.5 pr-3 text-xs font-semibold text-teal-deep outline-none transition-colors hover:bg-white/90 focus-visible:ring-2 focus-visible:ring-white/60"
-          >
-            <ArrowLeft className="size-5" />
-            <span className="hidden sm:inline">Back to List</span>
-          </Link>
-        </div>
+      {/* Header (lean) */}
+      <header className="grid grid-cols-[auto_1fr_auto] items-center gap-2 px-4 py-4 text-white sm:px-6">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1 rounded-full px-2 py-1.5 text-sm font-medium text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
+        >
+          <ArrowLeft className="size-5" />
+          <span className="hidden sm:inline">Back to List</span>
+        </Link>
 
-        <div className="flex flex-col items-center gap-1 text-center text-white">
-          <span className="flex size-8 items-center justify-center rounded-full bg-white text-base font-semibold text-teal-deep">
-            {surahId}
-          </span>
+        <div className="flex min-w-0 flex-col items-center text-center leading-tight">
           {data && (
             <>
-              <span dir="rtl" lang="ar" className="whitespace-nowrap font-arabic text-xl leading-tight">
+              <span dir="rtl" lang="ar" className="truncate font-arabic text-lg">
                 سُورَة {data.name}
               </span>
-              <span className="text-lg font-semibold leading-tight">{data.englishName}</span>
-              <span className="text-xs font-semibold text-[#B6B6B6]">
-                {data.englishNameTranslation}
-              </span>
+              <span className="text-sm font-semibold">{data.englishName}</span>
+              <span className="text-xs text-white/60">{data.englishNameTranslation}</span>
             </>
           )}
         </div>
 
-        <div className="justify-self-end">
-          <SettingsDialog settings={settings} onChange={updateSettings} />
-        </div>
+        <SettingsDialog settings={settings} onChange={updateSettings} />
       </header>
 
       {/* States */}

@@ -19,7 +19,7 @@ export function BismillahScreen({ onStart }: Props) {
           <Divider />
           <p className="text-lg font-medium text-teal-deep">Bismillah ir-Rahman ir-Raheem</p>
           <Divider />
-          <p className="max-w-[42ch] text-lg font-medium text-muted-foreground">
+          <p className="max-w-[40rem] text-lg font-medium text-muted-foreground">
             In the name of Allah, the Most Gracious, the Most Merciful
           </p>
         </div>
