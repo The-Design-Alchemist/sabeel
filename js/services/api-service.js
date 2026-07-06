@@ -1,4 +1,10 @@
 // api-service.js - Update to use NetworkManager
+
+// Bump this whenever the bundled quran-data changes so returning users don't get
+// served stale transformed verses out of localStorage. Cached entries tagged with a
+// different version are ignored and re-fetched.
+const QURAN_DATA_VERSION = 2;
+
 class ApiService {
     constructor() {
         this.dataCache = new Map();
@@ -158,6 +164,11 @@ class ApiService {
             const stored = localStorage.getItem(`quranApp_cache_${key}`);
             if (stored) {
                 const parsed = JSON.parse(stored);
+                // ignore caches written by an older data version (force a re-fetch)
+                if (parsed.v !== QURAN_DATA_VERSION) {
+                    localStorage.removeItem(`quranApp_cache_${key}`);
+                    return null;
+                }
                 return {
                     data: parsed.d,
                     timestamp: parsed.t
@@ -172,7 +183,7 @@ class ApiService {
     persistCache(key, data) {
         try {
             const compressed = {
-                v: 1, // version
+                v: QURAN_DATA_VERSION, // data version (see top of file)
                 t: Date.now(), // timestamp
                 d: data // data
             };
