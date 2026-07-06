@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { motion } from "motion/react"
 import { Search } from "lucide-react"
 import { SURAHS, type Surah } from "@/data/surahs"
@@ -30,12 +31,10 @@ function filterSurahs(list: Surah[], q: string): Surah[] {
 export default function Home() {
   const [query, setQuery] = useState("")
   const recents = useRecents()
+  const navigate = useNavigate()
   const results = useMemo(() => filterSurahs(SURAHS, query), [query])
 
-  // Until the reader screen is ported to React, open the existing page.
-  const openSurah = (id: number) => {
-    window.location.href = `quran-learning.html?surah=${id}`
-  }
+  const openSurah = (id: number) => navigate(`/surah/${id}`)
 
   return (
     <motion.div
