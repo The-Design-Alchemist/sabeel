@@ -55,7 +55,7 @@
           "waqfMark": "ۛ"
         },
         {
-          "arabic": "هُدًى لِّلمُتَّقِينَ",
+          "arabic": "ۛ هُدًى لِّلمُتَّقِينَ",
           "translation": "a Guidance for the God-conscious",
           "transliteration": "hudan lil'muttaqīna",
           "type": "verse_end"
@@ -1312,20 +1312,11 @@
       ],
       "segments": [
         {
-          "arabic": "أَوْ كَصَيِّبٍ مِّنَ ٱلسَّمَآءِ فِيهِ ظُلُمَـٰتٌ وَرَعْدٌ وَبَرْقٌ",
-          "translation": "Or like a rainstorm from the sky in it are darkness[es] and thunder and lightnin",
-          "transliteration": "aw kaṣayyibin mina l-samāi fīhi ẓulumātun waraʿdun wabarqun",
+          "arabic": "أَوْ كَصَيِّبٍ مِّنَ ٱلسَّمَآءِ فِيهِ ظُلُمَـٰتٌ وَرَعْدٌ وَبَرْقٌ يَجْعَلُونَ أَصَـٰبِعَهُمْ فِىٓ ءَاذَانِهِم مِّنَ ٱلصَّوَٰعِقِ حَذَرَ ٱلْمَوْتِ ۚ",
+          "translation": "Or like a rainstorm from the sky in it are darkness[es] and thunder and lightnin g They put their fingers in their ears from the thunderclaps in fear of [the] death",
+          "transliteration": "aw kaṣayyibin mina l-samāi fīhi ẓulumātun waraʿdun wabarqun yajʿalūna aṣābiʿahum fī ādhānihim mina l-ṣawāʿiqi ḥadhara l-mawti",
           "type": "compulsory_stop",
-          "waqfMark": "ۚ",
-          "segmentNumber": 1
-        },
-        {
-          "arabic": "يَجْعَلُونَ أَصَـٰبِعَهُمْ فِىٓ ءَاذَانِهِم مِّنَ ٱلصَّوَٰعِقِ حَذَرَ ٱلْمَوْتِ ۚ",
-          "translation": "g They put their fingers in their ears from the thunderclaps in fear of [the] death",
-          "transliteration": "yajʿalūna aṣābiʿahum fī ādhānihim mina l-ṣawāʿiqi ḥadhara l-mawti",
-          "type": "compulsory_stop",
-          "waqfMark": "ۚ",
-          "segmentNumber": 2
+          "waqfMark": "ۚ"
         },
         {
           "arabic": "وَٱللَّهُ مُحِيطٌۢ بِٱلْكَـٰفِرِينَ",
@@ -16569,7 +16560,7 @@
       ],
       "segments": [
         {
-          "arabic": "صِبْغَةَ ٱللَّهِ وَمَنْ أَحْسَنُ مِنَ ٱللَّهِ صِبْغَةً ۖ",
+          "arabic": "صِبْغَةَ ٱللَّهِ ۖ وَمَنْ أَحْسَنُ مِنَ ٱللَّهِ صِبْغَةً ۖ",
           "translation": "The color religion of Allah And who is better than Allah at coloring",
           "transliteration": "ṣib'ghata l-lahi waman aḥsanu mina l-lahi ṣib'ghatan",
           "type": "small_stop",
@@ -22662,7 +22653,7 @@
       ],
       "segments": [
         {
-          "arabic": "أَيَّامًا مَّعْدُودَٰتٍ فَمَن كَانَ مِنكُم مَّرِيضًا أَوْ عَلَىٰ سَفَرٍ فَعِدَّةٌ مِّنْ أَيَّامٍ أُخَرَ ۚ",
+          "arabic": "أَيَّامًا مَّعْدُودَٰتٍ ۚ فَمَن كَانَ مِنكُم مَّرِيضًا أَوْ عَلَىٰ سَفَرٍ فَعِدَّةٌ مِّنْ أَيَّامٍ أُخَرَ ۚ",
           "translation": "Fasting for days numbered So whoever is among you sick or on a journey then a prescribed number of days other",
           "transliteration": "ayyāman maʿdūdātin faman kāna minkum marīḍan aw ʿalā safarin faʿiddatun min ayyāmin ukhara",
           "type": "compulsory_stop",
@@ -30322,7 +30313,7 @@
       ],
       "segments": [
         {
-          "arabic": "ٱلطَّلَـٰقُ مَرَّتَانِ فَإِمْسَاكٌۢ بِمَعْرُوفٍ أَوْ تَسْرِيحٌۢ بِإِحْسَـٰنٍ ۗ",
+          "arabic": "ٱلطَّلَـٰقُ مَرَّتَانِ ۖ فَإِمْسَاكٌۢ بِمَعْرُوفٍ أَوْ تَسْرِيحٌۢ بِإِحْسَـٰنٍ ۗ",
           "translation": "The divorce is twice Then to retain in a reasonable manner or to release her with kindness",
           "transliteration": "al-ṭalāqu marratāni fa-im'sākun bimaʿrūfin aw tasrīḥun bi-iḥ'sānin",
           "type": "preferable_stop",

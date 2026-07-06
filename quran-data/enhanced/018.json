@@ -22,15 +22,7 @@
           "wordIndex": 12
         }
       ],
-      "segments": [
-        {
-          "arabic": "ٱلْحَمْدُ لِلَّهِ ٱلَّذِىٓ أَنزَلَ عَلَىٰ عَبْدِهِ ٱلْكِتَـٰبَ وَلَمْ يَجْعَل لَّهُۥ عِوَجَا ۜ",
-          "translation": "All Praise is for Allah the One Who has revealed to His slave the Book and not has made in it any crookedness",
-          "transliteration": "al-ḥamdu lillahi alladhī anzala ʿalā ʿabdihi l-kitāba walam yajʿal lahu ʿiwajā",
-          "type": "emphasis_stop",
-          "waqfMark": "ۜ"
-        }
-      ],
+      "segments": null,
       "wordCount": 13,
       "words": [
         {

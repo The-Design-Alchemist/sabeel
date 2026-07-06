@@ -1139,15 +1139,7 @@
           "wordIndex": 4
         }
       ],
-      "segments": [
-        {
-          "arabic": "مَآ أَغْنَىٰ عَنِّى مَالِيَهْ ۜ",
-          "translation": "Not has availed me my wealth",
-          "transliteration": "mā aghnā ʿannī māliyah",
-          "type": "emphasis_stop",
-          "waqfMark": "ۜ"
-        }
-      ],
+      "segments": null,
       "wordCount": 5,
       "words": [
         {
