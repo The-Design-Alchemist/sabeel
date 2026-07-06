@@ -6,6 +6,7 @@ import { useSurah } from "@/hooks/useSurah"
 import { useTimings } from "@/hooks/useTimings"
 import { useVerseAudio } from "@/hooks/useVerseAudio"
 import { useMediaSession } from "@/hooks/useMediaSession"
+import { useHaptics } from "@/hooks/useHaptics"
 import { audioUrl, isSegmented, type TimingVerse } from "@/data/quran"
 import {
   Select,
@@ -50,6 +51,7 @@ export default function Reader() {
   const { data, loading, error } = useSurah(surahId)
   const timings = useTimings(surahId)
   const { playing, play, pause, stop, seek, setOnEnded, audioRef } = useVerseAudio()
+  const haptics = useHaptics()
 
   const [started, setStarted] = useState(false)
   const [verseIndex, setVerseIndex] = useState(0)
@@ -191,6 +193,7 @@ export default function Reader() {
     if (!verses.length) return
     const clamped = Math.max(0, Math.min(verses.length - 1, i))
     if (clamped === verseIndex) return
+    haptics.select()
     setDir(clamped > verseIndex ? 1 : -1)
     setVerseIndex(clamped)
     setSegmentIndex(0)
@@ -198,6 +201,7 @@ export default function Reader() {
   }
   const goSegment = (i: number) => {
     const clamped = Math.max(0, Math.min(segments.length - 1, i))
+    if (clamped !== segmentIndex) haptics.tap()
     setDir(clamped >= segmentIndex ? 1 : -1)
     setSegmentIndex(clamped)
     segIdxRef.current = clamped
@@ -212,7 +216,10 @@ export default function Reader() {
     setStarted(true)
     play(srcFor(verseIndex))
   }
-  const togglePlay = () => (playing ? pause() : play(srcFor(verseIndex)))
+  const togglePlay = () => {
+    haptics.tap()
+    return playing ? pause() : play(srcFor(verseIndex))
+  }
   const startOver = () => {
     setDir(-1)
     setVerseIndex(0)
@@ -310,7 +317,7 @@ export default function Reader() {
   return (
     <div className="flex min-h-screen flex-col bg-teal-deep">
       {/* Header (lean) — title block is absolutely centered on the screen */}
-      <header className="relative flex items-center justify-between px-4 py-4 text-white sm:px-6">
+      <header className="relative flex items-center justify-between px-4 pb-4 pt-[max(1rem,env(safe-area-inset-top))] text-white sm:px-6">
         <Link
           to="/"
           className="inline-flex items-center gap-1 rounded-full px-2 py-1.5 text-sm font-medium text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"

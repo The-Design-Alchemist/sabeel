@@ -45,7 +45,7 @@ export default function Home() {
     >
       <motion.header
         variants={fadeRise}
-        className="flex items-center justify-center px-2.5 pb-5 pt-10"
+        className="flex items-center justify-center px-2.5 pb-5 pt-[max(2.5rem,env(safe-area-inset-top))]"
       >
         <Logo className="h-[51px] w-[167px]" />
       </motion.header>

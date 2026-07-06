@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/app": "^8.1.0",
     "@capacitor/core": "^8.4.1",
     "@capacitor/haptics": "^8.0.2",
+    "@capacitor/splash-screen": "^8.0.1",
+    "@capacitor/status-bar": "^8.0.2",
     "@fontsource-variable/urbanist": "^5.2.7",
     "@fontsource/noto-naskh-arabic": "^5.2.11",
     "@radix-ui/react-dialog": "^1.1.18",
