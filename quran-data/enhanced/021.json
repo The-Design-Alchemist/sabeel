@@ -5760,8 +5760,8 @@
     },
     {
       "key": "21:79",
-      "arabic": "فَفَهَّمْنَـٰهَا سُلَيْمَـٰنَ ۚ وَكُلًّا ءَاتَيْنَا حُكْمًا وَعِلْمًا ۚ وَسَخَّرْنَا مَعَ دَاوُۥدَ ٱلْجِبَالَ ��ُسَبِّحْنَ وَٱلطَّيْرَ ۚ وَكُنَّا فَـٰعِلِينَ",
-      "arabicSimple": "فَفَهَّمْنَـٰهَا سُلَيْمَـٰنَ ۚ وَكُلًّا ءَاتَيْنَا حُكْمًا وَعِلْمًا ۚ وَسَخَّرْنَا مَعَ دَاوُۥدَ ٱلْجِبَالَ ��ُسَبِّحْنَ وَٱلطَّيْرَ ۚ وَكُنَّا فَـٰعِلِينَ",
+      "arabic": "فَفَهَّمْنَـٰهَا سُلَيْمَـٰنَ ۚ وَكُلًّا ءَاتَيْنَا حُكْمًا وَعِلْمًا ۚ وَسَخَّرْنَا مَعَ دَاوُۥدَ ٱلْجِبَالَ يُسَبِّحْنَ وَٱلطَّيْرَ ۚ وَكُنَّا فَـٰعِلِينَ",
+      "arabicSimple": "فَفَهَّمْنَـٰهَا سُلَيْمَـٰنَ ۚ وَكُلًّا ءَاتَيْنَا حُكْمًا وَعِلْمًا ۚ وَسَخَّرْنَا مَعَ دَاوُۥدَ ٱلْجِبَالَ يُسَبِّحْنَ وَٱلطَّيْرَ ۚ وَكُنَّا فَـٰعِلِينَ",
       "translation": "And We gave understanding of the case to Solomon, and to each [of them] We gave judgement and knowledge. And We subjected the mountains to exalt [Us], along with David and [also] the birds. And We were doing [that].",
       "transliteration": "Fafahhamnaahaa sulaimaan; wa kullan aatainaa hukmanw wa'ilmanw wa sakh kharnaa ma'a Daawoodal jibaala yusabbihna wattayr; wa kunnaa faa'ileen",
       "sajda": false,
@@ -5794,7 +5794,7 @@
           "waqfMark": "ۚ"
         },
         {
-          "arabic": "وَسَخَّرْنَا مَعَ دَاوُۥدَ ٱلْجِبَالَ ��ُسَبِّحْنَ وَٱلطَّيْرَ ۚ",
+          "arabic": "وَسَخَّرْنَا مَعَ دَاوُۥدَ ٱلْجِبَالَ يُسَبِّحْنَ وَٱلطَّيْرَ ۚ",
           "translation": "And We subjected with Dawud the mountains to glorify Our praises and the birds",
           "transliteration": "wasakharnā maʿa dāwūda l-jibāla yusabbiḥ'na wal-ṭayra",
           "type": "compulsory_stop",

@@ -5184,8 +5184,8 @@
     },
     {
       "key": "16:56",
-      "arabic": "وَيَجْعَلُونَ لِمَا لَا يَعْلَمُونَ نَصِيبًا مِّمَّا رَزَقْنَـٰهُمْ ۗ تَٱللّ��هِ لَتُسْـَٔلُنَّ عَمَّا كُنتُمْ تَفْتَرُونَ",
-      "arabicSimple": "وَيَجْعَلُونَ لِمَا لَا يَعْلَمُونَ نَصِيبًا مِّمَّا رَزَقْنَـٰهُمْ ۗ تَٱللّ��هِ لَتُسْـَٔلُنَّ عَمَّا كُنتُمْ تَفْتَرُونَ",
+      "arabic": "وَيَجْعَلُونَ لِمَا لَا يَعْلَمُونَ نَصِيبًا مِّمَّا رَزَقْنَـٰهُمْ ۗ تَٱللَّهِ لَتُسْـَٔلُنَّ عَمَّا كُنتُمْ تَفْتَرُونَ",
+      "arabicSimple": "وَيَجْعَلُونَ لِمَا لَا يَعْلَمُونَ نَصِيبًا مِّمَّا رَزَقْنَـٰهُمْ ۗ تَٱللَّهِ لَتُسْـَٔلُنَّ عَمَّا كُنتُمْ تَفْتَرُونَ",
       "translation": "And they assign to what they do not know a portion of that which We have provided them. By Allah, you will surely be questioned about what you used to invent.",
       "transliteration": "Wa yaj'aloona limaa laa ya'lamoona naseebam mimmaa razaqnnaahum; tallaahi latus'alunaa 'ammaa kuntum taftaroon",
       "sajda": false,
@@ -5206,7 +5206,7 @@
           "waqfMark": "ۗ"
         },
         {
-          "arabic": "تَٱللّ��هِ لَتُسْـَٔلُنَّ عَمَّا كُنتُمْ تَفْتَرُونَ",
+          "arabic": "تَٱللَّهِ لَتُسْـَٔلُنَّ عَمَّا كُنتُمْ تَفْتَرُونَ",
           "translation": "By Allah surely you will be asked about what you used to invent",
           "transliteration": "tal-lahi latus'alunna ʿammā kuntum taftarūna",
           "type": "verse_end"
@@ -6251,8 +6251,8 @@
     },
     {
       "key": "16:66",
-      "arabic": "وَإِنَّ لَكُمْ فِى ٱلْأَنْعَـٰمِ لَعِبْرَةً ۖ نُّسْقِيكُم مِّمَّا فِى بُطُونِهِۦ مِنۢ بَيْنِ فَرْثٍ وَدَمٍ لَّبَن��ا خَالِصًا سَآئِغًا لِّلشَّـٰرِبِينَ",
-      "arabicSimple": "وَإِنَّ لَكُمْ فِى ٱلْأَنْعَـٰمِ لَعِبْرَةً ۖ نُّسْقِيكُم مِّمَّا فِى بُطُونِهِۦ مِنۢ بَيْنِ فَرْثٍ وَدَمٍ لَّبَن��ا خَالِصًا سَآئِغًا لِّلشَّـٰرِبِينَ",
+      "arabic": "وَإِنَّ لَكُمْ فِى ٱلْأَنْعَـٰمِ لَعِبْرَةً ۖ نُّسْقِيكُم مِّمَّا فِى بُطُونِهِۦ مِنۢ بَيْنِ فَرْثٍ وَدَمٍ لَّبَنًا خَالِصًا سَآئِغًا لِّلشَّـٰرِبِينَ",
+      "arabicSimple": "وَإِنَّ لَكُمْ فِى ٱلْأَنْعَـٰمِ لَعِبْرَةً ۖ نُّسْقِيكُم مِّمَّا فِى بُطُونِهِۦ مِنۢ بَيْنِ فَرْثٍ وَدَمٍ لَّبَنًا خَالِصًا سَآئِغًا لِّلشَّـٰرِبِينَ",
       "translation": "And indeed, for you in grazing livestock is a lesson. We give you drink from what is in their bellies - between excretion and blood - pure milk, palatable to drinkers.",
       "transliteration": "Wa inna lakum fil an'aami la'ibrah; nusqeekum mimmmaa fee butoonihee mim baini farsinw wa damil labanann khaalisan saaa'ighallish shaaribeen",
       "sajda": false,
@@ -6273,7 +6273,7 @@
           "waqfMark": "ۖ"
         },
         {
-          "arabic": "نُّسْقِيكُم مِّمَّا فِى بُطُونِهِۦ مِنۢ بَيْنِ فَرْثٍ وَدَمٍ لَّبَن��ا خَالِصًا سَآئِغًا لِّلشَّـٰرِبِينَ",
+          "arabic": "نُّسْقِيكُم مِّمَّا فِى بُطُونِهِۦ مِنۢ بَيْنِ فَرْثٍ وَدَمٍ لَّبَنًا خَالِصًا سَآئِغًا لِّلشَّـٰرِبِينَ",
           "translation": "We give you to drink from what is in their bellies from between bowels and blood milk pure palatable to the drinkers",
           "transliteration": "nus'qīkum mimmā fī buṭūnihi min bayni farthin wadamin labanan khāliṣan sāighan lilshāribīna",
           "type": "verse_end"
@@ -9197,7 +9197,7 @@
           "transliteration": "dhī"
         },
         {
-          "arabic": "ٱلْقُرْب��ىٰ",
+          "arabic": "ٱلْقُرْبَىٰ",
           "translation": "(to) relatives",
           "transliteration": "l-qur'bā"
         },

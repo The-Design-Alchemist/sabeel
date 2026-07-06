@@ -6113,8 +6113,8 @@
     },
     {
       "key": "19:84",
-      "arabic": "فَ��َا تَعْجَلْ عَلَيْهِمْ ۖ إِنَّمَا نَعُدُّ لَهُمْ عَدًّا",
-      "arabicSimple": "فَ��َا تَعْجَلْ عَلَيْهِمْ ۖ إِنَّمَا نَعُدُّ لَهُمْ عَدًّا",
+      "arabic": "فَلَا تَعْجَلْ عَلَيْهِمْ ۖ إِنَّمَا نَعُدُّ لَهُمْ عَدًّا",
+      "arabicSimple": "فَلَا تَعْجَلْ عَلَيْهِمْ ۖ إِنَّمَا نَعُدُّ لَهُمْ عَدًّا",
       "translation": "So be not impatient over them. We only count out to them a [limited] number.",
       "transliteration": "Falaa ta'jal alaihim innamaa na 'uddu lahum 'addaa",
       "sajda": false,
@@ -6128,7 +6128,7 @@
       ],
       "segments": [
         {
-          "arabic": "فَ��َا تَعْجَلْ عَلَيْهِمْ ۖ",
+          "arabic": "فَلَا تَعْجَلْ عَلَيْهِمْ ۖ",
           "translation": "So do not make haste against them",
           "transliteration": "falā taʿjal ʿalayhim",
           "type": "small_stop",

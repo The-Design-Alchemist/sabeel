@@ -11209,8 +11209,8 @@
     },
     {
       "key": "11:99",
-      "arabic": "وَأُتْبِعُوا۟ ف��ى هَـٰذِهِۦ لَعْنَةً وَيَوْمَ ٱلْقِيَـٰمَةِ ۚ بِئْسَ ٱلرِّفْدُ ٱلْمَرْفُودُ",
-      "arabicSimple": "وَأُتْبِعُوا۟ ف��ى هَـٰذِهِۦ لَعْنَةً وَيَوْمَ ٱلْقِيَـٰمَةِ ۚ بِئْسَ ٱلرِّفْدُ ٱلْمَرْفُودُ",
+      "arabic": "وَأُتْبِعُوا۟ فِى هَـٰذِهِۦ لَعْنَةً وَيَوْمَ ٱلْقِيَـٰمَةِ ۚ بِئْسَ ٱلرِّفْدُ ٱلْمَرْفُودُ",
+      "arabicSimple": "وَأُتْبِعُوا۟ فِى هَـٰذِهِۦ لَعْنَةً وَيَوْمَ ٱلْقِيَـٰمَةِ ۚ بِئْسَ ٱلرِّفْدُ ٱلْمَرْفُودُ",
       "translation": "And they were followed in this [world] with a curse and on the Day of Resurrection. And wretched is the gift which is given.",
       "transliteration": "Wa utbi'oo fee haazihee la'natanw wa Yawmal Qiyaamah; bi'sar rifdul marfood",
       "sajda": false,
@@ -11224,7 +11224,7 @@
       ],
       "segments": [
         {
-          "arabic": "وَأُتْبِعُوا۟ ف��ى هَـٰذِهِۦ لَعْنَةً وَيَوْمَ ٱلْقِيَـٰمَةِ ۚ",
+          "arabic": "وَأُتْبِعُوا۟ فِى هَـٰذِهِۦ لَعْنَةً وَيَوْمَ ٱلْقِيَـٰمَةِ ۚ",
           "translation": "And they were followed in this by a curse and on the Day of the Resurrection",
           "transliteration": "wa-ut'biʿū fī hādhihi laʿnatan wayawma l-qiyāmati",
           "type": "compulsory_stop",

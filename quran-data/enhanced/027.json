@@ -4779,8 +4779,8 @@
     },
     {
       "key": "27:59",
-      "arabic": "قُلِ ٱلْحَمْدُ لِلَّهِ وَسَلَـٰمٌ عَلَىٰ عِب��ادِهِ ٱلَّذِينَ ٱصْطَفَىٰٓ ۗ ءَآللَّهُ خَيْرٌ أَمَّا يُشْرِكُونَ",
-      "arabicSimple": "قُلِ ٱلْحَمْدُ لِلَّهِ وَسَلَـٰمٌ عَلَىٰ عِب��ادِهِ ٱلَّذِينَ ٱصْطَفَىٰٓ ۗ ءَآللَّهُ خَيْرٌ أَمَّا يُشْرِكُونَ",
+      "arabic": "قُلِ ٱلْحَمْدُ لِلَّهِ وَسَلَـٰمٌ عَلَىٰ عِبَادِهِ ٱلَّذِينَ ٱصْطَفَىٰٓ ۗ ءَآللَّهُ خَيْرٌ أَمَّا يُشْرِكُونَ",
+      "arabicSimple": "قُلِ ٱلْحَمْدُ لِلَّهِ وَسَلَـٰمٌ عَلَىٰ عِبَادِهِ ٱلَّذِينَ ٱصْطَفَىٰٓ ۗ ءَآللَّهُ خَيْرٌ أَمَّا يُشْرِكُونَ",
       "translation": "Say, [O Muhammad], \"Praise be to Allah, and peace upon His servants whom He has chosen. Is Allah better or what they associate with Him?\"",
       "transliteration": "Qulil hamdu lillaahi wa salaamun 'alaa 'ibaadihil lazeenas tafaa; aaallaahu khairun ammmaa yushrikoon",
       "sajda": false,
@@ -4794,7 +4794,7 @@
       ],
       "segments": [
         {
-          "arabic": "قُلِ ٱلْحَمْدُ لِلَّهِ وَسَلَـٰمٌ عَلَىٰ عِب��ادِهِ ٱلَّذِينَ ٱصْطَفَىٰٓ ۗ",
+          "arabic": "قُلِ ٱلْحَمْدُ لِلَّهِ وَسَلَـٰمٌ عَلَىٰ عِبَادِهِ ٱلَّذِينَ ٱصْطَفَىٰٓ ۗ",
           "translation": "Say All praise be to Allah and peace be upon His slaves those whom He has chosen",
           "transliteration": "quli l-ḥamdu lillahi wasalāmun ʿalā ʿibādihi alladhīna iṣ'ṭafā",
           "type": "preferable_stop",
@@ -5727,8 +5727,8 @@
     },
     {
       "key": "27:66",
-      "arabic": "بَلِ ٱدَّٰرَكَ عِلْمُهُمْ ��ِى ٱلْـَٔاخِرَةِ ۚ بَلْ هُمْ فِى شَكٍّ مِّنْهَا ۖ بَلْ هُم مِّنْهَا عَمُونَ",
-      "arabicSimple": "بَلِ ٱدَّٰرَكَ عِلْمُهُمْ ��ِى ٱلْـَٔاخِرَةِ ۚ بَلْ هُمْ فِى شَكٍّ مِّنْهَا ۖ بَلْ هُم مِّنْهَا عَمُونَ",
+      "arabic": "بَلِ ٱدَّٰرَكَ عِلْمُهُمْ فِى ٱلْـَٔاخِرَةِ ۚ بَلْ هُمْ فِى شَكٍّ مِّنْهَا ۖ بَلْ هُم مِّنْهَا عَمُونَ",
+      "arabicSimple": "بَلِ ٱدَّٰرَكَ عِلْمُهُمْ فِى ٱلْـَٔاخِرَةِ ۚ بَلْ هُمْ فِى شَكٍّ مِّنْهَا ۖ بَلْ هُم مِّنْهَا عَمُونَ",
       "translation": "Rather, their knowledge is arrested concerning the Hereafter. Rather, they are in doubt about it. Rather, they are, concerning it, blind.",
       "transliteration": "Balid daaraka 'ilmuhum fil Aakhirah; bal hum fee shakkim minhaa bal hum minhaa 'amoon",
       "sajda": false,
@@ -5748,7 +5748,7 @@
       ],
       "segments": [
         {
-          "arabic": "بَلِ ٱدَّٰرَكَ عِلْمُهُمْ ��ِى ٱلْـَٔاخِرَةِ ۚ",
+          "arabic": "بَلِ ٱدَّٰرَكَ عِلْمُهُمْ فِى ٱلْـَٔاخِرَةِ ۚ",
           "translation": "Nay is arrested their knowledge of the Hereafter",
           "transliteration": "bali iddāraka ʿil'muhum fī l-ākhirati",
           "type": "compulsory_stop",
