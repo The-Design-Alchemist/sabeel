@@ -59,6 +59,7 @@ export default function Reader() {
   const [settings, setSettings] = useState<ReaderSettings>(loadSettings)
   const [activeWord, setActiveWord] = useState(-1) // global word index into timing.words
   const [resume, setResume] = useState<{ verse: number; lastPlayed: number } | null>(null)
+  const [repeatNotif, setRepeatNotif] = useState<string | null>(null)
 
   const updateSettings = (patch: Partial<ReaderSettings>) => {
     setSettings((s) => {
@@ -219,6 +220,14 @@ export default function Reader() {
     play(srcFor(0))
   }
 
+  const toggleRepeat = () => {
+    setRepeat((r) => {
+      const next = !r
+      setRepeatNotif(next ? "Repeat mode on" : "Repeat mode off")
+      return next
+    })
+  }
+
   const handleResumeContinue = () => {
     if (!resume) return
     const idx = verses.findIndex((v) => Number(v.key.split(":")[1]) === resume.verse)
@@ -240,6 +249,13 @@ export default function Reader() {
     onNext: () => goVerse(verseIndex + 1),
     onPrev: () => goVerse(verseIndex - 1),
   })
+
+  // Auto-hide the repeat-mode notification strip.
+  useEffect(() => {
+    if (!repeatNotif) return
+    const t = setTimeout(() => setRepeatNotif(null), 2000)
+    return () => clearTimeout(t)
+  }, [repeatNotif])
 
   // Words to render as spans (timing words for the verse, sliced to the segment).
   const renderWords = useMemo(() => {
@@ -354,8 +370,22 @@ export default function Reader() {
             repeat={repeat}
             onTogglePlay={togglePlay}
             onStartOver={startOver}
-            onToggleRepeat={() => setRepeat((r) => !r)}
+            onToggleRepeat={toggleRepeat}
           />
+
+          <AnimatePresence>
+            {repeatNotif && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={easeOut}
+                className="shrink-0 overflow-hidden bg-gradient-to-r from-teal to-teal-deep text-center text-sm font-medium text-white"
+              >
+                <div className="py-2.5">{repeatNotif}</div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <main className="flex flex-1 items-center justify-center overflow-y-auto bg-ground px-6 py-10">
             <div className="mx-auto w-full max-w-[632px]">
@@ -402,7 +432,7 @@ export default function Reader() {
               whileTap={{ scale: 0.97, transition: springPress }}
               onClick={() => goVerse(verseIndex - 1)}
               disabled={verseIndex === 0}
-              className="flex h-12 flex-1 items-center justify-center gap-1 rounded-[30px] bg-teal-deep px-3 text-[15px] font-medium uppercase tracking-[0.3px] text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:bg-[#c0c0c0] sm:w-[200px] sm:flex-none [&_svg]:size-5"
+              className="flex size-[60px] shrink-0 items-center justify-center gap-1 rounded-full bg-teal-deep text-[15px] font-medium uppercase tracking-[0.3px] text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:bg-[#c0c0c0] [&_svg]:size-6 sm:h-12 sm:w-[200px] sm:flex-none sm:gap-1 sm:rounded-[30px] sm:px-3 sm:[&_svg]:size-5"
             >
               <ChevronLeft />
               <span className="hidden sm:inline">Previous Verse</span>
@@ -429,7 +459,7 @@ export default function Reader() {
               whileTap={{ scale: 0.97, transition: springPress }}
               onClick={() => goVerse(verseIndex + 1)}
               disabled={verseIndex === verses.length - 1}
-              className="flex h-12 flex-1 items-center justify-center gap-1 rounded-[30px] bg-teal-deep px-3 text-[15px] font-medium uppercase tracking-[0.3px] text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:bg-[#c0c0c0] sm:w-[200px] sm:flex-none [&_svg]:size-5"
+              className="flex size-[60px] shrink-0 items-center justify-center gap-1 rounded-full bg-teal-deep text-[15px] font-medium uppercase tracking-[0.3px] text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:bg-[#c0c0c0] [&_svg]:size-6 sm:h-12 sm:w-[200px] sm:flex-none sm:gap-1 sm:rounded-[30px] sm:px-3 sm:[&_svg]:size-5"
             >
               <span className="hidden sm:inline">Next Verse</span>
               <ChevronRight />
