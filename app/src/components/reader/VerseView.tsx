@@ -45,7 +45,7 @@ export function VerseView({
       {showTransliteration && transliteration && (
         <>
           <Divider />
-          <p className="max-w-[60ch] text-[clamp(15px,2vw,18px)] italic leading-relaxed text-muted-foreground">
+          <p className="max-w-[60ch] text-[clamp(15px,2vw,18px)] font-medium leading-relaxed text-teal-deep">
             {transliteration}
           </p>
         </>
@@ -54,7 +54,7 @@ export function VerseView({
       {showTranslation && translation && (
         <>
           <Divider />
-          <p className="max-w-[60ch] text-[clamp(15px,2vw,18px)] leading-relaxed text-ink/90">
+          <p className="max-w-[60ch] text-[clamp(15px,2vw,18px)] font-medium leading-relaxed text-muted-foreground">
             {translation}
           </p>
         </>
