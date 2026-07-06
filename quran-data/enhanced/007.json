@@ -7423,23 +7423,16 @@
           "waqfMark": "ۚ"
         },
         {
-          "arabic": "وَٱذْكُرُوٓا۟ إِذْ جَعَلَكُمْ خُلَفَآءَ مِنۢ بَعْدِ قَوْمِ نُوحٍ وَزَادَكُمْ فِى ٱلْخَلْقِ بَص ۜ",
+          "arabic": "وَٱذْكُرُوٓا۟ إِذْ جَعَلَكُمْ خُلَفَآءَ مِنۢ بَعْدِ قَوْمِ نُوحٍ وَزَادَكُمْ فِى ٱلْخَلْقِ بَصْۜطَةً ۖ",
           "translation": "And remember when He made you successors from after the people of Nuh and increased you in the stature extensively",
           "transliteration": "wa-udh'kurū idh jaʿalakum khulafāa min baʿdi qawmi nūḥin wazādakum fī l-khalqi baṣ'ṭatan",
-          "type": "emphasis_stop",
-          "waqfMark": "ۜ"
-        },
-        {
-          "arabic": "ْطَةً ۖ",
-          "translation": "So remember",
-          "transliteration": "fa-udh'kurū",
           "type": "small_stop",
           "waqfMark": "ۖ"
         },
         {
-          "arabic": "ءَالَآءَ ٱللَّهِ لَعَلَّكُمْ تُفْلِحُونَ",
-          "translation": "the Bounties of Allah so that you may succeed",
-          "transliteration": "ālāa l-lahi laʿallakum tuf'liḥūna",
+          "arabic": "فَٱذْكُرُوٓا۟ ءَالَآءَ ٱللَّهِ لَعَلَّكُمْ تُفْلِحُونَ",
+          "translation": "So remember the Bounties of Allah so that you may succeed",
+          "transliteration": "fa-udh'kurū ālāa l-lahi laʿallakum tuf'liḥūna",
           "type": "verse_end"
         }
       ],

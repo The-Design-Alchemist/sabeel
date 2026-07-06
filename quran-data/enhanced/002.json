@@ -33376,16 +33376,9 @@
           "waqfMark": "ۚ"
         },
         {
-          "arabic": "وَٱللَّهُ يَقْبِضُ وَيَبْص ۜ",
-          "translation": "And Allah withholds and grants abundance",
-          "transliteration": "wal-lahu yaqbiḍu wayabṣuṭu",
-          "type": "emphasis_stop",
-          "waqfMark": "ۜ"
-        },
-        {
-          "arabic": "وَإِلَيْهِ تُرْجَعُونَ",
-          "translation": "and to Him you will be returned",
-          "transliteration": "wa-ilayhi tur'jaʿūna",
+          "arabic": "وَٱللَّهُ يَقْبِضُ وَيَبْصُۜطُ وَإِلَيْهِ تُرْجَعُونَ",
+          "translation": "And Allah withholds and grants abundance and to Him you will be returned",
+          "transliteration": "wal-lahu yaqbiḍu wayabṣuṭu wa-ilayhi tur'jaʿūna",
           "type": "verse_end"
         }
       ],

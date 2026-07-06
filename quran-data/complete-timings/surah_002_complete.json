@@ -33423,30 +33423,20 @@
       {
         "segmentNumber": 1,
         "start": 0.1,
-        "end": 10.58,
+        "end": 10.59,
         "startWord": 0,
-        "endWord": 10,
-        "wordCount": 11,
+        "endWord": 11,
+        "wordCount": 12,
         "type": "compulsory_stop",
         "waqfMark": "ۚ"
       },
       {
         "segmentNumber": 2,
-        "start": 10.58,
-        "end": 13.94,
-        "startWord": 11,
-        "endWord": 15,
-        "wordCount": 3,
-        "type": "emphasis_stop",
-        "waqfMark": "ۜ"
-      },
-      {
-        "segmentNumber": 3,
-        "start": 15.439028705882352,
-        "end": -0.1,
-        "startWord": 16,
-        "endWord": 17,
-        "wordCount": 2,
+        "start": 10.59,
+        "end": 16.07,
+        "startWord": 12,
+        "endWord": 16,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
