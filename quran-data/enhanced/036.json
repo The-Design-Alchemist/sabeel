@@ -3687,7 +3687,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَأَنِ ٱعْبُدُونِى ۚ",
+          "translation": "And that you worship [only] Me?",
+          "transliteration": "Wa ani'budoonee",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "هَـٰذَا صِرَٰطٌ مُّسْتَقِيمٌ",
+          "translation": "This is a straight path",
+          "transliteration": "haazaa Siraatum Mustaqeem",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {

@@ -306,7 +306,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "دُحُورًا ۖ",
+          "translation": "Repelled",
+          "transliteration": "Duhooranw",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "وَلَهُمْ عَذَابٌ وَاصِبٌ",
+          "translation": "and for them is a constant punishment",
+          "transliteration": "wa lahum 'azaabunw waasib",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 5,
       "words": [
         {
@@ -966,7 +980,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَقِفُوهُمْ ۖ",
+          "translation": "And stop them",
+          "transliteration": "Wa qifoohum",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "إِنَّهُم مَّسْـُٔولُونَ",
+          "translation": "indeed, they are to be questioned",
+          "transliteration": "innahum mas'ooloon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 4,
       "words": [
         {
@@ -1724,7 +1752,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "فَوَٰكِهُ ۖ",
+          "translation": "Fruits",
+          "transliteration": "Fa waakihu",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "وَهُم مُّكْرَمُونَ",
+          "translation": "and they will be honored",
+          "transliteration": "wa hum mukramoon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 4,
       "words": [
         {
@@ -5302,7 +5344,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَبِٱلَّيْلِ ۗ",
+          "translation": "And at night",
+          "transliteration": "Wa billail",
+          "type": "preferred_pause",
+          "waqfMark": "ۗ"
+        },
+        {
+          "arabic": "أَفَلَا تَعْقِلُونَ",
+          "translation": "Then will you not use reason?",
+          "transliteration": "afalaa ta'qiloon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 4,
       "words": [
         {
@@ -6473,7 +6529,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "فَكَفَرُوا۟ بِهِۦ ۖ",
+          "translation": "But they disbelieved in it",
+          "transliteration": "Fakafaroo bihee",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "فَسَوْفَ يَعْلَمُونَ",
+          "translation": "so they are going to know",
+          "transliteration": "fasawfa ya'lamoon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 5,
       "words": [
         {

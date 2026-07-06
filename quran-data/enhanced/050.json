@@ -22,7 +22,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "قٓ ۚ",
+          "translation": "Qaf",
+          "transliteration": "Qaaaf",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "وَٱلْقُرْءَانِ ٱلْمَجِيدِ",
+          "translation": "By the honored Qur'an",
+          "transliteration": "wal Qur aanil Majeed",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 5,
       "words": [
         {
@@ -1949,7 +1963,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "ٱدْخُلُوهَا بِسَلَـٰمٍ ۖ",
+          "translation": "Enter it in peace",
+          "transliteration": "Udkhuloohaa bisalaamin",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "ذَٰلِكَ يَوْمُ ٱلْخُلُودِ",
+          "translation": "This is the Day of Eternity",
+          "transliteration": "zaalika yawmul khulood",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {

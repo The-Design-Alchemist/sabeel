@@ -326,7 +326,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَٱلْأَنْعَـٰمَ خَلَقَهَا ۗ",
+          "translation": "And the grazing livestock He has created",
+          "transliteration": "Wal an 'amaa khalaqahaa",
+          "type": "preferred_pause",
+          "waqfMark": "ۗ"
+        },
+        {
+          "arabic": "لَكُمْ فِيهَا دِفْءٌ وَمَنَـٰفِعُ وَمِنْهَا تَأْكُلُونَ",
+          "translation": "for you; in them is warmth and [numerous] benefits, and from them you eat",
+          "transliteration": "lakum feehaa dif'unw wa manaafi'u wa minhaa taakuloon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 9,
       "words": [
         {
@@ -1321,7 +1335,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَعَلَـٰمَـٰتٍ ۚ",
+          "translation": "And landmarks",
+          "transliteration": "Wa 'alaamaat",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "وَبِٱلنَّجْمِ هُمْ يَهْتَدُونَ",
+          "translation": "And by the stars they are [also] guided",
+          "transliteration": "wa bin najmi hum yahtadoon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 5,
       "words": [
         {
@@ -4216,7 +4244,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "بِٱلْبَيِّنَـٰتِ وَٱلزُّبُرِ ۗ",
+          "translation": "[We sent them] with clear proofs and written ordinances",
+          "transliteration": "Bilbaiyinaati waz Zubur",
+          "type": "preferred_pause",
+          "waqfMark": "ۗ"
+        },
+        {
+          "arabic": "وَأَنزَلْنَآ إِلَيْكَ ٱلذِّكْرَ لِتُبَيِّنَ لِلنَّاسِ مَا نُزِّلَ إِلَيْهِمْ وَلَعَلَّهُمْ يَتَفَكَّرُونَ",
+          "translation": "And We revealed to you the message that you may make clear to the people what was sent down to them and that they might give thought",
+          "transliteration": "wa anzalnaaa ilaikaz Zikra litubaiyina linnaasi maa nuzzila ilaihim wa la'allahum yatafakkaroon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 13,
       "words": [
         {
@@ -12246,7 +12288,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "شَاكِرًا لِّأَنْعُمِهِ ۚ",
+          "translation": "[He was] grateful for His favors",
+          "transliteration": "Shaakiral li an'umih",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "ٱجْتَبَىٰهُ وَهَدَىٰهُ إِلَىٰ صِرَٰطٍ مُّسْتَقِيمٍ",
+          "translation": "Allah chose him and guided him to a straight path",
+          "transliteration": "ijtabaahu wa hadaahu ilaa Siraatim Muustaqeem",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 8,
       "words": [
         {

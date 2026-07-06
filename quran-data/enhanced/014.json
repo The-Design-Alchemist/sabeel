@@ -22,7 +22,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "الٓر ۚ",
+          "translation": "Alif, Lam, Ra",
+          "transliteration": "Alif-Laaam-Raa",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "كِتَـٰبٌ أَنزَلْنَـٰهُ إِلَيْكَ لِتُخْرِجَ ٱلنَّاسَ مِنَ ٱلظُّلُمَـٰتِ إِلَى ٱلنُّورِ بِإِذْنِ رَبِّهِمْ إِلَىٰ صِرَٰطِ ٱلْعَزِيزِ ٱلْحَمِيدِ",
+          "translation": "[This is] a Book which We have revealed to you, [O Muhammad], that you might bring mankind out of darknesses into the light by permission of their Lord - to the path of the Exalted in Might, the Praiseworthy",
+          "transliteration": "Kitaabun anzalnaahu ilaika litukhrijan-naasa minaz zulumaati ilan noori bi-izni Rabbihim ilaa siraatil 'Azeezil Hameed",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 18,
       "words": [
         {
@@ -3568,7 +3582,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "جَهَنَّمَ يَصْلَوْنَهَا ۖ",
+          "translation": "[It is] Hell, which they will [enter to] burn",
+          "transliteration": "Jahannama yaslawnahaa",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "وَبِئْسَ ٱلْقَرَارُ",
+          "translation": "and wretched is the settlement",
+          "transliteration": "wa bi'sal qaraar",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 5,
       "words": [
         {

@@ -35,7 +35,28 @@
         "end": 7.84
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.07,
+        "end": 4.89,
+        "startWord": 0,
+        "endWord": 2,
+        "wordCount": 3,
+        "type": "preferred_pause",
+        "waqfMark": "ۚ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 4.89,
+        "end": 7.84,
+        "startWord": 3,
+        "endWord": 5,
+        "wordCount": 3,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 38,
@@ -1166,7 +1187,28 @@
         "end": 8.79
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.06,
+        "end": 3.48,
+        "startWord": 0,
+        "endWord": 2,
+        "wordCount": 3,
+        "type": "sufficient_stop",
+        "waqfMark": "ۖ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 3.48,
+        "end": 8.79,
+        "startWord": 3,
+        "endWord": 5,
+        "wordCount": 3,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 38,
@@ -2459,7 +2501,28 @@
         "end": 7.08
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.06,
+        "end": 2.54,
+        "startWord": 0,
+        "endWord": 2,
+        "wordCount": 3,
+        "type": "sufficient_stop",
+        "waqfMark": "ۖ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 2.54,
+        "end": 7.08,
+        "startWord": 3,
+        "endWord": 6,
+        "wordCount": 4,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 38,
@@ -2912,7 +2975,28 @@
         "end": 9.38
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.03,
+        "end": 2.37,
+        "startWord": 0,
+        "endWord": 2,
+        "wordCount": 3,
+        "type": "sufficient_stop",
+        "waqfMark": "ۖ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 2.37,
+        "end": 9.38,
+        "startWord": 3,
+        "endWord": 6,
+        "wordCount": 4,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 38,
@@ -3335,7 +3419,28 @@
         "end": 8.63
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.06,
+        "end": 1.99,
+        "startWord": 0,
+        "endWord": 2,
+        "wordCount": 3,
+        "type": "preferred_pause",
+        "waqfMark": "ۚ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 1.99,
+        "end": 8.63,
+        "startWord": 3,
+        "endWord": 6,
+        "wordCount": 4,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 38,
@@ -3558,7 +3663,28 @@
         "end": 5.73
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.03,
+        "end": 1.59,
+        "startWord": 0,
+        "endWord": 1,
+        "wordCount": 2,
+        "type": "preferred_pause",
+        "waqfMark": "ۚ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 1.59,
+        "end": 5.73,
+        "startWord": 2,
+        "endWord": 5,
+        "wordCount": 4,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 38,

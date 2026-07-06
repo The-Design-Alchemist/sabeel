@@ -779,7 +779,28 @@
         "end": 12.4
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.08,
+        "end": 2.29,
+        "startWord": 0,
+        "endWord": 2,
+        "wordCount": 3,
+        "type": "sufficient_stop",
+        "waqfMark": "ۖ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 2.29,
+        "end": 12.4,
+        "startWord": 3,
+        "endWord": 11,
+        "wordCount": 9,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 45,

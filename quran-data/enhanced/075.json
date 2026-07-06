@@ -880,7 +880,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَقِيلَ مَنْ ۜ",
+          "translation": "And it is said, \"Who",
+          "transliteration": "Wa qeela man",
+          "type": "emphasis_stop",
+          "waqfMark": "ۜ"
+        },
+        {
+          "arabic": "رَاقٍ",
+          "translation": "will cure [him]?\"",
+          "transliteration": "raaq",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 4,
       "words": [
         {

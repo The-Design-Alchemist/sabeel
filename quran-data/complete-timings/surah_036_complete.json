@@ -3461,7 +3461,28 @@
         "end": 9.06
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.04,
+        "end": 2.45,
+        "startWord": 0,
+        "endWord": 2,
+        "wordCount": 3,
+        "type": "preferred_pause",
+        "waqfMark": "ۚ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 2.45,
+        "end": 9.06,
+        "startWord": 3,
+        "endWord": 5,
+        "wordCount": 3,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 36,

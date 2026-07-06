@@ -595,7 +595,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "كَلَّا ۖ",
+          "translation": "No!",
+          "transliteration": "Kalla",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "بَل لَّا تُكْرِمُونَ ٱلْيَتِيمَ",
+          "translation": "But you do not honor the orphan",
+          "transliteration": "bal laa tukrimooo nal yateem",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {

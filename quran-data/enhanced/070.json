@@ -362,7 +362,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "يُبَصَّرُونَهُمْ ۚ",
+          "translation": "They will be shown each other",
+          "transliteration": "Yubassaroonahum",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "يَوَدُّ ٱلْمُجْرِمُ لَوْ يَفْتَدِى مِنْ عَذَابِ يَوْمِئِذٍۭ بِبَنِيهِ",
+          "translation": "The criminal will wish that he could be ransomed from the punishment of that Day by his children",
+          "transliteration": "ya waddul mujrimu law yaftadee min 'azaabi yawma'izim bibaneeh",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 10,
       "words": [
         {
@@ -521,7 +535,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "كَلَّآ ۖ",
+          "translation": "No!",
+          "transliteration": "Kallaa",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "إِنَّهَا لَظَىٰ",
+          "translation": "Indeed, it is the Flame [of Hell]",
+          "transliteration": "innahaa lazaa",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 4,
       "words": [
         {
@@ -1392,7 +1420,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "كَلَّآ ۖ",
+          "translation": "No!",
+          "transliteration": "Kallaaa",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "إِنَّا خَلَقْنَـٰهُم مِّمَّا يَعْلَمُونَ",
+          "translation": "Indeed, We have created them from that which they know",
+          "transliteration": "innaa khalaq nahum mimmaa ya'lamoon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {

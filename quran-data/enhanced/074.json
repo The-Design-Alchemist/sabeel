@@ -437,7 +437,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "كَلَّآ ۖ",
+          "translation": "No!",
+          "transliteration": "Kallaaa",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "إِنَّهُۥ كَانَ لِـَٔايَـٰتِنَا عَنِيدًا",
+          "translation": "Indeed, he has been toward Our verses obstinate",
+          "transliteration": "innahoo kaana li Aayaatinaa 'aneedaa",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {
@@ -1956,7 +1970,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "كَلَّا ۖ",
+          "translation": "No!",
+          "transliteration": "Kallaa",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "بَل لَّا يَخَافُونَ ٱلْـَٔاخِرَةَ",
+          "translation": "But they do not fear the Hereafter",
+          "transliteration": "bal laa yakhaafoonal aakhirah",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {

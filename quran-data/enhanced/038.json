@@ -22,7 +22,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "صٓ ۚ",
+          "translation": "Sad",
+          "transliteration": "Saaad",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "وَٱلْقُرْءَانِ ذِى ٱلذِّكْرِ",
+          "translation": "By the Qur'an containing reminder",
+          "transliteration": "wal-Qur-aani ziz zikr",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {
@@ -1203,7 +1217,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَٱلطَّيْرَ مَحْشُورَةً ۖ",
+          "translation": "And the birds were assembled",
+          "transliteration": "Wattayra mahshoorah",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "كُلٌّ لَّهُۥٓ أَوَّابٌ",
+          "translation": "all with him repeating [praises]",
+          "transliteration": "kullul lahooo awwaab",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {
@@ -2522,7 +2550,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "رُدُّوهَا عَلَىَّ ۖ",
+          "translation": "[He said], \"Return them to me\"",
+          "transliteration": "Ruddoohaa 'alaiya",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "فَطَفِقَ مَسْحًۢا بِٱلسُّوقِ وَٱلْأَعْنَاقِ",
+          "translation": "and set about striking [their] legs and necks",
+          "transliteration": "fatafiqa masham bissooqi wal a'naaq",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 7,
       "words": [
         {
@@ -3017,7 +3059,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "ٱرْكُضْ بِرِجْلِكَ ۖ",
+          "translation": "[So he was told], \"Strike [the ground] with your foot",
+          "transliteration": "Urkud birijlika",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "هَـٰذَا مُغْتَسَلٌۢ بَارِدٌ وَشَرَابٌ",
+          "translation": "this is a [spring for] a cool bath and drink\"",
+          "transliteration": "haaza mughtasalum baaridunw wa sharaab",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 7,
       "words": [
         {
@@ -3463,7 +3519,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "هَـٰذَا ذِكْرٌ ۚ",
+          "translation": "This is a reminder",
+          "transliteration": "Haazaa zikr",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "وَإِنَّ لِلْمُتَّقِينَ لَحُسْنَ مَـَٔابٍ",
+          "translation": "And indeed, for the righteous is a good place of return",
+          "transliteration": "wa inna lilmuttaqeena lahusna ma aab",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 7,
       "words": [
         {
@@ -3725,7 +3795,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "هَـٰذَا ۚ",
+          "translation": "This [is so]",
+          "transliteration": "Haazaa",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "وَإِنَّ لِلطَّـٰغِينَ لَشَرَّ مَـَٔابٍ",
+          "translation": "But indeed, for the transgressors is an evil place of return",
+          "transliteration": "wa inna littaagheena lasharra ma-aab",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {

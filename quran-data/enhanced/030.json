@@ -303,7 +303,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَعْدَ ٱللَّهِ ۖ",
+          "translation": "[It is] the promise of Allah",
+          "transliteration": "Wa'dal laahi",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "لَا يُخْلِفُ ٱللَّهُ وَعْدَهُۥ وَلَـٰكِنَّ أَكْثَرَ ٱلنَّاسِ لَا يَعْلَمُونَ",
+          "translation": "Allah does not fail in His promise, but most of the people do not know",
+          "transliteration": "laa yukhliful laahu wa'dahoo wa laakin na aksaran naasi laa ya'lamoon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 12,
       "words": [
         {

@@ -5509,7 +5509,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَيَسْتَعْجِلُونَكَ بِٱلْعَذَابِ ۚ",
+          "translation": "And they urge you to hasten the punishment",
+          "transliteration": "Wa yasta'jiloonaka bil'azaab",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "وَلَوْلَآ أَجَلٌ مُّسَمًّى لَّجَآءَهُمُ ٱلْعَذَابُ وَلَيَأْتِيَنَّهُم بَغْتَةً وَهُمْ لَا يَشْعُرُونَ",
+          "translation": "And if not for [the decree of] a specified term, punishment would have reached them. But it will surely come to them suddenly while they perceive not",
+          "transliteration": "wa law laaa ajalum musammal lajaaa'ahumul 'zaab wa la yaatiyannahum baghta tanw wa hum laa yash'uroon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 13,
       "words": [
         {

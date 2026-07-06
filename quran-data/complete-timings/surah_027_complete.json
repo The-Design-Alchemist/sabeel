@@ -45,7 +45,28 @@
         "end": 11.62
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.08,
+        "end": 4.72,
+        "startWord": 0,
+        "endWord": 2,
+        "wordCount": 3,
+        "type": "preferred_pause",
+        "waqfMark": "ۚ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 4.72,
+        "end": 11.62,
+        "startWord": 3,
+        "endWord": 7,
+        "wordCount": 5,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 27,

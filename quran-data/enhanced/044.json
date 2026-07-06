@@ -547,7 +547,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "يَغْشَى ٱلنَّاسَ ۖ",
+          "translation": "Covering the people",
+          "transliteration": "Yaghshan naasa",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "هَـٰذَا عَذَابٌ أَلِيمٌ",
+          "translation": "this is a painful torment",
+          "transliteration": "haazaa 'azaabun aleem",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {
@@ -1376,7 +1390,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "كَذَٰلِكَ ۖ",
+          "translation": "Thus",
+          "transliteration": "Kazaalika",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "وَأَوْرَثْنَـٰهَا قَوْمًا ءَاخَرِينَ",
+          "translation": "And We caused to inherit it another people",
+          "transliteration": "wa awrasnaahaa qawman aakhareen",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 5,
       "words": [
         {
@@ -1517,7 +1545,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "مِن فِرْعَوْنَ ۚ",
+          "translation": "From Pharaoh",
+          "transliteration": "Min Fir'awn",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "إِنَّهُۥ كَانَ عَالِيًا مِّنَ ٱلْمُسْرِفِينَ",
+          "translation": "Indeed, he was a haughty one among the transgressors",
+          "transliteration": "innahoo kaana 'aaliyam minal musrifeen",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 8,
       "words": [
         {

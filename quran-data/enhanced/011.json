@@ -22,7 +22,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "الٓر ۚ",
+          "translation": "Alif, Lam, Ra",
+          "transliteration": "Alif-Laaam-Raa",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "كِتَـٰبٌ أُحْكِمَتْ ءَايَـٰتُهُۥ ثُمَّ فُصِّلَتْ مِن لَّدُنْ حَكِيمٍ خَبِيرٍ",
+          "translation": "[This is] a Book whose verses are perfected and then presented in detail from [one who is] Wise and Acquainted",
+          "transliteration": "Kitaabun uhkimat Aayaatuhoo summa fussilat mil ladun Hakeemin Khabeer",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 12,
       "words": [
         {
@@ -6294,7 +6308,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "مِن دُونِهِۦ ۖ",
+          "translation": "Other than Him",
+          "transliteration": "Min doonihee",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "فَكِيدُونِى جَمِيعًا ثُمَّ لَا تُنظِرُونِ",
+          "translation": "So plot against me all together; then do not give me respite",
+          "transliteration": "fakeedoonee jamee'an summa laa tunziroon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 8,
       "words": [
         {
@@ -6721,7 +6749,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَتِلْكَ عَادٌ ۖ",
+          "translation": "And that was 'Aad",
+          "transliteration": "Wa tilka 'aad",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "جَحَدُوا۟ بِـَٔايَـٰتِ رَبِّهِمْ وَعَصَوْا۟ رُسُلَهُۥ وَٱتَّبَعُوٓا۟ أَمْرَ كُلِّ جَبَّارٍ عَنِيدٍ",
+          "translation": "who rejected the signs of their Lord and disobeyed His messengers and followed the order of every obstinate tyrant",
+          "transliteration": "jahadoo bi Aayaati Rabbihim wa 'asaw Rusulahoo wattaba'ooo amra kulli jabbaarin 'aneed",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 13,
       "words": [
         {

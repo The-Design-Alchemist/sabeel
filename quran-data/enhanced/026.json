@@ -538,7 +538,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "قَوْمَ فِرْعَوْنَ ۚ",
+          "translation": "The people of Pharaoh",
+          "transliteration": "Qawma Fir'awn",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "أَلَا يَتَّقُونَ",
+          "translation": "Will they not fear Allah?",
+          "transliteration": "alaa yattaqoon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 5,
       "words": [
         {
@@ -3014,7 +3028,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "قَالَ كَلَّآ ۖ",
+          "translation": "[Moses] said, \"No!",
+          "transliteration": "Qaala kallaaa",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "إِنَّ مَعِىَ رَبِّى سَيَهْدِينِ",
+          "translation": "Indeed, with me is my Lord; He will guide me\"",
+          "transliteration": "inna ma'iya Rabbee sa yahdeen",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 7,
       "words": [
         {

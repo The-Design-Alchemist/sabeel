@@ -6009,7 +6009,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "خَـٰلِدِينَ فِيهَا ۚ",
+          "translation": "Abiding eternally therein",
+          "transliteration": "Khaalideena feehaa",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "حَسُنَتْ مُسْتَقَرًّا وَمُقَامًا",
+          "translation": "Good is the settlement and residence",
+          "transliteration": "hasunat mustaqarranw wa muqaamaa",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {

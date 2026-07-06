@@ -1626,7 +1626,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "فَٱنتَقَمْنَا مِنْهُمْ ۖ",
+          "translation": "So we took retribution from them",
+          "transliteration": "Fantaqamnaa minhum",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "فَٱنظُرْ كَيْفَ كَانَ عَـٰقِبَةُ ٱلْمُكَذِّبِينَ",
+          "translation": "then see how was the end of the deniers",
+          "transliteration": "fanzur kaifa kaana 'aaqibatul mukazzibeen",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 8,
       "words": [
         {

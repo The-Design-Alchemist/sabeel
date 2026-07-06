@@ -5351,7 +5351,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "سَيَقُولُونَ لِلَّهِ ۚ",
+          "translation": "They will say, \"To Allah\"",
+          "transliteration": "Sa-yaqooloona lillaah",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "قُلْ أَفَلَا تَذَكَّرُونَ",
+          "translation": "Say, \"Then will you not remember?\"",
+          "transliteration": "qul afalaa tazakkkaroon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {
@@ -5449,7 +5463,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "سَيَقُولُونَ لِلَّهِ ۚ",
+          "translation": "They will say, \"[They belong] to Allah\"",
+          "transliteration": "Sa yaqooloona lillaah",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "قُلْ أَفَلَا تَتَّقُونَ",
+          "translation": "Say, \"Then will you not fear Him?\"",
+          "transliteration": "qul afalaa tattaqoon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {
@@ -5577,7 +5605,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "سَيَقُولُونَ لِلَّهِ ۚ",
+          "translation": "They will say, \"[All belongs] to Allah\"",
+          "transliteration": "Sa yaqooloona lillaah",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "قُلْ فَأَنَّىٰ تُسْحَرُونَ",
+          "translation": "Say, \"Then how are you deluded?\"",
+          "transliteration": "qul fa annaa tus haroon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {

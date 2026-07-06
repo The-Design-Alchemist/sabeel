@@ -19582,7 +19582,28 @@
         "end": 9.31
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.11,
+        "end": 2.61,
+        "startWord": 0,
+        "endWord": 2,
+        "wordCount": 3,
+        "type": "sufficient_stop",
+        "waqfMark": "ۖ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 2.61,
+        "end": 9.31,
+        "startWord": 3,
+        "endWord": 9,
+        "wordCount": 7,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 2,

@@ -703,7 +703,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَفِىٓ أَنفُسِكُمْ ۚ",
+          "translation": "And in yourselves",
+          "transliteration": "Wa feee anfusikum",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "أَفَلَا تُبْصِرُونَ",
+          "translation": "Then will you not see?",
+          "transliteration": "afalaa tubsiroon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 5,
       "words": [
         {
@@ -2402,7 +2416,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "أَتَوَاصَوْا۟ بِهِۦ ۚ",
+          "translation": "Did they suggest it to them?",
+          "transliteration": "Atawaasaw bih",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "بَلْ هُمْ قَوْمٌ طَاغُونَ",
+          "translation": "Rather, they [themselves] are a transgressing people",
+          "transliteration": "bal hum qawmun taaghoon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 7,
       "words": [
         {

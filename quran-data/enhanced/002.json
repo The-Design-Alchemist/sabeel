@@ -19694,7 +19694,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "خَـٰلِدِينَ فِيهَا ۖ",
+          "translation": "Abiding eternally therein",
+          "transliteration": "khaalideena feeha",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "لَا يُخَفَّفُ عَنْهُمُ ٱلْعَذَابُ وَلَا هُمْ يُنظَرُونَ",
+          "translation": "The punishment will not be lightened for them, nor will they be reprieved",
+          "transliteration": "laa yukhaffafu 'anhumul 'azaabu wa laa hum yunzaroon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 10,
       "words": [
         {

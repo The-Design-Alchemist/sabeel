@@ -1125,7 +1125,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "لِّنَفْتِنَهُمْ فِيهِ ۚ",
+          "translation": "So We might test them therein",
+          "transliteration": "Linaftinahum feeh",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "وَمَن يُعْرِضْ عَن ذِكْرِ رَبِّهِۦ يَسْلُكْهُ عَذَابًا صَعَدًا",
+          "translation": "And whoever turns away from the remembrance of his Lord He will put into arduous punishment",
+          "transliteration": "wa many yu'rid 'an zikri rabbihee yasluk hu 'azaaban sa'adaa",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 11,
       "words": [
         {

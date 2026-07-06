@@ -22,7 +22,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "نٓ ۚ",
+          "translation": "Nun",
+          "transliteration": "Noon",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "وَٱلْقَلَمِ وَمَا يَسْطُرُونَ",
+          "translation": "By the pen and what they inscribe",
+          "transliteration": "walqalami wa maa yasturoon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {
@@ -1891,7 +1905,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَأُمْلِى لَهُمْ ۚ",
+          "translation": "And I will give them time",
+          "transliteration": "Wa umlee lahum",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "إِنَّ كَيْدِى مَتِينٌ",
+          "translation": "Indeed, My plan is firm",
+          "transliteration": "inna kaidee mateen",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {

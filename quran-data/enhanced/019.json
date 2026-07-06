@@ -1938,7 +1938,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "فَأَشَارَتْ إِلَيْهِ ۖ",
+          "translation": "So she pointed to him",
+          "transliteration": "Fa ashaarat ilaih",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "قَالُوا۟ كَيْفَ نُكَلِّمُ مَن كَانَ فِى ٱلْمَهْدِ صَبِيًّا",
+          "translation": "They said, \"How can we speak to one who is in the cradle a child?\"",
+          "transliteration": "qaaloo kaifa nukallimu man kaana fil mahdi sabiyyaa",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 11,
       "words": [
         {
@@ -5820,7 +5834,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "كَلَّا ۚ",
+          "translation": "No!",
+          "transliteration": "Kallaa",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "سَنَكْتُبُ مَا يَقُولُ وَنَمُدُّ لَهُۥ مِنَ ٱلْعَذَابِ مَدًّا",
+          "translation": "We will record what he says and extend for him from the punishment extensively",
+          "transliteration": "sanaktubu maa yaqoolu wa namuddu lahoo minal 'azaabi maddaa",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 10,
       "words": [
         {
@@ -5976,7 +6004,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "كَلَّا ۚ",
+          "translation": "No!",
+          "transliteration": "Kallaa",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "سَيَكْفُرُونَ بِعِبَادَتِهِمْ وَيَكُونُونَ عَلَيْهِمْ ضِدًّا",
+          "translation": "Those \"gods\" will deny their worship of them and will be against them opponents [on the Day of Judgement]",
+          "transliteration": "sa yakfuroona bi'ibaadatihim wa yakoonoona 'alaihim diddaa",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 7,
       "words": [
         {

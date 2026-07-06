@@ -12188,7 +12188,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "قَالَ أَلْقُوا۟ ۖ",
+          "translation": "He said, \"Throw\"",
+          "transliteration": "Qaala alqoo",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "فَلَمَّآ أَلْقَوْا۟ سَحَرُوٓا۟ أَعْيُنَ ٱلنَّاسِ وَٱسْتَرْهَبُوهُمْ وَجَآءُو بِسِحْرٍ عَظِيمٍ",
+          "translation": "and when they threw, they bewitched the eyes of the people and struck terror into them, and they presented a great [feat of] magic",
+          "transliteration": "falam maaa alqaw saharooo a'yunannaasi wastarhaboohum wa jaaa'oo bisihrin 'azeem",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 12,
       "words": [
         {
@@ -20355,7 +20369,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَأُمْلِى لَهُمْ ۚ",
+          "translation": "And I will give them time",
+          "transliteration": "Wa umlee lahum",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "إِنَّ كَيْدِى مَتِينٌ",
+          "translation": "Indeed, my plan is firm",
+          "transliteration": "inna kaidee mateen",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {

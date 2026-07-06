@@ -5948,7 +5948,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "أَلَّا تَتَّبِعَنِ ۖ",
+          "translation": "From following me?",
+          "transliteration": "Allaa tattabi'ani",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "أَفَعَصَيْتَ أَمْرِى",
+          "translation": "Then have you disobeyed my order?",
+          "transliteration": "afa'asaita amree",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 5,
       "words": [
         {
@@ -6684,7 +6698,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "خَـٰلِدِينَ فِيهِ ۖ",
+          "translation": "[Abiding] eternally therein",
+          "transliteration": "Khaalideena feehi",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "وَسَآءَ لَهُمْ يَوْمَ ٱلْقِيَـٰمَةِ حِمْلًا",
+          "translation": "and evil it is for them on the Day of Resurrection as a load",
+          "transliteration": "wa saaa'a lahum Yawmal Qiyaamati himlaa",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 8,
       "words": [
         {

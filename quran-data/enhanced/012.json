@@ -22,7 +22,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "الٓر ۚ",
+          "translation": "Alif, Lam, Ra",
+          "transliteration": "Alif-Laaam-Raa",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "تِلْكَ ءَايَـٰتُ ٱلْكِتَـٰبِ ٱلْمُبِينِ",
+          "translation": "These are the verses of the clear Book",
+          "transliteration": "tilka Aayaatul Kitaabil Mubeen",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 7,
       "words": [
         {

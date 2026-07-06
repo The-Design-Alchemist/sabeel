@@ -7700,7 +7700,28 @@
         "end": 9.17
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.05,
+        "end": 3.05,
+        "startWord": 0,
+        "endWord": 1,
+        "wordCount": 2,
+        "type": "sufficient_stop",
+        "waqfMark": "ۖ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 3.05,
+        "end": 9.17,
+        "startWord": 2,
+        "endWord": 6,
+        "wordCount": 5,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 33,

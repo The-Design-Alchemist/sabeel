@@ -119,7 +119,28 @@
         "end": 6.07
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.03,
+        "end": 1.6,
+        "startWord": 0,
+        "endWord": 1,
+        "wordCount": 2,
+        "type": "sufficient_stop",
+        "waqfMark": "ۖ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 1.6,
+        "end": 6.07,
+        "startWord": 2,
+        "endWord": 4,
+        "wordCount": 3,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 104,

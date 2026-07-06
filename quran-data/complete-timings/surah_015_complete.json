@@ -45,7 +45,28 @@
         "end": 11.74
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.15,
+        "end": 5.39,
+        "startWord": 0,
+        "endWord": 2,
+        "wordCount": 3,
+        "type": "preferred_pause",
+        "waqfMark": "ۚ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 5.39,
+        "end": 11.74,
+        "startWord": 3,
+        "endWord": 7,
+        "wordCount": 5,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 15,

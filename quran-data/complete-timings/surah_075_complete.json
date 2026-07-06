@@ -758,7 +758,28 @@
         "end": 4.76
       }
     ],
-    "segments": null
+    "segments": [
+      {
+        "segmentNumber": 1,
+        "start": 0.03,
+        "end": 1.69,
+        "startWord": 0,
+        "endWord": 2,
+        "wordCount": 3,
+        "type": "emphasis_stop",
+        "waqfMark": "ۜ"
+      },
+      {
+        "segmentNumber": 2,
+        "start": 1.69,
+        "end": 4.76,
+        "startWord": 3,
+        "endWord": 3,
+        "wordCount": 1,
+        "type": "verse_end",
+        "waqfMark": null
+      }
+    ]
   },
   {
     "surahNumber": 75,

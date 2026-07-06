@@ -759,7 +759,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "هَـٰذَا هُدًى ۖ",
+          "translation": "This [Qur'an] is guidance",
+          "transliteration": "Haazaa hudanw",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "وَٱلَّذِينَ كَفَرُوا۟ بِـَٔايَـٰتِ رَبِّهِمْ لَهُمْ عَذَابٌ مِّن رِّجْزٍ أَلِيمٌ",
+          "translation": "And those who have disbelieved in the verses of their Lord will have a painful punishment of foul nature",
+          "transliteration": "wal lazeena kafaroo bi aayaati Rabbihim lahum 'azaabum mir rijzin aleem",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 12,
       "words": [
         {

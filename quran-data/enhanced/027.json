@@ -22,7 +22,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "طسٓ ۚ",
+          "translation": "Ta, Seen",
+          "transliteration": "Taa-Seeen",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "تِلْكَ ءَايَـٰتُ ٱلْقُرْءَانِ وَكِتَابٍ مُّبِينٍ",
+          "translation": "These are the verses of the Qur'an and a clear Book",
+          "transliteration": "tilka Aayaatul Qur-aani wa Kitaabim Mubeen",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 8,
       "words": [
         {

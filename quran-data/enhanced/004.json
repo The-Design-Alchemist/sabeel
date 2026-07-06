@@ -16306,7 +16306,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "وَٱسْتَغْفِرِ ٱللَّهَ ۖ",
+          "translation": "And seek forgiveness of Allah",
+          "transliteration": "Wastaghfiril laaha",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "إِنَّ ٱللَّهَ كَانَ غَفُورًا رَّحِيمًا",
+          "translation": "Indeed, Allah is ever Forgiving and Merciful",
+          "transliteration": "innal laaha kaana Ghafoorar Raheema",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 8,
       "words": [
         {
@@ -17688,7 +17702,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "لَّعَنَهُ ٱللَّهُ ۘ",
+          "translation": "Whom Allah has cursed",
+          "transliteration": "La'anahul laah",
+          "type": "sufficient_stop",
+          "waqfMark": "ۘ"
+        },
+        {
+          "arabic": "وَقَالَ لَأَتَّخِذَنَّ مِنْ عِبَادِكَ نَصِيبًا مَّفْرُوضًا",
+          "translation": "For he had said, \"I will surely take from among Your servants a specific portion\"",
+          "transliteration": "wa qaala la attakhizanna min 'ibaadika naseebam mafroodaa",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 9,
       "words": [
         {
@@ -17887,7 +17915,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "يَعِدُهُمْ وَيُمَنِّيهِمْ ۖ",
+          "translation": "Satan promises them and arouses desire in them",
+          "transliteration": "Ya'iduhum wa yuman neehim",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "وَمَا يَعِدُهُمُ ٱلشَّيْطَـٰنُ إِلَّا غُرُورًا",
+          "translation": "But Satan does not promise them except delusion",
+          "transliteration": "wa maa ya'iduhumush Shaitaanu illaa ghurooraa",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 8,
       "words": [
         {

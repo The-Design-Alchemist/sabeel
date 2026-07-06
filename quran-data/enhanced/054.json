@@ -215,7 +215,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "حِكْمَةٌۢ بَـٰلِغَةٌ ۖ",
+          "translation": "Extensive wisdom",
+          "transliteration": "Hikmatum baalighatun",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "فَمَا تُغْنِ ٱلنُّذُرُ",
+          "translation": "but warning does not avail [them]",
+          "transliteration": "famaa tughnin nuzur",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 6,
       "words": [
         {
@@ -260,7 +274,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "فَتَوَلَّ عَنْهُمْ ۘ",
+          "translation": "So leave them, [O Muhammad]",
+          "transliteration": "Fatawalla 'anhum",
+          "type": "sufficient_stop",
+          "waqfMark": "ۘ"
+        },
+        {
+          "arabic": "يَوْمَ يَدْعُ ٱلدَّاعِ إِلَىٰ شَىْءٍ نُّكُرٍ",
+          "translation": "The Day the Caller calls to something forbidding",
+          "transliteration": "yawma yad'ud daa'i ilaa shai 'in nukur",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 9,
       "words": [
         {

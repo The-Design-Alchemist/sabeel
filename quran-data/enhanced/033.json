@@ -7730,7 +7730,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "مَّلْعُونِينَ ۖ",
+          "translation": "Accursed",
+          "transliteration": "Mal'ooneena",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "أَيْنَمَا ثُقِفُوٓا۟ أُخِذُوا۟ وَقُتِّلُوا۟ تَقْتِيلًا",
+          "translation": "wherever they are found, [being] seized and massacred completely",
+          "transliteration": "ainamaa suqifoo ukhizoo wa quttiloo taqteelaa",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 7,
       "words": [
         {

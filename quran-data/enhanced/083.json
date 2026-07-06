@@ -939,7 +939,21 @@
           "wordIndex": 2
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "خِتَـٰمُهُۥ مِسْكٌ ۚ",
+          "translation": "The last of it is musk",
+          "transliteration": "Khitaamuhoo misk",
+          "type": "preferred_pause",
+          "waqfMark": "ۚ"
+        },
+        {
+          "arabic": "وَفِى ذَٰلِكَ فَلْيَتَنَافَسِ ٱلْمُتَنَـٰفِسُونَ",
+          "translation": "So for this let the competitors compete",
+          "transliteration": "wa fee zaalika falyatanaafasil Mutanaafisoon",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 7,
       "words": [
         {

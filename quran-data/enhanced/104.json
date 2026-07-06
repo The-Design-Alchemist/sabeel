@@ -121,7 +121,21 @@
           "wordIndex": 1
         }
       ],
-      "segments": null,
+      "segments": [
+        {
+          "arabic": "كَلَّا ۖ",
+          "translation": "No!",
+          "transliteration": "Kalla",
+          "type": "sufficient_stop",
+          "waqfMark": "ۖ"
+        },
+        {
+          "arabic": "لَيُنۢبَذَنَّ فِى ٱلْحُطَمَةِ",
+          "translation": "He will surely be thrown into the Crusher",
+          "transliteration": "layum ba zanna fil hutamah",
+          "type": "verse_end"
+        }
+      ],
       "wordCount": 5,
       "words": [
         {
