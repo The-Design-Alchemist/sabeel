@@ -256,8 +256,8 @@ export default function Reader() {
 
   return (
     <div className="flex min-h-screen flex-col bg-teal-deep">
-      {/* Header (lean) */}
-      <header className="grid grid-cols-[auto_1fr_auto] items-center gap-2 px-4 py-4 text-white sm:px-6">
+      {/* Header (lean) — title block is absolutely centered on the screen */}
+      <header className="relative flex items-center justify-between px-4 py-4 text-white sm:px-6">
         <Link
           to="/"
           className="inline-flex items-center gap-1 rounded-full px-2 py-1.5 text-sm font-medium text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
@@ -266,17 +266,18 @@ export default function Reader() {
           <span className="hidden sm:inline">Back to List</span>
         </Link>
 
-        <div className="flex min-w-0 flex-col items-center text-center leading-tight">
-          {data && (
-            <>
-              <span dir="rtl" lang="ar" className="truncate font-arabic text-lg">
-                سُورَة {data.name}
-              </span>
+        {data && (
+          <div className="pointer-events-none absolute left-1/2 flex -translate-x-1/2 items-center gap-3">
+            <span dir="rtl" lang="ar" className="whitespace-nowrap font-arabic text-lg sm:text-xl">
+              سُورَة {data.name}
+            </span>
+            <span className="h-8 w-px bg-white/25" aria-hidden="true" />
+            <div className="flex flex-col text-left leading-tight">
               <span className="text-sm font-semibold">{data.englishName}</span>
               <span className="text-xs text-white/60">{data.englishNameTranslation}</span>
-            </>
-          )}
-        </div>
+            </div>
+          </div>
+        )}
 
         <SettingsDialog settings={settings} onChange={updateSettings} />
       </header>

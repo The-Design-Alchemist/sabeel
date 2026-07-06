@@ -16,14 +16,25 @@ type Props = {
   showTransliteration: boolean
 }
 
+const ARABIC_INDIC = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"]
+function toArabicIndic(n: number): string {
+  return String(n)
+    .split("")
+    .map((d) => ARABIC_INDIC[+d] ?? d)
+    .join("")
+}
+
+/** Traditional ayah-end rosette: U+06DD (End of Ayah) enclosing the verse number
+ *  in Arabic-Indic digits, rendered in the Arabic face (teal). */
 function VerseEndMark({ n }: { n: number }) {
   return (
     <span
-      dir="ltr"
-      className="mx-1.5 inline-flex size-7 select-none items-center justify-center rounded-full border border-teal/40 align-middle font-sans text-sm font-semibold text-teal"
+      dir="rtl"
+      lang="ar"
+      className="mx-1 select-none align-baseline font-arabic text-[0.9em] text-teal"
       aria-label={`Verse ${n}`}
     >
-      {n}
+      {"۝" + toArabicIndic(n)}
     </span>
   )
 }
