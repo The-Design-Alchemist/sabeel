@@ -5,6 +5,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react"
 import { useSurah } from "@/hooks/useSurah"
 import { useTimings } from "@/hooks/useTimings"
 import { useVerseAudio } from "@/hooks/useVerseAudio"
+import { useMediaSession } from "@/hooks/useMediaSession"
 import { audioUrl, isSegmented, type TimingVerse } from "@/data/quran"
 import {
   Select,
@@ -19,6 +20,7 @@ import { SegmentNav } from "@/components/reader/SegmentNav"
 import { AudioControls } from "@/components/reader/AudioControls"
 import { BismillahScreen } from "@/components/reader/BismillahScreen"
 import { SettingsDialog, type ReaderSettings } from "@/components/reader/SettingsDialog"
+import { ResumeDialog } from "@/components/reader/ResumeDialog"
 import { easeOut, springPress } from "@/lib/motion"
 import { activeWordAt } from "@/lib/highlight"
 
@@ -56,6 +58,7 @@ export default function Reader() {
   const [repeat, setRepeat] = useState(false)
   const [settings, setSettings] = useState<ReaderSettings>(loadSettings)
   const [activeWord, setActiveWord] = useState(-1) // global word index into timing.words
+  const [resume, setResume] = useState<{ verse: number; lastPlayed: number } | null>(null)
 
   const updateSettings = (patch: Partial<ReaderSettings>) => {
     setSettings((s) => {
@@ -98,9 +101,21 @@ export default function Reader() {
     stop()
   }, [surahId, stop])
 
-  // Persist reading progress + mark recent (drives the Home cards).
+  // On entering a surah, offer to resume if there's meaningful saved progress.
   useEffect(() => {
-    if (!verse) return
+    if (!data || started) return
+    try {
+      const p = JSON.parse(localStorage.getItem(`progress_${surahId}`) || "{}")
+      if (p.lastVerse > 1) setResume({ verse: p.lastVerse, lastPlayed: p.lastPlayed || Date.now() })
+      else setResume(null)
+    } catch {
+      setResume(null)
+    }
+  }, [data, surahId, started])
+
+  // Persist reading progress + mark recent (drives the Home cards) — only while reading.
+  useEffect(() => {
+    if (!verse || !started) return
     localStorage.setItem(
       `progress_${surahId}`,
       JSON.stringify({ lastVerse: verseNum, lastPlayed: Date.now() })
@@ -114,7 +129,7 @@ export default function Reader() {
     } catch {
       /* ignore */
     }
-  }, [surahId, verseIndex, verse, verseNum])
+  }, [surahId, verseIndex, verse, verseNum, started])
 
   // Natural end of a verse's audio: repeat it, or advance and keep playing.
   useEffect(() => {
@@ -203,6 +218,28 @@ export default function Reader() {
     setSegmentIndex(0)
     play(srcFor(0))
   }
+
+  const handleResumeContinue = () => {
+    if (!resume) return
+    const idx = verses.findIndex((v) => Number(v.key.split(":")[1]) === resume.verse)
+    const target = idx >= 0 ? idx : 0
+    setResume(null)
+    setStarted(true)
+    setVerseIndex(target)
+    setSegmentIndex(0)
+    play(srcFor(target))
+  }
+
+  // Lock-screen / background-audio transport controls.
+  useMediaSession({
+    title: data ? `${data.englishName} · Verse ${verseNum}` : "Sabeel",
+    artist: "Mishary Rashid Alafasy",
+    playing,
+    onPlay: () => play(srcFor(verseIndex)),
+    onPause: pause,
+    onNext: () => goVerse(verseIndex + 1),
+    onPrev: () => goVerse(verseIndex - 1),
+  })
 
   // Words to render as spans (timing words for the verse, sliced to the segment).
   const renderWords = useMemo(() => {
@@ -299,6 +336,16 @@ export default function Reader() {
       )}
 
       {!loading && !error && data && !started && <BismillahScreen onStart={handleStart} />}
+
+      {resume && (
+        <ResumeDialog
+          open
+          verse={resume.verse}
+          lastPlayed={resume.lastPlayed}
+          onContinue={handleResumeContinue}
+          onStartOver={() => setResume(null)}
+        />
+      )}
 
       {!loading && !error && data && started && view && (
         <div className="flex flex-1 flex-col overflow-hidden rounded-t-[40px]">
