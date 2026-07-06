@@ -1,4 +1,6 @@
+import { motion } from "motion/react"
 import { Badge } from "@/components/ui/badge"
+import { springSnappy, springPress } from "@/lib/motion"
 import type { Surah } from "@/data/surahs"
 
 type Props = {
@@ -10,11 +12,13 @@ type Props = {
  *  keyboard-focusable and screen-reader friendly (the old app used a div+onclick). */
 export function SurahCard({ surah, onOpen }: Props) {
   return (
-    <button
+    <motion.button
       type="button"
       onClick={() => onOpen(surah.id)}
       aria-label={`Open Surah ${surah.id}, ${surah.englishName} — ${surah.englishMeaning}, ${surah.verses} verses, ${surah.revelation}`}
-      className="group flex w-full flex-col gap-3 rounded-[12px] bg-surface p-3 text-left shadow-card transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-card-hover motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+      whileHover={{ y: -3, transition: springSnappy }}
+      whileTap={{ scale: 0.985, transition: springPress }}
+      className="group flex w-full flex-col gap-3 rounded-[12px] bg-surface p-3 text-left shadow-card transition-shadow duration-200 hover:shadow-card-hover"
     >
       <div className="flex w-full items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2">
@@ -51,6 +55,6 @@ export function SurahCard({ surah, onOpen }: Props) {
         </div>
         <Badge variant="revelation">{surah.revelation}</Badge>
       </div>
-    </button>
+    </motion.button>
   )
 }

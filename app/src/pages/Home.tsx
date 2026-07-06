@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react"
+import { motion } from "motion/react"
 import { Search } from "lucide-react"
 import { SURAHS, type Surah } from "@/data/surahs"
 import { Logo } from "@/components/Logo"
@@ -6,6 +7,7 @@ import { SurahCard } from "@/components/SurahCard"
 import { RecentSection } from "@/components/RecentSection"
 import { Input } from "@/components/ui/input"
 import { useRecents } from "@/hooks/useRecents"
+import { fadeRise, staggerContainer } from "@/lib/motion"
 
 function filterSurahs(list: Surah[], q: string): Surah[] {
   const term = q.toLowerCase().trim()
@@ -36,14 +38,29 @@ export default function Home() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-teal-deep">
-      <header className="flex items-center justify-center px-2.5 pb-5 pt-10">
+    <motion.div
+      variants={staggerContainer}
+      initial="hidden"
+      animate="show"
+      className="flex min-h-screen flex-col bg-teal-deep"
+    >
+      <motion.header
+        variants={fadeRise}
+        className="flex items-center justify-center px-2.5 pb-5 pt-10"
+      >
         <Logo className="h-[51px] w-[167px]" />
-      </header>
+      </motion.header>
 
-      {recents.length > 0 && <RecentSection recents={recents} onOpen={openSurah} />}
+      {recents.length > 0 && (
+        <motion.div variants={fadeRise}>
+          <RecentSection recents={recents} onOpen={openSurah} />
+        </motion.div>
+      )}
 
-      <main className="flex flex-1 flex-col gap-10 rounded-t-[40px] bg-ground px-6 py-10 md:px-10 xl:px-20">
+      <motion.main
+        variants={fadeRise}
+        className="flex flex-1 flex-col gap-10 rounded-t-[40px] bg-ground px-6 py-10 md:px-10 xl:px-20"
+      >
         {/* Search */}
         <div className="mx-auto w-full max-w-[1280px]">
           <label htmlFor="surah-search" className="sr-only">
@@ -95,7 +112,7 @@ export default function Home() {
             Design &amp; Developed by <span className="text-ink">Aaqil Jamal</span>
           </span>
         </footer>
-      </main>
-    </div>
+      </motion.main>
+    </motion.div>
   )
 }

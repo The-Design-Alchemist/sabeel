@@ -1,5 +1,7 @@
+import { motion } from "motion/react"
 import type { RecentEntry } from "@/hooks/useRecents"
 import { formatTimeAgo } from "@/lib/utils"
+import { springSnappy, springPress } from "@/lib/motion"
 
 type Props = {
   entry: RecentEntry
@@ -10,11 +12,13 @@ type Props = {
 export function RecentCard({ entry, onOpen }: Props) {
   const { surah, currentVerse, progressPercent, lastPlayed } = entry
   return (
-    <button
+    <motion.button
       type="button"
       onClick={() => onOpen(surah.id)}
       aria-label={`Continue Surah ${surah.id}, ${surah.englishName}, verse ${currentVerse} of ${surah.verses}`}
-      className="flex w-full flex-col gap-3 rounded-[12px] bg-surface p-3 text-left shadow-card transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-card-hover motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+      whileHover={{ y: -3, transition: springSnappy }}
+      whileTap={{ scale: 0.985, transition: springPress }}
+      className="flex w-full flex-col gap-3 rounded-[12px] bg-surface p-3 text-left shadow-card transition-shadow duration-200 hover:shadow-card-hover"
     >
       <div className="flex w-full items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2">
@@ -53,6 +57,6 @@ export function RecentCard({ entry, onOpen }: Props) {
           <span>Last Played: {formatTimeAgo(lastPlayed)}</span>
         </div>
       </div>
-    </button>
+    </motion.button>
   )
 }

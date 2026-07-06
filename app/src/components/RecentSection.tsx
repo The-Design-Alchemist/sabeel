@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react"
+import { AnimatePresence, motion } from "motion/react"
 import { RecentCard } from "./RecentCard"
 import type { RecentEntry } from "@/hooks/useRecents"
 import { cn } from "@/lib/utils"
+import { easeOut, springSnappy } from "@/lib/motion"
 
 function usePerPage() {
   const [n, setN] = useState(() => (window.innerWidth <= 768 ? 1 : 3))
@@ -13,6 +15,12 @@ function usePerPage() {
   return n
 }
 
+const slide = {
+  enter: (dir: number) => ({ opacity: 0, x: dir > 0 ? 44 : -44 }),
+  center: { opacity: 1, x: 0 },
+  exit: (dir: number) => ({ opacity: 0, x: dir > 0 ? -44 : 44 }),
+}
+
 type Props = {
   recents: RecentEntry[]
   onOpen: (id: number) => void
@@ -20,21 +28,24 @@ type Props = {
 
 export function RecentSection({ recents, onOpen }: Props) {
   const perPage = usePerPage()
-  const [page, setPage] = useState(0)
+  // [page, direction] — direction drives the slide.
+  const [[page, dir], setPage] = useState<[number, number]>([0, 0])
   const totalPages = Math.ceil(recents.length / perPage)
   const touchX = useRef<number | null>(null)
 
-  useEffect(() => setPage(0), [perPage])
+  useEffect(() => setPage([0, 0]), [perPage])
   const clampedPage = Math.min(page, totalPages - 1)
   const visible = recents.slice(clampedPage * perPage, clampedPage * perPage + perPage)
+
+  const go = (target: number) => {
+    if (target < 0 || target > totalPages - 1 || target === clampedPage) return
+    setPage([target, target > clampedPage ? 1 : -1])
+  }
 
   function onTouchEnd(endX: number) {
     if (touchX.current === null) return
     const dx = endX - touchX.current
-    if (Math.abs(dx) > 50) {
-      if (dx < 0 && clampedPage < totalPages - 1) setPage(clampedPage + 1)
-      else if (dx > 0 && clampedPage > 0) setPage(clampedPage - 1)
-    }
+    if (Math.abs(dx) > 50) go(clampedPage + (dx < 0 ? 1 : -1))
     touchX.current = null
   }
 
@@ -44,33 +55,45 @@ export function RecentSection({ recents, onOpen }: Props) {
       className="flex flex-col items-center gap-3 px-6 pb-10 md:px-10 xl:px-20"
     >
       <div
-        className="w-full max-w-[1280px]"
+        className="w-full max-w-[1280px] overflow-hidden"
         onTouchStart={(e) => (touchX.current = e.changedTouches[0].screenX)}
         onTouchEnd={(e) => onTouchEnd(e.changedTouches[0].screenX)}
       >
-        <div
-          className="grid gap-6"
-          style={{ gridTemplateColumns: `repeat(${perPage}, minmax(0, 1fr))` }}
-        >
-          {visible.map((e) => (
-            <RecentCard key={e.surah.id} entry={e} onOpen={onOpen} />
-          ))}
-        </div>
+        <AnimatePresence mode="wait" initial={false} custom={dir}>
+          <motion.div
+            key={clampedPage}
+            custom={dir}
+            variants={slide}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={easeOut}
+            className="grid gap-6"
+            style={{ gridTemplateColumns: `repeat(${perPage}, minmax(0, 1fr))` }}
+          >
+            {visible.map((e) => (
+              <RecentCard key={e.surah.id} entry={e} onOpen={onOpen} />
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2.5" aria-label="Recent pages">
           {Array.from({ length: totalPages }).map((_, i) => (
-            <button
+            <motion.button
               key={i}
               type="button"
-              onClick={() => setPage(i)}
+              onClick={() => go(i)}
               aria-label={`Show recent page ${i + 1} of ${totalPages}`}
               aria-current={i === clampedPage}
-              className={cn(
-                "size-2.5 rounded-full transition-colors duration-300 motion-reduce:transition-none",
-                i === clampedPage ? "bg-white" : "bg-white/30 hover:bg-white/50"
-              )}
+              animate={{
+                scale: i === clampedPage ? 1.15 : 1,
+                backgroundColor:
+                  i === clampedPage ? "rgb(255 255 255)" : "rgba(255,255,255,0.3)",
+              }}
+              transition={springSnappy}
+              className={cn("size-2.5 rounded-full")}
             />
           ))}
         </div>
