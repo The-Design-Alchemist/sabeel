@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
-import { ArrowLeft, ChevronLeft, ChevronRight, Download } from "lucide-react"
+import { ArrowLeft, Check, ChevronLeft, ChevronRight, Download, Loader2, WifiOff } from "lucide-react"
 import { useSurah } from "@/hooks/useSurah"
 import { useTimings } from "@/hooks/useTimings"
 import { useVerseAudio } from "@/hooks/useVerseAudio"
 import { useMediaSession } from "@/hooks/useMediaSession"
 import { useHaptics } from "@/hooks/useHaptics"
-import { isSegmented, type TimingVerse } from "@/data/quran"
-import { audioSrc, isAvailableOffline, useDownloads } from "@/lib/downloads"
+import { isBundledAudio, isSegmented, type TimingVerse } from "@/data/quran"
+import { audioSrc, downloadSurah, isAvailableOffline, isDownloaded, useDownloads } from "@/lib/downloads"
+import { useOnline } from "@/hooks/useOnline"
 import {
   Select,
   SelectContent,
@@ -50,7 +51,11 @@ export default function Reader() {
   const { id } = useParams()
   const surahId = Number(id)
   useDownloads() // re-render if this surah's downloaded state changes
-  const audioAvailable = isAvailableOffline(surahId)
+  const online = useOnline()
+  const savedOffline = isAvailableOffline(surahId) // bundled (Al-Fatiha) or downloaded
+  // Stream by default when online; play the local file when saved. Reading-mode only when
+  // offline AND not saved.
+  const canPlay = savedOffline || online
   const { data, loading, error } = useSurah(surahId)
   const timings = useTimings(surahId)
   const { playing, play, pause, stop, seek, setOnEnded, audioRef } = useVerseAudio()
@@ -65,6 +70,7 @@ export default function Reader() {
   const [activeWord, setActiveWord] = useState(-1) // global word index into timing.words
   const [resume, setResume] = useState<{ verse: number; lastPlayed: number } | null>(null)
   const [repeatNotif, setRepeatNotif] = useState<string | null>(null)
+  const [dl, setDl] = useState<{ done: number; total: number } | null>(null) // save-for-offline progress
 
   const updateSettings = (patch: Partial<ReaderSettings>) => {
     setSettings((s) => {
@@ -215,9 +221,21 @@ export default function Reader() {
     }
   }
 
+  const saveOffline = async () => {
+    if (dl || !verses.length) return
+    setDl({ done: 0, total: verses.length })
+    try {
+      await downloadSurah(surahId, verses.length, (p) => setDl(p))
+    } catch {
+      /* stay on streaming — user can retry */
+    } finally {
+      setDl(null)
+    }
+  }
+
   const handleStart = () => {
     setStarted(true)
-    if (audioAvailable) play(srcFor(verseIndex))
+    if (canPlay) play(srcFor(verseIndex))
   }
   const togglePlay = () => {
     haptics.tap()
@@ -246,7 +264,7 @@ export default function Reader() {
     setStarted(true)
     setVerseIndex(target)
     setSegmentIndex(0)
-    if (audioAvailable) play(srcFor(target))
+    if (canPlay) play(srcFor(target))
   }
 
   // Lock-screen / background-audio transport controls.
@@ -342,7 +360,34 @@ export default function Reader() {
           </div>
         )}
 
-        <SettingsDialog settings={settings} onChange={updateSettings} />
+        <div className="flex items-center gap-1">
+          {data &&
+            !isBundledAudio(surahId) &&
+            (dl ? (
+              <span className="inline-flex items-center gap-1.5 px-2 text-xs tabular-nums text-white/90">
+                <Loader2 className="size-4 animate-spin" />
+                {dl.done}/{dl.total}
+              </span>
+            ) : isDownloaded(surahId) ? (
+              <span
+                className="inline-flex size-10 items-center justify-center text-white/80"
+                title="Saved for offline"
+                aria-label="Saved for offline"
+              >
+                <Check className="size-5" />
+              </span>
+            ) : (
+              <button
+                onClick={saveOffline}
+                aria-label="Save this surah for offline"
+                title="Save for offline"
+                className="inline-flex size-10 items-center justify-center rounded-full text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
+              >
+                <Download className="size-5" />
+              </button>
+            ))}
+          <SettingsDialog settings={settings} onChange={updateSettings} />
+        </div>
       </header>
 
       {/* States */}
@@ -362,7 +407,7 @@ export default function Reader() {
       )}
 
       {!loading && !error && data && !started && (
-        <BismillahScreen onStart={handleStart} audioAvailable={audioAvailable} />
+        <BismillahScreen onStart={handleStart} audioAvailable={canPlay} />
       )}
 
       {resume && (
@@ -377,7 +422,7 @@ export default function Reader() {
 
       {!loading && !error && data && started && view && (
         <div className="flex flex-1 flex-col overflow-hidden rounded-t-[40px]">
-          {audioAvailable ? (
+          {canPlay ? (
             <AudioControls
               playing={playing}
               repeat={repeat}
@@ -386,13 +431,10 @@ export default function Reader() {
               onToggleRepeat={toggleRepeat}
             />
           ) : (
-            <Link
-              to="/downloads"
-              className="flex w-full shrink-0 items-center justify-center gap-2 border-b border-line bg-white px-4 py-4 text-center text-sm font-medium text-teal-deep outline-none transition-colors hover:bg-teal-deep/5 focus-visible:ring-2 focus-visible:ring-ring/50"
-            >
-              <Download className="size-4 shrink-0" />
-              <span>Reading mode — tap to download this surah's audio</span>
-            </Link>
+            <div className="flex w-full shrink-0 items-center justify-center gap-2 border-b border-line bg-white px-4 py-4 text-center text-sm font-medium text-muted-foreground">
+              <WifiOff className="size-4 shrink-0 opacity-70" />
+              <span>Reading mode — you're offline and this surah isn't saved</span>
+            </div>
           )}
 
           <AnimatePresence>
@@ -423,10 +465,10 @@ export default function Reader() {
                 >
                   <VerseView
                     arabic={view.arabic}
-                    words={settings.highlighting && audioAvailable ? renderWords : undefined}
+                    words={settings.highlighting && canPlay ? renderWords : undefined}
                     activeWord={activeLocal}
                     onWordClick={onWordClick}
-                    highlight={settings.highlighting && audioAvailable}
+                    highlight={settings.highlighting && canPlay}
                     transliteration={view.transliteration}
                     translation={view.translation}
                     verseNumber={view.verseNumber}

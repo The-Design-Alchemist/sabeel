@@ -3,10 +3,11 @@ import { Capacitor } from "@capacitor/core"
 import { Filesystem, Directory } from "@capacitor/filesystem"
 import { audioUrl, isBundledAudio } from "@/data/quran"
 
-// Base URL for the compressed AAC corpus on the CDN (Cloudflare R2 custom domain).
-// Per-verse files live at `${CDN_BASE}/NNN/NNNVVV.m4a`.
-// TODO(R2): set this to the live R2 bucket's custom-domain URL once the audio is uploaded.
-export const CDN_BASE = "https://cdn.sabeel.app"
+// Base URL for the compressed AAC corpus, served from a public GitHub repo via jsDelivr's CDN.
+// Per-verse files live at `${CDN_BASE}/NNN/NNNVVV.m4a`. The app streams from here when online
+// and downloads from here for offline. Owner/repo must match the repo you created; `@main`
+// serves the default branch. (Swap to a Cloudflare R2 domain later with no code change but this.)
+export const CDN_BASE = "https://cdn.jsdelivr.net/gh/The-Design-Alchemist/sabeel-audio@main"
 
 const AUDIO_DIR = "audio" // subfolder under Directory.Data on the device
 const MANIFEST_KEY = "sabeel_downloaded_surahs"
@@ -68,7 +69,7 @@ export async function initDownloads(): Promise<void> {
 }
 
 /** <audio> src for a verse: the local file if downloaded, the bundled asset for Al-Fatiha,
- *  else the CDN URL (used once online streaming is enabled). */
+ *  else the CDN URL (streamed directly when online). */
 export function audioSrc(surah: number, verse: number): string {
   if (downloaded.has(surah) && dataBase) {
     return Capacitor.convertFileSrc(`${dataBase}/${relPath(surah, verse)}`)
