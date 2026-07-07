@@ -7,7 +7,8 @@ import { useTimings } from "@/hooks/useTimings"
 import { useVerseAudio } from "@/hooks/useVerseAudio"
 import { useMediaSession } from "@/hooks/useMediaSession"
 import { useHaptics } from "@/hooks/useHaptics"
-import { audioUrl, isAudioAvailable, isSegmented, type TimingVerse } from "@/data/quran"
+import { isSegmented, type TimingVerse } from "@/data/quran"
+import { audioSrc, isAvailableOffline, useDownloads } from "@/lib/downloads"
 import {
   Select,
   SelectContent,
@@ -48,7 +49,8 @@ const slide = {
 export default function Reader() {
   const { id } = useParams()
   const surahId = Number(id)
-  const audioAvailable = isAudioAvailable(surahId)
+  useDownloads() // re-render if this surah's downloaded state changes
+  const audioAvailable = isAvailableOffline(surahId)
   const { data, loading, error } = useSurah(surahId)
   const timings = useTimings(surahId)
   const { playing, play, pause, stop, seek, setOnEnded, audioRef } = useVerseAudio()
@@ -82,7 +84,7 @@ export default function Reader() {
   const srcFor = useCallback(
     (i: number) => {
       const v = verses[i]
-      return v ? audioUrl(surahId, Number(v.key.split(":")[1])) : ""
+      return v ? audioSrc(surahId, Number(v.key.split(":")[1])) : ""
     },
     [verses, surahId]
   )
@@ -384,10 +386,13 @@ export default function Reader() {
               onToggleRepeat={toggleRepeat}
             />
           ) : (
-            <div className="flex w-full shrink-0 items-center justify-center gap-2 border-b border-line bg-white px-4 py-4 text-center text-sm font-medium text-muted-foreground">
-              <Download className="size-4 shrink-0 opacity-60" />
-              <span>Reading mode — audio download coming soon</span>
-            </div>
+            <Link
+              to="/downloads"
+              className="flex w-full shrink-0 items-center justify-center gap-2 border-b border-line bg-white px-4 py-4 text-center text-sm font-medium text-teal-deep outline-none transition-colors hover:bg-teal-deep/5 focus-visible:ring-2 focus-visible:ring-ring/50"
+            >
+              <Download className="size-4 shrink-0" />
+              <span>Reading mode — tap to download this surah's audio</span>
+            </Link>
           )}
 
           <AnimatePresence>

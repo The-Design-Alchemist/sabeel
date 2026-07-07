@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { motion } from "motion/react"
-import { Search } from "lucide-react"
+import { Download, Search } from "lucide-react"
 import { SURAHS, type Surah } from "@/data/surahs"
 import { Logo } from "@/components/Logo"
 import { SurahCard } from "@/components/SurahCard"
@@ -45,9 +45,16 @@ export default function Home() {
     >
       <motion.header
         variants={fadeRise}
-        className="flex items-center justify-center px-2.5 pb-5 pt-[max(2.5rem,env(safe-area-inset-top))]"
+        className="relative flex items-center justify-center px-2.5 pb-5 pt-[max(2.5rem,env(safe-area-inset-top))]"
       >
         <Logo className="h-[51px] w-[167px]" />
+        <Link
+          to="/downloads"
+          aria-label="Downloads"
+          className="absolute right-3 top-[max(2.5rem,env(safe-area-inset-top))] inline-flex size-11 items-center justify-center rounded-full text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
+        >
+          <Download className="size-5" />
+        </Link>
       </motion.header>
 
       {recents.length > 0 && (
