@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowLeft, ChevronLeft, ChevronRight, Download } from "lucide-react"
 import { useSurah } from "@/hooks/useSurah"
 import { useTimings } from "@/hooks/useTimings"
 import { useVerseAudio } from "@/hooks/useVerseAudio"
 import { useMediaSession } from "@/hooks/useMediaSession"
 import { useHaptics } from "@/hooks/useHaptics"
-import { audioUrl, isSegmented, type TimingVerse } from "@/data/quran"
+import { audioUrl, isAudioAvailable, isSegmented, type TimingVerse } from "@/data/quran"
 import {
   Select,
   SelectContent,
@@ -48,6 +48,7 @@ const slide = {
 export default function Reader() {
   const { id } = useParams()
   const surahId = Number(id)
+  const audioAvailable = isAudioAvailable(surahId)
   const { data, loading, error } = useSurah(surahId)
   const timings = useTimings(surahId)
   const { playing, play, pause, stop, seek, setOnEnded, audioRef } = useVerseAudio()
@@ -193,7 +194,7 @@ export default function Reader() {
     if (!verses.length) return
     const clamped = Math.max(0, Math.min(verses.length - 1, i))
     if (clamped === verseIndex) return
-    haptics.select()
+    haptics.tap() // Light — verse change (was Medium, felt too strong on device)
     setDir(clamped > verseIndex ? 1 : -1)
     setVerseIndex(clamped)
     setSegmentIndex(0)
@@ -214,7 +215,7 @@ export default function Reader() {
 
   const handleStart = () => {
     setStarted(true)
-    play(srcFor(verseIndex))
+    if (audioAvailable) play(srcFor(verseIndex))
   }
   const togglePlay = () => {
     haptics.tap()
@@ -243,7 +244,7 @@ export default function Reader() {
     setStarted(true)
     setVerseIndex(target)
     setSegmentIndex(0)
-    play(srcFor(target))
+    if (audioAvailable) play(srcFor(target))
   }
 
   // Lock-screen / background-audio transport controls.
@@ -358,7 +359,9 @@ export default function Reader() {
         </div>
       )}
 
-      {!loading && !error && data && !started && <BismillahScreen onStart={handleStart} />}
+      {!loading && !error && data && !started && (
+        <BismillahScreen onStart={handleStart} audioAvailable={audioAvailable} />
+      )}
 
       {resume && (
         <ResumeDialog
@@ -372,13 +375,20 @@ export default function Reader() {
 
       {!loading && !error && data && started && view && (
         <div className="flex flex-1 flex-col overflow-hidden rounded-t-[40px]">
-          <AudioControls
-            playing={playing}
-            repeat={repeat}
-            onTogglePlay={togglePlay}
-            onStartOver={startOver}
-            onToggleRepeat={toggleRepeat}
-          />
+          {audioAvailable ? (
+            <AudioControls
+              playing={playing}
+              repeat={repeat}
+              onTogglePlay={togglePlay}
+              onStartOver={startOver}
+              onToggleRepeat={toggleRepeat}
+            />
+          ) : (
+            <div className="flex w-full shrink-0 items-center justify-center gap-2 border-b border-line bg-white px-4 py-4 text-center text-sm font-medium text-muted-foreground">
+              <Download className="size-4 shrink-0 opacity-60" />
+              <span>Reading mode — audio download coming soon</span>
+            </div>
+          )}
 
           <AnimatePresence>
             {repeatNotif && (
@@ -408,10 +418,10 @@ export default function Reader() {
                 >
                   <VerseView
                     arabic={view.arabic}
-                    words={settings.highlighting ? renderWords : undefined}
+                    words={settings.highlighting && audioAvailable ? renderWords : undefined}
                     activeWord={activeLocal}
                     onWordClick={onWordClick}
-                    highlight={settings.highlighting}
+                    highlight={settings.highlighting && audioAvailable}
                     transliteration={view.transliteration}
                     translation={view.translation}
                     verseNumber={view.verseNumber}

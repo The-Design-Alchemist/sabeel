@@ -54,11 +54,10 @@ export function AudioControls({
         aria-label="Repeat"
         className={cn(
           circleOrPill,
-          "text-white [&_svg]:size-6 sm:[&_svg]:size-5",
-          // mobile: always gradient circle. desktop: outline, gradient when active.
+          // ON: teal "selected" gradient. OFF: neutral — identical to the Start Over button.
           repeat
-            ? "bg-gradient-to-br from-teal to-teal-deep sm:border-2 sm:border-transparent"
-            : "bg-gradient-to-br from-teal to-teal-deep sm:border-2 sm:border-teal-deep sm:bg-none sm:bg-white sm:text-teal-deep sm:hover:bg-teal-deep/5"
+            ? "bg-gradient-to-br from-teal to-teal-deep text-white"
+            : "bg-ground text-ink hover:bg-[#ececec]"
         )}
       >
         <Repeat />

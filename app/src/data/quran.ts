@@ -97,6 +97,17 @@ export function audioUrl(surah: number, verse: number): string {
   return `${DATA_BASE}audio/${sss}/${sss}${aaa}.mp3`
 }
 
+// Which surahs' recitation audio is available offline. Only bundled surahs ship inside
+// the app (the full 1.6 GB corpus can't); the rest are download-on-demand. Keep this in
+// sync with BUNDLED_SURAHS in vite.config.ts. The native download manager will later make
+// this dynamic (bundled ∪ downloaded-to-device).
+const BUNDLED_AUDIO = new Set([1])
+
+/** True when this surah's recitation audio can be played offline (bundled or downloaded). */
+export function isAudioAvailable(surah: number): boolean {
+  return BUNDLED_AUDIO.has(surah)
+}
+
 /** A verse is shown as multiple waqf segments only when it has 2+ of them. */
 export function isSegmented(verse: Verse): boolean {
   return Array.isArray(verse.segments) && verse.segments.length > 1
