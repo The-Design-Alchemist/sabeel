@@ -10,14 +10,15 @@ import path from 'node:path'
 // BUNDLED_AUDIO in src/data/quran.ts.
 const BUNDLED_SURAHS = ['001']
 
-// The full recitation corpus (~1.6 GB, 6,236 verses) lives in the repo at
-// ../quran-data/audio. It must NOT be copied into the web bundle — bundling it would
-// bloat the APK past any store limit and defeat the download-on-demand design. So audio
-// is deliberately kept OUT of public/, and this plugin handles it per-mode instead:
+// The compressed AAC corpus (~879 MB, 6,236 verses, mono .m4a) lives at
+// ../quran-data/audio-aac (built by tools/pipeline/compress_audio.py from the mp3
+// originals). It must NOT be copied into the web bundle — that would bloat the APK and
+// defeat download-on-demand. So audio is kept OUT of public/, and this plugin handles it
+// per-mode instead:
 //   • dev:   serve any surah's audio straight from the repo (desktop testing stays full)
 //   • build: copy ONLY BUNDLED_SURAHS into dist/quran-data/audio
-const AUDIO_SRC = fileURLToPath(new URL('../quran-data/audio', import.meta.url))
-const AUDIO_RE = /\/quran-data\/audio\/(\d{3})\/(\d{6}\.mp3)$/
+const AUDIO_SRC = fileURLToPath(new URL('../quran-data/audio-aac', import.meta.url))
+const AUDIO_RE = /\/quran-data\/audio\/(\d{3})\/(\d{6}\.m4a)$/
 
 function quranAudio(): Plugin {
   return {
@@ -34,7 +35,7 @@ function quranAudio(): Plugin {
         } catch {
           return next()
         }
-        res.setHeader('Content-Type', 'audio/mpeg')
+        res.setHeader('Content-Type', 'audio/mp4')
         res.setHeader('Accept-Ranges', 'bytes')
         const range = req.headers.range
         if (range) {

@@ -1,3 +1,7 @@
 .DS_Store
 **/.DS_Store
 .playwright-mcp/
+
+# Generated compressed-audio trees (built by tools/pipeline/compress_audio.py,
+# uploaded to R2 — derived artifacts, not source; originals live in quran-data/audio/)
+quran-data/audio-*/

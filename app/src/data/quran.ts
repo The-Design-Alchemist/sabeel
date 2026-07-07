@@ -94,7 +94,7 @@ export async function loadTimings(id: number): Promise<TimingVerse[]> {
 export function audioUrl(surah: number, verse: number): string {
   const sss = String(surah).padStart(3, "0")
   const aaa = String(verse).padStart(3, "0")
-  return `${DATA_BASE}audio/${sss}/${sss}${aaa}.mp3`
+  return `${DATA_BASE}audio/${sss}/${sss}${aaa}.m4a`
 }
 
 // Which surahs' recitation audio is available offline. Only bundled surahs ship inside
