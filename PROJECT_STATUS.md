@@ -1,6 +1,6 @@
 # Sabeel — Project Status & Work Log
 
-_Last updated: 2026-07-06 · Branch: `production-hardening` (18 commits, **not** merged to `main`)_
+_Last updated: 2026-07-07 · Branch: `production-hardening` (24 commits, **not** merged to `main`)_
 
 Sabeel is a Qur'an learning app whose core idea is breaking recitation into **waqf**
 (pause) segments — Surah → Verse → Waqf segment — with word-by-word audio highlighting.
@@ -124,11 +124,18 @@ _Dev note: the app reads data from `app/public/quran-data` which is **symlinked*
 ## 6. What's next
 
 **Mobile / native (chosen direction — download-on-demand audio, no PWA):**
-- **On-device testing** via **Android Studio** — build & run on a phone (deferred, to do next).
-- **Download-on-demand manager** — download a surah's audio to device storage, play locally, works offline; a downloads/storage UI. (Needs the audio hosted — starts from GitHub Pages, a CDN later.)
-- **Background audio** — a native audio plugin so playback continues with the screen off (WebView `<audio>` backgrounds unreliably on iOS).
-- **Local notifications** — reading / memorization reminders.
-- Store compliance (Apple 4.2, icons, signing).
+
+_Done (2026-07-07 session):_
+- ✅ **Native Android app** — `app/android/` (Capacitor, appId `in.sabeel.app`); built & run on device (Pixel 9a, Android 17). ~15 MB APK.
+- ✅ **Media notification + lock-screen controls + background audio** — `@capgo/capacitor-media-session` (`mediaPlayback` foreground service); replaces the web MediaSession API, which the Android WebView does **not** surface as a system notification.
+- ✅ **Audio compressed** — AAC-LC 64 kbps mono, **1.7 GB → 879 MB (−48%)**, durations preserved (max drift 10.5 ms → word-timings/waqf segmentation intact). `tools/pipeline/compress_audio.py`.
+- ✅ **Download-on-demand manager** — per-surah download to device (`@capacitor/filesystem`), offline playback, Downloads screen, `isAvailableOffline` = bundled ∪ downloaded. _Built + compiles; pending R2 + on-device validation._
+
+_Remaining:_
+- **Host audio on Cloudflare R2** + set `CDN_BASE` in `app/src/lib/downloads.ts` — see `tools/AUDIO_HOSTING.md` + `tools/upload_audio_r2.sh`.
+- **On-device validation:** `.m4a` highlight sync, a real per-surah download, background audio, and the notification controls.
+- **iOS** build (AAC was chosen for iOS compatibility); Android hardware back-button → router history; custom app icon/splash (currently Capacitor defaults).
+- **Local notifications** — reading / memorization reminders. Store compliance (Apple 4.2, signing).
 
 **App completeness:**
 - The **cutover** — deploy `app/` as the site + host the data for real (retire the dev symlink); decide the old vanilla app's fate.
