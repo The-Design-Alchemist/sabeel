@@ -3,54 +3,42 @@
 _Snapshot: 2026-07-07 · branch `production-hardening` (local, **not pushed**). Full history: `PROJECT_STATUS.md`._
 
 ## Where we are
-Sabeel runs **natively on Android** (built + launched on a Pixel 9a this session). What's new:
-- Audio **compressed** to AAC-LC 64 kbps mono: **1.7 GB → 879 MB** (`quran-data/audio-aac/`, git-ignored). Durations preserved — max **10.5 ms** drift → word-timings/waqf segmentation stay locked.
-- App switched to `.m4a`; **Al-Fatiha is bundled**, every other surah is **download-on-demand**.
-- **Media notification + lock-screen controls + background audio** via `@capgo/capacitor-media-session`.
-- **Download manager** built — `app/src/lib/downloads.ts` + Downloads screen (⬇ on Home; the reader's reading-mode strip links there). Compiles + builds into the APK, but **UNTESTED**: needs the CDN live + a device.
+Sabeel runs **natively on Android**, and the audio is **live — hosted and streaming**:
+- **Audio hosted:** all 6,236 verses (AAC-LC 64k mono, 852 MB) are in the public repo **`The-Design-Alchemist/sabeel-audio`**, served via the **jsDelivr CDN** (verified byte-exact across the corpus). `CDN_BASE` in `app/src/lib/downloads.ts` already points at it.
+- **Streaming model:** open any surah → it **streams and plays immediately** when online; a **"save for offline" ⬇** button in the reader header downloads that surah to the device (then it plays locally / works offline). A Downloads screen handles bulk management. Offline + unsaved → reading mode.
+- **Media notification + lock-screen controls + background audio** (`@capgo/capacitor-media-session`).
+- Compression preserved timings (max **10.5 ms** drift → highlight/segmentation intact).
 
-## ▶ Step 1 — host the audio on Cloudflare R2 (~15 min)
-Full walkthrough: `tools/AUDIO_HOSTING.md`. Short version:
-```bash
-# In the Cloudflare dashboard: create R2 bucket "sabeel-audio" + an API token (Object Read & Write).
-brew install rclone
-export R2_ACCOUNT_ID=...  R2_ACCESS_KEY_ID=...  R2_SECRET_ACCESS_KEY=...
-tools/upload_audio_r2.sh                      # uploads 879 MB → r2://sabeel-audio/NNN/NNNVVV.m4a
-# Then: R2 → Settings → Public access → connect a custom domain (e.g. audio.sabeel.app).
-# Finally set it in app/src/lib/downloads.ts:
-#   export const CDN_BASE = "https://audio.sabeel.app"      // no trailing slash, no /audio
-```
+**Everything compiles + the APK builds (15 MB). The only remaining work is on-device testing.**
 
-## ▶ Step 2 — rebuild + test on device
+## ▶ Test on device (reconnect the phone via USB)
 ```bash
-cd app
-npm run build && npx cap sync android
-JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" \
-  android/gradlew -p android :app:assembleDebug
 ~/Library/Android/sdk/platform-tools/adb install -r \
-  android/app/build/outputs/apk/debug/app-debug.apk
+  ~/Downloads/sabeel/app/android/app/build/outputs/apk/debug/app-debug.apk
 ```
-Test checklist:
-- [ ] Al-Fatiha plays and the **word-highlight still tracks** (validates the `.m4a` compression on-device).
-- [ ] Downloads screen → **download a surah** → play it in **airplane mode** (offline).
+(If you changed code first: `cd app && npm run build && npx cap sync android && JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" android/gradlew -p android :app:assembleDebug`)
+
+Checklist:
+- [ ] Open **Al-Baqarah** (or any non-Fatiha surah) while online → audio **streams + plays**, word-highlight tracks.
+- [ ] Tap the **⬇ in the reader header** → downloads (progress) → becomes ✓. Then **airplane mode** → still plays (offline).
 - [ ] **Lock screen** shows media controls; audio continues with the screen off.
-- [ ] Delete a downloaded surah → frees space + reverts to reading mode.
-- [ ] Haptics feel Light; repeat button toggles gray↔teal (from earlier).
+- [ ] Al-Fatiha still works (bundled); haptics Light; repeat toggles gray↔teal.
 
 ## Known gaps / not done
-- Download manager is **untested** — the first real download may surface path / `convertFileSrc` / CORS issues to iron out.
-- **iOS** not built yet (AAC was chosen specifically for iOS compatibility).
+- **iOS** not built (AAC was chosen for iOS compatibility).
 - Android **hardware back button** doesn't map to router history.
-- **App icon / splash** are still the Capacitor defaults.
-- Optional: a smaller **Opus** variant for Android — `python3 tools/pipeline/compress_audio.py --codec opus --bitrate 32k --run`, upload under an `opus/` prefix, branch on `Capacitor.getPlatform()`.
+- **App icon / splash** are Capacitor defaults.
+- **jsDelivr** is great for small scale; if you outgrow it, migrate to **Cloudflare R2** (`tools/AUDIO_HOSTING.md`) — re-upload + change one line (`CDN_BASE`).
+- Optional smaller **Opus** variant for Android (`compress_audio.py --codec opus --bitrate 32k --run`).
 
 ## Quick reference
 | | |
 |---|---|
-| Device tested | **Pixel 9a, Android 17** (`adb devices` for the id) |
-| JDK | Android Studio JBR: `/Applications/Android Studio.app/Contents/jbr/Contents/Home` |
-| Android SDK | `~/Library/Android/sdk` (adb at `platform-tools/adb`) |
+| Audio repo | `github.com/The-Design-Alchemist/sabeel-audio` (public) |
+| CDN URL | `https://cdn.jsdelivr.net/gh/The-Design-Alchemist/sabeel-audio@main/NNN/NNNVVV.m4a` |
+| Change CDN | `app/src/lib/downloads.ts` → `CDN_BASE` |
+| Device tested | Pixel 9a, Android 17 (`adb devices` for id) |
+| JDK / SDK | Android Studio JBR · `~/Library/Android/sdk` |
 | Re-compress audio | `python3 tools/pipeline/compress_audio.py --run` → `quran-data/audio-aac/` |
-| Set CDN URL | `app/src/lib/downloads.ts` → `CDN_BASE` |
-| Push when ready | `git push -u origin production-hardening` |
-| Plugins | `@capgo/capacitor-media-session`, `@capacitor/filesystem`, `@capacitor/{app,haptics,splash-screen,status-bar,android}` |
+| Re-upload audio | push `quran-data/audio-aac` to the `sabeel-audio` repo |
+| Push code branch | `git push -u origin production-hardening` |

@@ -129,13 +129,13 @@ _Done (2026-07-07 session):_
 - ✅ **Native Android app** — `app/android/` (Capacitor, appId `in.sabeel.app`); built & run on device (Pixel 9a, Android 17). ~15 MB APK.
 - ✅ **Media notification + lock-screen controls + background audio** — `@capgo/capacitor-media-session` (`mediaPlayback` foreground service); replaces the web MediaSession API, which the Android WebView does **not** surface as a system notification.
 - ✅ **Audio compressed** — AAC-LC 64 kbps mono, **1.7 GB → 879 MB (−48%)**, durations preserved (max drift 10.5 ms → word-timings/waqf segmentation intact). `tools/pipeline/compress_audio.py`.
-- ✅ **Download-on-demand manager** — per-surah download to device (`@capacitor/filesystem`), offline playback, Downloads screen, `isAvailableOffline` = bundled ∪ downloaded. _Built + compiles; pending R2 + on-device validation._
+- ✅ **Audio hosted + streaming** — corpus pushed to the public repo `The-Design-Alchemist/sabeel-audio`, served via **jsDelivr** (`CDN_BASE` set, verified byte-exact). App **streams by default** when online, with **save-for-offline** per surah (`@capacitor/filesystem`) + a Downloads screen; offline+unsaved → reading mode. _Pending on-device validation._
 
 _Remaining:_
-- **Host audio on Cloudflare R2** + set `CDN_BASE` in `app/src/lib/downloads.ts` — see `tools/AUDIO_HOSTING.md` + `tools/upload_audio_r2.sh`.
-- **On-device validation:** `.m4a` highlight sync, a real per-surah download, background audio, and the notification controls.
+- **On-device validation:** streaming playback + `.m4a` highlight sync, save-for-offline then airplane-mode playback, background audio, notification controls.
 - **iOS** build (AAC was chosen for iOS compatibility); Android hardware back-button → router history; custom app icon/splash (currently Capacitor defaults).
 - **Local notifications** — reading / memorization reminders. Store compliance (Apple 4.2, signing).
+- If it outgrows jsDelivr: migrate hosting to **Cloudflare R2** (`tools/AUDIO_HOSTING.md`) — re-upload + change `CDN_BASE`.
 
 **App completeness:**
 - The **cutover** — deploy `app/` as the site + host the data for real (retire the dev symlink); decide the old vanilla app's fate.
