@@ -52,7 +52,7 @@ export function VerseView({
   showTranslation,
   showTransliteration,
 }: Props) {
-  const arabicCls = "font-arabic text-[clamp(26px,5vw,40px)] leading-[1.7] text-ink"
+  const arabicCls = "font-arabic text-[clamp(32px,7vw,48px)] leading-[1.7] text-ink"
 
   return (
     <div className="flex flex-col items-center gap-1 text-center">
@@ -83,7 +83,7 @@ export function VerseView({
       {showTransliteration && transliteration && (
         <>
           <Divider />
-          <p className="max-w-[60ch] text-[clamp(15px,2vw,18px)] font-medium leading-relaxed text-teal-deep">
+          <p className="max-w-[60ch] text-[clamp(18px,2.5vw,20px)] font-medium leading-relaxed text-teal-deep">
             {transliteration}
           </p>
         </>
@@ -92,7 +92,7 @@ export function VerseView({
       {showTranslation && translation && (
         <>
           <Divider />
-          <p className="max-w-[60ch] text-[clamp(15px,2vw,18px)] font-medium leading-relaxed text-muted-foreground">
+          <p className="max-w-[60ch] text-[clamp(18px,2.5vw,20px)] font-medium leading-relaxed text-muted-foreground">
             {translation}
           </p>
         </>

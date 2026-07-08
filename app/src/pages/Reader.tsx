@@ -503,7 +503,10 @@ export default function Reader() {
             </motion.button>
 
             <Select value={String(verseIndex)} onValueChange={(v) => goVerse(Number(v))}>
-              <SelectTrigger aria-label="Jump to verse" className="h-12 rounded-[30px] px-4">
+              <SelectTrigger
+                aria-label="Jump to verse"
+                className="h-[60px] flex-1 rounded-[30px] px-4 sm:h-12 sm:flex-none"
+              >
                 <SelectValue>
                   <span className="text-muted-foreground">Verse</span>{" "}
                   <b className="font-bold text-ink">{verseNum}</b>{" "}
