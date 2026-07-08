@@ -49,6 +49,11 @@ export default function Downloads() {
           other surahs open in reading mode.
         </p>
       )}
+      {native && (
+        <p className="mx-auto mt-4 w-full max-w-[632px] px-4 text-xs text-muted-foreground">
+          Longer surahs have hundreds of verses — saving them can take a few minutes.
+        </p>
+      )}
       {error && (
         <p className="mx-auto mt-4 w-full max-w-[632px] rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink">
           {error}

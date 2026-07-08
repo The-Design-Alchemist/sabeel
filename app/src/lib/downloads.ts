@@ -95,12 +95,24 @@ export async function downloadSurah(
     /* directory already exists */
   }
   for (let v = 1; v <= verseCount; v++) {
-    await Filesystem.downloadFile({
-      url: remoteUrl(surah, v),
-      path: `${AUDIO_DIR}/${relPath(surah, v)}`,
-      directory: Directory.Data,
-      recursive: true,
-    })
+    const path = `${AUDIO_DIR}/${relPath(surah, v)}`
+    // Resume an interrupted download: skip verses already on disk (the >1 KB check
+    // guards against a truncated/partial write from a previous attempt).
+    let present = false
+    try {
+      const st = await Filesystem.stat({ path, directory: Directory.Data })
+      present = (st.size ?? 0) > 1024
+    } catch {
+      /* not downloaded yet */
+    }
+    if (!present) {
+      await Filesystem.downloadFile({
+        url: remoteUrl(surah, v),
+        path,
+        directory: Directory.Data,
+        recursive: true,
+      })
+    }
     onProgress?.({ done: v, total: verseCount })
   }
   downloaded.add(surah)
