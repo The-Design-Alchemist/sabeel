@@ -1,5 +1,13 @@
 apply plugin: 'com.android.application'
 
+// Release signing config is read from a gitignored keystore.properties at the android/ root
+// (see RELEASE.md). Kept out of the repo so the signing key + passwords never get committed.
+def keystorePropsFile = rootProject.file("keystore.properties")
+def keystoreProps = new Properties()
+if (keystorePropsFile.exists()) {
+    keystoreProps.load(new FileInputStream(keystorePropsFile))
+}
+
 android {
     namespace = "in.sabeel.app"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -16,8 +24,23 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            if (keystorePropsFile.exists()) {
+                storeFile rootProject.file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+        }
+    }
     buildTypes {
         release {
+            // Use the real release key when keystore.properties is present; otherwise fall back
+            // to debug signing so the build still succeeds without secrets (fresh clone / CI).
+            signingConfig keystorePropsFile.exists() ? signingConfigs.release : signingConfigs.debug
+            // R8/minify left off for the first signed release to avoid stripping any Capacitor
+            // plugin classes loaded via reflection. Enable + test as a follow-up (see RELEASE.md).
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
