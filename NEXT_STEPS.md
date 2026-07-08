@@ -9,6 +9,7 @@ Sabeel runs natively on Android and the **offline audio pipeline is verified end
 - **Offline playback** — saved surahs play from local storage with the network fully off; word-highlight still works (timings are bundled).
 - **Reading mode** — an offline + unsaved surah shows the "Reading mode" banner. Offline detection uses `@capacitor/network` (`navigator.onLine` is unreliable in the Android WebView — it stays `true` with the network down).
 - **Lock screen / background audio** — media controls + background playback verified.
+- **Navigation** — Android hardware back maps to router history (reader → Home → background the app); cold start deterministically lands on Home.
 
 Audio is hosted (all 6,236 verses, AAC-LC 64k mono, 852 MB) in the public repo `The-Design-Alchemist/sabeel-audio` via jsDelivr; `CDN_BASE` lives in `app/src/lib/downloads.ts`.
 
@@ -41,9 +42,9 @@ cd app && npm run build && npx cap sync android && \
   - [ ] Confirm the **Arabic (Uthmani) text** source/license (e.g. Tanzil / KFGQPC) and get a scholarly **accuracy review** — text errors are unacceptable in a Qur'an app.
 
 ### 2 · Android quality — should fix before launch
-- [ ] **Hardware back button** doesn't map to router history (back can exit the app instead of going Home). Wire `@capacitor/app` `backButton` to the router.
+- [x] **Hardware back button** → mapped to router history (reader→Home, Home→background). ✅ 2026-07-08
+- [x] **Cold-start route** → now deterministically lands on Home (was inconsistently reopening `/downloads`). ✅ 2026-07-08
 - [ ] **Test on more devices / OS versions.** Only verified on Pixel 9a / Android 17 — check `minSdkVersion`, older Android, smaller screens & densities.
-- [ ] **Route restoration** is inconsistent (reopens to `/downloads` vs Home). Decide the intended cold-start screen.
 
 ### 3 · iOS — if targeting iOS (separate track)
 - [ ] Not built. `npx cap add ios`, signing/provisioning, TestFlight, App Store review. (AAC was chosen for iOS audio compatibility, so the media path should port.)
