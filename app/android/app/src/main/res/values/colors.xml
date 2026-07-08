@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand teal-deep — Android 12+ splash background (matches the app + capacitor.config backgroundColor). -->
+    <color name="splashBackground">#042A2B</color>
+</resources>
