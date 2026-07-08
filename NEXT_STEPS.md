@@ -32,10 +32,10 @@ cd app && npm run build && npx cap sync android && \
 ## What's left for production
 
 ### 1 · Release blockers — required to publish
-- [ ] **Signed release build (AAB).** Today only a *debug* APK exists. Create a release keystore, add a signing config, enable R8/minify, bump `versionCode`, and build an Android App Bundle for the Play Store.
-- [ ] **App icon + splash screen.** Both are Capacitor defaults — need a branded adaptive icon + splash.
-- [ ] **Play Store listing.** Name, description, screenshots, feature graphic, content rating, and the Data-safety form.
-- [ ] **Privacy policy.** Required (the app uses the network + on-device storage).
+- [~] **Signed release build (AAB).** ✅ Signing config + AAB pipeline wired and verified on device (signed APK + AAB build, install, audio + media session all work — see `app/android/RELEASE.md`). **Remaining (yours):** generate your own upload keystore + passwords → `android/keystore.properties`, then `bundleRelease`. R8/minify intentionally left off.
+- [x] **App icon + splash screen.** ✅ Branded Sabeel icon + brand-teal splash generated (`@capacitor/assets`, source in `app/assets/`) and verified on device. 2026-07-08
+- [~] **Play Store listing.** ✅ Draft copy + checklist in `docs/STORE_LISTING.md`. **Remaining (yours):** finalise wording, produce the feature graphic + screenshots, complete the Data-safety form.
+- [~] **Privacy policy.** ✅ Draft in `docs/PRIVACY.md`. **Remaining (yours):** add a support email, host at a public URL, link it in the listing.
 - [ ] **Content licensing & accuracy (Qur'an-specific — do not skip):**
   - [ ] Confirm redistribution rights + attribution for the **recitation** (Mishary Rashid Alafasy).
   - [ ] Confirm license + attribution for the **English translation**.
