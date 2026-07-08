@@ -71,13 +71,14 @@ function SelectContent({
 function SelectItem({
   className,
   children,
+  trailing,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Item>) {
+}: React.ComponentProps<typeof SelectPrimitive.Item> & { trailing?: React.ReactNode }) {
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "relative flex w-full cursor-pointer select-none items-center rounded-md py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-secondary data-[state=checked]:font-semibold data-[state=checked]:text-teal data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "group/item relative flex w-full cursor-pointer select-none items-center rounded-md py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-secondary data-[state=checked]:bg-teal-deep data-[state=checked]:font-semibold data-[state=checked]:text-white data-[state=checked]:focus:bg-teal-deep data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         className
       )}
       {...props}
@@ -88,6 +89,7 @@ function SelectItem({
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+      {trailing}
     </SelectPrimitive.Item>
   )
 }

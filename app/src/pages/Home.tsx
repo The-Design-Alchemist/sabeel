@@ -41,11 +41,11 @@ export default function Home() {
       variants={staggerContainer}
       initial="hidden"
       animate="show"
-      className="flex min-h-screen flex-col overflow-x-clip bg-teal-deep"
+      className="flex h-dvh flex-col overflow-hidden bg-teal-deep"
     >
       <motion.header
         variants={fadeRise}
-        className="relative flex items-center justify-center px-2.5 pb-5 pt-[max(2.5rem,env(safe-area-inset-top))]"
+        className="relative flex shrink-0 items-center justify-center px-2.5 pb-5 pt-[max(2.5rem,env(safe-area-inset-top))]"
       >
         <Logo className="h-[51px] w-[167px]" />
         <Link
@@ -58,17 +58,17 @@ export default function Home() {
       </motion.header>
 
       {recents.length > 0 && (
-        <motion.div variants={fadeRise}>
+        <motion.div variants={fadeRise} className="shrink-0">
           <RecentSection recents={recents} onOpen={openSurah} />
         </motion.div>
       )}
 
       <motion.main
         variants={fadeRise}
-        className="flex flex-1 flex-col gap-10 rounded-t-[40px] bg-ground px-6 py-10 md:px-10 xl:px-20"
+        className="flex flex-1 flex-col overflow-hidden rounded-t-[40px] bg-ground px-6 md:px-10 xl:px-20"
       >
-        {/* Search */}
-        <div className="mx-auto w-full max-w-[1280px]">
+        {/* Search — fixed */}
+        <div className="mx-auto w-full max-w-[1280px] shrink-0 pb-6 pt-10">
           <label htmlFor="surah-search" className="sr-only">
             Search for a surah by name, number, or meaning
           </label>
@@ -89,35 +89,38 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Grid / empty state */}
-        <div className="mx-auto w-full max-w-[1280px] flex-1">
-          {results.length === 0 ? (
-            <div
-              className="flex h-full min-h-[40vh] flex-col items-center justify-center gap-4 text-center"
-              role="status"
-            >
-              <p className="max-w-[350px] text-sm font-medium text-ink">
-                Hmm, we couldn't find that surah.
-                <br />
-                Try searching by surah name, number, or meaning.
-              </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-              {results.map((s) => (
-                <SurahCard key={s.id} surah={s} onOpen={openSurah} />
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Scrollable: cards + footer */}
+        <div className="flex flex-1 flex-col gap-10 overflow-y-auto pb-10">
+          {/* Grid / empty state */}
+          <div className="mx-auto w-full max-w-[1280px] flex-1">
+            {results.length === 0 ? (
+              <div
+                className="flex h-full min-h-[40vh] flex-col items-center justify-center gap-4 text-center"
+                role="status"
+              >
+                <p className="max-w-[350px] text-sm font-medium text-ink">
+                  Hmm, we couldn't find that surah.
+                  <br />
+                  Try searching by surah name, number, or meaning.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+                {results.map((s) => (
+                  <SurahCard key={s.id} surah={s} onOpen={openSurah} />
+                ))}
+              </div>
+            )}
+          </div>
 
-        {/* Footer */}
-        <footer className="mx-auto mt-auto flex w-full max-w-[1280px] items-center justify-between text-xs text-muted-foreground">
-          <span>v2.0</span>
-          <span>
-            Design &amp; Developed by <span className="text-ink">Aaqil Jamal</span>
-          </span>
-        </footer>
+          {/* Footer */}
+          <footer className="mx-auto mt-auto flex w-full max-w-[1280px] items-center justify-between text-xs text-muted-foreground">
+            <span>v2.0</span>
+            <span>
+              Design &amp; Developed by <span className="text-ink">Aaqil Jamal</span>
+            </span>
+          </footer>
+        </div>
       </motion.main>
     </motion.div>
   )

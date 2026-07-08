@@ -31,12 +31,14 @@ export function useVerseAudio() {
     }
   }, [])
 
-  const play = useCallback((src: string) => {
+  const play = useCallback((src: string, startAt?: number) => {
     const a = audioRef.current
     if (!a) return
     if (!a.src.endsWith(src)) {
       a.src = src
-      a.currentTime = 0
+      a.currentTime = startAt ?? 0
+    } else if (startAt != null) {
+      a.currentTime = startAt
     }
     a.play().catch(() => {
       /* autoplay blocked without a gesture — ignore */

@@ -47,6 +47,13 @@ const slide = {
   exit: (dir: number) => ({ opacity: 0, x: dir >= 0 ? -28 : 28 }),
 }
 
+// When repeat-looping a single waqf segment, jump back to its start this many seconds
+// BEFORE the aligned segment end. Compensates for the rAF frame gap + audio-output
+// buffer latency so a sliver of the next segment doesn't bleed through on each loop.
+// Tunable by ear: raise it if you still hear the next word; lower it if the last word
+// of the segment gets clipped.
+const SEG_LOOP_GUARD = 0.07
+
 export default function Reader() {
   const { id } = useParams()
   const surahId = Number(id)
@@ -99,10 +106,12 @@ export default function Reader() {
   const timingRef = useRef<TimingVerse | undefined>(undefined)
   const segIdxRef = useRef(0)
   const highlightRef = useRef(true)
+  const repeatRef = useRef(false)
   const activeRef = useRef(-1)
   timingRef.current = timing
   segIdxRef.current = segmentIndex
   highlightRef.current = settings.highlighting
+  repeatRef.current = repeat
 
   // Reset when the surah changes.
   useEffect(() => {
@@ -147,7 +156,10 @@ export default function Reader() {
   useEffect(() => {
     setOnEnded(() => {
       if (repeat) {
-        play(srcFor(verseIndex))
+        // On a segmented verse, loop just the focused segment (its end is the verse
+        // end, so `ended` fires here); otherwise loop the whole verse.
+        const seg = segmented ? timing?.segments?.[segmentIndex] : undefined
+        play(srcFor(verseIndex), seg?.start)
       } else if (verseIndex < verses.length - 1) {
         const next = verseIndex + 1
         setDir(1)
@@ -156,7 +168,7 @@ export default function Reader() {
         play(srcFor(next))
       }
     })
-  }, [repeat, verseIndex, verses.length, play, srcFor, setOnEnded])
+  }, [repeat, segmented, timing, segmentIndex, verseIndex, verses.length, play, srcFor, setOnEnded])
 
   // Playback sync loop: highlight the spoken word + follow segments as audio plays.
   useEffect(() => {
@@ -171,13 +183,20 @@ export default function Reader() {
       const tm = timingRef.current
       if (a && tm) {
         const t = a.currentTime
-        // follow the current segment during continuous playback
         if (tm.segments && tm.segments.length > 1) {
-          const si = tm.segments.findIndex((s) => t >= s.start && t < s.end)
-          if (si >= 0 && si !== segIdxRef.current) {
-            segIdxRef.current = si
-            setDir(1)
-            setSegmentIndex(si)
+          if (repeatRef.current) {
+            // Repeat on a segmented verse: loop just the focused segment. Mid-verse
+            // segments never fire `ended`, so we watch for the boundary here.
+            const seg = tm.segments[segIdxRef.current]
+            if (seg && t >= seg.end - SEG_LOOP_GUARD) a.currentTime = seg.start
+          } else {
+            // follow the current segment during continuous playback
+            const si = tm.segments.findIndex((s) => t >= s.start && t < s.end)
+            if (si >= 0 && si !== segIdxRef.current) {
+              segIdxRef.current = si
+              setDir(1)
+              setSegmentIndex(si)
+            }
           }
         }
         // highlight the active word (only when the toggle is on)
@@ -239,7 +258,13 @@ export default function Reader() {
   }
   const togglePlay = () => {
     haptics.tap()
-    return playing ? pause() : play(srcFor(verseIndex))
+    if (playing) return pause()
+    // Starting fresh in segment-repeat: begin at the focused segment if the playhead
+    // is sitting outside it (e.g. after navigating segments while paused).
+    const seg = repeat && segmented ? timing?.segments?.[segmentIndex] : undefined
+    const at = audioRef.current
+    const startAt = seg && at && (at.currentTime < seg.start || at.currentTime >= seg.end) ? seg.start : undefined
+    return play(srcFor(verseIndex), startAt)
   }
   const startOver = () => {
     setDir(-1)
@@ -336,9 +361,9 @@ export default function Reader() {
   }, [verse, segmented, segments, segmentIndex, verseNum])
 
   return (
-    <div className="flex min-h-screen flex-col bg-teal-deep">
+    <div className="flex h-dvh flex-col overflow-hidden bg-teal-deep">
       {/* Header (lean) — title block is absolutely centered on the screen */}
-      <header className="relative flex items-center justify-between px-4 pb-4 pt-[max(1rem,env(safe-area-inset-top))] text-white sm:px-6">
+      <header className="relative flex shrink-0 items-center justify-between px-4 pb-4 pt-[max(1rem,env(safe-area-inset-top))] text-white sm:px-6">
         <Link
           to="/"
           className="inline-flex items-center gap-1 rounded-full px-2 py-1.5 text-sm font-medium text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
@@ -451,32 +476,34 @@ export default function Reader() {
             )}
           </AnimatePresence>
 
-          <main className="flex flex-1 items-center justify-center overflow-y-auto bg-ground px-6 py-10">
-            <div className="mx-auto w-full max-w-[632px]">
-              <AnimatePresence mode="wait" custom={dir} initial={false}>
-                <motion.div
-                  key={`${verseIndex}:${segmentIndex}`}
-                  custom={dir}
-                  variants={slide}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={easeOut}
-                >
-                  <VerseView
-                    arabic={view.arabic}
-                    words={settings.highlighting && canPlay ? renderWords : undefined}
-                    activeWord={activeLocal}
-                    onWordClick={onWordClick}
-                    highlight={settings.highlighting && canPlay}
-                    transliteration={view.transliteration}
-                    translation={view.translation}
-                    verseNumber={view.verseNumber}
-                    showTranslation={settings.translation}
-                    showTransliteration={settings.transliteration}
-                  />
-                </motion.div>
-              </AnimatePresence>
+          <main className="flex-1 overflow-y-auto bg-ground">
+            <div className="flex min-h-full items-center justify-center px-6 py-10">
+              <div className="mx-auto w-full max-w-[632px]">
+                <AnimatePresence mode="wait" custom={dir} initial={false}>
+                  <motion.div
+                    key={`${verseIndex}:${segmentIndex}`}
+                    custom={dir}
+                    variants={slide}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={easeOut}
+                  >
+                    <VerseView
+                      arabic={view.arabic}
+                      words={settings.highlighting && canPlay ? renderWords : undefined}
+                      activeWord={activeLocal}
+                      onWordClick={onWordClick}
+                      highlight={settings.highlighting && canPlay}
+                      transliteration={view.transliteration}
+                      translation={view.translation}
+                      verseNumber={view.verseNumber}
+                      showTranslation={settings.translation}
+                      showTransliteration={settings.transliteration}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </main>
 
@@ -514,11 +541,24 @@ export default function Reader() {
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
-                {verses.map((v, i) => (
-                  <SelectItem key={v.key} value={String(i)}>
-                    Verse {v.key.split(":")[1]}
-                  </SelectItem>
-                ))}
+                {verses.map((v, i) => {
+                  const waqf = v.segments?.length ?? 0
+                  return (
+                    <SelectItem
+                      key={v.key}
+                      value={String(i)}
+                      trailing={
+                        waqf > 1 ? (
+                          <span className="ml-auto pl-3 text-xs font-medium text-muted-foreground group-data-[state=checked]/item:text-white/70">
+                            {waqf} Waqf
+                          </span>
+                        ) : null
+                      }
+                    >
+                      Verse {v.key.split(":")[1]}
+                    </SelectItem>
+                  )
+                })}
               </SelectContent>
             </Select>
 
