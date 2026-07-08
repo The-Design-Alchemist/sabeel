@@ -1,6 +1,30 @@
 # Sabeel — Project Status & Work Log
 
-_Last updated: 2026-07-07 · Branch: `production-hardening` (24 commits, **not** merged to `main`)_
+_Last updated: 2026-07-08 · Branch: `production-hardening` (**not** merged to `main`)_
+
+## Latest session — 2026-07-08 (native Android verified on-device + production prep)
+
+Everything below was validated on a real device (**Pixel 9a, Android 17**) and pushed to
+`production-hardening` (+9 commits). **Resume checklist + what's left → [`NEXT_STEPS.md`](NEXT_STEPS.md).**
+
+- **Offline pipeline verified on-device:** streaming, save-for-offline (files confirmed
+  byte-exact on disk), offline playback from local storage, "reading mode" when offline +
+  unsaved, and lock-screen / background audio — all confirmed working.
+- **Fixes:** offline detection switched to `@capacitor/network` (`navigator.onLine` is
+  unreliable in the Android WebView); download **resume-on-interrupt** (skips verses already
+  saved); Android **hardware back → router history** + deterministic **Home cold-start**.
+- **Reader polish:** larger Arabic / translation / transliteration; full-width verse bar.
+- **Production prep (from-our-end items):** **release signing + AAB pipeline** verified end-to-end
+  (`app/android/RELEASE.md`; reads a gitignored `keystore.properties`); **branded app icon +
+  brand-teal splash** (`@capacitor/assets`, source in `app/assets/`); **privacy policy +
+  Play Store listing** drafts (`docs/PRIVACY.md`, `docs/STORE_LISTING.md`).
+- **A shareable signed release APK** is built (`Sabeel-v1.0.apk`) — installed on the test device
+  and copied to `~/Downloads` (signed with a *throwaway test key*; fine for demos).
+- **Left for launch (all user-owned):** generate the real upload keystore; content
+  licensing/attribution + Qur'an text accuracy review; finalise store listing/assets + host the
+  privacy policy; wider device/OS testing; iOS build.
+
+---
 
 Sabeel is a Qur'an learning app whose core idea is breaking recitation into **waqf**
 (pause) segments — Surah → Verse → Waqf segment — with word-by-word audio highlighting.
