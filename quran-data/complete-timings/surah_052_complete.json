@@ -477,7 +477,7 @@
         "end": 18.73,
         "startWord": 7,
         "endWord": 12,
-        "wordCount": 5,
+        "wordCount": 6,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -665,7 +665,7 @@
         "end": 11.71,
         "startWord": 4,
         "endWord": 7,
-        "wordCount": 3,
+        "wordCount": 4,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -794,7 +794,7 @@
         "end": 28.28,
         "startWord": 14,
         "endWord": 19,
-        "wordCount": 5,
+        "wordCount": 6,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1116,7 +1116,7 @@
         "end": 14.02,
         "startWord": 5,
         "endWord": 9,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1319,7 +1319,7 @@
         "end": 11.36,
         "startWord": 4,
         "endWord": 8,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1383,7 +1383,7 @@
         "end": 7.19,
         "startWord": 3,
         "endWord": 6,
-        "wordCount": 3,
+        "wordCount": 4,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1538,7 +1538,7 @@
         "end": 8.0,
         "startWord": 4,
         "endWord": 7,
-        "wordCount": 3,
+        "wordCount": 4,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1660,7 +1660,7 @@
         "end": 14.78,
         "startWord": 5,
         "endWord": 9,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1838,7 +1838,7 @@
         "end": 9.46,
         "startWord": 3,
         "endWord": 7,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1917,7 +1917,7 @@
         "end": 13.14,
         "startWord": 5,
         "endWord": 9,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -2208,7 +2208,7 @@
         "end": 13.49,
         "startWord": 5,
         "endWord": 10,
-        "wordCount": 5,
+        "wordCount": 6,
         "type": "verse_end",
         "waqfMark": null
       }

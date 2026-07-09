@@ -133,7 +133,10 @@
         "end": 4.57,
         "startWord": 0,
         "endWord": 3,
-        "audioFile": "110/segments/110003_seg1.mp3"
+        "audioFile": "110/segments/110003_seg1.mp3",
+        "waqfMark": "ۚ",
+        "type": "compulsory_stop",
+        "wordCount": 4
       },
       {
         "segmentNumber": 2,
@@ -141,7 +144,10 @@
         "end": 8.75,
         "startWord": 4,
         "endWord": 7,
-        "audioFile": "110/segments/110003_seg2.mp3"
+        "audioFile": "110/segments/110003_seg2.mp3",
+        "waqfMark": null,
+        "type": "verse_end",
+        "wordCount": 4
       }
     ]
   }

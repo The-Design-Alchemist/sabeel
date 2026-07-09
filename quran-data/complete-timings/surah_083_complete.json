@@ -461,7 +461,7 @@
         "end": 1.76,
         "startWord": 0,
         "endWord": 2,
-        "wordCount": 2,
+        "wordCount": 3,
         "type": "emphasis_stop",
         "waqfMark": "ۜ"
       },
@@ -471,7 +471,7 @@
         "end": 9.22,
         "startWord": 3,
         "endWord": 9,
-        "wordCount": 6,
+        "wordCount": 7,
         "type": "verse_end",
         "waqfMark": null
       }

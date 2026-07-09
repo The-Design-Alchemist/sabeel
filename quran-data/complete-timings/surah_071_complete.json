@@ -276,7 +276,7 @@
         "end": 17.3,
         "startWord": 8,
         "endWord": 15,
-        "wordCount": 7,
+        "wordCount": 8,
         "type": "small_stop",
         "waqfMark": "ۖ"
       },
@@ -286,7 +286,7 @@
         "end": 21.67,
         "startWord": 16,
         "endWord": 19,
-        "wordCount": 3,
+        "wordCount": 4,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1152,7 +1152,7 @@
         "end": 7.65,
         "startWord": 3,
         "endWord": 8,
-        "wordCount": 5,
+        "wordCount": 6,
         "type": "verse_end",
         "waqfMark": null
       }

@@ -77,7 +77,7 @@
         "end": 6.18,
         "startWord": 6,
         "endWord": 9,
-        "wordCount": 3,
+        "wordCount": 4,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -171,7 +171,7 @@
         "end": 7.58,
         "startWord": 4,
         "endWord": 6,
-        "wordCount": 2,
+        "wordCount": 3,
         "type": "small_stop",
         "waqfMark": "ۖ"
       },
@@ -181,7 +181,7 @@
         "end": 13.63,
         "startWord": 7,
         "endWord": 12,
-        "wordCount": 5,
+        "wordCount": 6,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -260,7 +260,7 @@
         "end": 9.75,
         "startWord": 5,
         "endWord": 9,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -484,7 +484,7 @@
         "end": 23.73,
         "startWord": 12,
         "endWord": 27,
-        "wordCount": 15,
+        "wordCount": 16,
         "type": "small_stop",
         "waqfMark": "ۖ"
       },
@@ -494,7 +494,7 @@
         "end": 28.5,
         "startWord": 28,
         "endWord": 33,
-        "wordCount": 5,
+        "wordCount": 6,
         "type": "compulsory_stop",
         "waqfMark": "ۚ"
       },
@@ -504,7 +504,7 @@
         "end": 33.72,
         "startWord": 34,
         "endWord": 38,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -578,7 +578,7 @@
         "end": 9.22,
         "startWord": 4,
         "endWord": 8,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -672,7 +672,7 @@
         "end": 14.68,
         "startWord": 8,
         "endWord": 12,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -781,7 +781,7 @@
         "end": 23.11,
         "startWord": 8,
         "endWord": 15,
-        "wordCount": 7,
+        "wordCount": 8,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -890,7 +890,7 @@
         "end": 17.24,
         "startWord": 5,
         "endWord": 15,
-        "wordCount": 10,
+        "wordCount": 11,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1009,7 +1009,7 @@
         "end": 23.53,
         "startWord": 12,
         "endWord": 17,
-        "wordCount": 5,
+        "wordCount": 6,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1243,7 +1243,7 @@
         "end": 21.8,
         "startWord": 11,
         "endWord": 20,
-        "wordCount": 9,
+        "wordCount": 10,
         "type": "compulsory_stop",
         "waqfMark": "ۚ"
       },
@@ -1253,7 +1253,7 @@
         "end": 33.77,
         "startWord": 21,
         "endWord": 30,
-        "wordCount": 9,
+        "wordCount": 10,
         "type": "compulsory_stop",
         "waqfMark": "ۚ"
       },
@@ -1263,7 +1263,7 @@
         "end": 38.54,
         "startWord": 31,
         "endWord": 35,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "compulsory_stop",
         "waqfMark": "ۚ"
       },
@@ -1273,7 +1273,7 @@
         "end": 43.92,
         "startWord": 36,
         "endWord": 40,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1485,7 +1485,7 @@
         "end": 33.23,
         "startWord": 18,
         "endWord": 22,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1762,7 +1762,7 @@
         "end": 36.79,
         "startWord": 4,
         "endWord": 20,
-        "wordCount": 16,
+        "wordCount": 17,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1881,7 +1881,7 @@
         "end": 13.23,
         "startWord": 9,
         "endWord": 11,
-        "wordCount": 2,
+        "wordCount": 3,
         "type": "small_stop",
         "waqfMark": "ۖ"
       },
@@ -1891,7 +1891,7 @@
         "end": 15.04,
         "startWord": 12,
         "endWord": 14,
-        "wordCount": 2,
+        "wordCount": 3,
         "type": "small_stop",
         "waqfMark": "ۖ"
       },
@@ -1901,7 +1901,7 @@
         "end": 18.52,
         "startWord": 15,
         "endWord": 17,
-        "wordCount": 2,
+        "wordCount": 3,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -2080,7 +2080,7 @@
         "end": 31.24,
         "startWord": 26,
         "endWord": 29,
-        "wordCount": 3,
+        "wordCount": 4,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -2179,7 +2179,7 @@
         "end": 17.61,
         "startWord": 7,
         "endWord": 13,
-        "wordCount": 6,
+        "wordCount": 7,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -2386,7 +2386,7 @@
         "end": 22.1,
         "startWord": 7,
         "endWord": 13,
-        "wordCount": 6,
+        "wordCount": 7,
         "type": "small_stop",
         "waqfMark": "ۖ"
       },
@@ -2396,7 +2396,7 @@
         "end": 34.77,
         "startWord": 14,
         "endWord": 21,
-        "wordCount": 7,
+        "wordCount": 8,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -2635,7 +2635,7 @@
         "end": 35.6,
         "startWord": 13,
         "endWord": 25,
-        "wordCount": 12,
+        "wordCount": 13,
         "type": "small_stop",
         "waqfMark": "ۖ"
       },
@@ -2645,7 +2645,7 @@
         "end": 48.04,
         "startWord": 26,
         "endWord": 34,
-        "wordCount": 8,
+        "wordCount": 9,
         "type": "compulsory_stop",
         "waqfMark": "ۚ"
       },
@@ -2655,7 +2655,7 @@
         "end": 56.59,
         "startWord": 35,
         "endWord": 41,
-        "wordCount": 6,
+        "wordCount": 7,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -2819,7 +2819,7 @@
         "end": 28.01,
         "startWord": 15,
         "endWord": 21,
-        "wordCount": 6,
+        "wordCount": 7,
         "type": "compulsory_stop",
         "waqfMark": "ۚ"
       },
@@ -2829,7 +2829,7 @@
         "end": 32.99,
         "startWord": 22,
         "endWord": 26,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -2968,7 +2968,7 @@
         "end": 30.08,
         "startWord": 16,
         "endWord": 21,
-        "wordCount": 5,
+        "wordCount": 6,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -3077,7 +3077,7 @@
         "end": 17.91,
         "startWord": 9,
         "endWord": 15,
-        "wordCount": 6,
+        "wordCount": 7,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -3171,7 +3171,7 @@
         "end": 16.55,
         "startWord": 5,
         "endWord": 12,
-        "wordCount": 7,
+        "wordCount": 8,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -3350,7 +3350,7 @@
         "end": 45.09,
         "startWord": 11,
         "endWord": 24,
-        "wordCount": 13,
+        "wordCount": 14,
         "type": "compulsory_stop",
         "waqfMark": "ۚ"
       },
@@ -3360,7 +3360,7 @@
         "end": 51.13,
         "startWord": 25,
         "endWord": 29,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -3469,7 +3469,7 @@
         "end": 17.86,
         "startWord": 9,
         "endWord": 11,
-        "wordCount": 2,
+        "wordCount": 3,
         "type": "small_stop",
         "waqfMark": "ۖ"
       },
@@ -3479,7 +3479,7 @@
         "end": 23.54,
         "startWord": 12,
         "endWord": 15,
-        "wordCount": 3,
+        "wordCount": 4,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -3713,7 +3713,7 @@
         "end": 60.65,
         "startWord": 31,
         "endWord": 36,
-        "wordCount": 5,
+        "wordCount": 6,
         "type": "small_stop",
         "waqfMark": "ۖ"
       },
@@ -3723,7 +3723,7 @@
         "end": 66.24,
         "startWord": 37,
         "endWord": 40,
-        "wordCount": 3,
+        "wordCount": 4,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -3862,7 +3862,7 @@
         "end": 30.29,
         "startWord": 18,
         "endWord": 21,
-        "wordCount": 3,
+        "wordCount": 4,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -4011,7 +4011,7 @@
         "end": 26.61,
         "startWord": 11,
         "endWord": 18,
-        "wordCount": 7,
+        "wordCount": 8,
         "type": "compulsory_stop",
         "waqfMark": "ۚ"
       },
@@ -4021,7 +4021,7 @@
         "end": 32.65,
         "startWord": 19,
         "endWord": 23,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }

@@ -471,7 +471,7 @@
       {
         "word": "أَبْوَٰبًا",
         "start": 4.82,
-        "end": 7.132
+        "end": 7.1
       }
     ],
     "segments": null
@@ -568,7 +568,7 @@
       {
         "word": "أَحْقَابًا",
         "start": 2.89,
-        "end": 5.695
+        "end": 5.673
       }
     ],
     "segments": null
@@ -995,7 +995,7 @@
         "end": 12.41,
         "startWord": 6,
         "endWord": 10,
-        "wordCount": 4,
+        "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1099,7 +1099,7 @@
         "end": 18.71,
         "startWord": 5,
         "endWord": 14,
-        "wordCount": 9,
+        "wordCount": 10,
         "type": "verse_end",
         "waqfMark": null
       }
@@ -1178,7 +1178,7 @@
         "end": 10.69,
         "startWord": 3,
         "endWord": 9,
-        "wordCount": 6,
+        "wordCount": 7,
         "type": "verse_end",
         "waqfMark": null
       }

@@ -294,7 +294,10 @@
         "end": 17.16,
         "startWord": 0,
         "endWord": 12,
-        "audioFile": "098/segments/098005_seg1.mp3"
+        "audioFile": "098/segments/098005_seg1.mp3",
+        "waqfMark": "ۚ",
+        "type": "preferred_pause",
+        "wordCount": 13
       },
       {
         "segmentNumber": 2,
@@ -302,7 +305,10 @@
         "end": 19.86,
         "startWord": 13,
         "endWord": 16,
-        "audioFile": "098/segments/098005_seg2.mp3"
+        "audioFile": "098/segments/098005_seg2.mp3",
+        "waqfMark": null,
+        "type": "verse_end",
+        "wordCount": 4
       }
     ]
   },
@@ -404,7 +410,10 @@
         "end": 13.05,
         "startWord": 0,
         "endWord": 11,
-        "audioFile": "098/segments/098006_seg1.mp3"
+        "audioFile": "098/segments/098006_seg1.mp3",
+        "waqfMark": "ۚ",
+        "type": "preferred_pause",
+        "wordCount": 12
       },
       {
         "segmentNumber": 2,
@@ -412,7 +421,10 @@
         "end": 17.65,
         "startWord": 12,
         "endWord": 16,
-        "audioFile": "098/segments/098006_seg2.mp3"
+        "audioFile": "098/segments/098006_seg2.mp3",
+        "waqfMark": null,
+        "type": "verse_end",
+        "wordCount": 5
       }
     ]
   },
@@ -464,7 +476,7 @@
       {
         "word": "ٱلْبَرِيَّةِ",
         "start": 9.76,
-        "end": 11.599
+        "end": 11.57
       }
     ],
     "segments": null
@@ -597,7 +609,10 @@
         "end": 21.77,
         "startWord": 0,
         "endWord": 17,
-        "audioFile": "098/segments/098008_seg1.mp3"
+        "audioFile": "098/segments/098008_seg1.mp3",
+        "waqfMark": "ۚ",
+        "type": "preferred_pause",
+        "wordCount": 18
       },
       {
         "segmentNumber": 2,
@@ -605,7 +620,10 @@
         "end": 24.63,
         "startWord": 18,
         "endWord": 22,
-        "audioFile": "098/segments/098008_seg2.mp3"
+        "audioFile": "098/segments/098008_seg2.mp3",
+        "waqfMark": null,
+        "type": "verse_end",
+        "wordCount": 5
       }
     ]
   }
