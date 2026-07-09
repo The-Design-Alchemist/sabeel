@@ -5,6 +5,7 @@ import { ArrowLeft, Check, ChevronLeft, ChevronRight, Download, Loader2, WifiOff
 import { useSurah } from "@/hooks/useSurah"
 import { useTimings } from "@/hooks/useTimings"
 import { useVerseAudio } from "@/hooks/useVerseAudio"
+import { useSegmentLoop } from "@/hooks/useSegmentLoop"
 import { useMediaSession } from "@/hooks/useMediaSession"
 import { useHaptics } from "@/hooks/useHaptics"
 import { isBundledAudio, isSegmented, type TimingVerse } from "@/data/quran"
@@ -31,6 +32,7 @@ const DEFAULT_SETTINGS: ReaderSettings = {
   translation: true,
   transliteration: true,
   highlighting: true,
+  repeatBreath: true,
 }
 
 function loadSettings(): ReaderSettings {
@@ -47,12 +49,9 @@ const slide = {
   exit: (dir: number) => ({ opacity: 0, x: dir >= 0 ? -28 : 28 }),
 }
 
-// When repeat-looping a single waqf segment, jump back to its start this many seconds
-// BEFORE the aligned segment end. Compensates for the rAF frame gap + audio-output
-// buffer latency so a sliver of the next segment doesn't bleed through on each loop.
-// Tunable by ear: raise it if you still hear the next word; lower it if the last word
-// of the segment gets clipped.
-const SEG_LOOP_GUARD = 0.07
+// The breath inserted between repeats of a waqf segment when "Pause between repeats" is on.
+// Sample-accurate looping means the cut never bleeds regardless; this is purely hifz pacing.
+const REPEAT_GAP_MS = 150
 
 export default function Reader() {
   const { id } = useParams()
@@ -66,6 +65,7 @@ export default function Reader() {
   const { data, loading, error } = useSurah(surahId)
   const timings = useTimings(surahId)
   const { playing, play, pause, stop, seek, setOnEnded, audioRef } = useVerseAudio()
+  const loop = useSegmentLoop()
   const haptics = useHaptics()
 
   const [started, setStarted] = useState(false)
@@ -94,6 +94,11 @@ export default function Reader() {
   const segmented = verse ? isSegmented(verse) : false
   const segments = verse?.segments ?? []
 
+  // Segment-repeat runs on the sample-accurate Web-Audio looper; everything else on <audio>.
+  const useLoop = repeat && segmented
+  const isPlaying = playing || loop.playing
+  const gapMs = () => (settings.repeatBreath ? REPEAT_GAP_MS : 0)
+
   const srcFor = useCallback(
     (i: number) => {
       const v = verses[i]
@@ -102,16 +107,29 @@ export default function Reader() {
     [verses, surahId]
   )
 
+  // Start (or restart) the segment loop on the focused segment of the current verse.
+  const startSegLoop = (sIdx = segmentIndex) => {
+    const seg = timing?.segments?.[sIdx]
+    if (!seg) return
+    pause() // silence the <audio> element; the looper takes over
+    loop.unlock()
+    loop.startLoop(srcFor(verseIndex), seg.start, seg.end, { gapMs: gapMs() })
+  }
+
   // Refs so the rAF loop reads live values without re-subscribing every frame.
   const timingRef = useRef<TimingVerse | undefined>(undefined)
   const segIdxRef = useRef(0)
   const highlightRef = useRef(true)
   const repeatRef = useRef(false)
+  const segmentedRef = useRef(false)
+  const getPosRef = useRef(loop.getPosition)
   const activeRef = useRef(-1)
   timingRef.current = timing
   segIdxRef.current = segmentIndex
   highlightRef.current = settings.highlighting
   repeatRef.current = repeat
+  segmentedRef.current = segmented
+  getPosRef.current = loop.getPosition
 
   // Reset when the surah changes.
   useEffect(() => {
@@ -120,7 +138,8 @@ export default function Reader() {
     setSegmentIndex(0)
     setDir(0)
     stop()
-  }, [surahId, stop])
+    loop.stopLoop()
+  }, [surahId, stop, loop.stopLoop])
 
   // On entering a surah, offer to resume if there's meaningful saved progress.
   useEffect(() => {
@@ -152,15 +171,13 @@ export default function Reader() {
     }
   }, [surahId, verseIndex, verse, verseNum, started])
 
-  // Natural end of a verse's audio: repeat it, or advance and keep playing.
+  // Natural end of a verse's <audio>: loop a single-breath verse, or advance and keep playing.
+  // (Segmented repeat is handled by the Web-Audio looper, so `ended` never fires there.)
   useEffect(() => {
     setOnEnded(() => {
-      if (repeat) {
-        // On a segmented verse, loop just the focused segment (its end is the verse
-        // end, so `ended` fires here); otherwise loop the whole verse.
-        const seg = segmented ? timing?.segments?.[segmentIndex] : undefined
-        play(srcFor(verseIndex), seg?.start)
-      } else if (verseIndex < verses.length - 1) {
+      if (repeat && !segmented) {
+        play(srcFor(verseIndex)) // loop the whole verse when it has no waqf segments
+      } else if (!repeat && verseIndex < verses.length - 1) {
         const next = verseIndex + 1
         setDir(1)
         setVerseIndex(next)
@@ -168,35 +185,29 @@ export default function Reader() {
         play(srcFor(next))
       }
     })
-  }, [repeat, segmented, timing, segmentIndex, verseIndex, verses.length, play, srcFor, setOnEnded])
+  }, [repeat, segmented, verseIndex, verses.length, play, srcFor, setOnEnded])
 
-  // Playback sync loop: highlight the spoken word + follow segments as audio plays.
+  // Playback sync loop: highlight the spoken word + follow segments as audio plays. Reads the
+  // position from whichever engine is live — <audio> during normal play, the looper on repeat.
   useEffect(() => {
-    if (!playing) {
+    if (!isPlaying) {
       activeRef.current = -1
       setActiveWord(-1)
       return
     }
     let raf = 0
-    const loop = () => {
-      const a = audioRef.current
+    const tick = () => {
       const tm = timingRef.current
-      if (a && tm) {
-        const t = a.currentTime
-        if (tm.segments && tm.segments.length > 1) {
-          if (repeatRef.current) {
-            // Repeat on a segmented verse: loop just the focused segment. Mid-verse
-            // segments never fire `ended`, so we watch for the boundary here.
-            const seg = tm.segments[segIdxRef.current]
-            if (seg && t >= seg.end - SEG_LOOP_GUARD) a.currentTime = seg.start
-          } else {
-            // follow the current segment during continuous playback
-            const si = tm.segments.findIndex((s) => t >= s.start && t < s.end)
-            if (si >= 0 && si !== segIdxRef.current) {
-              segIdxRef.current = si
-              setDir(1)
-              setSegmentIndex(si)
-            }
+      const fromLoop = repeatRef.current && segmentedRef.current
+      const t = fromLoop ? getPosRef.current() : audioRef.current?.currentTime ?? null
+      if (tm && t != null) {
+        // follow the current segment during continuous (non-repeat) playback only
+        if (!fromLoop && tm.segments && tm.segments.length > 1) {
+          const si = tm.segments.findIndex((s) => t >= s.start && t < s.end)
+          if (si >= 0 && si !== segIdxRef.current) {
+            segIdxRef.current = si
+            setDir(1)
+            setSegmentIndex(si)
           }
         }
         // highlight the active word (only when the toggle is on)
@@ -211,11 +222,23 @@ export default function Reader() {
           setActiveWord(-1)
         }
       }
-      raf = requestAnimationFrame(loop)
+      raf = requestAnimationFrame(tick)
     }
-    raf = requestAnimationFrame(loop)
+    raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [playing, audioRef])
+  }, [isPlaying, audioRef])
+
+  // Loop segment 0 of an arbitrary verse (used when navigating verses while repeat is on).
+  const loopVerseAt = (vIdx: number, sIdx: number) => {
+    const v = verses[vIdx]
+    if (!v) return false
+    const seg = timings.get(Number(v.key.split(":")[1]))?.segments?.[sIdx]
+    if (!seg) return false
+    pause()
+    loop.unlock()
+    loop.startLoop(srcFor(vIdx), seg.start, seg.end, { gapMs: gapMs() })
+    return true
+  }
 
   const goVerse = (i: number) => {
     if (!verses.length) return
@@ -225,7 +248,13 @@ export default function Reader() {
     setDir(clamped > verseIndex ? 1 : -1)
     setVerseIndex(clamped)
     setSegmentIndex(0)
-    if (playing) play(srcFor(clamped))
+    segIdxRef.current = 0
+    const wasPlaying = isPlaying
+    if (loop.playing) loop.stopLoop()
+    if (!wasPlaying) return
+    // keep playing the new verse: loop its first segment on repeat, else stream it
+    if (repeat && isSegmented(verses[clamped]) && loopVerseAt(clamped, 0)) return
+    play(srcFor(clamped))
   }
   const goSegment = (i: number) => {
     const clamped = Math.max(0, Math.min(segments.length - 1, i))
@@ -234,7 +263,10 @@ export default function Reader() {
     setSegmentIndex(clamped)
     segIdxRef.current = clamped
     const seg = timing?.segments?.[clamped]
-    if (playing && seg) {
+    if (!seg) return
+    if (loop.playing) {
+      startSegLoop(clamped) // re-focus the loop on the newly selected segment
+    } else if (playing) {
       seek(seg.start)
       play(srcFor(verseIndex))
     }
@@ -254,31 +286,49 @@ export default function Reader() {
 
   const handleStart = () => {
     setStarted(true)
-    if (canPlay) play(srcFor(verseIndex))
+    if (!canPlay) return
+    loop.unlock()
+    if (useLoop) startSegLoop()
+    else play(srcFor(verseIndex))
   }
   const togglePlay = () => {
     haptics.tap()
-    if (playing) return pause()
-    // Starting fresh in segment-repeat: begin at the focused segment if the playhead
-    // is sitting outside it (e.g. after navigating segments while paused).
-    const seg = repeat && segmented ? timing?.segments?.[segmentIndex] : undefined
-    const at = audioRef.current
-    const startAt = seg && at && (at.currentTime < seg.start || at.currentTime >= seg.end) ? seg.start : undefined
-    return play(srcFor(verseIndex), startAt)
+    if (isPlaying) {
+      if (loop.playing) loop.pauseLoop()
+      else pause()
+      return
+    }
+    loop.unlock()
+    if (useLoop) startSegLoop()
+    else play(srcFor(verseIndex))
   }
   const startOver = () => {
     setDir(-1)
     setVerseIndex(0)
     setSegmentIndex(0)
+    segIdxRef.current = 0
+    if (loop.playing) loop.stopLoop()
+    if (repeat && verses[0] && isSegmented(verses[0]) && loopVerseAt(0, 0)) return
     play(srcFor(0))
   }
 
   const toggleRepeat = () => {
-    setRepeat((r) => {
-      const next = !r
-      setRepeatNotif(next ? "Repeat mode on" : "Repeat mode off")
-      return next
-    })
+    const next = !repeat
+    setRepeat(next)
+    setRepeatNotif(next ? "Repeat mode on" : "Repeat mode off")
+    if (!segmented || !canPlay) return
+    if (next) {
+      loop.unlock()
+      loop.prefetch(srcFor(verseIndex))
+      if (isPlaying) startSegLoop() // hand playback from <audio> to the looper
+    } else {
+      const wasLooping = loop.playing
+      loop.stopLoop()
+      if (wasLooping) {
+        // resume linear playback from the segment we were repeating
+        play(srcFor(verseIndex), timing?.segments?.[segmentIndex]?.start)
+      }
+    }
   }
 
   const handleResumeContinue = () => {
@@ -289,16 +339,25 @@ export default function Reader() {
     setStarted(true)
     setVerseIndex(target)
     setSegmentIndex(0)
-    if (canPlay) play(srcFor(target))
+    if (!canPlay) return
+    loop.unlock()
+    play(srcFor(target))
   }
 
   // Lock-screen / background-audio transport controls.
   useMediaSession({
     title: data ? `${data.englishName} · Verse ${verseNum}` : "Sabeel",
     artist: "Mishary Rashid Alafasy",
-    playing,
-    onPlay: () => play(srcFor(verseIndex)),
-    onPause: pause,
+    playing: isPlaying,
+    onPlay: () => {
+      loop.unlock()
+      if (useLoop) startSegLoop()
+      else play(srcFor(verseIndex))
+    },
+    onPause: () => {
+      if (loop.playing) loop.pauseLoop()
+      else pause()
+    },
     onNext: () => goVerse(verseIndex + 1),
     onPrev: () => goVerse(verseIndex - 1),
   })
@@ -309,6 +368,11 @@ export default function Reader() {
     const t = setTimeout(() => setRepeatNotif(null), 2000)
     return () => clearTimeout(t)
   }, [repeatNotif])
+
+  // Warm the decoded buffer so the first repeat starts instantly (no fetch/decode stall).
+  useEffect(() => {
+    if (useLoop && canPlay) loop.prefetch(srcFor(verseIndex))
+  }, [useLoop, canPlay, verseIndex, srcFor, loop.prefetch])
 
   // Words to render as spans (timing words for the verse, sliced to the segment).
   const renderWords = useMemo(() => {
@@ -332,6 +396,7 @@ export default function Reader() {
   }, [activeWord, segmented, timing, segmentIndex])
 
   const onWordClick = (localIdx: number) => {
+    if (loop.playing) return // words belong to the segment currently repeating — ignore taps
     if (!timing) return
     const base = segmented && timing.segments ? timing.segments[segmentIndex].startWord : 0
     const w = timing.words[base + localIdx]
@@ -449,7 +514,7 @@ export default function Reader() {
         <div className="flex flex-1 flex-col overflow-hidden rounded-t-[40px]">
           {canPlay ? (
             <AudioControls
-              playing={playing}
+              playing={isPlaying}
               repeat={repeat}
               onTogglePlay={togglePlay}
               onStartOver={startOver}

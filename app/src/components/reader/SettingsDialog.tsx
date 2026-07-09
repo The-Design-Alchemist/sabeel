@@ -13,6 +13,7 @@ export type ReaderSettings = {
   translation: boolean
   transliteration: boolean
   highlighting: boolean
+  repeatBreath: boolean
 }
 
 type Props = {
@@ -67,6 +68,11 @@ export function SettingsDialog({ settings, onChange }: Props) {
             label="Word Highlighting"
             checked={settings.highlighting}
             onChange={(v) => onChange({ highlighting: v })}
+          />
+          <Row
+            label="Pause between repeats"
+            checked={settings.repeatBreath}
+            onChange={(v) => onChange({ repeatBreath: v })}
           />
         </div>
       </DialogContent>
