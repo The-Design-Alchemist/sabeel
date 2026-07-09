@@ -5,6 +5,7 @@ import { ArrowRight, X } from "lucide-react"
 import { DUA_CATEGORIES, loadDuaCategory, type DuaTopic } from "@/data/duas"
 import { useHaptics } from "@/hooks/useHaptics"
 import { easeOut } from "@/lib/motion"
+import { cn } from "@/lib/utils"
 
 /**
  * The Dua tab of Home: the five thematic categories as stacked pastel cards that expand
@@ -32,15 +33,20 @@ export function DuaCategories() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[1280px] pb-4 pt-4">
+    <div className="mx-auto w-full max-w-[1280px] px-2 pb-4 pt-4">
       {DUA_CATEGORIES.map((cat, i) => {
         const isOpen = expanded === cat.id
         const cardTopics = topics[cat.id]
         return (
           <div
             key={cat.id}
-            style={{ backgroundColor: cat.color, zIndex: isOpen ? 50 : i, marginTop: i === 0 ? 0 : -20 }}
-            className="relative rounded-t-[24px] border-2 border-white px-6 pb-7 pt-5 shadow-[0_-2px_24px_rgba(0,0,0,0.12)] last:rounded-b-[24px]"
+            // Natural stacking (each later card sits ON TOP), so the next card's rounded top
+            // shows over an expanded one. Open cards get extra bottom room for breathing space.
+            style={{ backgroundColor: cat.color, zIndex: i, marginTop: i === 0 ? 0 : -22 }}
+            className={cn(
+              "relative rounded-t-[24px] border-2 border-white px-6 pt-5 shadow-[0_-5px_14px_-6px_rgba(0,0,0,0.17)] last:rounded-b-[24px]",
+              isOpen ? "pb-12" : "pb-7"
+            )}
           >
             <button
               onClick={() => toggle(cat.id, cat.available)}
