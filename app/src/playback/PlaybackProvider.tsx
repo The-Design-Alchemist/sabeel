@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react"
 import { loadSurah, loadTimings, isSegmented, type SurahData, type TimingVerse } from "@/data/quran"
+import { loadDuaCategory, type Dua } from "@/data/duas"
 import { audioSrc, isAvailableOffline } from "@/lib/downloads"
 import { useVerseAudio } from "@/hooks/useVerseAudio"
 import { useSegmentLoop } from "@/hooks/useSegmentLoop"
@@ -20,39 +21,60 @@ import { activeWordAt } from "@/lib/highlight"
 const REPEAT_GAP_MS = 150
 
 type Verse = SurahData["verses"][number]
+type Mode = "surah" | "dua" | null
+
+export type NowPlaying = {
+  kind: "surah" | "dua"
+  title: string
+  subtitle: string
+  route: string
+  atStart: boolean
+  atEnd: boolean
+}
 
 export type PlaybackApi = {
-  // identity / status
+  // ---- shared ----
+  mode: Mode
+  playing: boolean
+  repeat: boolean
+  activeWord: number
+  nowPlaying: NowPlaying | null
+  togglePlay: () => void
+  startOver: () => void
+  toggleRepeat: () => void
+  next: () => void
+  prev: () => void
+  // ---- surah session ----
   surahId: number | null
   started: boolean
   loading: boolean
   error: string | null
   canPlay: boolean
-  // data
   data: SurahData | null
   verses: Verse[]
   timing: TimingVerse | undefined
   verseNum: number
   segmented: boolean
   segments: NonNullable<Verse["segments"]>
-  // position
   verseIndex: number
   segmentIndex: number
   dir: number
-  repeat: boolean
-  playing: boolean
-  activeWord: number
-  // control
   open: (surahId: number) => void
   start: () => void
   resumeAt: (verseIndex: number) => void
-  togglePlay: () => void
-  startOver: () => void
-  toggleRepeat: () => void
   goVerse: (i: number) => void
   goSegment: (i: number) => void
   playWordAt: (localIdx: number) => void
-  clear: () => void
+  // ---- dua session ----
+  duas: Dua[]
+  duaTopicName: string
+  duaArabicName: string
+  duaIndex: number
+  duaLoading: boolean
+  duaError: boolean
+  duaDir: number
+  openDua: (categoryId: string, topicId: string) => void
+  goDua: (i: number) => void
 }
 
 const PlaybackContext = createContext<PlaybackApi | null>(null)
@@ -63,24 +85,42 @@ export function usePlayback(): PlaybackApi {
   return ctx
 }
 
+const duaSrc = (d: Dua | undefined) =>
+  d && d.surah != null && d.ayah != null ? audioSrc(d.surah, d.ayah) : ""
+
 export function PlaybackProvider({ children }: { children: ReactNode }) {
   const { playing, play, pause, stop, seek, setOnEnded, audioRef } = useVerseAudio()
   const loop = useSegmentLoop()
   const haptics = useHaptics()
   const online = useOnline()
 
+  const [mode, setMode] = useState<Mode>(null)
+  const [activeWord, setActiveWord] = useState(-1)
+
+  // ---- surah session state ----
   const [surahId, setSurahId] = useState<number | null>(null)
   const [data, setData] = useState<SurahData | null>(null)
   const [timings, setTimings] = useState<Map<number, TimingVerse>>(new Map())
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-
   const [started, setStarted] = useState(false)
   const [verseIndex, setVerseIndex] = useState(0)
   const [segmentIndex, setSegmentIndex] = useState(0)
   const [dir, setDir] = useState(0)
   const [repeat, setRepeat] = useState(false)
-  const [activeWord, setActiveWord] = useState(-1)
+
+  // ---- dua session state ----
+  const [duaCategoryId, setDuaCategoryId] = useState<string | null>(null)
+  const [duaTopicId, setDuaTopicId] = useState<string | null>(null)
+  const [duaTopicName, setDuaTopicName] = useState("")
+  const [duaArabicName, setDuaArabicName] = useState("")
+  const [duas, setDuas] = useState<Dua[]>([])
+  const [duaIndex, setDuaIndex] = useState(0)
+  const [duaLoading, setDuaLoading] = useState(false)
+  const [duaError, setDuaError] = useState(false)
+  const [duaDir, setDuaDir] = useState(0)
+  const [duaRepeat, setDuaRepeat] = useState(false)
+  const [duaStarted, setDuaStarted] = useState(false)
 
   const verses = data?.verses ?? []
   const verse = verses[verseIndex]
@@ -88,23 +128,30 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
   const timing = timings.get(verseNum)
   const segmented = verse ? isSegmented(verse) : false
   const segments = verse?.segments ?? []
-
   const savedOffline = surahId != null && isAvailableOffline(surahId)
   const canPlay = savedOffline || online
 
-  const useLoop = repeat && segmented
+  const dua = duas[duaIndex]
+  const useLoop = mode === "surah" && repeat && segmented
   const isPlaying = playing || loop.playing
   const gapMs = () => REPEAT_GAP_MS
 
-  // ---- data loading (replaces useSurah/useTimings; only loads a real active surah) --------
+  // refs so callbacks read live identity without re-subscribing
+  const modeRef = useRef<Mode>(null)
+  const surahIdRef = useRef<number | null>(null)
+  const duaTopicIdRef = useRef<string | null>(null)
+  modeRef.current = mode
+  surahIdRef.current = surahId
+  duaTopicIdRef.current = duaTopicId
+
+  const stopAll = useCallback(() => {
+    stop()
+    loop.stopLoop()
+  }, [stop, loop])
+
+  // ---- surah data loading -------------------------------------------------
   useEffect(() => {
-    if (surahId == null) {
-      setData(null)
-      setTimings(new Map())
-      setError(null)
-      setLoading(false)
-      return
-    }
+    if (surahId == null) return
     let alive = true
     setLoading(true)
     setError(null)
@@ -124,6 +171,46 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       alive = false
     }
   }, [surahId])
+
+  // reset surah position on a fresh surah
+  useEffect(() => {
+    if (surahId == null) return
+    setStarted(false)
+    setVerseIndex(0)
+    setSegmentIndex(0)
+    setDir(0)
+    setActiveWord(-1)
+  }, [surahId])
+
+  // ---- dua data loading ---------------------------------------------------
+  useEffect(() => {
+    if (!duaCategoryId || !duaTopicId) return
+    let alive = true
+    setDuaLoading(true)
+    setDuaError(false)
+    setDuaIndex(0)
+    setDuaDir(0)
+    setDuaStarted(false)
+    loadDuaCategory(duaCategoryId)
+      .then((d) => {
+        if (!alive) return
+        const t = d.topics.find((x) => x.id === duaTopicId)
+        if (t) {
+          setDuas(t.duas)
+          setDuaTopicName(t.name)
+          setDuaArabicName(t.arabicName)
+        } else setDuaError(true)
+        setDuaLoading(false)
+      })
+      .catch(() => {
+        if (!alive) return
+        setDuaError(true)
+        setDuaLoading(false)
+      })
+    return () => {
+      alive = false
+    }
+  }, [duaCategoryId, duaTopicId])
 
   const srcFor = useCallback(
     (i: number) => {
@@ -146,7 +233,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
     [segmentIndex, timing, pause, loop, srcFor, verseIndex, play]
   )
 
-  // refs so the rAF loop reads live values without re-subscribing every frame
+  // refs for the rAF highlight loop
   const timingRef = useRef<TimingVerse | undefined>(undefined)
   const segIdxRef = useRef(0)
   const repeatRef = useRef(false)
@@ -159,22 +246,9 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
   segmentedRef.current = segmented
   getPosRef.current = loop.getPosition
 
-  // reset when the active surah changes (fresh open)
+  // ---- surah: progress persistence ---------------------------------------
   useEffect(() => {
-    if (surahId == null) return
-    setStarted(false)
-    setVerseIndex(0)
-    setSegmentIndex(0)
-    setDir(0)
-    setActiveWord(-1)
-    activeRef.current = -1
-    stop()
-    loop.stopLoop()
-  }, [surahId, stop, loop.stopLoop])
-
-  // persist reading progress + recents (drives the Home cards) while reading
-  useEffect(() => {
-    if (surahId == null || !verse || !started) return
+    if (mode !== "surah" || surahId == null || !verse || !started) return
     localStorage.setItem(
       `progress_${surahId}`,
       JSON.stringify({ lastVerse: verseNum, lastPlayed: Date.now() })
@@ -188,28 +262,37 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
     } catch {
       /* ignore */
     }
-  }, [surahId, verseIndex, verse, verseNum, started])
+  }, [mode, surahId, verseIndex, verse, verseNum, started])
 
-  // natural end of a verse's <audio>: loop a breath-verse, or advance and keep playing
+  // ---- end-of-track: loop or advance, per mode ---------------------------
   useEffect(() => {
     setOnEnded(() => {
-      if (repeat && !segmented) {
-        play(srcFor(verseIndex))
-      } else if (!repeat && verseIndex < verses.length - 1) {
-        const next = verseIndex + 1
-        setDir(1)
-        setVerseIndex(next)
-        setSegmentIndex(0)
-        play(srcFor(next))
+      if (mode === "surah") {
+        if (repeat && !segmented) {
+          play(srcFor(verseIndex))
+        } else if (!repeat && verseIndex < verses.length - 1) {
+          const nx = verseIndex + 1
+          setDir(1)
+          setVerseIndex(nx)
+          setSegmentIndex(0)
+          play(srcFor(nx))
+        }
+      } else if (mode === "dua") {
+        if (duaRepeat) {
+          const src = duaSrc(duas[duaIndex])
+          if (src) play(src, 0)
+        }
       }
     })
-  }, [repeat, segmented, verseIndex, verses.length, play, srcFor, setOnEnded])
+  }, [mode, repeat, segmented, verseIndex, verses.length, duaRepeat, duas, duaIndex, play, srcFor, setOnEnded])
 
-  // playback sync loop: highlight the spoken word + follow segments during linear play
+  // ---- surah highlight + segment follow ----------------------------------
   useEffect(() => {
-    if (!isPlaying) {
-      activeRef.current = -1
-      setActiveWord(-1)
+    if (mode !== "surah" || !isPlaying) {
+      if (mode !== "dua") {
+        activeRef.current = -1
+        setActiveWord(-1)
+      }
       return
     }
     let raf = 0
@@ -236,8 +319,28 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [isPlaying, audioRef])
+  }, [mode, isPlaying, audioRef])
 
+  // ---- dua highlight -----------------------------------------------------
+  const duaTimes = useMemo(
+    () => dua?.words?.map((w) => ({ start: w.s, end: w.e })),
+    [dua]
+  )
+  useEffect(() => {
+    if (mode !== "dua" || !isPlaying || !duaTimes?.length) {
+      if (mode === "dua") setActiveWord(-1)
+      return
+    }
+    let raf = 0
+    const tick = () => {
+      setActiveWord(activeWordAt(duaTimes, audioRef.current?.currentTime ?? 0))
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [mode, isPlaying, duaTimes, audioRef])
+
+  // ============================ surah transport ============================
   const loopVerseAt = useCallback(
     (vIdx: number, sIdx: number) => {
       const v = verses[vIdx]
@@ -282,9 +385,8 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       segIdxRef.current = clamped
       const seg = timing?.segments?.[clamped]
       if (!seg) return
-      if (loop.playing) {
-        startSegLoop(clamped)
-      } else if (playing) {
+      if (loop.playing) startSegLoop(clamped)
+      else if (playing) {
         seek(seg.start)
         play(srcFor(verseIndex))
       }
@@ -300,29 +402,121 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
     else play(srcFor(verseIndex))
   }, [canPlay, loop, useLoop, startSegLoop, play, srcFor, verseIndex])
 
+  const resumeAt = useCallback(
+    (target: number) => {
+      setStarted(true)
+      setVerseIndex(target)
+      setSegmentIndex(0)
+      if (!canPlay) return
+      loop.unlock()
+      play(srcFor(target))
+    },
+    [canPlay, loop, play, srcFor]
+  )
+
+  const playWordAt = useCallback(
+    (localIdx: number) => {
+      if (loop.playing || !timing) return
+      const base = segmented && timing.segments ? timing.segments[segmentIndex].startWord : 0
+      const w = timing.words[base + localIdx]
+      if (!w) return
+      seek(w.start)
+      play(srcFor(verseIndex))
+    },
+    [loop.playing, timing, segmented, segmentIndex, seek, play, srcFor, verseIndex]
+  )
+
+  // ============================ dua transport ==============================
+  const goDua = useCallback(
+    (i: number) => {
+      if (!duas.length) return
+      const clamped = Math.max(0, Math.min(duas.length - 1, i))
+      if (clamped === duaIndex) return
+      haptics.tap()
+      setDuaDir(clamped > duaIndex ? 1 : -1)
+      setDuaIndex(clamped)
+      setActiveWord(-1)
+      const wasPlaying = isPlaying
+      if (!wasPlaying) return
+      const src = duaSrc(duas[clamped])
+      if (src) {
+        setDuaStarted(true)
+        play(src, 0)
+      }
+    },
+    [duas, duaIndex, haptics, isPlaying, play]
+  )
+
+  // ============================ mode switching =============================
+  const open = useCallback(
+    (id: number) => {
+      if (modeRef.current === "surah" && surahIdRef.current === id) return
+      stopAll()
+      setMode("surah")
+      setSurahId(id)
+    },
+    [stopAll]
+  )
+
+  const openDua = useCallback(
+    (categoryId: string, topicId: string) => {
+      if (modeRef.current === "dua" && duaTopicIdRef.current === topicId) return
+      stopAll()
+      setMode("dua")
+      setDuaCategoryId(categoryId)
+      setDuaTopicId(topicId)
+    },
+    [stopAll]
+  )
+
+  // ============================ shared transport ===========================
   const togglePlay = useCallback(() => {
     haptics.tap()
-    if (isPlaying) {
-      if (loop.playing) loop.pauseLoop()
-      else pause()
-      return
+    if (mode === "surah") {
+      if (isPlaying) {
+        if (loop.playing) loop.pauseLoop()
+        else pause()
+        return
+      }
+      loop.unlock()
+      if (useLoop) startSegLoop()
+      else play(srcFor(verseIndex))
+    } else if (mode === "dua") {
+      if (isPlaying) {
+        pause()
+        return
+      }
+      const src = duaSrc(duas[duaIndex])
+      if (src) {
+        setDuaStarted(true)
+        play(src)
+      }
     }
-    loop.unlock()
-    if (useLoop) startSegLoop()
-    else play(srcFor(verseIndex))
-  }, [haptics, isPlaying, loop, pause, useLoop, startSegLoop, play, srcFor, verseIndex])
+  }, [haptics, mode, isPlaying, loop, pause, useLoop, startSegLoop, play, srcFor, verseIndex, duas, duaIndex])
 
   const startOver = useCallback(() => {
-    setDir(-1)
-    setVerseIndex(0)
-    setSegmentIndex(0)
-    segIdxRef.current = 0
-    if (loop.playing) loop.stopLoop()
-    if (repeat && verses[0] && isSegmented(verses[0]) && loopVerseAt(0, 0)) return
-    play(srcFor(0))
-  }, [loop, repeat, verses, loopVerseAt, play, srcFor])
+    if (mode === "surah") {
+      setDir(-1)
+      setVerseIndex(0)
+      setSegmentIndex(0)
+      segIdxRef.current = 0
+      if (loop.playing) loop.stopLoop()
+      if (repeat && verses[0] && isSegmented(verses[0]) && loopVerseAt(0, 0)) return
+      play(srcFor(0))
+    } else if (mode === "dua") {
+      const src = duaSrc(duas[duaIndex])
+      if (src) {
+        setDuaStarted(true)
+        play(src, 0)
+      }
+    }
+  }, [mode, loop, repeat, verses, loopVerseAt, play, srcFor, duas, duaIndex])
 
   const toggleRepeat = useCallback(() => {
+    if (mode === "dua") {
+      setDuaRepeat((p) => !p)
+      return
+    }
     setRepeat((prev) => {
       const next = !prev
       if (!segmented || !canPlay) return next
@@ -337,69 +531,76 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       }
       return next
     })
-  }, [segmented, canPlay, loop, srcFor, verseIndex, isPlaying, startSegLoop, play, timing, segmentIndex])
+  }, [mode, segmented, canPlay, loop, srcFor, verseIndex, isPlaying, startSegLoop, play, timing, segmentIndex])
 
-  const playWordAt = useCallback(
-    (localIdx: number) => {
-      if (loop.playing || !timing) return
-      const base = segmented && timing.segments ? timing.segments[segmentIndex].startWord : 0
-      const w = timing.words[base + localIdx]
-      if (!w) return
-      seek(w.start)
-      play(srcFor(verseIndex))
-    },
-    [loop.playing, timing, segmented, segmentIndex, seek, play, srcFor, verseIndex]
-  )
+  const next = useCallback(() => {
+    if (mode === "surah") goVerse(verseIndex + 1)
+    else if (mode === "dua") goDua(duaIndex + 1)
+  }, [mode, goVerse, verseIndex, goDua, duaIndex])
 
-  const open = useCallback((id: number) => {
-    setSurahId((prev) => (prev === id ? prev : id))
-  }, [])
+  const prev = useCallback(() => {
+    if (mode === "surah") goVerse(verseIndex - 1)
+    else if (mode === "dua") goDua(duaIndex - 1)
+  }, [mode, goVerse, verseIndex, goDua, duaIndex])
 
-  const resumeAt = useCallback(
-    (target: number) => {
-      setStarted(true)
-      setVerseIndex(target)
-      setSegmentIndex(0)
-      if (!canPlay) return
-      loop.unlock()
-      play(srcFor(target))
-    },
-    [canPlay, loop, play, srcFor]
-  )
-
-  const clear = useCallback(() => {
-    stop()
-    loop.stopLoop()
-    setSurahId(null)
-    setStarted(false)
-    setActiveWord(-1)
-  }, [stop, loop])
-
-  // lock-screen / background transport
+  // ---- lock-screen / background transport --------------------------------
   useMediaSession({
-    title: data ? `${data.englishName} · Verse ${verseNum}` : "Sabeel",
+    title:
+      mode === "dua"
+        ? duaTopicName || "Sabeel"
+        : data
+          ? `${data.englishName} · Verse ${verseNum}`
+          : "Sabeel",
     artist: "Mishary Rashid Alafasy",
     playing: isPlaying,
-    onPlay: () => {
-      loop.unlock()
-      if (useLoop) startSegLoop()
-      else play(srcFor(verseIndex))
-    },
-    onPause: () => {
-      if (loop.playing) loop.pauseLoop()
-      else pause()
-    },
-    onNext: () => goVerse(verseIndex + 1),
-    onPrev: () => goVerse(verseIndex - 1),
+    onPlay: togglePlay,
+    onPause: togglePlay,
+    onNext: next,
+    onPrev: prev,
   })
 
-  // warm the decoded buffer so the first repeat starts instantly
+  // warm the decoded buffer so the first surah repeat starts instantly
   useEffect(() => {
     if (useLoop && canPlay) loop.prefetch(srcFor(verseIndex))
   }, [useLoop, canPlay, verseIndex, srcFor, loop.prefetch])
 
+  // ---- unified "now playing" for the mini-player -------------------------
+  const nowPlaying = useMemo<NowPlaying | null>(() => {
+    if (mode === "surah" && started && data) {
+      return {
+        kind: "surah",
+        title: data.englishName,
+        subtitle: `Verse ${verseNum} of ${verses.length}`,
+        route: `/surah/${surahId}`,
+        atStart: verseIndex === 0,
+        atEnd: verseIndex >= verses.length - 1,
+      }
+    }
+    if (mode === "dua" && duaStarted && duas.length) {
+      return {
+        kind: "dua",
+        title: duaTopicName,
+        subtitle: `Dua ${duaIndex + 1} of ${duas.length}`,
+        route: `/duas/${duaCategoryId}/${duaTopicId}`,
+        atStart: duaIndex === 0,
+        atEnd: duaIndex >= duas.length - 1,
+      }
+    }
+    return null
+  }, [mode, started, data, verseNum, verses.length, surahId, verseIndex, duaStarted, duas.length, duaTopicName, duaIndex, duaCategoryId, duaTopicId])
+
   const api = useMemo<PlaybackApi>(
     () => ({
+      mode,
+      playing: isPlaying,
+      repeat: mode === "dua" ? duaRepeat : repeat,
+      activeWord,
+      nowPlaying,
+      togglePlay,
+      startOver,
+      toggleRepeat,
+      next,
+      prev,
       surahId,
       started,
       loading,
@@ -414,24 +615,28 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       verseIndex,
       segmentIndex,
       dir,
-      repeat,
-      playing: isPlaying,
-      activeWord,
       open,
       start,
       resumeAt,
-      togglePlay,
-      startOver,
-      toggleRepeat,
       goVerse,
       goSegment,
       playWordAt,
-      clear,
+      duas,
+      duaTopicName,
+      duaArabicName,
+      duaIndex,
+      duaLoading,
+      duaError,
+      duaDir,
+      openDua,
+      goDua,
     }),
     [
-      surahId, started, loading, error, canPlay, data, verses, timing, verseNum, segmented,
-      segments, verseIndex, segmentIndex, dir, repeat, isPlaying, activeWord, open, start,
-      resumeAt, togglePlay, startOver, toggleRepeat, goVerse, goSegment, playWordAt, clear,
+      mode, isPlaying, duaRepeat, repeat, activeWord, nowPlaying, togglePlay, startOver,
+      toggleRepeat, next, prev, surahId, started, loading, error, canPlay, data, verses,
+      timing, verseNum, segmented, segments, verseIndex, segmentIndex, dir, open, start,
+      resumeAt, goVerse, goSegment, playWordAt, duas, duaTopicName, duaArabicName, duaIndex,
+      duaLoading, duaError, duaDir, openDua, goDua,
     ]
   )
 

@@ -158,59 +158,60 @@ export default function Reader() {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-teal-deep">
-      {/* Header (lean) — title block is absolutely centered on the screen */}
-      <header className="relative flex shrink-0 items-center justify-between px-4 pb-4 pt-[max(1rem,env(safe-area-inset-top))] text-white sm:px-6">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-1 rounded-full px-2 py-1.5 text-sm font-medium text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
-        >
-          <ArrowLeft className="size-5" />
-          <span className="hidden sm:inline">Back to List</span>
-        </Link>
+      {/* Header — "Back to List" pill on top, surah title below it (mirrors the Dua reader). */}
+      <header className="flex shrink-0 flex-col gap-3 px-5 pb-4 pt-[max(1rem,env(safe-area-inset-top))] text-white">
+        <div className="flex items-center justify-between">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-medium text-teal-deep shadow-sm outline-none transition-opacity hover:opacity-80 focus-visible:ring-2 focus-visible:ring-white/50"
+          >
+            <ArrowLeft className="size-4" />
+            Back to List
+          </Link>
+
+          <div className="flex items-center gap-1">
+            {data &&
+              !isBundledAudio(surahId) &&
+              (dl ? (
+                <span className="inline-flex items-center gap-1.5 px-2 text-xs tabular-nums text-white/90">
+                  <Loader2 className="size-4 animate-spin" />
+                  <CountUp value={dl.done} />/{dl.total}
+                </span>
+              ) : isDownloaded(surahId) ? (
+                <span
+                  className="inline-flex size-10 items-center justify-center text-white/80"
+                  title="Saved for offline"
+                  aria-label="Saved for offline"
+                >
+                  <Check className="size-5" />
+                </span>
+              ) : (
+                <button
+                  onClick={saveOffline}
+                  aria-label="Save this surah for offline"
+                  title="Save for offline"
+                  className="inline-flex size-10 items-center justify-center rounded-full text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
+                >
+                  <Download className="size-5" />
+                </button>
+              ))}
+            <Suspense fallback={<div className="size-10" aria-hidden="true" />}>
+              <SettingsDialog settings={settings} onChange={updateSettings} />
+            </Suspense>
+          </div>
+        </div>
 
         {data && (
-          <div className="pointer-events-none absolute left-1/2 flex -translate-x-1/2 items-center gap-3">
-            <span dir="rtl" lang="ar" className="whitespace-nowrap font-arabic text-lg sm:text-xl">
-              سُورَة {data.name}
-            </span>
-            <span className="h-8 w-px bg-white/25" aria-hidden="true" />
-            <div className="flex flex-col text-left leading-tight">
-              <span className="text-sm font-semibold">{data.englishName}</span>
-              <span className="text-xs text-white/60">{data.englishNameTranslation}</span>
+          <div className="flex flex-col gap-0.5">
+            <div className="flex items-baseline gap-2.5">
+              <h1 className="text-lg font-semibold">{data.englishName}</h1>
+              <span lang="ar" className="font-arabic text-lg text-white/85">
+                سُورَة {data.name}
+              </span>
             </div>
+            <p className="text-[13px] text-white/55">{data.englishNameTranslation}</p>
           </div>
         )}
-
-        <div className="flex items-center gap-1">
-          {data &&
-            !isBundledAudio(surahId) &&
-            (dl ? (
-              <span className="inline-flex items-center gap-1.5 px-2 text-xs tabular-nums text-white/90">
-                <Loader2 className="size-4 animate-spin" />
-                <CountUp value={dl.done} />/{dl.total}
-              </span>
-            ) : isDownloaded(surahId) ? (
-              <span
-                className="inline-flex size-10 items-center justify-center text-white/80"
-                title="Saved for offline"
-                aria-label="Saved for offline"
-              >
-                <Check className="size-5" />
-              </span>
-            ) : (
-              <button
-                onClick={saveOffline}
-                aria-label="Save this surah for offline"
-                title="Save for offline"
-                className="inline-flex size-10 items-center justify-center rounded-full text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
-              >
-                <Download className="size-5" />
-              </button>
-            ))}
-          <Suspense fallback={<div className="size-10" aria-hidden="true" />}>
-            <SettingsDialog settings={settings} onChange={updateSettings} />
-          </Suspense>
-        </div>
       </header>
 
       {/* States */}
