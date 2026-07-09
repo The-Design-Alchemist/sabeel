@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
 import { ArrowLeft, Check, ChevronLeft, ChevronRight, Download, Loader2, WifiOff } from "lucide-react"
@@ -24,25 +24,16 @@ import { SegmentNav } from "@/components/reader/SegmentNav"
 import { AudioControls } from "@/components/reader/AudioControls"
 import { BismillahScreen } from "@/components/reader/BismillahScreen"
 import { CountUp } from "@/components/motion/CountUp"
-import { SettingsDialog, type ReaderSettings } from "@/components/reader/SettingsDialog"
+import { useReaderSettings } from "@/hooks/useReaderSettings"
+
+// Radix Dialog + Switch are chunky and only needed if the user opens settings — load on
+// demand so it never rides along in the eager Home bundle (shared with the Dua reader).
+const SettingsDialog = lazy(() =>
+  import("@/components/reader/SettingsDialog").then((m) => ({ default: m.SettingsDialog }))
+)
 import { ResumeDialog } from "@/components/reader/ResumeDialog"
 import { easeOut, springPress } from "@/lib/motion"
 import { activeWordAt } from "@/lib/highlight"
-
-const DEFAULT_SETTINGS: ReaderSettings = {
-  translation: true,
-  transliteration: true,
-  highlighting: true,
-  repeatBreath: true,
-}
-
-function loadSettings(): ReaderSettings {
-  try {
-    return { ...DEFAULT_SETTINGS, ...JSON.parse(localStorage.getItem("sabeel_settings") || "{}") }
-  } catch {
-    return DEFAULT_SETTINGS
-  }
-}
 
 const slide = {
   enter: (dir: number) => ({ opacity: 0, x: dir >= 0 ? 28 : -28 }),
@@ -74,19 +65,11 @@ export default function Reader() {
   const [segmentIndex, setSegmentIndex] = useState(0)
   const [dir, setDir] = useState(0)
   const [repeat, setRepeat] = useState(false)
-  const [settings, setSettings] = useState<ReaderSettings>(loadSettings)
+  const [settings, updateSettings] = useReaderSettings()
   const [activeWord, setActiveWord] = useState(-1) // global word index into timing.words
   const [resume, setResume] = useState<{ verse: number; lastPlayed: number } | null>(null)
   const [repeatNotif, setRepeatNotif] = useState<string | null>(null)
   const [dl, setDl] = useState<{ done: number; total: number } | null>(null) // save-for-offline progress
-
-  const updateSettings = (patch: Partial<ReaderSettings>) => {
-    setSettings((s) => {
-      const next = { ...s, ...patch }
-      localStorage.setItem("sabeel_settings", JSON.stringify(next))
-      return next
-    })
-  }
 
   const verses = data?.verses ?? []
   const verse = verses[verseIndex]
@@ -98,7 +81,8 @@ export default function Reader() {
   // Segment-repeat runs on the sample-accurate Web-Audio looper; everything else on <audio>.
   const useLoop = repeat && segmented
   const isPlaying = playing || loop.playing
-  const gapMs = () => (settings.repeatBreath ? REPEAT_GAP_MS : 0)
+  // A short breath between segment repeats — a fixed hifz-pacing default (no user toggle).
+  const gapMs = () => REPEAT_GAP_MS
 
   const srcFor = useCallback(
     (i: number) => {
@@ -483,7 +467,9 @@ export default function Reader() {
                 <Download className="size-5" />
               </button>
             ))}
-          <SettingsDialog settings={settings} onChange={updateSettings} />
+          <Suspense fallback={<div className="size-10" aria-hidden="true" />}>
+            <SettingsDialog settings={settings} onChange={updateSettings} />
+          </Suspense>
         </div>
       </header>
 

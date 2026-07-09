@@ -8,17 +8,19 @@ import {
 } from "@/components/ui/dialog"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 export type ReaderSettings = {
   translation: boolean
   transliteration: boolean
   highlighting: boolean
-  repeatBreath: boolean
 }
 
 type Props = {
   settings: ReaderSettings
   onChange: (patch: Partial<ReaderSettings>) => void
+  /** Trigger button styling — defaults to white-on-dark (Qur'an reader header). */
+  triggerClassName?: string
 }
 
 function Row({
@@ -41,11 +43,16 @@ function Row({
   )
 }
 
-export function SettingsDialog({ settings, onChange }: Props) {
+export function SettingsDialog({ settings, onChange, triggerClassName }: Props) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Settings" className="text-white hover:bg-white/10">
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label="Settings"
+          className={cn("text-white hover:bg-white/10", triggerClassName)}
+        >
           <Settings />
         </Button>
       </DialogTrigger>
@@ -68,11 +75,6 @@ export function SettingsDialog({ settings, onChange }: Props) {
             label="Word Highlighting"
             checked={settings.highlighting}
             onChange={(v) => onChange({ highlighting: v })}
-          />
-          <Row
-            label="Pause between repeats"
-            checked={settings.repeatBreath}
-            onChange={(v) => onChange({ repeatBreath: v })}
           />
         </div>
       </DialogContent>

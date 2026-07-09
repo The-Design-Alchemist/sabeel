@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
 import { ArrowRight, X } from "lucide-react"
@@ -6,6 +6,8 @@ import { DUA_CATEGORIES, loadDuaCategory, type DuaTopic } from "@/data/duas"
 import { useHaptics } from "@/hooks/useHaptics"
 import { easeOut } from "@/lib/motion"
 import { cn } from "@/lib/utils"
+
+const OPEN_KEY = "sabeel.duaOpenCat"
 
 /**
  * The Dua tab of Home: the five thematic categories as stacked pastel cards that expand
@@ -15,21 +17,31 @@ import { cn } from "@/lib/utils"
 export function DuaCategories() {
   const navigate = useNavigate()
   const haptics = useHaptics()
-  const [expanded, setExpanded] = useState<string | null>(null)
+  // Remember which card was open for this session, so returning from a dua re-opens it.
+  const [expanded, setExpanded] = useState<string | null>(() => sessionStorage.getItem(OPEN_KEY))
   const [topics, setTopics] = useState<Record<string, DuaTopic[]>>({})
   const [loading, setLoading] = useState<string | null>(null)
 
-  const toggle = (id: string, available: boolean) => {
+  const loadTopics = useCallback((id: string) => {
+    if (!DUA_CATEGORIES.find((c) => c.id === id)?.available) return
+    setLoading(id)
+    loadDuaCategory(id)
+      .then((d) => setTopics((t) => ({ ...t, [id]: d.topics })))
+      .catch(() => setTopics((t) => ({ ...t, [id]: [] })))
+      .finally(() => setLoading(null))
+  }, [])
+
+  // Load topics whenever a card is open without them (fresh toggle or a restored card).
+  useEffect(() => {
+    if (expanded && !topics[expanded]) loadTopics(expanded)
+  }, [expanded, topics, loadTopics])
+
+  const toggle = (id: string) => {
     haptics.tap()
     const next = expanded === id ? null : id
     setExpanded(next)
-    if (next && available && !topics[next]) {
-      setLoading(next)
-      loadDuaCategory(next)
-        .then((d) => setTopics((t) => ({ ...t, [next]: d.topics })))
-        .catch(() => setTopics((t) => ({ ...t, [next]: [] })))
-        .finally(() => setLoading(null))
-    }
+    if (next) sessionStorage.setItem(OPEN_KEY, next)
+    else sessionStorage.removeItem(OPEN_KEY)
   }
 
   return (
@@ -49,7 +61,7 @@ export function DuaCategories() {
             )}
           >
             <button
-              onClick={() => toggle(cat.id, cat.available)}
+              onClick={() => toggle(cat.id)}
               aria-expanded={isOpen}
               className="flex w-full items-center gap-4 rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-teal-deep/30"
             >

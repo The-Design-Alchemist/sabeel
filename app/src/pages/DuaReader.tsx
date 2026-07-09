@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from "react"
+import { lazy, Suspense, useEffect, useMemo, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
-import { ArrowLeft, ChevronLeft, ChevronRight, Settings } from "lucide-react"
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react"
 import { duaCategory, loadDuaCategory, type DuaTopic } from "@/data/duas"
 import { useHaptics } from "@/hooks/useHaptics"
 import { useVerseAudio } from "@/hooks/useVerseAudio"
+import { useReaderSettings } from "@/hooks/useReaderSettings"
 import { audioSrc } from "@/lib/downloads"
 import { activeWordAt } from "@/lib/highlight"
 import { AudioControls } from "@/components/reader/AudioControls"
@@ -18,6 +19,11 @@ import {
 } from "@/components/ui/select"
 import { setStatusBar } from "@/lib/native"
 import { easeOut, springPress } from "@/lib/motion"
+
+// Same on-demand settings dialog as the Qur'an reader (kept out of the eager Home bundle).
+const SettingsDialog = lazy(() =>
+  import("@/components/reader/SettingsDialog").then((m) => ({ default: m.SettingsDialog }))
+)
 
 const slide = {
   enter: (d: number) => ({ opacity: 0, x: d >= 0 ? 28 : -28 }),
@@ -33,7 +39,7 @@ export default function DuaReader() {
   const [error, setError] = useState(false)
   const [index, setIndex] = useState(0)
   const [dir, setDir] = useState(0)
-  const [showTranslit, setShowTranslit] = useState(true)
+  const [settings, updateSettings] = useReaderSettings()
   const [repeat, setRepeat] = useState(false)
   const [activeWord, setActiveWord] = useState(-1)
   const { playing, play, pause, stop, setOnEnded, audioRef } = useVerseAudio()
@@ -137,14 +143,13 @@ export default function DuaReader() {
             <ArrowLeft className="size-4" />
             Back to List
           </Link>
-          <button
-            onClick={() => setShowTranslit((s) => !s)}
-            aria-label={showTranslit ? "Hide transliteration" : "Show transliteration"}
-            aria-pressed={showTranslit}
-            className="flex size-9 items-center justify-center rounded-full text-teal-deep outline-none transition-colors hover:bg-black/5 focus-visible:ring-2 focus-visible:ring-teal-deep/30"
-          >
-            <Settings className="size-5" />
-          </button>
+          <Suspense fallback={<div className="size-10" aria-hidden="true" />}>
+            <SettingsDialog
+              settings={settings}
+              onChange={updateSettings}
+              triggerClassName="text-teal-deep hover:bg-black/5"
+            />
+          </Suspense>
         </div>
         <div>
           <h1 className="text-lg font-semibold text-ink">{topic?.name ?? cat?.name ?? "Duas"}</h1>
@@ -188,12 +193,12 @@ export default function DuaReader() {
                     arabic={dua.arabic}
                     words={renderWords}
                     activeWord={activeWord}
-                    highlight={!!renderWords?.length}
+                    highlight={settings.highlighting && !!renderWords?.length}
                     transliteration={dua.transliteration}
                     translation={dua.translation}
                     verseNumber={null}
-                    showTranslation
-                    showTransliteration={showTranslit}
+                    showTranslation={settings.translation}
+                    showTransliteration={settings.transliteration}
                   />
                 </motion.div>
               </AnimatePresence>

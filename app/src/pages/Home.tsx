@@ -5,7 +5,6 @@ import { Download, Info, Search } from "lucide-react"
 import { SURAHS, type Surah } from "@/data/surahs"
 import { Logo } from "@/components/Logo"
 import { SurahCard } from "@/components/SurahCard"
-import { Sheen } from "@/components/motion/Sheen"
 import { DuaCategories } from "@/components/DuaCategories"
 import { RecentSection } from "@/components/RecentSection"
 import { cn } from "@/lib/utils"
@@ -31,9 +30,18 @@ function filterSurahs(list: Surah[], q: string): Surah[] {
   })
 }
 
+type HomeTab = "surah" | "dua"
+
 export default function Home() {
   const [query, setQuery] = useState("")
-  const [tab, setTab] = useState<"surah" | "dua">("surah")
+  // Remember the tab for this session, so returning from a dua lands back on the Dua tab.
+  const [tab, setTab] = useState<HomeTab>(() => {
+    return sessionStorage.getItem("sabeel.homeTab") === "dua" ? "dua" : "surah"
+  })
+  const selectTab = (t: HomeTab) => {
+    sessionStorage.setItem("sabeel.homeTab", t)
+    setTab(t)
+  }
   const recents = useRecents()
   const navigate = useNavigate()
   const results = useMemo(() => filterSurahs(SURAHS, query), [query])
@@ -51,9 +59,7 @@ export default function Home() {
         variants={fadeRise}
         className="relative flex shrink-0 items-center justify-center px-2.5 pb-5 pt-[max(2.5rem,env(safe-area-inset-top))]"
       >
-        <Sheen>
-          <Logo className="h-[51px] w-[167px]" />
-        </Sheen>
+        <Logo className="h-[51px] w-[167px]" />
         <Link
           to="/about"
           aria-label="About Sabeel"
@@ -85,7 +91,7 @@ export default function Home() {
           {(["surah", "dua"] as const).map((t) => (
             <button
               key={t}
-              onClick={() => setTab(t)}
+              onClick={() => selectTab(t)}
               aria-pressed={tab === t}
               className={cn(
                 "flex-1 rounded-full py-2.5 text-center text-[15px] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-teal-deep/30",

@@ -1,6 +1,6 @@
-import { lazy, Suspense } from "react"
-import { MotionConfig } from "motion/react"
-import { HashRouter, Routes, Route } from "react-router-dom"
+import { lazy, Suspense, type ReactNode } from "react"
+import { AnimatePresence, MotionConfig, motion } from "motion/react"
+import { HashRouter, Routes, Route, useLocation } from "react-router-dom"
 import Home from "@/pages/Home"
 import { useAndroidBackButton } from "@/hooks/useAndroidBackButton"
 
@@ -11,45 +11,76 @@ const Downloads = lazy(() => import("@/pages/Downloads"))
 const About = lazy(() => import("@/pages/About"))
 const DuaReader = lazy(() => import("@/pages/DuaReader"))
 
+// Cross-page transition — opacity only (a transform here would make `position: fixed`
+// children, like the Bismillah CTA, resolve against this wrapper instead of the viewport).
+function Page({ children }: { children: ReactNode }) {
+  return (
+    <motion.div
+      className="h-dvh"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 0.22, ease: [0.23, 1, 0.32, 1] } }}
+      exit={{ opacity: 0, transition: { duration: 0.14 } }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+const readerFallback = <div className="min-h-screen bg-teal-deep" aria-busy="true" />
+const groundFallback = <div className="min-h-screen bg-ground" aria-busy="true" />
+
 // Inside the router so it can drive navigation (Android hardware back → history).
 function AppRoutes() {
   useAndroidBackButton()
+  // AnimatePresence keyed on the path crossfades pages; `mode="wait"` avoids stacking two
+  // full-height screens (which would double the page height mid-transition).
+  const location = useLocation()
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route
-        path="/surah/:id"
-        element={
-          <Suspense fallback={<div className="min-h-screen bg-teal-deep" aria-busy="true" />}>
-            <Reader />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/downloads"
-        element={
-          <Suspense fallback={<div className="min-h-screen bg-ground" aria-busy="true" />}>
-            <Downloads />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/about"
-        element={
-          <Suspense fallback={<div className="min-h-screen bg-teal-deep" aria-busy="true" />}>
-            <About />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/duas/:categoryId/:topicId"
-        element={
-          <Suspense fallback={<div className="min-h-screen bg-ground" aria-busy="true" />}>
-            <DuaReader />
-          </Suspense>
-        }
-      />
-    </Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Page><Home /></Page>} />
+        <Route
+          path="/surah/:id"
+          element={
+            <Page>
+              <Suspense fallback={readerFallback}>
+                <Reader />
+              </Suspense>
+            </Page>
+          }
+        />
+        <Route
+          path="/downloads"
+          element={
+            <Page>
+              <Suspense fallback={groundFallback}>
+                <Downloads />
+              </Suspense>
+            </Page>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Page>
+              <Suspense fallback={readerFallback}>
+                <About />
+              </Suspense>
+            </Page>
+          }
+        />
+        <Route
+          path="/duas/:categoryId/:topicId"
+          element={
+            <Page>
+              <Suspense fallback={groundFallback}>
+                <DuaReader />
+              </Suspense>
+            </Page>
+          }
+        />
+      </Routes>
+    </AnimatePresence>
   )
 }
 
