@@ -23,3 +23,21 @@ export async function initNative(): Promise<void> {
     /* no splash — ignore */
   }
 }
+
+/**
+ * Re-tint the status bar for a screen whose header isn't the dark teal. `lightContent`
+ * true = white icons (over a dark header, the default); false = dark icons (over a light
+ * header, e.g. the dua reader). Restore the default on unmount.
+ */
+export async function setStatusBar(bg: string, lightContent = true): Promise<void> {
+  if (!Capacitor.isNativePlatform()) return
+  try {
+    const { StatusBar, Style } = await import("@capacitor/status-bar")
+    await StatusBar.setStyle({ style: lightContent ? Style.Dark : Style.Light })
+    if (Capacitor.getPlatform() === "android") {
+      await StatusBar.setBackgroundColor({ color: bg })
+    }
+  } catch {
+    /* status bar unavailable — ignore */
+  }
+}

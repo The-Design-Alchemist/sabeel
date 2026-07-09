@@ -1,15 +1,15 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
-import { ArrowRight, ChevronRight, X } from "lucide-react"
+import { ArrowRight, X } from "lucide-react"
 import { DUA_CATEGORIES, loadDuaCategory, type DuaTopic } from "@/data/duas"
 import { useHaptics } from "@/hooks/useHaptics"
 import { easeOut } from "@/lib/motion"
 
 /**
  * The Dua tab of Home: the five thematic categories as stacked pastel cards that expand
- * (accordion) to reveal their topics. Tapping a topic opens the dua reader. Content loads
- * from the category's bundled JSON only when the card is first opened.
+ * (accordion) to reveal their topics as white cards. Tapping a topic opens the dua reader.
+ * Content loads from the category's bundled JSON only when the card is first opened.
  */
 export function DuaCategories() {
   const navigate = useNavigate()
@@ -32,7 +32,7 @@ export function DuaCategories() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[632px] px-6 pt-4">
+    <div className="mx-auto w-full max-w-[1280px] pb-4 pt-4">
       {DUA_CATEGORIES.map((cat, i) => {
         const isOpen = expanded === cat.id
         const cardTopics = topics[cat.id]
@@ -40,7 +40,7 @@ export function DuaCategories() {
           <div
             key={cat.id}
             style={{ backgroundColor: cat.color, zIndex: isOpen ? 50 : i, marginTop: i === 0 ? 0 : -20 }}
-            className="relative rounded-t-[24px] border-2 border-white px-6 pb-7 pt-5 shadow-[0_-2px_24px_rgba(0,0,0,0.12)]"
+            className="relative rounded-t-[24px] border-2 border-white px-6 pb-7 pt-5 shadow-[0_-2px_24px_rgba(0,0,0,0.12)] last:rounded-b-[24px]"
           >
             <button
               onClick={() => toggle(cat.id, cat.available)}
@@ -65,29 +65,28 @@ export function DuaCategories() {
                   transition={easeOut}
                   className="overflow-hidden"
                 >
-                  <div className="mt-3 flex flex-col divide-y divide-black/[0.06]">
+                  <div className="mt-4 flex flex-col gap-2.5">
                     {!cat.available ? (
-                      <p className="py-4 text-[13px] text-ink/60">
+                      <p className="rounded-2xl bg-white/70 px-4 py-4 text-[13px] text-ink/60">
                         Duas for this section are coming soon, in shā&rsquo; Allah.
                       </p>
                     ) : loading === cat.id ? (
-                      <p className="py-4 text-[13px] text-ink/60">Loading&hellip;</p>
+                      <p className="px-1 py-3 text-[13px] text-ink/60">Loading&hellip;</p>
                     ) : (
                       (cardTopics ?? []).map((t) => (
                         <button
                           key={t.id}
                           onClick={() => navigate(`/duas/${cat.id}/${t.id}`)}
-                          className="flex items-center gap-3 rounded-lg py-3.5 text-left outline-none focus-visible:ring-2 focus-visible:ring-teal-deep/30"
+                          className="flex items-center gap-3 rounded-2xl bg-white p-4 text-left shadow-[0_1px_3px_rgba(0,0,0,0.05)] outline-none transition-transform active:scale-[0.99] focus-visible:ring-2 focus-visible:ring-teal-deep/30"
                         >
                           <span className="flex flex-1 flex-col">
-                            <span className="text-[15px] font-semibold leading-tight text-ink">{t.name}</span>
+                            <span className="text-[15px] font-semibold leading-snug text-ink">{t.name}</span>
                             <span className="text-[12px] text-ink/55">{t.arabicName}</span>
                           </span>
-                          <span className="flex flex-col items-center rounded-xl bg-white/70 px-3 py-1.5">
-                            <span className="text-[15px] font-bold leading-none tabular-nums text-teal-deep">{t.duas.length}</span>
-                            <span className="text-[10px] text-ink/60">Duas</span>
+                          <span className="flex flex-col items-center rounded-xl bg-black/[0.04] px-3.5 py-1.5">
+                            <span className="text-[16px] font-bold leading-none tabular-nums text-teal-deep">{t.duas.length}</span>
+                            <span className="text-[10px] text-ink/50">Duas</span>
                           </span>
-                          <ChevronRight className="size-4 text-ink/40" />
                         </button>
                       ))
                     )}
