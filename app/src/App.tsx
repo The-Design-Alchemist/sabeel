@@ -8,6 +8,7 @@ import { useAndroidBackButton } from "@/hooks/useAndroidBackButton"
 // the router, and reader logic load only when a surah is opened).
 const Reader = lazy(() => import("@/pages/Reader"))
 const Downloads = lazy(() => import("@/pages/Downloads"))
+const About = lazy(() => import("@/pages/About"))
 
 // Inside the router so it can drive navigation (Android hardware back → history).
 function AppRoutes() {
@@ -28,6 +29,14 @@ function AppRoutes() {
         element={
           <Suspense fallback={<div className="min-h-screen bg-ground" aria-busy="true" />}>
             <Downloads />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/about"
+        element={
+          <Suspense fallback={<div className="min-h-screen bg-teal-deep" aria-busy="true" />}>
+            <About />
           </Suspense>
         }
       />

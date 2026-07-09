@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { motion } from "motion/react"
-import { Download, Search } from "lucide-react"
+import { Download, Info, Search } from "lucide-react"
 import { SURAHS, type Surah } from "@/data/surahs"
 import { Logo } from "@/components/Logo"
 import { SurahCard } from "@/components/SurahCard"
@@ -48,6 +48,13 @@ export default function Home() {
         className="relative flex shrink-0 items-center justify-center px-2.5 pb-5 pt-[max(2.5rem,env(safe-area-inset-top))]"
       >
         <Logo className="h-[51px] w-[167px]" />
+        <Link
+          to="/about"
+          aria-label="About Sabeel"
+          className="absolute left-3 top-[max(2.5rem,env(safe-area-inset-top))] inline-flex size-11 items-center justify-center rounded-full text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
+        >
+          <Info className="size-5" />
+        </Link>
         <Link
           to="/downloads"
           aria-label="Downloads"
