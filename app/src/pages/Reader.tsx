@@ -1,16 +1,9 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { lazy, Suspense, useEffect, useMemo, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
 import { ArrowLeft, Check, ChevronLeft, ChevronRight, Download, Loader2, WifiOff } from "lucide-react"
-import { useSurah } from "@/hooks/useSurah"
-import { useTimings } from "@/hooks/useTimings"
-import { useVerseAudio } from "@/hooks/useVerseAudio"
-import { useSegmentLoop } from "@/hooks/useSegmentLoop"
-import { useMediaSession } from "@/hooks/useMediaSession"
-import { useHaptics } from "@/hooks/useHaptics"
-import { isBundledAudio, isSegmented, type TimingVerse } from "@/data/quran"
-import { audioSrc, downloadSurah, isAvailableOffline, isDownloaded, useDownloads } from "@/lib/downloads"
-import { useOnline } from "@/hooks/useOnline"
+import { isBundledAudio } from "@/data/quran"
+import { downloadSurah, isDownloaded, useDownloads } from "@/lib/downloads"
 import {
   Select,
   SelectContent,
@@ -25,6 +18,7 @@ import { AudioControls } from "@/components/reader/AudioControls"
 import { BismillahScreen } from "@/components/reader/BismillahScreen"
 import { CountUp } from "@/components/motion/CountUp"
 import { useReaderSettings } from "@/hooks/useReaderSettings"
+import { usePlayback } from "@/playback/PlaybackProvider"
 
 // Radix Dialog + Switch are chunky and only needed if the user opens settings — load on
 // demand so it never rides along in the eager Home bundle (shared with the Dua reader).
@@ -33,7 +27,6 @@ const SettingsDialog = lazy(() =>
 )
 import { ResumeDialog } from "@/components/reader/ResumeDialog"
 import { easeOut, springPress } from "@/lib/motion"
-import { activeWordAt } from "@/lib/highlight"
 
 const slide = {
   enter: (dir: number) => ({ opacity: 0, x: dir >= 0 ? 28 : -28 }),
@@ -41,96 +34,45 @@ const slide = {
   exit: (dir: number) => ({ opacity: 0, x: dir >= 0 ? -28 : 28 }),
 }
 
-// The breath inserted between repeats of a waqf segment when "Pause between repeats" is on.
-// Sample-accurate looping means the cut never bleeds regardless; this is purely hifz pacing.
-const REPEAT_GAP_MS = 150
-
 export default function Reader() {
   const { id } = useParams()
   const surahId = Number(id)
   useDownloads() // re-render if this surah's downloaded state changes
-  const online = useOnline()
-  const savedOffline = isAvailableOffline(surahId) // bundled (Al-Fatiha) or downloaded
-  // Stream by default when online; play the local file when saved. Reading-mode only when
-  // offline AND not saved.
-  const canPlay = savedOffline || online
-  const { data, loading, error } = useSurah(surahId)
-  const timings = useTimings(surahId)
-  const { playing, play, pause, stop, seek, setOnEnded, audioRef } = useVerseAudio()
-  const loop = useSegmentLoop()
-  const haptics = useHaptics()
 
-  const [started, setStarted] = useState(false)
-  const [verseIndex, setVerseIndex] = useState(0)
-  const [segmentIndex, setSegmentIndex] = useState(0)
-  const [dir, setDir] = useState(0)
-  const [repeat, setRepeat] = useState(false)
+  const pb = usePlayback()
   const [settings, updateSettings] = useReaderSettings()
-  const [activeWord, setActiveWord] = useState(-1) // global word index into timing.words
+  const [dl, setDl] = useState<{ done: number; total: number } | null>(null) // save-for-offline progress
   const [resume, setResume] = useState<{ verse: number; lastPlayed: number } | null>(null)
   const [repeatNotif, setRepeatNotif] = useState<string | null>(null)
-  const [dl, setDl] = useState<{ done: number; total: number } | null>(null) // save-for-offline progress
 
-  const verses = data?.verses ?? []
-  const verse = verses[verseIndex]
-  const verseNum = verse ? Number(verse.key.split(":")[1]) : 0
-  const timing = timings.get(verseNum)
-  const segmented = verse ? isSegmented(verse) : false
-  const segments = verse?.segments ?? []
-
-  // Segment-repeat runs on the sample-accurate Web-Audio looper; everything else on <audio>.
-  const useLoop = repeat && segmented
-  const isPlaying = playing || loop.playing
-  // A short breath between segment repeats — a fixed hifz-pacing default (no user toggle).
-  const gapMs = () => REPEAT_GAP_MS
-
-  const srcFor = useCallback(
-    (i: number) => {
-      const v = verses[i]
-      return v ? audioSrc(surahId, Number(v.key.split(":")[1])) : ""
-    },
-    [verses, surahId]
-  )
-
-  // Start (or restart) the segment loop on the focused segment of the current verse.
-  // If Web Audio can't decode the file on this device, fall back to linear <audio> playback
-  // from the segment start so repeat mode never goes silent.
-  const startSegLoop = (sIdx = segmentIndex) => {
-    const seg = timing?.segments?.[sIdx]
-    if (!seg) return
-    pause() // silence the <audio> element; the looper takes over
-    loop.unlock()
-    loop.startLoop(srcFor(verseIndex), seg.start, seg.end, { gapMs: gapMs() }).catch(() => {
-      play(srcFor(verseIndex), seg.start)
-    })
-  }
-
-  // Refs so the rAF loop reads live values without re-subscribing every frame.
-  const timingRef = useRef<TimingVerse | undefined>(undefined)
-  const segIdxRef = useRef(0)
-  const highlightRef = useRef(true)
-  const repeatRef = useRef(false)
-  const segmentedRef = useRef(false)
-  const getPosRef = useRef(loop.getPosition)
-  const activeRef = useRef(-1)
-  timingRef.current = timing
-  segIdxRef.current = segmentIndex
-  highlightRef.current = settings.highlighting
-  repeatRef.current = repeat
-  segmentedRef.current = segmented
-  getPosRef.current = loop.getPosition
-
-  // Reset when the surah changes.
+  // Make this the active surah (fresh Bismillah), unless it's already the one playing —
+  // reopening the currently-playing surah (e.g. from the mini-player) keeps it going.
   useEffect(() => {
-    setStarted(false)
-    setVerseIndex(0)
-    setSegmentIndex(0)
-    setDir(0)
-    stop()
-    loop.stopLoop()
-  }, [surahId, stop, loop.stopLoop])
+    pb.open(surahId)
+  }, [surahId, pb.open])
 
-  // On entering a surah, offer to resume if there's meaningful saved progress.
+  const {
+    data,
+    loading,
+    error,
+    canPlay,
+    verses,
+    timing,
+    verseNum,
+    segmented,
+    segments,
+    verseIndex,
+    segmentIndex,
+    dir,
+    repeat,
+    playing: isPlaying,
+    activeWord,
+    started,
+  } = pb
+
+  const verse = verses[verseIndex]
+
+  // On entering a surah that isn't already playing, offer to resume saved progress.
   useEffect(() => {
     if (!data || started) return
     try {
@@ -141,127 +83,6 @@ export default function Reader() {
       setResume(null)
     }
   }, [data, surahId, started])
-
-  // Persist reading progress + mark recent (drives the Home cards) — only while reading.
-  useEffect(() => {
-    if (!verse || !started) return
-    localStorage.setItem(
-      `progress_${surahId}`,
-      JSON.stringify({ lastVerse: verseNum, lastPlayed: Date.now() })
-    )
-    try {
-      const recents: number[] = JSON.parse(localStorage.getItem("recentSurahs") || "[]")
-      localStorage.setItem(
-        "recentSurahs",
-        JSON.stringify([surahId, ...recents.filter((x) => x !== surahId)].slice(0, 6))
-      )
-    } catch {
-      /* ignore */
-    }
-  }, [surahId, verseIndex, verse, verseNum, started])
-
-  // Natural end of a verse's <audio>: loop a single-breath verse, or advance and keep playing.
-  // (Segmented repeat is handled by the Web-Audio looper, so `ended` never fires there.)
-  useEffect(() => {
-    setOnEnded(() => {
-      if (repeat && !segmented) {
-        play(srcFor(verseIndex)) // loop the whole verse when it has no waqf segments
-      } else if (!repeat && verseIndex < verses.length - 1) {
-        const next = verseIndex + 1
-        setDir(1)
-        setVerseIndex(next)
-        setSegmentIndex(0)
-        play(srcFor(next))
-      }
-    })
-  }, [repeat, segmented, verseIndex, verses.length, play, srcFor, setOnEnded])
-
-  // Playback sync loop: highlight the spoken word + follow segments as audio plays. Reads the
-  // position from whichever engine is live — <audio> during normal play, the looper on repeat.
-  useEffect(() => {
-    if (!isPlaying) {
-      activeRef.current = -1
-      setActiveWord(-1)
-      return
-    }
-    let raf = 0
-    const tick = () => {
-      const tm = timingRef.current
-      const fromLoop = repeatRef.current && segmentedRef.current
-      const t = fromLoop ? getPosRef.current() : audioRef.current?.currentTime ?? null
-      if (tm && t != null) {
-        // follow the current segment during continuous (non-repeat) playback only
-        if (!fromLoop && tm.segments && tm.segments.length > 1) {
-          const si = tm.segments.findIndex((s) => t >= s.start && t < s.end)
-          if (si >= 0 && si !== segIdxRef.current) {
-            segIdxRef.current = si
-            setDir(1)
-            setSegmentIndex(si)
-          }
-        }
-        // highlight the active word (only when the toggle is on)
-        if (highlightRef.current) {
-          const idx = activeWordAt(tm.words, t)
-          if (idx !== activeRef.current) {
-            activeRef.current = idx
-            setActiveWord(idx)
-          }
-        } else if (activeRef.current !== -1) {
-          activeRef.current = -1
-          setActiveWord(-1)
-        }
-      }
-      raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [isPlaying, audioRef])
-
-  // Loop segment 0 of an arbitrary verse (used when navigating verses while repeat is on).
-  const loopVerseAt = (vIdx: number, sIdx: number) => {
-    const v = verses[vIdx]
-    if (!v) return false
-    const seg = timings.get(Number(v.key.split(":")[1]))?.segments?.[sIdx]
-    if (!seg) return false
-    pause()
-    loop.unlock()
-    loop.startLoop(srcFor(vIdx), seg.start, seg.end, { gapMs: gapMs() }).catch(() => {
-      play(srcFor(vIdx), seg.start)
-    })
-    return true
-  }
-
-  const goVerse = (i: number) => {
-    if (!verses.length) return
-    const clamped = Math.max(0, Math.min(verses.length - 1, i))
-    if (clamped === verseIndex) return
-    haptics.tap() // Light — verse change (was Medium, felt too strong on device)
-    setDir(clamped > verseIndex ? 1 : -1)
-    setVerseIndex(clamped)
-    setSegmentIndex(0)
-    segIdxRef.current = 0
-    const wasPlaying = isPlaying
-    if (loop.playing) loop.stopLoop()
-    if (!wasPlaying) return
-    // keep playing the new verse: loop its first segment on repeat, else stream it
-    if (repeat && isSegmented(verses[clamped]) && loopVerseAt(clamped, 0)) return
-    play(srcFor(clamped))
-  }
-  const goSegment = (i: number) => {
-    const clamped = Math.max(0, Math.min(segments.length - 1, i))
-    if (clamped !== segmentIndex) haptics.tap()
-    setDir(clamped >= segmentIndex ? 1 : -1)
-    setSegmentIndex(clamped)
-    segIdxRef.current = clamped
-    const seg = timing?.segments?.[clamped]
-    if (!seg) return
-    if (loop.playing) {
-      startSegLoop(clamped) // re-focus the loop on the newly selected segment
-    } else if (playing) {
-      seek(seg.start)
-      play(srcFor(verseIndex))
-    }
-  }
 
   const saveOffline = async () => {
     if (dl || !verses.length) return
@@ -275,83 +96,17 @@ export default function Reader() {
     }
   }
 
-  const handleStart = () => {
-    setStarted(true)
-    if (!canPlay) return
-    loop.unlock()
-    if (useLoop) startSegLoop()
-    else play(srcFor(verseIndex))
-  }
-  const togglePlay = () => {
-    haptics.tap()
-    if (isPlaying) {
-      if (loop.playing) loop.pauseLoop()
-      else pause()
-      return
-    }
-    loop.unlock()
-    if (useLoop) startSegLoop()
-    else play(srcFor(verseIndex))
-  }
-  const startOver = () => {
-    setDir(-1)
-    setVerseIndex(0)
-    setSegmentIndex(0)
-    segIdxRef.current = 0
-    if (loop.playing) loop.stopLoop()
-    if (repeat && verses[0] && isSegmented(verses[0]) && loopVerseAt(0, 0)) return
-    play(srcFor(0))
-  }
-
-  const toggleRepeat = () => {
-    const next = !repeat
-    setRepeat(next)
-    setRepeatNotif(next ? "Repeat mode on" : "Repeat mode off")
-    if (!segmented || !canPlay) return
-    if (next) {
-      loop.unlock()
-      loop.prefetch(srcFor(verseIndex))
-      if (isPlaying) startSegLoop() // hand playback from <audio> to the looper
-    } else {
-      const wasLooping = loop.playing
-      loop.stopLoop()
-      if (wasLooping) {
-        // resume linear playback from the segment we were repeating
-        play(srcFor(verseIndex), timing?.segments?.[segmentIndex]?.start)
-      }
-    }
+  const onToggleRepeat = () => {
+    pb.toggleRepeat()
+    setRepeatNotif(!repeat ? "Repeat mode on" : "Repeat mode off")
   }
 
   const handleResumeContinue = () => {
     if (!resume) return
     const idx = verses.findIndex((v) => Number(v.key.split(":")[1]) === resume.verse)
-    const target = idx >= 0 ? idx : 0
     setResume(null)
-    setStarted(true)
-    setVerseIndex(target)
-    setSegmentIndex(0)
-    if (!canPlay) return
-    loop.unlock()
-    play(srcFor(target))
+    pb.resumeAt(idx >= 0 ? idx : 0)
   }
-
-  // Lock-screen / background-audio transport controls.
-  useMediaSession({
-    title: data ? `${data.englishName} · Verse ${verseNum}` : "Sabeel",
-    artist: "Mishary Rashid Alafasy",
-    playing: isPlaying,
-    onPlay: () => {
-      loop.unlock()
-      if (useLoop) startSegLoop()
-      else play(srcFor(verseIndex))
-    },
-    onPause: () => {
-      if (loop.playing) loop.pauseLoop()
-      else pause()
-    },
-    onNext: () => goVerse(verseIndex + 1),
-    onPrev: () => goVerse(verseIndex - 1),
-  })
 
   // Auto-hide the repeat-mode notification strip.
   useEffect(() => {
@@ -359,11 +114,6 @@ export default function Reader() {
     const t = setTimeout(() => setRepeatNotif(null), 2000)
     return () => clearTimeout(t)
   }, [repeatNotif])
-
-  // Warm the decoded buffer so the first repeat starts instantly (no fetch/decode stall).
-  useEffect(() => {
-    if (useLoop && canPlay) loop.prefetch(srcFor(verseIndex))
-  }, [useLoop, canPlay, verseIndex, srcFor, loop.prefetch])
 
   // Words to render as spans (timing words for the verse, sliced to the segment).
   const renderWords = useMemo(() => {
@@ -385,16 +135,6 @@ export default function Reader() {
     }
     return activeWord
   }, [activeWord, segmented, timing, segmentIndex])
-
-  const onWordClick = (localIdx: number) => {
-    if (loop.playing) return // words belong to the segment currently repeating — ignore taps
-    if (!timing) return
-    const base = segmented && timing.segments ? timing.segments[segmentIndex].startWord : 0
-    const w = timing.words[base + localIdx]
-    if (!w) return
-    seek(w.start)
-    play(srcFor(verseIndex))
-  }
 
   const view = useMemo(() => {
     if (!verse) return null
@@ -490,7 +230,7 @@ export default function Reader() {
       )}
 
       {!loading && !error && data && !started && (
-        <BismillahScreen onStart={handleStart} audioAvailable={canPlay} />
+        <BismillahScreen onStart={pb.start} audioAvailable={canPlay} />
       )}
 
       {resume && (
@@ -509,9 +249,9 @@ export default function Reader() {
             <AudioControls
               playing={isPlaying}
               repeat={repeat}
-              onTogglePlay={togglePlay}
-              onStartOver={startOver}
-              onToggleRepeat={toggleRepeat}
+              onTogglePlay={pb.togglePlay}
+              onStartOver={pb.startOver}
+              onToggleRepeat={onToggleRepeat}
             />
           ) : (
             <div className="flex w-full shrink-0 items-center justify-center gap-2 border-b border-line bg-white px-4 py-4 text-center text-sm font-medium text-muted-foreground">
@@ -551,7 +291,7 @@ export default function Reader() {
                       arabic={view.arabic}
                       words={settings.highlighting && canPlay ? renderWords : undefined}
                       activeWord={activeLocal}
-                      onWordClick={onWordClick}
+                      onWordClick={pb.playWordAt}
                       highlight={settings.highlighting && canPlay}
                       transliteration={view.transliteration}
                       translation={view.translation}
@@ -569,9 +309,9 @@ export default function Reader() {
             <SegmentNav
               total={segments.length}
               index={segmentIndex}
-              onSelect={goSegment}
-              onPrev={() => goSegment(segmentIndex - 1)}
-              onNext={() => goSegment(segmentIndex + 1)}
+              onSelect={pb.goSegment}
+              onPrev={() => pb.goSegment(segmentIndex - 1)}
+              onNext={() => pb.goSegment(segmentIndex + 1)}
             />
           )}
 
@@ -579,7 +319,7 @@ export default function Reader() {
           <div className="flex shrink-0 items-center justify-center gap-3 border-t border-line bg-white px-4 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:gap-6">
             <motion.button
               whileTap={{ scale: 0.97, transition: springPress }}
-              onClick={() => goVerse(verseIndex - 1)}
+              onClick={() => pb.goVerse(verseIndex - 1)}
               disabled={verseIndex === 0}
               className="flex size-[60px] shrink-0 items-center justify-center gap-1 rounded-full bg-teal-deep text-[15px] font-medium uppercase tracking-[0.3px] text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:bg-[#c0c0c0] [&_svg]:size-6 sm:h-12 sm:w-[200px] sm:flex-none sm:gap-1 sm:rounded-[30px] sm:px-3 sm:[&_svg]:size-5"
             >
@@ -587,7 +327,7 @@ export default function Reader() {
               <span className="hidden sm:inline">Previous Verse</span>
             </motion.button>
 
-            <Select value={String(verseIndex)} onValueChange={(v) => goVerse(Number(v))}>
+            <Select value={String(verseIndex)} onValueChange={(v) => pb.goVerse(Number(v))}>
               <SelectTrigger
                 aria-label="Jump to verse"
                 className="h-[60px] flex-1 rounded-[30px] px-4 sm:h-12 sm:flex-none"
@@ -622,7 +362,7 @@ export default function Reader() {
 
             <motion.button
               whileTap={{ scale: 0.97, transition: springPress }}
-              onClick={() => goVerse(verseIndex + 1)}
+              onClick={() => pb.goVerse(verseIndex + 1)}
               disabled={verseIndex === verses.length - 1}
               className="flex size-[60px] shrink-0 items-center justify-center gap-1 rounded-full bg-teal-deep text-[15px] font-medium uppercase tracking-[0.3px] text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:bg-[#c0c0c0] [&_svg]:size-6 sm:h-12 sm:w-[200px] sm:flex-none sm:gap-1 sm:rounded-[30px] sm:px-3 sm:[&_svg]:size-5"
             >

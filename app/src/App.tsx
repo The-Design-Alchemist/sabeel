@@ -3,6 +3,8 @@ import { AnimatePresence, MotionConfig, motion } from "motion/react"
 import { HashRouter, Routes, Route, useLocation } from "react-router-dom"
 import Home from "@/pages/Home"
 import { useAndroidBackButton } from "@/hooks/useAndroidBackButton"
+import { PlaybackProvider } from "@/playback/PlaybackProvider"
+import { MiniPlayer } from "@/components/MiniPlayer"
 
 // Code-split the reader so the home screen stays lean (Radix Select/Dialog/Switch,
 // the router, and reader logic load only when a surah is opened).
@@ -91,7 +93,10 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <HashRouter>
-        <AppRoutes />
+        <PlaybackProvider>
+          <AppRoutes />
+          <MiniPlayer />
+        </PlaybackProvider>
       </HashRouter>
     </MotionConfig>
   )
