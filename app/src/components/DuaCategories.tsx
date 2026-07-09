@@ -33,7 +33,7 @@ export function DuaCategories() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[1280px] px-2 pb-4 pt-4">
+    <div className="mx-auto w-full max-w-[1280px] px-2 pb-4 pt-6">
       {DUA_CATEGORIES.map((cat, i) => {
         const isOpen = expanded === cat.id
         const cardTopics = topics[cat.id]
