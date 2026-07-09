@@ -23,6 +23,7 @@ import { VerseView } from "@/components/reader/VerseView"
 import { SegmentNav } from "@/components/reader/SegmentNav"
 import { AudioControls } from "@/components/reader/AudioControls"
 import { BismillahScreen } from "@/components/reader/BismillahScreen"
+import { CountUp } from "@/components/motion/CountUp"
 import { SettingsDialog, type ReaderSettings } from "@/components/reader/SettingsDialog"
 import { ResumeDialog } from "@/components/reader/ResumeDialog"
 import { easeOut, springPress } from "@/lib/motion"
@@ -462,7 +463,7 @@ export default function Reader() {
             (dl ? (
               <span className="inline-flex items-center gap-1.5 px-2 text-xs tabular-nums text-white/90">
                 <Loader2 className="size-4 animate-spin" />
-                {dl.done}/{dl.total}
+                <CountUp value={dl.done} />/{dl.total}
               </span>
             ) : isDownloaded(surahId) ? (
               <span

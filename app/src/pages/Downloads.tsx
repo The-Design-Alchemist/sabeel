@@ -11,6 +11,7 @@ import {
   useDownloads,
   type DownloadProgress,
 } from "@/lib/downloads"
+import { CountUp } from "@/components/motion/CountUp"
 
 export default function Downloads() {
   useDownloads() // re-render when the download set changes
@@ -82,7 +83,7 @@ export default function Downloads() {
               ) : prog ? (
                 <span className="inline-flex items-center gap-2 text-sm tabular-nums text-muted-foreground">
                   <Loader2 className="size-4 animate-spin" />
-                  {prog.done}/{prog.total}
+                  <CountUp value={prog.done} />/{prog.total}
                 </span>
               ) : done ? (
                 <button

@@ -1,5 +1,6 @@
 import { motion } from "motion/react"
 import { Divider } from "./Divider"
+import { BlurText } from "@/components/motion/BlurText"
 import { springPress } from "@/lib/motion"
 
 type Props = { onStart: () => void; audioAvailable?: boolean }
@@ -9,13 +10,15 @@ export function BismillahScreen({ onStart, audioAvailable = true }: Props) {
     <div className="relative flex flex-1 flex-col items-center overflow-hidden rounded-t-[40px] bg-ground p-6 sm:p-10">
       <div className="flex w-full flex-1 items-center justify-center rounded-[24px] bg-white pb-[180px] shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
         <div className="flex flex-col items-center gap-4 p-10 text-center">
-          <p
-            dir="rtl"
-            lang="ar"
-            className="font-arabic text-[clamp(30px,5vw,40px)] leading-[1.6] text-teal-deep"
-          >
-            بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
-          </p>
+          <BlurText delay={0.1} duration={1.1}>
+            <p
+              dir="rtl"
+              lang="ar"
+              className="font-arabic text-[clamp(30px,5vw,40px)] leading-[1.6] text-teal-deep"
+            >
+              بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+            </p>
+          </BlurText>
           <Divider />
           <p className="text-lg font-medium text-teal-deep">Bismillah ir-Rahman ir-Raheem</p>
           <Divider />

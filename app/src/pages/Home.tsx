@@ -5,6 +5,7 @@ import { Download, Info, Search } from "lucide-react"
 import { SURAHS, type Surah } from "@/data/surahs"
 import { Logo } from "@/components/Logo"
 import { SurahCard } from "@/components/SurahCard"
+import { Sheen } from "@/components/motion/Sheen"
 import { DuaCategories } from "@/components/DuaCategories"
 import { RecentSection } from "@/components/RecentSection"
 import { cn } from "@/lib/utils"
@@ -50,7 +51,9 @@ export default function Home() {
         variants={fadeRise}
         className="relative flex shrink-0 items-center justify-center px-2.5 pb-5 pt-[max(2.5rem,env(safe-area-inset-top))]"
       >
-        <Logo className="h-[51px] w-[167px]" />
+        <Sheen>
+          <Logo className="h-[51px] w-[167px]" />
+        </Sheen>
         <Link
           to="/about"
           aria-label="About Sabeel"
