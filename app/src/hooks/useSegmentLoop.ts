@@ -79,6 +79,10 @@ export function useSegmentLoop() {
           pendingRef.current.delete(src)
           return buf
         })
+        .catch((err) => {
+          pendingRef.current.delete(src) // don't cache a rejection — allow a later retry
+          throw err
+        })
       pendingRef.current.set(src, p)
       return p
     },

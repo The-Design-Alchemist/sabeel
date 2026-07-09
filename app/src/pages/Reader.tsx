@@ -108,12 +108,16 @@ export default function Reader() {
   )
 
   // Start (or restart) the segment loop on the focused segment of the current verse.
+  // If Web Audio can't decode the file on this device, fall back to linear <audio> playback
+  // from the segment start so repeat mode never goes silent.
   const startSegLoop = (sIdx = segmentIndex) => {
     const seg = timing?.segments?.[sIdx]
     if (!seg) return
     pause() // silence the <audio> element; the looper takes over
     loop.unlock()
-    loop.startLoop(srcFor(verseIndex), seg.start, seg.end, { gapMs: gapMs() })
+    loop.startLoop(srcFor(verseIndex), seg.start, seg.end, { gapMs: gapMs() }).catch(() => {
+      play(srcFor(verseIndex), seg.start)
+    })
   }
 
   // Refs so the rAF loop reads live values without re-subscribing every frame.
@@ -236,7 +240,9 @@ export default function Reader() {
     if (!seg) return false
     pause()
     loop.unlock()
-    loop.startLoop(srcFor(vIdx), seg.start, seg.end, { gapMs: gapMs() })
+    loop.startLoop(srcFor(vIdx), seg.start, seg.end, { gapMs: gapMs() }).catch(() => {
+      play(srcFor(vIdx), seg.start)
+    })
     return true
   }
 
