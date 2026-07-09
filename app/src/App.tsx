@@ -9,6 +9,7 @@ import { useAndroidBackButton } from "@/hooks/useAndroidBackButton"
 const Reader = lazy(() => import("@/pages/Reader"))
 const Downloads = lazy(() => import("@/pages/Downloads"))
 const About = lazy(() => import("@/pages/About"))
+const DuaReader = lazy(() => import("@/pages/DuaReader"))
 
 // Inside the router so it can drive navigation (Android hardware back → history).
 function AppRoutes() {
@@ -37,6 +38,14 @@ function AppRoutes() {
         element={
           <Suspense fallback={<div className="min-h-screen bg-teal-deep" aria-busy="true" />}>
             <About />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/duas/:categoryId/:topicId"
+        element={
+          <Suspense fallback={<div className="min-h-screen bg-ground" aria-busy="true" />}>
+            <DuaReader />
           </Suspense>
         }
       />

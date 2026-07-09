@@ -5,7 +5,9 @@ import { Download, Info, Search } from "lucide-react"
 import { SURAHS, type Surah } from "@/data/surahs"
 import { Logo } from "@/components/Logo"
 import { SurahCard } from "@/components/SurahCard"
+import { DuaCategories } from "@/components/DuaCategories"
 import { RecentSection } from "@/components/RecentSection"
+import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 import { useRecents } from "@/hooks/useRecents"
 import { fadeRise, staggerContainer } from "@/lib/motion"
@@ -30,6 +32,7 @@ function filterSurahs(list: Surah[], q: string): Surah[] {
 
 export default function Home() {
   const [query, setQuery] = useState("")
+  const [tab, setTab] = useState<"surah" | "dua">("surah")
   const recents = useRecents()
   const navigate = useNavigate()
   const results = useMemo(() => filterSurahs(SURAHS, query), [query])
@@ -74,8 +77,29 @@ export default function Home() {
         variants={fadeRise}
         className="flex flex-1 flex-col overflow-hidden rounded-t-[40px] bg-ground px-6 md:px-10 xl:px-20"
       >
-        {/* Search — fixed */}
-        <div className="mx-auto w-full max-w-[1280px] shrink-0 pb-6 pt-10">
+        {/* Surah / Dua toggle */}
+        <div className="mx-auto flex w-full max-w-[340px] shrink-0 items-center gap-3 pt-8">
+          {(["surah", "dua"] as const).map((t) => (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              aria-pressed={tab === t}
+              className={cn(
+                "flex-1 rounded-full py-2.5 text-center text-[15px] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-teal-deep/30",
+                tab === t
+                  ? "bg-teal-deep font-semibold text-white"
+                  : "bg-white font-medium text-teal-deep"
+              )}
+            >
+              {t === "surah" ? "Surah" : "Dua"}
+            </button>
+          ))}
+        </div>
+
+        {tab === "surah" ? (
+          <>
+            {/* Search — fixed */}
+        <div className="mx-auto w-full max-w-[1280px] shrink-0 pb-6 pt-6">
           <label htmlFor="surah-search" className="sr-only">
             Search for a surah by name, number, or meaning
           </label>
@@ -128,6 +152,12 @@ export default function Home() {
             </span>
           </footer>
         </div>
+          </>
+        ) : (
+          <div className="flex flex-1 flex-col overflow-y-auto pb-10">
+            <DuaCategories />
+          </div>
+        )}
       </motion.main>
     </motion.div>
   )
