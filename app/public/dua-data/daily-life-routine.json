@@ -1,0 +1,62 @@
+{
+  "id": "daily-life-routine",
+  "topics": [
+    {
+      "id": "starting-with-purpose",
+      "name": "Starting the Day & Beginning Tasks",
+      "arabicName": "Bidāyah & Yusr",
+      "duas": [
+        {
+          "id": "20-25",
+          "reference": "Sūrah Ta-Ha · 20:25",
+          "arabic": "رَبِّ ٱشْرَحْ لِى صَدْرِى",
+          "transliteration": "Rabbish rah lee sadree",
+          "translation": "My Lord, expand for me my breast [with assurance]",
+          "source": "quran"
+        },
+        {
+          "id": "20-114",
+          "reference": "Sūrah Ta-Ha · 20:114",
+          "arabic": "فَتَعَـٰلَى ٱللَّهُ ٱلْمَلِكُ ٱلْحَقُّ ۗ وَلَا تَعْجَلْ بِٱلْقُرْءَانِ مِن قَبْلِ أَن يُقْضَىٰٓ إِلَيْكَ وَحْيُهُۥ ۖ وَقُل رَّبِّ زِدْنِى عِلْمًا",
+          "transliteration": "Fata'aalal laahul Malikul Haqq; wa laa ta'jal bil Quraani min qabli ai yuqdaaa ilaika wahyuhoo wa qur Rabbi zidnee 'ilmaa",
+          "translation": "So high [above all] is Allah, the Sovereign, the Truth. And, [O Muhammad], do not hasten with [recitation of] the Qur'an before its revelation is completed to you, and say, \"My Lord, increase me in knowledge.\"",
+          "source": "quran",
+          "_review": true
+        }
+      ]
+    },
+    {
+      "id": "travel-transitions",
+      "name": "Travel & Moving Through the Day",
+      "arabicName": "Safar & Rukūb",
+      "duas": [
+        {
+          "id": "43-13",
+          "reference": "Sūrah Az-Zukhruf · 43:13",
+          "arabic": "لِتَسْتَوُۥا۟ عَلَىٰ ظُهُورِهِۦ ثُمَّ تَذْكُرُوا۟ نِعْمَةَ رَبِّكُمْ إِذَا ٱسْتَوَيْتُمْ عَلَيْهِ وَتَقُولُوا۟ سُبْحَـٰنَ ٱلَّذِى سَخَّرَ لَنَا هَـٰذَا وَمَا كُنَّا لَهُۥ مُقْرِنِينَ",
+          "transliteration": "Litastawoo 'alaa zuhoorihee summa tazkuroo ni'mata Rabbikum izastawaitum 'alaihi wa taqooloo Subhaanal lazee sakhkhara lana haaza wa maa kunnaa lahoo muqrineen",
+          "translation": "That you may settle yourselves upon their backs and then remember the favor of your Lord when you have settled upon them and say. \"Exalted is He who has subjected this to us, and we could not have [otherwise] subdued it.",
+          "source": "quran",
+          "_review": true
+        }
+      ]
+    },
+    {
+      "id": "protection-through-the-day",
+      "name": "Protection & Refuge Through the Day",
+      "arabicName": "Ḥifẓ & Istiʿādhah",
+      "duas": [
+        {
+          "id": "23-97",
+          "reference": "Sūrah Al-Mu'minun · 23:97",
+          "arabic": "وَقُل رَّبِّ أَعُوذُ بِكَ مِنْ هَمَزَٰتِ ٱلشَّيَـٰطِينِ",
+          "transliteration": "Wa qur Rabbi a'oozu bika min hamazaatish Shayaateen",
+          "translation": "And say, \"My Lord, I seek refuge in You from the incitements of the devils,",
+          "source": "quran",
+          "_review": true
+        }
+      ]
+    }
+  ],
+  "_note": "DRAFT — Qur'anic text verbatim from Sabeel's verified data, conservatively auto-trimmed to the supplication; pending scholarly review. Entries flagged _review sit inside a narrative verse and still need trimming; Sunnah entries need a sourced text."
+}

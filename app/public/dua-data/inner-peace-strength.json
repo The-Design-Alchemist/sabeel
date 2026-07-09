@@ -1,0 +1,153 @@
+{
+  "id": "inner-peace-strength",
+  "topics": [
+    {
+      "id": "patience-steadfastness",
+      "name": "Patience & Steadfastness",
+      "arabicName": "Ṣabr & Thabāt",
+      "duas": [
+        {
+          "id": "2-250",
+          "reference": "Sūrah Al-Baqarah · 2:250",
+          "arabic": "رَبَّنَآ أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَٱنصُرْنَا عَلَى ٱلْقَوْمِ ٱلْكَـٰفِرِينَ",
+          "transliteration": "Wa lammaa barazoo liJaaloota wa junoodihee qaaloo Rabbanaaa afrigh 'alainaa sabranw wa sabbit aqdaamanaa wansurnaa 'alal qawmil kaafireen",
+          "translation": "Our Lord, pour upon us patience and plant firmly our feet and give us victory over the disbelieving people.",
+          "source": "quran"
+        },
+        {
+          "id": "3-147",
+          "reference": "Sūrah Aal-E-Imran · 3:147",
+          "arabic": "رَبَّنَا ٱغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِىٓ أَمْرِنَا وَثَبِّتْ أَقْدَامَنَا وَٱنصُرْنَا عَلَى ٱلْقَوْمِ ٱلْكَـٰفِرِينَ",
+          "transliteration": "Wa maa kaana qawlahum illaa an qaaloo Rabbanagh fir lanaa zunoobanaa wa israafanaa feee amirnaa wa sabbit aqdaamanaa wansurnaa 'alal qawmil kaafireen",
+          "translation": "Our Lord, forgive us our sins and the excess [committed] in our affairs and plant firmly our feet and give us victory over the disbelieving people.",
+          "source": "quran"
+        },
+        {
+          "id": "7-126",
+          "reference": "Sūrah Al-A'raf · 7:126",
+          "arabic": "وَمَا تَنقِمُ مِنَّآ إِلَّآ أَنْ ءَامَنَّا بِـَٔايَـٰتِ رَبِّنَا لَمَّا جَآءَتْنَا ۚ رَبَّنَآ أَفْرِغْ عَلَيْنَا صَبْرًا وَتَوَفَّنَا مُسْلِمِينَ",
+          "transliteration": "Wa maa tanqimu minnaaa illaaa an aamannaa bi Aayaati Rabbinaa lammaa jaaa'atnaa; Rabbanaaa afrigh 'alainaa sabranw wa tawaffanaa muslimeen",
+          "translation": "And you do not resent us except because we believed in the signs of our Lord when they came to us. Our Lord, pour upon us patience and let us die as Muslims [in submission to You].\"",
+          "source": "quran",
+          "_review": true
+        },
+        {
+          "id": "2-286",
+          "reference": "Sūrah Al-Baqarah · 2:286",
+          "arabic": "لَا يُكَلِّفُ ٱللَّهُ نَفْسًا إِلَّا وُسْعَهَا ۚ لَهَا مَا كَسَبَتْ وَعَلَيْهَا مَا ٱكْتَسَبَتْ ۗ رَبَّنَا لَا تُؤَاخِذْنَآ إِن نَّسِينَآ أَوْ أَخْطَأْنَا ۚ رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَآ إِصْرًا كَمَا حَمَلْتَهُۥ عَلَى ٱلَّذِينَ مِن قَبْلِنَا ۚ رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِۦ ۖ وَٱعْفُ عَنَّا وَٱغْفِرْ لَنَا وَٱرْحَمْنَآ ۚ أَنتَ مَوْلَىٰنَا فَٱنصُرْنَا عَلَى ٱلْقَوْمِ ٱلْكَـٰفِرِينَ",
+          "transliteration": "Laa yukalliful-laahu nafsan illaa wus'ahaa; lahaa maa kasabat wa 'alaihaa maktasabat; Rabbanaa la tu'aakhiznaa in naseenaaa aw akhtaanaa; Rabbanaa wa laa tahmil-'alainaaa isran kamaa hamaltahoo 'alal-lazeena min qablinaa; Rabbanaa wa laa tuhammilnaa maa laa taaqata lanaa bih wa'fu 'annaa waghfir lanaa warhamnaa; Anta mawlaanaa fansurnaa 'alal qawmil kaafireen",
+          "translation": "Allah does not charge a soul except [with that within] its capacity. It will have [the consequence of] what [good] it has gained, and it will bear [the consequence of] what [evil] it has earned. \"Our Lord, do not impose blame upon us if we have forgotten or erred. Our Lord, and lay not upon us a burden like that which You laid upon those before us. Our Lord, and burden us not with that which we have no ability to bear. And pardon us; and forgive us; and have mercy upon us. You are our protector, so give us victory over the disbelieving people.\"",
+          "source": "quran",
+          "_review": true
+        }
+      ]
+    },
+    {
+      "id": "relief-from-distress",
+      "name": "Relief from Distress & Grief",
+      "arabicName": "Faraj & Kashf al-Karb",
+      "duas": [
+        {
+          "id": "21-87",
+          "reference": "Sūrah Al-Anbiya · 21:87",
+          "arabic": "وَذَا ٱلنُّونِ إِذ ذَّهَبَ مُغَـٰضِبًا فَظَنَّ أَن لَّن نَّقْدِرَ عَلَيْهِ فَنَادَىٰ فِى ٱلظُّلُمَـٰتِ أَن لَّآ إِلَـٰهَ إِلَّآ أَنتَ سُبْحَـٰنَكَ إِنِّى كُنتُ مِنَ ٱلظَّـٰلِمِينَ",
+          "transliteration": "Wa Zan Nooni iz zahaba mughaadiban fazaanna al lan naqdira 'alaihi fanaanna al lan naqdira 'alaihi fanaadaa fiz zulumaati al laaa ilaaha illaaa Anta Subhaanaka innee kuntu minaz zaalimeen",
+          "translation": "And [mention] the man of the fish, when he went off in anger and thought that We would not decree [anything] upon him. And he called out within the darknesses, \"There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.\"",
+          "source": "quran",
+          "_review": true
+        },
+        {
+          "id": "21-83",
+          "reference": "Sūrah Al-Anbiya · 21:83",
+          "arabic": "۞ وَأَيُّوبَ إِذْ نَادَىٰ رَبَّهُۥٓ أَنِّى مَسَّنِىَ ٱلضُّرُّ وَأَنتَ أَرْحَمُ ٱلرَّٰحِمِينَ",
+          "transliteration": "Wa Ayyooba iz naadaa Rabbahooo annee massaniyad durru wa Anta arhamur raahimeen",
+          "translation": "And [mention] Job, when he called to his Lord, \"Indeed, adversity has touched me, and you are the Most Merciful of the merciful.\"",
+          "source": "quran",
+          "_review": true
+        },
+        {
+          "id": "12-86",
+          "reference": "Sūrah Yusuf · 12:86",
+          "arabic": "إِنَّمَآ أَشْكُوا۟ بَثِّى وَحُزْنِىٓ إِلَى ٱللَّهِ وَأَعْلَمُ مِنَ ٱللَّهِ مَا لَا تَعْلَمُونَ",
+          "transliteration": "innamaaa ashkoo bassee wa huzneee ilal laahi wa a'lamu minal laahi maa laa ta'lamoon",
+          "translation": "He said, \"I only complain of my suffering and my grief to Allah, and I know from Allah that which you do not know.",
+          "source": "quran"
+        }
+      ]
+    },
+    {
+      "id": "courage-reliance",
+      "name": "Courage & Reliance on God",
+      "arabicName": "Shajāʿah & Tawakkul",
+      "duas": [
+        {
+          "id": "3-173",
+          "reference": "Sūrah Aal-E-Imran · 3:173",
+          "arabic": "لَهُمُ ٱلنَّاسُ إِنَّ ٱلنَّاسَ قَدْ جَمَعُوا۟ لَكُمْ فَٱخْشَوْهُمْ فَزَادَهُمْ إِيمَـٰنًا وَقَالُوا۟ حَسْبُنَا ٱللَّهُ وَنِعْمَ ٱلْوَكِيلُ",
+          "transliteration": "lahumun naasu innan naasa qad jama'oo lakum fakhshawhuin fazaadahum eemaannanwa wa qaaloo hasbunal laahu wa ni'malwakeel",
+          "translation": "Indeed, the people have gathered against you, so fear them.",
+          "source": "quran"
+        },
+        {
+          "id": "3-8",
+          "reference": "Sūrah Aal-E-Imran · 3:8",
+          "arabic": "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً ۚ إِنَّكَ أَنتَ ٱلْوَهَّابُ",
+          "transliteration": "Rabbanaa laa tuzigh quloobanaa ba'da iz hadaitanaa wa hab lanaa mil ladunka rahmah; innaka antal Wahhaab",
+          "translation": "[Who say], \"Our Lord, let not our hearts deviate after You have guided us and grant us from Yourself mercy. Indeed, You are the Bestower.",
+          "source": "quran"
+        },
+        {
+          "id": "10-85",
+          "reference": "Sūrah Yunus · 10:85",
+          "arabic": "فَقَالُوا۟ عَلَى ٱللَّهِ تَوَكَّلْنَا رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِّلْقَوْمِ ٱلظَّـٰلِمِينَ",
+          "transliteration": "Faqaaloo 'alal laahi tawakkalnaa Rabbanaa laa taj'alnaa fitnatal lilqawmiz zaalimeen",
+          "translation": "So they said, \"Upon Allah do we rely. Our Lord, make us not [objects of] trial for the wrongdoing people",
+          "source": "quran",
+          "_review": true
+        },
+        {
+          "id": "20-25",
+          "reference": "Sūrah Ta-Ha · 20:25",
+          "arabic": "رَبِّ ٱشْرَحْ لِى صَدْرِى",
+          "transliteration": "Rabbish rah lee sadree",
+          "translation": "My Lord, expand for me my breast [with assurance]",
+          "source": "quran"
+        }
+      ]
+    },
+    {
+      "id": "inner-peace-heart",
+      "name": "Inner Peace & a Sound Heart",
+      "arabicName": "Sakīnah & Ṭumaʾnīnat al-Qalb",
+      "duas": [
+        {
+          "id": "20-114",
+          "reference": "Sūrah Ta-Ha · 20:114",
+          "arabic": "فَتَعَـٰلَى ٱللَّهُ ٱلْمَلِكُ ٱلْحَقُّ ۗ وَلَا تَعْجَلْ بِٱلْقُرْءَانِ مِن قَبْلِ أَن يُقْضَىٰٓ إِلَيْكَ وَحْيُهُۥ ۖ وَقُل رَّبِّ زِدْنِى عِلْمًا",
+          "transliteration": "Fata'aalal laahul Malikul Haqq; wa laa ta'jal bil Quraani min qabli ai yuqdaaa ilaika wahyuhoo wa qur Rabbi zidnee 'ilmaa",
+          "translation": "So high [above all] is Allah, the Sovereign, the Truth. And, [O Muhammad], do not hasten with [recitation of] the Qur'an before its revelation is completed to you, and say, \"My Lord, increase me in knowledge.\"",
+          "source": "quran",
+          "_review": true
+        },
+        {
+          "id": "25-74",
+          "reference": "Sūrah Al-Furqan · 25:74",
+          "arabic": "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَٰجِنَا وَذُرِّيَّـٰتِنَا قُرَّةَ أَعْيُنٍ وَٱجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
+          "transliteration": "Rabbanaa hab lanaa min azwaajinaa wa zurriyaatinaa qurrata a'yuninw waj 'alnaa lilmuttaqeena Imaamaa",
+          "translation": "Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous.",
+          "source": "quran"
+        },
+        {
+          "id": "13-28",
+          "reference": "Sūrah Ar-Ra'd · 13:28",
+          "arabic": "ٱلَّذِينَ ءَامَنُوا۟ وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ ٱللَّهِ ۗ أَلَا بِذِكْرِ ٱللَّهِ تَطْمَئِنُّ ٱلْقُلُوبُ",
+          "transliteration": "Allazeena aamanoo wa tatma'innu quloobuhum bizikril laah; alaa bizikril laahi tatma'innul quloob",
+          "translation": "Those who have believed and whose hearts are assured by the remembrance of Allah. Unquestionably, by the remembrance of Allah hearts are assured.\"",
+          "source": "quran",
+          "_review": true
+        }
+      ]
+    }
+  ],
+  "_note": "DRAFT — Qur'anic text verbatim from Sabeel's verified data, conservatively auto-trimmed to the supplication; pending scholarly review. Entries flagged _review sit inside a narrative verse and still need trimming; Sunnah entries need a sourced text."
+}

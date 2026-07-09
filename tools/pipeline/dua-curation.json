@@ -1,0 +1,501 @@
+{
+  "categories": [
+    {
+      "categoryId": "connection-with-allah",
+      "topics": [
+        {
+          "id": "istighfar-tawbah",
+          "name": "Seeking Forgiveness & Repentance",
+          "arabicName": "Istighfār & Tawbah",
+          "duas": [
+            {
+              "ref": "7:23",
+              "why": "The dua of Ādam and Ḥawwā' — 'Rabbanā ẓalamnā anfusanā' — the foundational prayer of repentance for wronging oneself and begging forgiveness and mercy."
+            },
+            {
+              "ref": "21:87",
+              "why": "The dua of Dhun-Nūn (Yūnus) inside the whale — 'Lā ilāha illā anta subḥānaka innī kuntu min aẓ-ẓālimīn' — the most famous dua of distress and turning back to Allah in repentance."
+            },
+            {
+              "ref": "3:16",
+              "why": "'Rabbanā innanā āmannā faghfir lanā dhunūbanā' — the believers asking forgiveness of their sins and protection from the Fire."
+            },
+            {
+              "ref": "3:147",
+              "why": "'Rabbanā ighfir lanā dhunūbanā wa isrāfanā fī amrinā' — asking forgiveness for sins and excesses, and steadfastness."
+            },
+            {
+              "ref": "60:5",
+              "why": "'Rabbanā lā tajʿalnā fitnatan… waghfir lanā' — Ibrāhīm's people asking Allah's forgiveness and protection from being a trial."
+            },
+            {
+              "ref": "sunnah",
+              "why": "Sayyid al-Istighfār — the master of seeking forgiveness, 'Allāhumma anta rabbī lā ilāha illā anta…', Bukhārī 6306; the most authoritative Prophetic dua of repentance."
+            }
+          ]
+        },
+        {
+          "id": "hidayah-iman",
+          "name": "Guidance, Faith & Steadfastness",
+          "arabicName": "Hidāyah & Īmān",
+          "duas": [
+            {
+              "ref": "1:6",
+              "why": "'Ihdinā aṣ-ṣirāṭ al-mustaqīm' — from al-Fātiḥah, the central daily prayer for guidance to the straight path."
+            },
+            {
+              "ref": "3:8",
+              "why": "'Rabbanā lā tuzigh qulūbanā baʿda idh hadaytanā' — asking Allah not to let hearts deviate after guidance, and to grant mercy."
+            },
+            {
+              "ref": "3:193",
+              "why": "'Rabbanā innanā samiʿnā munādiyan yunādī lil-īmān… faghfir lanā' — responding to the call to faith and asking forgiveness and a righteous death."
+            },
+            {
+              "ref": "2:286",
+              "why": "'Rabbanā lā tu'ākhidhnā in nasīnā aw akhṭa'nā…' — the closing dua of al-Baqarah for forgiveness, ease of burden, and victory over disbelief."
+            },
+            {
+              "ref": "sunnah",
+              "why": "'Yā Muqallib al-qulūb, thabbit qalbī ʿalā dīnik' — the Prophet's frequent dua asking the Turner of Hearts to keep his heart firm on the religion, Tirmidhī 3522."
+            }
+          ]
+        },
+        {
+          "id": "shukr-hamd",
+          "name": "Gratitude & Praise",
+          "arabicName": "Shukr & Ḥamd",
+          "duas": [
+            {
+              "ref": "27:19",
+              "why": "The dua of Sulaymān — 'Rabbi awziʿnī an ashkura niʿmataka…' — asking Allah to inspire him to be grateful for His blessings and to do righteous deeds He is pleased with."
+            },
+            {
+              "ref": "46:15",
+              "why": "'Rabbi awziʿnī an ashkura niʿmataka allatī anʿamta ʿalayya wa ʿalā wālidayya' — gratitude for Allah's favor on oneself and one's parents, with repentance and submission."
+            },
+            {
+              "ref": "14:40",
+              "why": "Ibrāhīm's dua — 'Rabbi ijʿalnī muqīma aṣ-ṣalāti wa min dhurriyyatī' — asking to be established in prayer, a prayer of thankful devotion."
+            },
+            {
+              "ref": "14:41",
+              "why": "'Rabbanā ighfir lī wa liwālidayya wa lil-mu'minīn' — Ibrāhīm asking forgiveness for himself, his parents, and the believers on the Day of Reckoning."
+            }
+          ]
+        },
+        {
+          "id": "taqwa-ikhlas",
+          "name": "God-Consciousness, Trust & Sincerity",
+          "arabicName": "Taqwā & Ikhlāṣ",
+          "duas": [
+            {
+              "ref": "25:74",
+              "why": "The dua of ʿIbād ar-Raḥmān — 'Rabbanā hab lanā min azwājinā… wa ijʿalnā lil-muttaqīna imāmā' — asking to be made leaders of the God-conscious."
+            },
+            {
+              "ref": "3:173",
+              "why": "'Ḥasbunā Allāhu wa niʿma al-wakīl' — the declaration of total reliance on Allah, spoken by the believers when threatened; the essence of tawakkul."
+            },
+            {
+              "ref": "40:44",
+              "why": "The believer of Firʿawn's people — 'Wa ufawwiḍu amrī ilā Allāh' — entrusting one's whole affair to Allah in sincere submission."
+            },
+            {
+              "ref": "60:4",
+              "why": "'Rabbanā ʿalayka tawakkalnā wa ilayka anabnā wa ilayka al-maṣīr' — Ibrāhīm's declaration of trust, turning back, and return to Allah alone."
+            },
+            {
+              "ref": "66:11",
+              "why": "The dua of Āsiya, wife of Firʿawn — 'Rabbi ibni lī ʿindaka baytan fī al-jannah wa najjinī…' — the model of sincere devotion, choosing nearness to Allah over worldly power."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "inner-peace-strength",
+      "topics": [
+        {
+          "id": "patience-steadfastness",
+          "name": "Patience & Steadfastness",
+          "arabicName": "Ṣabr & Thabāt",
+          "duas": [
+            {
+              "ref": "2:250",
+              "why": "Ṭālūt's army: 'rabbanā afrigh ʿalaynā ṣabran wa thabbit aqdāmanā' — pour patience on us and make our feet firm; the classic dua for steadfastness in hardship."
+            },
+            {
+              "ref": "3:147",
+              "why": "Dua of the earlier prophets' followers: 'rabbanaghfir lanā dhunūbanā... wa thabbit aqdāmanā' — forgiveness plus firmness of feet and victory over adversity."
+            },
+            {
+              "ref": "7:126",
+              "why": "The magicians of Firʿawn under threat of execution: 'rabbanā afrigh ʿalaynā ṣabran wa tawaffanā muslimīn' — patience under persecution and dying in submission."
+            },
+            {
+              "ref": "2:286",
+              "why": "Close of al-Baqarah: '...wa-ṣbir ʿalaynā' asking God not to burden us beyond capacity and to grant endurance, pardon, mercy and support."
+            }
+          ]
+        },
+        {
+          "id": "relief-from-distress",
+          "name": "Relief from Distress & Grief",
+          "arabicName": "Faraj & Kashf al-Karb",
+          "duas": [
+            {
+              "ref": "21:87",
+              "why": "Dua of Dhun-Nūn (Yūnus) inside the fish: 'lā ilāha illā anta subḥānaka innī kuntu min aẓ-ẓālimīn' — the most famous dua for lifting distress and grief."
+            },
+            {
+              "ref": "21:83",
+              "why": "Dua of Ayyūb (Job) in illness and loss: 'annī massaniya aḍ-ḍurru wa anta arḥamu ar-rāḥimīn' — patience through affliction and appeal to God's mercy."
+            },
+            {
+              "ref": "12:86",
+              "why": "Yaʿqūb in his grief over Yūsuf: 'innamā ashkū baththī wa ḥuznī ilā Allāh' — turning one's sorrow and anguish to God alone."
+            },
+            {
+              "ref": "sunnah",
+              "why": "Duʿāʾ al-Karb (Prophet's supplication for distress): 'Lā ilāha illā-llāhu al-ʿAẓīmu al-Ḥalīm...' — Bukhārī 6345 & Muslim 2730, said at times of overwhelming worry."
+            }
+          ]
+        },
+        {
+          "id": "courage-reliance",
+          "name": "Courage & Reliance on God",
+          "arabicName": "Shajāʿah & Tawakkul",
+          "duas": [
+            {
+              "ref": "3:173",
+              "why": "Response of the believers when warned of enemy armies: 'ḥasbunā Allāhu wa niʿma al-wakīl' — sufficiency of God and trust that dispels fear."
+            },
+            {
+              "ref": "3:8",
+              "why": "'rabbanā lā tuzigh qulūbanā baʿda idh hadaytanā' — steadfast heart and mercy so faith does not waver under pressure."
+            },
+            {
+              "ref": "10:85",
+              "why": "The believers among Mūsā's people: 'ʿalā Allāhi tawakkalnā rabbanā lā tajʿalnā fitnatan lil-qawmi aẓ-ẓālimīn' — reliance and courage before oppressors."
+            },
+            {
+              "ref": "20:25",
+              "why": "Mūsā before confronting Firʿawn: 'rabbi-shraḥ lī ṣadrī wa yassir lī amrī' — expanding the chest and easing the task, the dua for courage in daunting moments."
+            }
+          ]
+        },
+        {
+          "id": "inner-peace-heart",
+          "name": "Inner Peace & a Sound Heart",
+          "arabicName": "Sakīnah & Ṭumaʾnīnat al-Qalb",
+          "duas": [
+            {
+              "ref": "20:114",
+              "why": "'rabbi zidnī ʿilman' — the dua for increase in beneficial knowledge, which the Qur'an ties to hearts finding rest through remembrance."
+            },
+            {
+              "ref": "25:74",
+              "why": "Dua of ʿibād ar-Raḥmān: 'rabbanā hab lanā min azwājinā wa dhurriyyātinā qurrata aʿyunin' — coolness of the eyes and tranquility through family."
+            },
+            {
+              "ref": "13:28",
+              "why": "'a-lā bi-dhikri-llāhi taṭmaʾinnu al-qulūb' — hearts find their peace and assurance in the remembrance of God; the anchor verse for inner calm."
+            },
+            {
+              "ref": "sunnah",
+              "why": "Prophet's dua against anxiety and grief: 'Allāhumma innī aʿūdhu bika mina al-hammi wal-ḥazan...' — Bukhārī 6369, seeking refuge from worry, sorrow, and the burdens that weigh on the heart."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "protection-safety",
+      "topics": [
+        {
+          "id": "refuge-from-evil-and-the-unseen",
+          "name": "Refuge from Evil & the Unseen",
+          "arabicName": "Al-Isti'ādhah min ash-Shar wal-Ghayb",
+          "duas": [
+            {
+              "ref": "23:97",
+              "why": "Rabbi a'ūdhu bika min hamazāt ash-shayāṭīn — Mūmināt seeking refuge in Allah from the whisperings/incitements of the devils; a direct plea for spiritual protection from the unseen."
+            },
+            {
+              "ref": "23:98",
+              "why": "Wa a'ūdhu bika Rabbi an yaḥḍurūn — continuation: seeking refuge lest the devils be present; pairs with 23:97 as protection from the unseen."
+            },
+            {
+              "ref": "113:1",
+              "why": "Sūrat al-Falaq — 'Qul a'ūdhu bi-Rabbil-falaq' — one of the two Mu'awwidhatān, the classic refuge from all created evil, darkness, and envy."
+            },
+            {
+              "ref": "114:1",
+              "why": "Sūrat an-Nās — 'Qul a'ūdhu bi-Rabbin-nās' — the second Mu'awwidhah, refuge from the whisperer (al-waswās) among jinn and mankind."
+            },
+            {
+              "ref": "sunnah",
+              "why": "A'ūdhu bi-kalimāti-llāhi at-tāmmāti min sharri mā khalaq — 'I seek refuge in the perfect words of Allah from the evil of what He created' (Muslim 2708); Prophetic refuge from every harm at day's end / when stopping at a place."
+            }
+          ]
+        },
+        {
+          "id": "trust-and-sufficiency-of-allah",
+          "name": "Trust & Sufficiency of Allah",
+          "arabicName": "At-Tawakkul wa Ḥasbunallāh",
+          "duas": [
+            {
+              "ref": "3:173",
+              "why": "Ḥasbunallāhu wa ni'mal-wakīl — 'Allah is sufficient for us, and He is the best Disposer of affairs' — said by the believers when threatened by armies; the ultimate declaration of reliance for protection."
+            },
+            {
+              "ref": "3:147",
+              "why": "Rabbanā-ghfir lanā dhunūbanā... wa-nṣurnā 'alal-qawmil-kāfirīn — plea for forgiveness, firm footing, and victory/protection against hostile people."
+            },
+            {
+              "ref": "9:129",
+              "why": "Ḥasbiyallāhu lā ilāha illā huwa 'alayhi tawakkaltu — 'Allah is sufficient for me... upon Him I rely' — Prophetic verse of reliance; recited morning and evening for protection."
+            },
+            {
+              "ref": "sunnah",
+              "why": "Bismillāhi-lladhī lā yaḍurru ma'a-smihi shay'un fil-arḍi wa lā fis-samā' — 'In the name of Allah, with whose name nothing on earth or in heaven can cause harm' (Abū Dāwūd 5088, Tirmidhī 3388); morning/evening shield from harm."
+            }
+          ]
+        },
+        {
+          "id": "safety-from-oppressors-and-hardship",
+          "name": "Rescue from Oppressors & Distress",
+          "arabicName": "An-Najāt min aẓ-Ẓālimīn wal-Karb",
+          "duas": [
+            {
+              "ref": "21:87",
+              "why": "Lā ilāha illā anta subḥānaka innī kuntu min aẓ-ẓālimīn — the du'ā of Dhun-Nūn (Yūnus) from within the whale; the great supplication for rescue from distress and darkness."
+            },
+            {
+              "ref": "10:85",
+              "why": "Rabbanā lā taj'alnā fitnatan lil-qawmiẓ-ẓālimīn — the believers with Mūsā asking not to be made a trial/prey for the oppressing people; refuge from persecution."
+            },
+            {
+              "ref": "10:86",
+              "why": "Wa najjinā bi-raḥmatika minal-qawmil-kāfirīn — 'and save us by Your mercy from the disbelieving people'; direct plea for deliverance, pairs with 10:85."
+            },
+            {
+              "ref": "40:44",
+              "why": "Wa ufawwiḍu amrī ila-llāh, inna-llāha baṣīrun bil-'ibād — the believer of Pharaoh's family entrusting his affair to Allah for protection amid threat."
+            },
+            {
+              "ref": "2:250",
+              "why": "Rabbanā afrigh 'alaynā ṣabran wa thabbit aqdāmanā wa-nṣurnā 'alal-qawmil-kāfirīn — Ṭālūt's soldiers before Jālūt (Goliath) asking for patience, firmness, and victory/protection."
+            }
+          ]
+        },
+        {
+          "id": "security-of-home-family-and-hereafter",
+          "name": "Security of Home, Family & the Hereafter",
+          "arabicName": "Amn al-Bayt wal-Ahl wal-Ākhirah",
+          "duas": [
+            {
+              "ref": "2:201",
+              "why": "Rabbanā ātinā fid-dunyā ḥasanah wa fil-ākhirati ḥasanah wa qinā 'adhāban-nār — the comprehensive du'ā asking for good in both worlds and protection ('qinā') from the Fire."
+            },
+            {
+              "ref": "25:74",
+              "why": "Rabbanā hab lanā min azwājinā wa dhurriyyātinā qurrata a'yun — 'Ibād ar-Raḥmān asking for spouses and offspring who are a comfort; protection and safety for the family."
+            },
+            {
+              "ref": "66:11",
+              "why": "Rabbi-bni lī 'indaka baytan fil-jannah wa najjinī min Fir'awn... — Āsiyah's du'ā for a house in Paradise and deliverance from Pharaoh and wrongdoing people; refuge for home and self."
+            },
+            {
+              "ref": "3:16",
+              "why": "Rabbanā innanā āmannā fa-ghfir lanā dhunūbanā wa qinā 'adhāban-nār — plea for forgiveness and protection from the punishment of the Fire."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "provision-success",
+      "topics": [
+        {
+          "id": "rizq-and-sustenance",
+          "name": "Provision & Sustenance",
+          "arabicName": "Rizq wa Barakah",
+          "duas": [
+            {
+              "ref": "2:201",
+              "why": "'Rabbanā ātinā fi'd-dunyā ḥasanah wa fi'l-ākhirati ḥasanah' — the most comprehensive Qur'anic dua for good in this life (including provision) and the next."
+            },
+            {
+              "ref": "28:24",
+              "why": "Mūsā's dua after watering the flocks: 'Rabbi innī limā anzalta ilayya min khayrin faqīr' — a humble plea for provision when in need of work and sustenance."
+            },
+            {
+              "ref": "3:26",
+              "why": "'Qul allāhumma mālika'l-mulk... bi-yadika'l-khayr' — declaring Allah as Owner of all sovereignty in whose hand is all good; recited seeking honor, provision, and success."
+            },
+            {
+              "ref": "sunnah",
+              "why": "'Allāhumma-kfinī bi-ḥalālika ʿan ḥarāmika wa aghninī bi-faḍlika ʿamman siwāk' — the Prophet's dua for sufficiency through lawful provision (Tirmidhī 3563)."
+            },
+            {
+              "ref": "sunnah",
+              "why": "'Allāhumma innī as'aluka ʿilman nāfiʿan wa rizqan ṭayyiban wa ʿamalan mutaqabbalā' — asking for beneficial knowledge, good provision, and accepted deeds (Ibn Mājah 925)."
+            }
+          ]
+        },
+        {
+          "id": "knowledge-and-studies",
+          "name": "Knowledge & Studies",
+          "arabicName": "ʿIlm wa Fahm",
+          "duas": [
+            {
+              "ref": "20:114",
+              "why": "'Rabbi zidnī ʿilmā' — the quintessential Qur'anic dua for increase in knowledge; the go-to supplication of students."
+            },
+            {
+              "ref": "20:25",
+              "why": "Mūsā's dua 'Rabbi-shraḥ lī ṣadrī' — expand my chest, ease my task, and loosen my tongue; recited for ease in learning, teaching, and speaking clearly."
+            },
+            {
+              "ref": "3:8",
+              "why": "'Rabbanā lā tuzigh qulūbanā baʿda idh hadaytanā' — asking that hearts not deviate after guidance and for mercy; a plea for firmness upon knowledge and truth."
+            }
+          ]
+        },
+        {
+          "id": "wisdom-and-guidance",
+          "name": "Wisdom & Right Path",
+          "arabicName": "Ḥikmah wa Hidāyah",
+          "duas": [
+            {
+              "ref": "1:6",
+              "why": "'Ihdinā aṣ-ṣirāṭ al-mustaqīm' — the daily prayer for guidance to the straight path, foundational to seeking wisdom in all affairs."
+            },
+            {
+              "ref": "17:80",
+              "why": "'Rabbi adkhilnī mudkhala ṣidqin wa akhrijnī mukhraja ṣidq' — asking for a truthful entrance and exit and a helping authority; recited for integrity and support in one's undertakings."
+            },
+            {
+              "ref": "25:74",
+              "why": "'Rabbanā hab lanā min azwājinā wa dhurriyyātinā qurrata aʿyun wajʿalnā li'l-muttaqīna imāmā' — the dua of the servants of the Merciful to be made leaders/examples for the righteous."
+            }
+          ]
+        },
+        {
+          "id": "gratitude-and-work",
+          "name": "Gratitude & Effort at Work",
+          "arabicName": "Shukr wa ʿAmal",
+          "duas": [
+            {
+              "ref": "27:19",
+              "why": "Sulaymān's dua 'Rabbi awziʿnī an ashkura niʿmataka allatī anʿamta ʿalayya wa an aʿmala ṣāliḥan tarḍāh' — enable me to be grateful and to do righteous deeds You are pleased with."
+            },
+            {
+              "ref": "46:15",
+              "why": "'Rabbi awziʿnī an ashkura niʿmataka... wa aṣliḥ lī fī dhurriyyatī' — gratitude for blessings, righteous action, and betterment in one's family and offspring."
+            },
+            {
+              "ref": "sunnah",
+              "why": "'Allāhumma innī aʿūdhu bika mina'l-hammi wa'l-ḥazani wa'l-ʿajzi wa'l-kasali... wa ḍalaʿi'd-dayn' — refuge from anxiety, incapacity, laziness, and debt; the Prophet's dua for productivity and relief in livelihood (Bukhārī 6369)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "daily-life-routine",
+      "topics": [
+        {
+          "id": "starting-with-purpose",
+          "name": "Starting the Day & Beginning Tasks",
+          "arabicName": "Bidāyah & Yusr",
+          "duas": [
+            {
+              "ref": "sunnah",
+              "why": "Duʿāʾ upon waking — 'Alḥamdulillāhil-ladhī aḥyānā baʿda mā amātanā wa ilayhin-nushūr' (praise to Allah who gave us life after death); Bukhārī 6312. The very first dua of the daily routine."
+            },
+            {
+              "ref": "20:25",
+              "why": "Mūsā's dua 'Rabbi-shraḥ lī ṣadrī wa yassir lī amrī' (expand my chest, ease my task, untie my tongue) — the classic supplication recited before a difficult task, speech, exam or presentation. Spans 20:25-28."
+            },
+            {
+              "ref": "20:114",
+              "why": "'Rabbi zidnī ʿilman' (My Lord, increase me in knowledge) — the beloved dua for the start of study or seeking knowledge; brings mindfulness to learning."
+            },
+            {
+              "ref": "sunnah",
+              "why": "Duʿāʾ upon leaving the home — 'Bismillāh, tawakkaltu ʿalallāh, wa lā ḥawla wa lā quwwata illā billāh' (in Allah's name, I trust in Allah); Abū Dāwūd 5095, Tirmidhī 3426."
+            }
+          ]
+        },
+        {
+          "id": "home-food-sleep",
+          "name": "Home, Food & Sleep",
+          "arabicName": "Al-Bayt, Ṭaʿām & Nawm",
+          "duas": [
+            {
+              "ref": "sunnah",
+              "why": "Duʿāʾ before eating — saying 'Bismillāh' (and if forgotten, 'Bismillāhi awwalahu wa ākhirahu'); Abū Dāwūd 3767, Tirmidhī 1858. Brings mindfulness to every meal."
+            },
+            {
+              "ref": "sunnah",
+              "why": "Duʿāʾ after eating — 'Alḥamdulillāhil-ladhī aṭʿamanī hādhā wa razaqanīhi min ghayri ḥawlin minnī wa lā quwwah' (praise to Allah who fed me this and provided it); Abū Dāwūd 4023, Tirmidhī 3458."
+            },
+            {
+              "ref": "sunnah",
+              "why": "Duʿāʾ before sleep — 'Bismika Allāhumma amūtu wa aḥyā' (in Your name, O Allah, I die and I live); Bukhārī 6324, Muslim 2711."
+            },
+            {
+              "ref": "sunnah",
+              "why": "Duʿāʾ entering the home — mentioning Allah's name on entering so Shayṭān has no lodging or share of the meal; Muslim 2018. A moment of mindfulness at the threshold."
+            }
+          ]
+        },
+        {
+          "id": "travel-transitions",
+          "name": "Travel & Moving Through the Day",
+          "arabicName": "Safar & Rukūb",
+          "duas": [
+            {
+              "ref": "43:13",
+              "why": "The Qur'anic dua of mounting/riding — 'Subḥānal-ladhī sakhkhara lanā hādhā wa mā kunnā lahu muqrinīn, wa innā ilā rabbinā la-munqalibūn' (Glory to Him who subjected this to us). Recited on boarding any vehicle. Spans 43:13-14."
+            },
+            {
+              "ref": "sunnah",
+              "why": "The full Duʿāʾ as-safar (travel supplication) — 'Allāhumma innā nasʾaluka fī safarinā hādhā al-birra wat-taqwā...' (we ask You in this journey for righteousness and piety); Muslim 1342."
+            },
+            {
+              "ref": "sunnah",
+              "why": "Duʿāʾ when stopping at a place / arriving somewhere new — 'Aʿūdhu bi-kalimātillāhit-tāmmāti min sharri mā khalaq' (I seek refuge in Allah's perfect words from the evil of what He created); Muslim 2708."
+            }
+          ]
+        },
+        {
+          "id": "protection-through-the-day",
+          "name": "Protection & Refuge Through the Day",
+          "arabicName": "Ḥifẓ & Istiʿādhah",
+          "duas": [
+            {
+              "ref": "23:97",
+              "why": "'Rabbi aʿūdhu bika min hamazātish-shayāṭīn, wa aʿūdhu bika rabbi an yaḥḍurūn' (I seek refuge in You from the whispers of devils and from their presence) — a Qur'anic refuge for everyday moments. Spans 23:97-98."
+            },
+            {
+              "ref": "sunnah",
+              "why": "Sayyid al-Istighfār (the master supplication for forgiveness) — 'Allāhumma anta rabbī lā ilāha illā anta, khalaqtanī wa anā ʿabduka...'; said morning and evening; Bukhārī 6306."
+            },
+            {
+              "ref": "sunnah",
+              "why": "Morning/evening protection dua — 'Bismillāhil-ladhī lā yaḍurru maʿa-smihi shayʾun fil-arḍi wa lā fis-samāʾ, wa huwas-samīʿul-ʿalīm' (in Allah's name, with whose name nothing on earth or heaven can harm); Abū Dāwūd 5088, Tirmidhī 3388."
+            },
+            {
+              "ref": "sunnah",
+              "why": "Refuge from anxiety and daily burdens — 'Allāhumma innī aʿūdhu bika minal-hammi wal-ḥazan, wal-ʿajzi wal-kasal...' (from worry, grief, incapacity and laziness); Bukhārī 6369."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

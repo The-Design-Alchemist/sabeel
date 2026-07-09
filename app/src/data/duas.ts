@@ -47,28 +47,28 @@ export const DUA_CATEGORIES: DuaCategory[] = [
     name: "Inner Peace & Strength",
     description: "Emotional balance, patience, and courage through hardship.",
     color: "#e3dbf6",
-    available: false,
+    available: true,
   },
   {
     id: "protection-safety",
     name: "Protection & Safety",
     description: "Seeking Allah's shield from harm — physical, spiritual, and unseen.",
     color: "#bfd9f2",
-    available: false,
+    available: true,
   },
   {
     id: "provision-success",
     name: "Provision & Success",
     description: "For sustenance, work, studies, wisdom, and blessings in daily life.",
     color: "#fff3c9",
-    available: false,
+    available: true,
   },
   {
     id: "daily-life-routine",
     name: "Daily Life & Routine",
     description: "Everyday duas that bring mindfulness into daily habits.",
     color: "#c8f1ed",
-    available: false,
+    available: true,
   },
 ]
 
