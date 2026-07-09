@@ -64,19 +64,19 @@
       {
         "segmentNumber": 1,
         "start": 0.09,
-        "end": 4.96,
+        "end": 8.75,
         "startWord": 0,
-        "endWord": 4,
-        "wordCount": 5,
+        "endWord": 5,
+        "wordCount": 6,
         "type": "compulsory_stop",
         "waqfMark": "ۚ"
       },
       {
         "segmentNumber": 2,
-        "start": 4.97,
-        "end": 13.18,
-        "startWord": 5,
-        "endWord": 9,
+        "start": 8.75,
+        "end": 15.94,
+        "startWord": 6,
+        "endWord": 10,
         "wordCount": 5,
         "type": "verse_end",
         "waqfMark": null

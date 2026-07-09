@@ -74,19 +74,19 @@
       {
         "segmentNumber": 1,
         "start": 0.05,
-        "end": 3.97,
+        "end": 4.74,
         "startWord": 0,
-        "endWord": 7,
-        "wordCount": 8,
+        "endWord": 8,
+        "wordCount": 9,
         "type": "small_stop",
         "waqfMark": "ۖ"
       },
       {
         "segmentNumber": 2,
-        "start": 3.98,
-        "end": 6.22,
-        "startWord": 8,
-        "endWord": 11,
+        "start": 4.74,
+        "end": 8.54,
+        "startWord": 9,
+        "endWord": 12,
         "wordCount": 4,
         "type": "verse_end",
         "waqfMark": null

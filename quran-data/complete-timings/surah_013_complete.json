@@ -99,19 +99,19 @@
       {
         "segmentNumber": 1,
         "start": 0,
-        "end": 8.486400833333333,
+        "end": 10.303681,
         "startWord": 0,
-        "endWord": 4,
-        "wordCount": 5,
+        "endWord": 5,
+        "wordCount": 6,
         "type": "preferable_stop",
         "waqfMark": "ۗ"
       },
       {
         "segmentNumber": 2,
-        "start": 8.586400833333332,
-        "end": 29.09376283333333,
-        "startWord": 5,
-        "endWord": 16,
+        "start": 10.303681,
+        "end": 30.911043,
+        "startWord": 6,
+        "endWord": 17,
         "wordCount": 12,
         "type": "verse_end",
         "waqfMark": null
