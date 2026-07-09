@@ -9,19 +9,146 @@
         {
           "id": "20-25",
           "reference": "Sūrah Ta-Ha · 20:25",
-          "arabic": "رَبِّ ٱشْرَحْ لِى صَدْرِى",
-          "transliteration": "Rabbish rah lee sadree",
-          "translation": "My Lord, expand for me my breast [with assurance]",
+          "surah": 20,
+          "ayah": 25,
+          "arabic": "قَالَ رَبِّ ٱشْرَحْ لِى صَدْرِى",
+          "transliteration": "Qaala Rabbish rah lee sadree",
+          "translation": "[Moses] said, \"My Lord, expand for me my breast [with assurance]",
+          "words": [
+            {
+              "w": "قَالَ",
+              "s": 0.1,
+              "e": 0.73
+            },
+            {
+              "w": "رَبِّ",
+              "s": 0.74,
+              "e": 1.34
+            },
+            {
+              "w": "ٱشْرَحْ",
+              "s": 1.35,
+              "e": 2.03
+            },
+            {
+              "w": "لِى",
+              "s": 2.04,
+              "e": 2.45
+            },
+            {
+              "w": "صَدْرِى",
+              "s": 2.46,
+              "e": 3.52
+            }
+          ],
           "source": "quran"
         },
         {
           "id": "20-114",
           "reference": "Sūrah Ta-Ha · 20:114",
+          "surah": 20,
+          "ayah": 114,
           "arabic": "فَتَعَـٰلَى ٱللَّهُ ٱلْمَلِكُ ٱلْحَقُّ ۗ وَلَا تَعْجَلْ بِٱلْقُرْءَانِ مِن قَبْلِ أَن يُقْضَىٰٓ إِلَيْكَ وَحْيُهُۥ ۖ وَقُل رَّبِّ زِدْنِى عِلْمًا",
           "transliteration": "Fata'aalal laahul Malikul Haqq; wa laa ta'jal bil Quraani min qabli ai yuqdaaa ilaika wahyuhoo wa qur Rabbi zidnee 'ilmaa",
           "translation": "So high [above all] is Allah, the Sovereign, the Truth. And, [O Muhammad], do not hasten with [recitation of] the Qur'an before its revelation is completed to you, and say, \"My Lord, increase me in knowledge.\"",
-          "source": "quran",
-          "_review": true
+          "words": [
+            {
+              "w": "فَتَعَـٰلَى",
+              "s": 0.03,
+              "e": 1.04
+            },
+            {
+              "w": "ٱللَّهُ",
+              "s": 1.05,
+              "e": 1.89
+            },
+            {
+              "w": "ٱلْمَلِكُ",
+              "s": 1.9,
+              "e": 2.73
+            },
+            {
+              "w": "ٱلْحَقُّ",
+              "s": 2.74,
+              "e": 3.86
+            },
+            {
+              "w": "ۗ",
+              "s": 3.86,
+              "e": 3.87
+            },
+            {
+              "w": "وَلَا",
+              "s": 3.87,
+              "e": 4.46
+            },
+            {
+              "w": "تَعْجَلْ",
+              "s": 4.47,
+              "e": 5.35
+            },
+            {
+              "w": "بِٱلْقُرْءَانِ",
+              "s": 5.36,
+              "e": 6.83
+            },
+            {
+              "w": "مِن",
+              "s": 6.84,
+              "e": 7.83
+            },
+            {
+              "w": "قَبْلِ",
+              "s": 7.84,
+              "e": 8.57
+            },
+            {
+              "w": "أَن",
+              "s": 8.58,
+              "e": 9.53
+            },
+            {
+              "w": "يُقْضَىٰٓ",
+              "s": 9.54,
+              "e": 11.66
+            },
+            {
+              "w": "إِلَيْكَ",
+              "s": 11.67,
+              "e": 12.49
+            },
+            {
+              "w": "وَحْيُهُۥ",
+              "s": 12.5,
+              "e": 13.63
+            },
+            {
+              "w": "ۖ",
+              "s": 13.63,
+              "e": 13.64
+            },
+            {
+              "w": "وَقُل",
+              "s": 13.64,
+              "e": 14.33
+            },
+            {
+              "w": "رَّبِّ",
+              "s": 14.34,
+              "e": 14.97
+            },
+            {
+              "w": "زِدْنِى",
+              "s": 14.98,
+              "e": 15.97
+            },
+            {
+              "w": "عِلْمًا",
+              "s": 15.98,
+              "e": 17.27
+            }
+          ],
+          "source": "quran"
         }
       ]
     },
@@ -33,11 +160,114 @@
         {
           "id": "43-13",
           "reference": "Sūrah Az-Zukhruf · 43:13",
+          "surah": 43,
+          "ayah": 13,
           "arabic": "لِتَسْتَوُۥا۟ عَلَىٰ ظُهُورِهِۦ ثُمَّ تَذْكُرُوا۟ نِعْمَةَ رَبِّكُمْ إِذَا ٱسْتَوَيْتُمْ عَلَيْهِ وَتَقُولُوا۟ سُبْحَـٰنَ ٱلَّذِى سَخَّرَ لَنَا هَـٰذَا وَمَا كُنَّا لَهُۥ مُقْرِنِينَ",
           "transliteration": "Litastawoo 'alaa zuhoorihee summa tazkuroo ni'mata Rabbikum izastawaitum 'alaihi wa taqooloo Subhaanal lazee sakhkhara lana haaza wa maa kunnaa lahoo muqrineen",
           "translation": "That you may settle yourselves upon their backs and then remember the favor of your Lord when you have settled upon them and say. \"Exalted is He who has subjected this to us, and we could not have [otherwise] subdued it.",
-          "source": "quran",
-          "_review": true
+          "words": [
+            {
+              "w": "لِتَسْتَوُۥا۟",
+              "s": 0.06,
+              "e": 1.14
+            },
+            {
+              "w": "عَلَىٰ",
+              "s": 1.15,
+              "e": 1.86
+            },
+            {
+              "w": "ظُهُورِهِۦ",
+              "s": 1.87,
+              "e": 3.07
+            },
+            {
+              "w": "ثُمَّ",
+              "s": 3.08,
+              "e": 4.45
+            },
+            {
+              "w": "تَذْكُرُوا۟",
+              "s": 4.46,
+              "e": 5.57
+            },
+            {
+              "w": "نِعْمَةَ",
+              "s": 5.58,
+              "e": 6.35
+            },
+            {
+              "w": "رَبِّكُمْ",
+              "s": 6.36,
+              "e": 7.48
+            },
+            {
+              "w": "إِذَا",
+              "s": 7.49,
+              "e": 7.82
+            },
+            {
+              "w": "ٱسْتَوَيْتُمْ",
+              "s": 7.83,
+              "e": 9.06
+            },
+            {
+              "w": "عَلَيْهِ",
+              "s": 9.07,
+              "e": 9.94
+            },
+            {
+              "w": "وَتَقُولُوا۟",
+              "s": 9.95,
+              "e": 13.06
+            },
+            {
+              "w": "سُبْحَـٰنَ",
+              "s": 13.07,
+              "e": 14.14
+            },
+            {
+              "w": "ٱلَّذِى",
+              "s": 14.15,
+              "e": 14.99
+            },
+            {
+              "w": "سَخَّرَ",
+              "s": 15.0,
+              "e": 15.91
+            },
+            {
+              "w": "لَنَا",
+              "s": 15.92,
+              "e": 16.53
+            },
+            {
+              "w": "هَـٰذَا",
+              "s": 16.54,
+              "e": 17.35
+            },
+            {
+              "w": "وَمَا",
+              "s": 17.36,
+              "e": 17.98
+            },
+            {
+              "w": "كُنَّا",
+              "s": 17.99,
+              "e": 19.62
+            },
+            {
+              "w": "لَهُۥ",
+              "s": 19.63,
+              "e": 20.21
+            },
+            {
+              "w": "مُقْرِنِينَ",
+              "s": 20.22,
+              "e": 22.61
+            }
+          ],
+          "source": "quran"
         }
       ]
     },
@@ -49,14 +279,52 @@
         {
           "id": "23-97",
           "reference": "Sūrah Al-Mu'minun · 23:97",
+          "surah": 23,
+          "ayah": 97,
           "arabic": "وَقُل رَّبِّ أَعُوذُ بِكَ مِنْ هَمَزَٰتِ ٱلشَّيَـٰطِينِ",
           "transliteration": "Wa qur Rabbi a'oozu bika min hamazaatish Shayaateen",
           "translation": "And say, \"My Lord, I seek refuge in You from the incitements of the devils,",
-          "source": "quran",
-          "_review": true
+          "words": [
+            {
+              "w": "وَقُل",
+              "s": 0.03,
+              "e": 0.43
+            },
+            {
+              "w": "رَّبِّ",
+              "s": 0.44,
+              "e": 1.3
+            },
+            {
+              "w": "أَعُوذُ",
+              "s": 1.31,
+              "e": 2.09
+            },
+            {
+              "w": "بِكَ",
+              "s": 2.1,
+              "e": 2.57
+            },
+            {
+              "w": "مِنْ",
+              "s": 2.58,
+              "e": 2.89
+            },
+            {
+              "w": "هَمَزَٰتِ",
+              "s": 2.9,
+              "e": 3.95
+            },
+            {
+              "w": "ٱلشَّيَـٰطِينِ",
+              "s": 3.96,
+              "e": 6.75
+            }
+          ],
+          "source": "quran"
         }
       ]
     }
   ],
-  "_note": "DRAFT — Qur'anic text verbatim from Sabeel's verified data, conservatively auto-trimmed to the supplication; pending scholarly review. Entries flagged _review sit inside a narrative verse and still need trimming; Sunnah entries need a sourced text."
+  "_note": "Qur'anic verses verbatim from Sabeel's verified quran-data, with per-word timings for recitation + highlighting. Sunnah duas are not yet included (need a sourced text + audio)."
 }

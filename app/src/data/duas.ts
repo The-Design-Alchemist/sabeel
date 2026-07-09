@@ -1,13 +1,25 @@
 // Types + loader for the Duas section. Same shape as the Qur'an data: static category
 // metadata here, dua bodies fetched from bundled JSON under public/dua-data/ (offline).
 
+/** One recited word of a dua's verse: the Arabic token and its start/end (seconds). */
+export interface DuaWord {
+  w: string
+  s: number
+  e: number
+}
+
 export interface Dua {
   id: string
   /** Human-readable source, e.g. "Sūrah al-Aʿrāf · 7:23" or "Ṣaḥīḥ al-Bukhārī 6306". */
   reference: string
+  /** Qur'anic duas carry their source verse — this drives recitation audio + highlighting. */
+  surah?: number
+  ayah?: number
   arabic: string
   transliteration: string
   translation: string
+  /** Per-word timings into the verse audio (Qur'anic duas); enables word highlighting. */
+  words?: DuaWord[]
   /** How many times it is recited, when the source specifies it. */
   repeat?: number
   /** Optional per-dua audio URL (fast-follow; unused at launch). */

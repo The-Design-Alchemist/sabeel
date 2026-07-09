@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
 import { ArrowLeft, ChevronLeft, ChevronRight, Settings } from "lucide-react"
 import { duaCategory, loadDuaCategory, type DuaTopic } from "@/data/duas"
 import { useHaptics } from "@/hooks/useHaptics"
+import { useVerseAudio } from "@/hooks/useVerseAudio"
+import { audioSrc } from "@/lib/downloads"
+import { activeWordAt } from "@/lib/highlight"
 import { AudioControls } from "@/components/reader/AudioControls"
 import { VerseView } from "@/components/reader/VerseView"
 import {
@@ -31,6 +34,9 @@ export default function DuaReader() {
   const [index, setIndex] = useState(0)
   const [dir, setDir] = useState(0)
   const [showTranslit, setShowTranslit] = useState(true)
+  const [repeat, setRepeat] = useState(false)
+  const [activeWord, setActiveWord] = useState(-1)
+  const { playing, play, pause, stop, setOnEnded, audioRef } = useVerseAudio()
 
   // This screen has a light header, so flip the status bar to dark icons (and restore on exit).
   useEffect(() => {
@@ -60,6 +66,13 @@ export default function DuaReader() {
 
   const total = topic?.duas.length ?? 0
   const dua = topic?.duas[index]
+
+  // Every Qur'anic dua is a verse we already have audio + word timings for, so recitation
+  // reuses the exact Qur'an-reader stack (per-verse .m4a + cpfair word timings).
+  const src = dua?.surah != null && dua?.ayah != null ? audioSrc(dua.surah, dua.ayah) : ""
+  const words = dua?.words
+  const hasAudio = !!src
+
   const go = (delta: number) => {
     if (!topic) return
     const n = Math.max(0, Math.min(total - 1, index + delta))
@@ -68,6 +81,49 @@ export default function DuaReader() {
     setDir(delta)
     setIndex(n)
   }
+
+  // Reset playback whenever the dua changes (navigation or a fresh topic load).
+  useEffect(() => {
+    stop()
+    setActiveWord(-1)
+  }, [index, topic, stop])
+
+  // cpfair timings use {start,end}; our compact dua words use {s,e} — map once per dua.
+  const wordTimes = useMemo(() => words?.map((w) => ({ start: w.s, end: w.e })), [words])
+
+  // Drive word highlighting off the audio clock while it plays.
+  useEffect(() => {
+    if (!playing || !wordTimes?.length) return
+    let raf = 0
+    const tick = () => {
+      setActiveWord(activeWordAt(wordTimes, audioRef.current?.currentTime ?? 0))
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [playing, wordTimes, audioRef])
+
+  // On verse end: loop it when Repeat is on, otherwise clear the highlight.
+  useEffect(() => {
+    setOnEnded(() => {
+      if (repeat && src) play(src, 0)
+      else setActiveWord(-1)
+    })
+  }, [setOnEnded, play, repeat, src])
+
+  const togglePlay = () => {
+    if (!hasAudio) return
+    haptics.tap()
+    if (playing) pause()
+    else play(src)
+  }
+  const startOver = () => {
+    if (!hasAudio) return
+    haptics.tap()
+    play(src, 0)
+  }
+
+  const renderWords = useMemo(() => words?.map((w) => w.w), [words])
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-ground">
@@ -96,13 +152,13 @@ export default function DuaReader() {
         </div>
       </header>
 
-      {/* Recitation controls — the same bar as the Qur'an reader. Audio wiring is a fast-follow. */}
+      {/* Recitation controls — the same bar as the Qur'an reader, playing the verse audio. */}
       <AudioControls
-        playing={false}
-        repeat={false}
-        onTogglePlay={() => {}}
-        onStartOver={() => {}}
-        onToggleRepeat={() => {}}
+        playing={playing}
+        repeat={repeat}
+        onTogglePlay={togglePlay}
+        onStartOver={startOver}
+        onToggleRepeat={() => setRepeat((r) => !r)}
       />
 
       <main className="flex-1 overflow-y-auto bg-ground">
@@ -130,10 +186,12 @@ export default function DuaReader() {
                   {/* Same display component (and dividers) as the Qur'an reader. */}
                   <VerseView
                     arabic={dua.arabic}
+                    words={renderWords}
+                    activeWord={activeWord}
+                    highlight={!!renderWords?.length}
                     transliteration={dua.transliteration}
                     translation={dua.translation}
                     verseNumber={null}
-                    highlight={false}
                     showTranslation
                     showTransliteration={showTranslit}
                   />

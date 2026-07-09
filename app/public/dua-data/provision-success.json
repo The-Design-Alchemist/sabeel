@@ -9,28 +9,318 @@
         {
           "id": "2-201",
           "reference": "Sūrah Al-Baqarah · 2:201",
-          "arabic": "رَبَّنَآ ءَاتِنَا فِى ٱلدُّنْيَا حَسَنَةً وَفِى ٱلْـَٔاخِرَةِ حَسَنَةً وَقِنَا عَذَابَ ٱلنَّارِ",
-          "transliteration": "rabbanaaa aatina fid dunyaa hasanatawn wa fil aakhirati hasanatanw wa qinaa azaaban Naar",
-          "translation": "Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire.",
+          "surah": 2,
+          "ayah": 201,
+          "arabic": "وَمِنْهُم مَّن يَقُولُ رَبَّنَآ ءَاتِنَا فِى ٱلدُّنْيَا حَسَنَةً وَفِى ٱلْـَٔاخِرَةِ حَسَنَةً وَقِنَا عَذَابَ ٱلنَّارِ",
+          "transliteration": "Wa minhum mai yaqoolu rabbanaaa aatina fid dunyaa hasanatawn wa fil aakhirati hasanatanw wa qinaa azaaban Naar",
+          "translation": "But among them is he who says, \"Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire.\"",
+          "words": [
+            {
+              "w": "وَمِنْهُم",
+              "s": 0.03,
+              "e": 1.71
+            },
+            {
+              "w": "مَّن",
+              "s": 1.72,
+              "e": 2.53
+            },
+            {
+              "w": "يَقُولُ",
+              "s": 2.54,
+              "e": 3.29
+            },
+            {
+              "w": "رَبَّنَآ",
+              "s": 3.3,
+              "e": 3.89
+            },
+            {
+              "w": "ءَاتِنَا",
+              "s": 3.9,
+              "e": 6.32
+            },
+            {
+              "w": "فِى",
+              "s": 6.33,
+              "e": 6.55
+            },
+            {
+              "w": "ٱلدُّنْيَا",
+              "s": 6.56,
+              "e": 7.42
+            },
+            {
+              "w": "حَسَنَةً",
+              "s": 7.43,
+              "e": 8.33
+            },
+            {
+              "w": "وَفِى",
+              "s": 8.34,
+              "e": 9.27
+            },
+            {
+              "w": "ٱلْـَٔاخِرَةِ",
+              "s": 9.28,
+              "e": 10.3
+            },
+            {
+              "w": "حَسَنَةً",
+              "s": 10.31,
+              "e": 11.14
+            },
+            {
+              "w": "وَقِنَا",
+              "s": 11.15,
+              "e": 12.49
+            },
+            {
+              "w": "عَذَابَ",
+              "s": 12.5,
+              "e": 13.37
+            },
+            {
+              "w": "ٱلنَّارِ",
+              "s": 13.38,
+              "e": 15.63
+            }
+          ],
           "source": "quran"
         },
         {
           "id": "28-24",
           "reference": "Sūrah Al-Qasas · 28:24",
+          "surah": 28,
+          "ayah": 24,
           "arabic": "فَسَقَىٰ لَهُمَا ثُمَّ تَوَلَّىٰٓ إِلَى ٱلظِّلِّ فَقَالَ رَبِّ إِنِّى لِمَآ أَنزَلْتَ إِلَىَّ مِنْ خَيْرٍ فَقِيرٌ",
           "transliteration": "Fasaqaa lahumaa summa tawallaaa ilaz zilli faqaala Rabbi innee limaaa anzalta ilaiya min khairin faqeer",
           "translation": "So he watered [their flocks] for them; then he went back to the shade and said, \"My Lord, indeed I am, for whatever good You would send down to me, in need.\"",
-          "source": "quran",
-          "_review": true
+          "words": [
+            {
+              "w": "فَسَقَىٰ",
+              "s": 0.03,
+              "e": 0.91
+            },
+            {
+              "w": "لَهُمَا",
+              "s": 0.92,
+              "e": 1.75
+            },
+            {
+              "w": "ثُمَّ",
+              "s": 1.76,
+              "e": 3.04
+            },
+            {
+              "w": "تَوَلَّىٰٓ",
+              "s": 3.05,
+              "e": 3.83
+            },
+            {
+              "w": "إِلَى",
+              "s": 3.84,
+              "e": 5.99
+            },
+            {
+              "w": "ٱلظِّلِّ",
+              "s": 6.0,
+              "e": 6.83
+            },
+            {
+              "w": "فَقَالَ",
+              "s": 6.84,
+              "e": 7.76
+            },
+            {
+              "w": "رَبِّ",
+              "s": 7.77,
+              "e": 8.47
+            },
+            {
+              "w": "إِنِّى",
+              "s": 8.48,
+              "e": 9.82
+            },
+            {
+              "w": "لِمَآ",
+              "s": 9.83,
+              "e": 11.78
+            },
+            {
+              "w": "أَنزَلْتَ",
+              "s": 11.79,
+              "e": 13.33
+            },
+            {
+              "w": "إِلَىَّ",
+              "s": 13.34,
+              "e": 14.26
+            },
+            {
+              "w": "مِنْ",
+              "s": 14.27,
+              "e": 14.6
+            },
+            {
+              "w": "خَيْرٍ",
+              "s": 14.61,
+              "e": 16.22
+            },
+            {
+              "w": "فَقِيرٌ",
+              "s": 16.23,
+              "e": 18.6
+            }
+          ],
+          "source": "quran"
         },
         {
           "id": "3-26",
           "reference": "Sūrah Aal-E-Imran · 3:26",
+          "surah": 3,
+          "ayah": 26,
           "arabic": "قُلِ ٱللَّهُمَّ مَـٰلِكَ ٱلْمُلْكِ تُؤْتِى ٱلْمُلْكَ مَن تَشَآءُ وَتَنزِعُ ٱلْمُلْكَ مِمَّن تَشَآءُ وَتُعِزُّ مَن تَشَآءُ وَتُذِلُّ مَن تَشَآءُ ۖ بِيَدِكَ ٱلْخَيْرُ ۖ إِنَّكَ عَلَىٰ كُلِّ شَىْءٍ قَدِيرٌ",
           "transliteration": "Qulil laahumma Maalikal Mulki tu'til mulka man tashaaa'u wa tanzi'ulmulka mimman tashhaaa'u wa tu'izzu man tashaaa'u wa tuzillu man tashaaa'u biyadikal khairu innaka 'alaa kulli shai'in Qadeer",
           "translation": "Say, \"O Allah, Owner of Sovereignty, You give sovereignty to whom You will and You take sovereignty away from whom You will. You honor whom You will and You humble whom You will. In Your hand is [all] good. Indeed, You are over all things competent.",
-          "source": "quran",
-          "_review": true
+          "words": [
+            {
+              "w": "قُلِ",
+              "s": 0.1,
+              "e": 0.5
+            },
+            {
+              "w": "ٱللَّهُمَّ",
+              "s": 0.51,
+              "e": 2.73
+            },
+            {
+              "w": "مَـٰلِكَ",
+              "s": 2.74,
+              "e": 3.47
+            },
+            {
+              "w": "ٱلْمُلْكِ",
+              "s": 3.48,
+              "e": 4.29
+            },
+            {
+              "w": "تُؤْتِى",
+              "s": 4.3,
+              "e": 4.95
+            },
+            {
+              "w": "ٱلْمُلْكَ",
+              "s": 4.96,
+              "e": 5.78
+            },
+            {
+              "w": "مَن",
+              "s": 5.79,
+              "e": 6.76
+            },
+            {
+              "w": "تَشَآءُ",
+              "s": 6.77,
+              "e": 9.26
+            },
+            {
+              "w": "وَتَنزِعُ",
+              "s": 9.27,
+              "e": 10.89
+            },
+            {
+              "w": "ٱلْمُلْكَ",
+              "s": 10.9,
+              "e": 11.7
+            },
+            {
+              "w": "مِمَّن",
+              "s": 11.71,
+              "e": 13.44
+            },
+            {
+              "w": "تَشَآءُ",
+              "s": 13.45,
+              "e": 15.91
+            },
+            {
+              "w": "وَتُعِزُّ",
+              "s": 15.92,
+              "e": 16.89
+            },
+            {
+              "w": "مَن",
+              "s": 16.9,
+              "e": 18.08
+            },
+            {
+              "w": "تَشَآءُ",
+              "s": 18.09,
+              "e": 25.48
+            },
+            {
+              "w": "وَتُذِلُّ",
+              "s": 25.49,
+              "e": 26.48
+            },
+            {
+              "w": "مَن",
+              "s": 26.49,
+              "e": 27.35
+            },
+            {
+              "w": "تَشَآءُ",
+              "s": 27.36,
+              "e": 30.11
+            },
+            {
+              "w": "ۖ",
+              "s": 30.11,
+              "e": 30.12
+            },
+            {
+              "w": "بِيَدِكَ",
+              "s": 30.12,
+              "e": 30.88
+            },
+            {
+              "w": "ٱلْخَيْرُ",
+              "s": 30.89,
+              "e": 33.25
+            },
+            {
+              "w": "ۖ",
+              "s": 33.25,
+              "e": 33.26
+            },
+            {
+              "w": "إِنَّكَ",
+              "s": 33.26,
+              "e": 34.55
+            },
+            {
+              "w": "عَلَىٰ",
+              "s": 34.56,
+              "e": 35.17
+            },
+            {
+              "w": "كُلِّ",
+              "s": 35.18,
+              "e": 35.82
+            },
+            {
+              "w": "شَىْءٍ",
+              "s": 35.83,
+              "e": 37.28
+            },
+            {
+              "w": "قَدِيرٌ",
+              "s": 37.29,
+              "e": 39.17
+            }
+          ],
+          "source": "quran"
         }
       ]
     },
@@ -42,26 +332,237 @@
         {
           "id": "20-114",
           "reference": "Sūrah Ta-Ha · 20:114",
+          "surah": 20,
+          "ayah": 114,
           "arabic": "فَتَعَـٰلَى ٱللَّهُ ٱلْمَلِكُ ٱلْحَقُّ ۗ وَلَا تَعْجَلْ بِٱلْقُرْءَانِ مِن قَبْلِ أَن يُقْضَىٰٓ إِلَيْكَ وَحْيُهُۥ ۖ وَقُل رَّبِّ زِدْنِى عِلْمًا",
           "transliteration": "Fata'aalal laahul Malikul Haqq; wa laa ta'jal bil Quraani min qabli ai yuqdaaa ilaika wahyuhoo wa qur Rabbi zidnee 'ilmaa",
           "translation": "So high [above all] is Allah, the Sovereign, the Truth. And, [O Muhammad], do not hasten with [recitation of] the Qur'an before its revelation is completed to you, and say, \"My Lord, increase me in knowledge.\"",
-          "source": "quran",
-          "_review": true
+          "words": [
+            {
+              "w": "فَتَعَـٰلَى",
+              "s": 0.03,
+              "e": 1.04
+            },
+            {
+              "w": "ٱللَّهُ",
+              "s": 1.05,
+              "e": 1.89
+            },
+            {
+              "w": "ٱلْمَلِكُ",
+              "s": 1.9,
+              "e": 2.73
+            },
+            {
+              "w": "ٱلْحَقُّ",
+              "s": 2.74,
+              "e": 3.86
+            },
+            {
+              "w": "ۗ",
+              "s": 3.86,
+              "e": 3.87
+            },
+            {
+              "w": "وَلَا",
+              "s": 3.87,
+              "e": 4.46
+            },
+            {
+              "w": "تَعْجَلْ",
+              "s": 4.47,
+              "e": 5.35
+            },
+            {
+              "w": "بِٱلْقُرْءَانِ",
+              "s": 5.36,
+              "e": 6.83
+            },
+            {
+              "w": "مِن",
+              "s": 6.84,
+              "e": 7.83
+            },
+            {
+              "w": "قَبْلِ",
+              "s": 7.84,
+              "e": 8.57
+            },
+            {
+              "w": "أَن",
+              "s": 8.58,
+              "e": 9.53
+            },
+            {
+              "w": "يُقْضَىٰٓ",
+              "s": 9.54,
+              "e": 11.66
+            },
+            {
+              "w": "إِلَيْكَ",
+              "s": 11.67,
+              "e": 12.49
+            },
+            {
+              "w": "وَحْيُهُۥ",
+              "s": 12.5,
+              "e": 13.63
+            },
+            {
+              "w": "ۖ",
+              "s": 13.63,
+              "e": 13.64
+            },
+            {
+              "w": "وَقُل",
+              "s": 13.64,
+              "e": 14.33
+            },
+            {
+              "w": "رَّبِّ",
+              "s": 14.34,
+              "e": 14.97
+            },
+            {
+              "w": "زِدْنِى",
+              "s": 14.98,
+              "e": 15.97
+            },
+            {
+              "w": "عِلْمًا",
+              "s": 15.98,
+              "e": 17.27
+            }
+          ],
+          "source": "quran"
         },
         {
           "id": "20-25",
           "reference": "Sūrah Ta-Ha · 20:25",
-          "arabic": "رَبِّ ٱشْرَحْ لِى صَدْرِى",
-          "transliteration": "Rabbish rah lee sadree",
-          "translation": "My Lord, expand for me my breast [with assurance]",
+          "surah": 20,
+          "ayah": 25,
+          "arabic": "قَالَ رَبِّ ٱشْرَحْ لِى صَدْرِى",
+          "transliteration": "Qaala Rabbish rah lee sadree",
+          "translation": "[Moses] said, \"My Lord, expand for me my breast [with assurance]",
+          "words": [
+            {
+              "w": "قَالَ",
+              "s": 0.1,
+              "e": 0.73
+            },
+            {
+              "w": "رَبِّ",
+              "s": 0.74,
+              "e": 1.34
+            },
+            {
+              "w": "ٱشْرَحْ",
+              "s": 1.35,
+              "e": 2.03
+            },
+            {
+              "w": "لِى",
+              "s": 2.04,
+              "e": 2.45
+            },
+            {
+              "w": "صَدْرِى",
+              "s": 2.46,
+              "e": 3.52
+            }
+          ],
           "source": "quran"
         },
         {
           "id": "3-8",
           "reference": "Sūrah Aal-E-Imran · 3:8",
+          "surah": 3,
+          "ayah": 8,
           "arabic": "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً ۚ إِنَّكَ أَنتَ ٱلْوَهَّابُ",
           "transliteration": "Rabbanaa laa tuzigh quloobanaa ba'da iz hadaitanaa wa hab lanaa mil ladunka rahmah; innaka antal Wahhaab",
           "translation": "[Who say], \"Our Lord, let not our hearts deviate after You have guided us and grant us from Yourself mercy. Indeed, You are the Bestower.",
+          "words": [
+            {
+              "w": "رَبَّنَا",
+              "s": 0.13,
+              "e": 1.13
+            },
+            {
+              "w": "لَا",
+              "s": 1.14,
+              "e": 1.49
+            },
+            {
+              "w": "تُزِغْ",
+              "s": 1.5,
+              "e": 2.15
+            },
+            {
+              "w": "قُلُوبَنَا",
+              "s": 2.16,
+              "e": 3.51
+            },
+            {
+              "w": "بَعْدَ",
+              "s": 3.52,
+              "e": 4.15
+            },
+            {
+              "w": "إِذْ",
+              "s": 4.16,
+              "e": 4.52
+            },
+            {
+              "w": "هَدَيْتَنَا",
+              "s": 4.53,
+              "e": 5.89
+            },
+            {
+              "w": "وَهَبْ",
+              "s": 5.9,
+              "e": 6.6
+            },
+            {
+              "w": "لَنَا",
+              "s": 6.61,
+              "e": 7.3
+            },
+            {
+              "w": "مِن",
+              "s": 7.31,
+              "e": 7.47
+            },
+            {
+              "w": "لَّدُنكَ",
+              "s": 7.48,
+              "e": 9.51
+            },
+            {
+              "w": "رَحْمَةً",
+              "s": 9.52,
+              "e": 10.82
+            },
+            {
+              "w": "ۚ",
+              "s": 10.82,
+              "e": 10.83
+            },
+            {
+              "w": "إِنَّكَ",
+              "s": 10.83,
+              "e": 12.32
+            },
+            {
+              "w": "أَنتَ",
+              "s": 12.33,
+              "e": 13.7
+            },
+            {
+              "w": "ٱلْوَهَّابُ",
+              "s": 13.71,
+              "e": 16.87
+            }
+          ],
           "source": "quran"
         }
       ]
@@ -74,26 +575,187 @@
         {
           "id": "1-6",
           "reference": "Sūrah Al-Fatihah · 1:6",
+          "surah": 1,
+          "ayah": 6,
           "arabic": "ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ",
           "transliteration": "Ihdinas-Siraatal-Mustaqeem",
           "translation": "Guide us to the straight path -",
+          "words": [
+            {
+              "w": "ٱهْدِنَا",
+              "s": 0.03,
+              "e": 0.67
+            },
+            {
+              "w": "ٱلصِّرَٰطَ",
+              "s": 0.68,
+              "e": 1.63
+            },
+            {
+              "w": "ٱلْمُسْتَقِيمَ",
+              "s": 1.64,
+              "e": 5.12
+            }
+          ],
           "source": "quran"
         },
         {
           "id": "17-80",
           "reference": "Sūrah Al-Isra · 17:80",
+          "surah": 17,
+          "ayah": 80,
           "arabic": "وَقُل رَّبِّ أَدْخِلْنِى مُدْخَلَ صِدْقٍ وَأَخْرِجْنِى مُخْرَجَ صِدْقٍ وَٱجْعَل لِّى مِن لَّدُنكَ سُلْطَـٰنًا نَّصِيرًا",
           "transliteration": "Wa qur Rabbi adkhilnee mudkhala sidqinw wa akhrijnee mukhraja sidqinw waj'al lee milladunka sultaanan naseeraa",
           "translation": "And say, \"My Lord, cause me to enter a sound entrance and to exit a sound exit and grant me from Yourself a supporting authority.\"",
-          "source": "quran",
-          "_review": true
+          "words": [
+            {
+              "w": "وَقُل",
+              "s": 0.03,
+              "e": 0.37
+            },
+            {
+              "w": "رَّبِّ",
+              "s": 0.38,
+              "e": 1.29
+            },
+            {
+              "w": "أَدْخِلْنِى",
+              "s": 1.3,
+              "e": 2.52
+            },
+            {
+              "w": "مُدْخَلَ",
+              "s": 2.53,
+              "e": 3.33
+            },
+            {
+              "w": "صِدْقٍ",
+              "s": 3.34,
+              "e": 4.12
+            },
+            {
+              "w": "وَأَخْرِجْنِى",
+              "s": 4.13,
+              "e": 6.25
+            },
+            {
+              "w": "مُخْرَجَ",
+              "s": 6.26,
+              "e": 7.02
+            },
+            {
+              "w": "صِدْقٍ",
+              "s": 7.03,
+              "e": 7.77
+            },
+            {
+              "w": "وَٱجْعَل",
+              "s": 7.78,
+              "e": 9.33
+            },
+            {
+              "w": "لِّى",
+              "s": 9.34,
+              "e": 11.38
+            },
+            {
+              "w": "مِن",
+              "s": 11.39,
+              "e": 11.57
+            },
+            {
+              "w": "لَّدُنكَ",
+              "s": 11.58,
+              "e": 13.24
+            },
+            {
+              "w": "سُلْطَـٰنًا",
+              "s": 13.25,
+              "e": 14.18
+            },
+            {
+              "w": "نَّصِيرًا",
+              "s": 14.19,
+              "e": 16.25
+            }
+          ],
+          "source": "quran"
         },
         {
           "id": "25-74",
           "reference": "Sūrah Al-Furqan · 25:74",
-          "arabic": "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَٰجِنَا وَذُرِّيَّـٰتِنَا قُرَّةَ أَعْيُنٍ وَٱجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
-          "transliteration": "Rabbanaa hab lanaa min azwaajinaa wa zurriyaatinaa qurrata a'yuninw waj 'alnaa lilmuttaqeena Imaamaa",
-          "translation": "Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous.",
+          "surah": 25,
+          "ayah": 74,
+          "arabic": "وَٱلَّذِينَ يَقُولُونَ رَبَّنَا هَبْ لَنَا مِنْ أَزْوَٰجِنَا وَذُرِّيَّـٰتِنَا قُرَّةَ أَعْيُنٍ وَٱجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
+          "transliteration": "Wallazeena yaqooloona Rabbanaa hab lanaa min azwaajinaa wa zurriyaatinaa qurrata a'yuninw waj 'alnaa lilmuttaqeena Imaamaa",
+          "translation": "And those who say, \"Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous.\"",
+          "words": [
+            {
+              "w": "وَٱلَّذِينَ",
+              "s": 0.03,
+              "e": 1.31
+            },
+            {
+              "w": "يَقُولُونَ",
+              "s": 1.32,
+              "e": 2.7
+            },
+            {
+              "w": "رَبَّنَا",
+              "s": 2.71,
+              "e": 3.96
+            },
+            {
+              "w": "هَبْ",
+              "s": 3.97,
+              "e": 4.43
+            },
+            {
+              "w": "لَنَا",
+              "s": 4.44,
+              "e": 5.18
+            },
+            {
+              "w": "مِنْ",
+              "s": 5.19,
+              "e": 5.61
+            },
+            {
+              "w": "أَزْوَٰجِنَا",
+              "s": 5.62,
+              "e": 7.27
+            },
+            {
+              "w": "وَذُرِّيَّـٰتِنَا",
+              "s": 7.28,
+              "e": 9.63
+            },
+            {
+              "w": "قُرَّةَ",
+              "s": 9.64,
+              "e": 10.58
+            },
+            {
+              "w": "أَعْيُنٍ",
+              "s": 10.59,
+              "e": 11.6
+            },
+            {
+              "w": "وَٱجْعَلْنَا",
+              "s": 11.61,
+              "e": 13.7
+            },
+            {
+              "w": "لِلْمُتَّقِينَ",
+              "s": 13.71,
+              "e": 15.51
+            },
+            {
+              "w": "إِمَامًا",
+              "s": 15.52,
+              "e": 16.79
+            }
+          ],
           "source": "quran"
         }
       ]
@@ -106,22 +768,394 @@
         {
           "id": "27-19",
           "reference": "Sūrah An-Naml · 27:19",
-          "arabic": "رَبِّ أَوْزِعْنِىٓ أَنْ أَشْكُرَ نِعْمَتَكَ ٱلَّتِىٓ أَنْعَمْتَ عَلَىَّ وَعَلَىٰ وَٰلِدَىَّ وَأَنْ أَعْمَلَ صَـٰلِحًا تَرْضَىٰهُ وَأَدْخِلْنِى بِرَحْمَتِكَ فِى عِبَادِكَ ٱلصَّـٰلِحِينَ",
-          "transliteration": "Rabbi awzi'nee an ashkura ni'mata kal lateee an'amta 'alaiya wa 'alaa waalidaiya wa an a'mala saalihan tardaahu wa adkhilnee birahmatika fee 'ibaadikas saaliheen",
-          "translation": "My Lord, enable me to be grateful for Your favor which You have bestowed upon me and upon my parents and to do righteousness of which You approve. And admit me by Your mercy into [the ranks of] Your righteous servants.",
+          "surah": 27,
+          "ayah": 19,
+          "arabic": "فَتَبَسَّمَ ضَاحِكًا مِّن قَوْلِهَا وَقَالَ رَبِّ أَوْزِعْنِىٓ أَنْ أَشْكُرَ نِعْمَتَكَ ٱلَّتِىٓ أَنْعَمْتَ عَلَىَّ وَعَلَىٰ وَٰلِدَىَّ وَأَنْ أَعْمَلَ صَـٰلِحًا تَرْضَىٰهُ وَأَدْخِلْنِى بِرَحْمَتِكَ فِى عِبَادِكَ ٱلصَّـٰلِحِينَ",
+          "transliteration": "Fatabassama daahikam min qawlihaa wa qaala Rabbi awzi'nee an ashkura ni'mata kal lateee an'amta 'alaiya wa 'alaa waalidaiya wa an a'mala saalihan tardaahu wa adkhilnee birahmatika fee 'ibaadikas saaliheen",
+          "translation": "So [Solomon] smiled, amused at her speech, and said, \"My Lord, enable me to be grateful for Your favor which You have bestowed upon me and upon my parents and to do righteousness of which You approve. And admit me by Your mercy into [the ranks of] Your righteous servants.\"",
+          "words": [
+            {
+              "w": "فَتَبَسَّمَ",
+              "s": 0.03,
+              "e": 1.2
+            },
+            {
+              "w": "ضَاحِكًا",
+              "s": 1.21,
+              "e": 2.6
+            },
+            {
+              "w": "مِّن",
+              "s": 2.61,
+              "e": 4.43
+            },
+            {
+              "w": "قَوْلِهَا",
+              "s": 4.44,
+              "e": 5.62
+            },
+            {
+              "w": "وَقَالَ",
+              "s": 5.63,
+              "e": 6.44
+            },
+            {
+              "w": "رَبِّ",
+              "s": 6.45,
+              "e": 7.21
+            },
+            {
+              "w": "أَوْزِعْنِىٓ",
+              "s": 7.22,
+              "e": 13.77
+            },
+            {
+              "w": "أَنْ",
+              "s": 13.78,
+              "e": 14.12
+            },
+            {
+              "w": "أَشْكُرَ",
+              "s": 14.13,
+              "e": 15.01
+            },
+            {
+              "w": "نِعْمَتَكَ",
+              "s": 15.02,
+              "e": 16.09
+            },
+            {
+              "w": "ٱلَّتِىٓ",
+              "s": 16.1,
+              "e": 18.63
+            },
+            {
+              "w": "أَنْعَمْتَ",
+              "s": 18.64,
+              "e": 19.63
+            },
+            {
+              "w": "عَلَىَّ",
+              "s": 19.64,
+              "e": 20.63
+            },
+            {
+              "w": "وَعَلَىٰ",
+              "s": 20.64,
+              "e": 21.57
+            },
+            {
+              "w": "وَٰلِدَىَّ",
+              "s": 21.58,
+              "e": 22.93
+            },
+            {
+              "w": "وَأَنْ",
+              "s": 22.94,
+              "e": 23.54
+            },
+            {
+              "w": "أَعْمَلَ",
+              "s": 23.55,
+              "e": 24.39
+            },
+            {
+              "w": "صَـٰلِحًا",
+              "s": 24.4,
+              "e": 26.39
+            },
+            {
+              "w": "تَرْضَىٰهُ",
+              "s": 26.4,
+              "e": 27.63
+            },
+            {
+              "w": "وَأَدْخِلْنِى",
+              "s": 27.64,
+              "e": 31.04
+            },
+            {
+              "w": "بِرَحْمَتِكَ",
+              "s": 31.05,
+              "e": 32.36
+            },
+            {
+              "w": "فِى",
+              "s": 32.37,
+              "e": 32.8
+            },
+            {
+              "w": "عِبَادِكَ",
+              "s": 32.81,
+              "e": 33.94
+            },
+            {
+              "w": "ٱلصَّـٰلِحِينَ",
+              "s": 33.95,
+              "e": 37.45
+            }
+          ],
           "source": "quran"
         },
         {
           "id": "46-15",
           "reference": "Sūrah Al-Ahqaf · 46:15",
+          "surah": 46,
+          "ayah": 15,
           "arabic": "وَوَصَّيْنَا ٱلْإِنسَـٰنَ بِوَٰلِدَيْهِ إِحْسَـٰنًا ۖ حَمَلَتْهُ أُمُّهُۥ كُرْهًا وَوَضَعَتْهُ كُرْهًا ۖ وَحَمْلُهُۥ وَفِصَـٰلُهُۥ ثَلَـٰثُونَ شَهْرًا ۚ حَتَّىٰٓ إِذَا بَلَغَ أَشُدَّهُۥ وَبَلَغَ أَرْبَعِينَ سَنَةً قَالَ رَبِّ أَوْزِعْنِىٓ أَنْ أَشْكُرَ نِعْمَتَكَ ٱلَّتِىٓ أَنْعَمْتَ عَلَىَّ وَعَلَىٰ وَٰلِدَىَّ وَأَنْ أَعْمَلَ صَـٰلِحًا تَرْضَىٰهُ وَأَصْلِحْ لِى فِى ذُرِّيَّتِىٓ ۖ إِنِّى تُبْتُ إِلَيْكَ وَإِنِّى مِنَ ٱلْمُسْلِمِينَ",
           "transliteration": "Wa wassainal insaana biwaalidaihi ihsaanan hamalathu ummuhoo kurhanw-wa wada'athu kurhanw wa hamluhoo wa fisaaluhoo salaasoona shahraa; hattaaa izaa balagha ashuddahoo wa balagho arba'eena sanatan qaala Rabbi aqzi'neee an ashkura ni'matakal lateee an'amta 'alaiya wa 'alaa waalidaiya wa an a'mala saalihan tardaahu wa aslih lee fee zurriyyatee innee tubtu ilaika wa innee minal muslimeen",
           "translation": "And We have enjoined upon man, to his parents, good treatment. His mother carried him with hardship and gave birth to him with hardship, and his gestation and weaning [period] is thirty months. [He grows] until, when he reaches maturity and reaches [the age of] forty years, he says, \"My Lord, enable me to be grateful for Your favor which You have bestowed upon me and upon my parents and to work righteousness of which You will approve and make righteous for me my offspring. Indeed, I have repented to You, and indeed, I am of the Muslims.\"",
-          "source": "quran",
-          "_review": true
+          "words": [
+            {
+              "w": "وَوَصَّيْنَا",
+              "s": 0.06,
+              "e": 1.31
+            },
+            {
+              "w": "ٱلْإِنسَـٰنَ",
+              "s": 1.32,
+              "e": 3.47
+            },
+            {
+              "w": "بِوَٰلِدَيْهِ",
+              "s": 3.48,
+              "e": 5.06
+            },
+            {
+              "w": "إِحْسَـٰنًا",
+              "s": 5.07,
+              "e": 7.07
+            },
+            {
+              "w": "ۖ",
+              "s": 7.07,
+              "e": 7.08
+            },
+            {
+              "w": "حَمَلَتْهُ",
+              "s": 7.08,
+              "e": 8.19
+            },
+            {
+              "w": "أُمُّهُۥ",
+              "s": 8.2,
+              "e": 10.0
+            },
+            {
+              "w": "كُرْهًا",
+              "s": 10.01,
+              "e": 10.72
+            },
+            {
+              "w": "وَوَضَعَتْهُ",
+              "s": 10.73,
+              "e": 12.95
+            },
+            {
+              "w": "كُرْهًا",
+              "s": 12.96,
+              "e": 14.66
+            },
+            {
+              "w": "ۖ",
+              "s": 14.66,
+              "e": 14.67
+            },
+            {
+              "w": "وَحَمْلُهُۥ",
+              "s": 14.67,
+              "e": 15.99
+            },
+            {
+              "w": "وَفِصَـٰلُهُۥ",
+              "s": 16.0,
+              "e": 17.57
+            },
+            {
+              "w": "ثَلَـٰثُونَ",
+              "s": 17.58,
+              "e": 18.92
+            },
+            {
+              "w": "شَهْرًا",
+              "s": 18.93,
+              "e": 20.75
+            },
+            {
+              "w": "ۚ",
+              "s": 20.75,
+              "e": 20.76
+            },
+            {
+              "w": "حَتَّىٰٓ",
+              "s": 20.76,
+              "e": 21.91
+            },
+            {
+              "w": "إِذَا",
+              "s": 21.92,
+              "e": 24.01
+            },
+            {
+              "w": "بَلَغَ",
+              "s": 24.02,
+              "e": 24.73
+            },
+            {
+              "w": "أَشُدَّهُۥ",
+              "s": 24.74,
+              "e": 26.1
+            },
+            {
+              "w": "وَبَلَغَ",
+              "s": 26.11,
+              "e": 27.03
+            },
+            {
+              "w": "أَرْبَعِينَ",
+              "s": 27.04,
+              "e": 28.28
+            },
+            {
+              "w": "سَنَةً",
+              "s": 28.29,
+              "e": 29.99
+            },
+            {
+              "w": "قَالَ",
+              "s": 30.0,
+              "e": 30.7
+            },
+            {
+              "w": "رَبِّ",
+              "s": 30.71,
+              "e": 31.44
+            },
+            {
+              "w": "أَوْزِعْنِىٓ",
+              "s": 31.45,
+              "e": 38.28
+            },
+            {
+              "w": "أَنْ",
+              "s": 38.29,
+              "e": 38.72
+            },
+            {
+              "w": "أَشْكُرَ",
+              "s": 38.73,
+              "e": 39.63
+            },
+            {
+              "w": "نِعْمَتَكَ",
+              "s": 39.64,
+              "e": 40.73
+            },
+            {
+              "w": "ٱلَّتِىٓ",
+              "s": 40.74,
+              "e": 43.16
+            },
+            {
+              "w": "أَنْعَمْتَ",
+              "s": 43.17,
+              "e": 44.17
+            },
+            {
+              "w": "عَلَىَّ",
+              "s": 44.18,
+              "e": 45.16
+            },
+            {
+              "w": "وَعَلَىٰ",
+              "s": 45.17,
+              "e": 46.09
+            },
+            {
+              "w": "وَٰلِدَىَّ",
+              "s": 46.1,
+              "e": 47.46
+            },
+            {
+              "w": "وَأَنْ",
+              "s": 47.47,
+              "e": 48.13
+            },
+            {
+              "w": "أَعْمَلَ",
+              "s": 48.14,
+              "e": 48.95
+            },
+            {
+              "w": "صَـٰلِحًا",
+              "s": 48.96,
+              "e": 50.83
+            },
+            {
+              "w": "تَرْضَىٰهُ",
+              "s": 50.84,
+              "e": 52.07
+            },
+            {
+              "w": "وَأَصْلِحْ",
+              "s": 52.08,
+              "e": 53.16
+            },
+            {
+              "w": "لِى",
+              "s": 53.17,
+              "e": 53.6
+            },
+            {
+              "w": "فِى",
+              "s": 53.61,
+              "e": 54.12
+            },
+            {
+              "w": "ذُرِّيَّتِىٓ",
+              "s": 54.13,
+              "e": 56.43
+            },
+            {
+              "w": "ۖ",
+              "s": 56.43,
+              "e": 56.44
+            },
+            {
+              "w": "إِنِّى",
+              "s": 56.44,
+              "e": 58.31
+            },
+            {
+              "w": "تُبْتُ",
+              "s": 58.32,
+              "e": 59.1
+            },
+            {
+              "w": "إِلَيْكَ",
+              "s": 59.11,
+              "e": 59.93
+            },
+            {
+              "w": "وَإِنِّى",
+              "s": 59.94,
+              "e": 62.1
+            },
+            {
+              "w": "مِنَ",
+              "s": 62.11,
+              "e": 62.53
+            },
+            {
+              "w": "ٱلْمُسْلِمِينَ",
+              "s": 62.54,
+              "e": 65.32
+            }
+          ],
+          "source": "quran"
         }
       ]
     }
   ],
-  "_note": "DRAFT — Qur'anic text verbatim from Sabeel's verified data, conservatively auto-trimmed to the supplication; pending scholarly review. Entries flagged _review sit inside a narrative verse and still need trimming; Sunnah entries need a sourced text."
+  "_note": "Qur'anic verses verbatim from Sabeel's verified quran-data, with per-word timings for recitation + highlighting. Sunnah duas are not yet included (need a sourced text + audio)."
 }
