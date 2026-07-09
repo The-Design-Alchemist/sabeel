@@ -1689,12 +1689,12 @@
     "words": [
       {
         "word": "قُل",
-        "start": 0.03,
-        "end": 0.03
+        "start": 0.043,
+        "end": 0.243
       },
       {
         "word": "لِّلْمُخَلَّفِينَ",
-        "start": 0.04,
+        "start": 0.243,
         "end": 2.27
       },
       {
@@ -1841,7 +1841,7 @@
     "segments": [
       {
         "segmentNumber": 1,
-        "start": 0.03,
+        "start": 0.043,
         "end": 16.04,
         "startWord": 0,
         "endWord": 12,
@@ -2019,7 +2019,7 @@
       {
         "word": "أَلِيمًا",
         "start": 30.2,
-        "end": 31.14
+        "end": 31.812
       }
     ],
     "segments": [
@@ -2046,7 +2046,7 @@
       {
         "segmentNumber": 3,
         "start": 25.1,
-        "end": 31.14,
+        "end": 31.812,
         "startWord": 23,
         "endWord": 28,
         "wordCount": 6,

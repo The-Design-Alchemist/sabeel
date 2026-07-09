@@ -1796,7 +1796,7 @@
       {
         "word": "ٱلْمُهِينِ",
         "start": 25.76,
-        "end": 26.29
+        "end": 28.323
       }
     ],
     "segments": [
@@ -1813,7 +1813,7 @@
       {
         "segmentNumber": 2,
         "start": 15.78,
-        "end": 26.29,
+        "end": 28.323,
         "startWord": 13,
         "endWord": 27,
         "wordCount": 15,
@@ -3413,12 +3413,12 @@
     "words": [
       {
         "word": "قُل",
-        "start": 0.03,
-        "end": 0.03
+        "start": 0.043,
+        "end": 0.243
       },
       {
         "word": "لَّكُم",
-        "start": 0.04,
+        "start": 0.243,
         "end": 1.83
       },
       {

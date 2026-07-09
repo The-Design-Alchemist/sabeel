@@ -3890,7 +3890,7 @@
       {
         "word": "وَأَبْقَىٰ",
         "start": 36.87,
-        "end": 37.74
+        "end": 38.992
       }
     ],
     "segments": [
@@ -3917,7 +3917,7 @@
       {
         "segmentNumber": 3,
         "start": 13.27,
-        "end": 37.74,
+        "end": 38.992,
         "startWord": 13,
         "endWord": 27,
         "wordCount": 15,
@@ -4914,7 +4914,7 @@
       {
         "word": "لِتَرْضَىٰ",
         "start": 8.41,
-        "end": 9.17
+        "end": 9.822
       }
     ],
     "segments": null
@@ -5532,7 +5532,7 @@
       {
         "word": "مُوسَىٰ",
         "start": 7.68,
-        "end": 8.33
+        "end": 8.992
       }
     ],
     "segments": null

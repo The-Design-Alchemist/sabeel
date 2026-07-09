@@ -1257,7 +1257,7 @@
       {
         "word": "نَذِيرِ",
         "start": 13.29,
-        "end": 13.72
+        "end": 15.783
       }
     ],
     "segments": [
@@ -1274,7 +1274,7 @@
       {
         "segmentNumber": 2,
         "start": 11.05,
-        "end": 13.72,
+        "end": 15.783,
         "startWord": 9,
         "endWord": 12,
         "wordCount": 4,

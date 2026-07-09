@@ -2747,7 +2747,7 @@
       {
         "word": "أَحَدًا",
         "start": 22.14,
-        "end": 22.78
+        "end": 23.383
       }
     ],
     "segments": [
@@ -2784,7 +2784,7 @@
       {
         "segmentNumber": 4,
         "start": 11.09,
-        "end": 22.78,
+        "end": 23.383,
         "startWord": 14,
         "endWord": 25,
         "wordCount": 12,
@@ -9690,7 +9690,7 @@
       {
         "word": "نُزُلًا",
         "start": 22.53,
-        "end": 23.08
+        "end": 23.683
       }
     ],
     "segments": [
@@ -9707,7 +9707,7 @@
       {
         "segmentNumber": 2,
         "start": 14.12,
-        "end": 23.08,
+        "end": 23.683,
         "startWord": 9,
         "endWord": 14,
         "wordCount": 6,

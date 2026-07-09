@@ -2925,7 +2925,7 @@
       {
         "word": "يُشْرِكُونَ",
         "start": 27.79,
-        "end": 29.19
+        "end": 29.823
       }
     ],
     "segments": null
@@ -5360,7 +5360,7 @@
       {
         "word": "تَعْلَمُونَ",
         "start": 18.18,
-        "end": 19.12
+        "end": 20.962
       }
     ],
     "segments": [
@@ -5377,7 +5377,7 @@
       {
         "segmentNumber": 2,
         "start": 11.14,
-        "end": 19.12,
+        "end": 20.962,
         "startWord": 13,
         "endWord": 20,
         "wordCount": 8,

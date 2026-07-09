@@ -3770,7 +3770,7 @@
       {
         "word": "سَـٰبِقِينَ",
         "start": 17.51,
-        "end": 18.42
+        "end": 20.122
       }
     ],
     "segments": [
@@ -3787,7 +3787,7 @@
       {
         "segmentNumber": 2,
         "start": 5.55,
-        "end": 18.42,
+        "end": 20.122,
         "startWord": 3,
         "endWord": 13,
         "wordCount": 11,

@@ -3168,7 +3168,7 @@
       {
         "word": "كَرِيمٌ",
         "start": 42.48,
-        "end": 42.99
+        "end": 44.883
       }
     ],
     "segments": [
@@ -3185,7 +3185,7 @@
       {
         "segmentNumber": 2,
         "start": 23.32,
-        "end": 42.99,
+        "end": 44.883,
         "startWord": 16,
         "endWord": 32,
         "wordCount": 17,
@@ -6949,7 +6949,7 @@
       {
         "word": "يَسِيرٌ",
         "start": 29.72,
-        "end": 30.96
+        "end": 33.303
       }
     ],
     "segments": [
@@ -6996,7 +6996,7 @@
       {
         "segmentNumber": 5,
         "start": 28.11,
-        "end": 30.96,
+        "end": 33.303,
         "startWord": 25,
         "endWord": 28,
         "wordCount": 4,

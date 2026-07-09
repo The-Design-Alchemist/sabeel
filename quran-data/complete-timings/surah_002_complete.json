@@ -21282,7 +21282,7 @@
       {
         "word": "ٱلنَّارِ",
         "start": 12.61,
-        "end": 13.98
+        "end": 15.963
       }
     ],
     "segments": [
@@ -21299,7 +21299,7 @@
       {
         "segmentNumber": 2,
         "start": 9.17,
-        "end": 13.98,
+        "end": 15.963,
         "startWord": 7,
         "endWord": 11,
         "wordCount": 5,
@@ -25296,7 +25296,7 @@
       {
         "word": "ٱلْأَلْبَـٰبِ",
         "start": 29.96,
-        "end": 30.64
+        "end": 32.102
       }
     ],
     "segments": [
@@ -25343,7 +25343,7 @@
       {
         "segmentNumber": 5,
         "start": 26.96,
-        "end": 30.64,
+        "end": 32.102,
         "startWord": 29,
         "endWord": 32,
         "wordCount": 4,
@@ -26213,7 +26213,7 @@
       {
         "word": "ٱلْخِصَامِ",
         "start": 16.06,
-        "end": 16.75
+        "end": 18.082
       }
     ],
     "segments": null
@@ -38681,7 +38681,7 @@
       {
         "word": "ٱلْأَلْبَـٰبِ",
         "start": 16.62,
-        "end": 17.32
+        "end": 19.093
       }
     ],
     "segments": [
@@ -38708,7 +38708,7 @@
       {
         "segmentNumber": 3,
         "start": 12.78,
-        "end": 17.32,
+        "end": 19.093,
         "startWord": 12,
         "endWord": 17,
         "wordCount": 6,

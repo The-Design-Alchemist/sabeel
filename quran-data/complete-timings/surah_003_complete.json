@@ -55,7 +55,7 @@
       {
         "word": "ٱلْقَيُّومُ",
         "start": 5.89,
-        "end": 7.45
+        "end": 8.682
       }
     ],
     "segments": null
@@ -320,7 +320,7 @@
       {
         "word": "ٱلسَّمَآءِ",
         "start": 7.5,
-        "end": 8.11
+        "end": 10.293
       }
     ],
     "segments": null
@@ -677,7 +677,7 @@
       {
         "word": "ٱلْأَلْبَـٰبِ",
         "start": 58.04,
-        "end": 58.74
+        "end": 60.602
       }
     ],
     "segments": [
@@ -724,7 +724,7 @@
       {
         "segmentNumber": 5,
         "start": 53.52,
-        "end": 58.74,
+        "end": 60.602,
         "startWord": 44,
         "endWord": 49,
         "wordCount": 6,
@@ -1863,7 +1863,7 @@
       {
         "word": "ٱلنَّارِ",
         "start": 14.63,
-        "end": 16.85
+        "end": 18.273
       }
     ],
     "segments": null
@@ -2173,7 +2173,7 @@
       {
         "word": "ٱلْحِسَابِ",
         "start": 27.56,
-        "end": 28.2
+        "end": 30.073
       }
     ],
     "segments": [
@@ -2200,7 +2200,7 @@
       {
         "segmentNumber": 3,
         "start": 20.38,
-        "end": 28.2,
+        "end": 30.073,
         "startWord": 19,
         "endWord": 27,
         "wordCount": 9,
@@ -3171,7 +3171,7 @@
       {
         "word": "حِسَابٍ",
         "start": 20.94,
-        "end": 21.68
+        "end": 23.343
       }
     ],
     "segments": [
@@ -3198,7 +3198,7 @@
       {
         "segmentNumber": 3,
         "start": 15.87,
-        "end": 21.68,
+        "end": 23.343,
         "startWord": 17,
         "endWord": 22,
         "wordCount": 6,
@@ -4545,7 +4545,7 @@
       {
         "word": "حِسَابٍ",
         "start": 45.93,
-        "end": 46.6
+        "end": 48.983
       }
     ],
     "segments": [
@@ -4592,7 +4592,7 @@
       {
         "segmentNumber": 5,
         "start": 38.56,
-        "end": 46.6,
+        "end": 48.983,
         "startWord": 30,
         "endWord": 37,
         "wordCount": 8,
@@ -4689,7 +4689,7 @@
       {
         "word": "ٱلدُّعَآءِ",
         "start": 16.0,
-        "end": 16.71
+        "end": 19.363
       }
     ],
     "segments": [
@@ -4716,7 +4716,7 @@
       {
         "segmentNumber": 3,
         "start": 13.39,
-        "end": 16.71,
+        "end": 19.363,
         "startWord": 13,
         "endWord": 16,
         "wordCount": 4,
@@ -5065,7 +5065,7 @@
       {
         "word": "وَٱلْإِبْكَـٰرِ",
         "start": 21.92,
-        "end": 23.08
+        "end": 25.692
       }
     ],
     "segments": [
@@ -5092,7 +5092,7 @@
       {
         "segmentNumber": 3,
         "start": 15.84,
-        "end": 23.08,
+        "end": 25.692,
         "startWord": 15,
         "endWord": 21,
         "wordCount": 7,
@@ -21428,7 +21428,7 @@
       {
         "word": "صَـٰدِقِينَ",
         "start": 35.57,
-        "end": 37.29
+        "end": 37.992
       }
     ],
     "segments": [
@@ -21445,7 +21445,7 @@
       {
         "segmentNumber": 2,
         "start": 20.38,
-        "end": 37.29,
+        "end": 37.992,
         "startWord": 14,
         "endWord": 28,
         "wordCount": 15,
@@ -22270,7 +22270,7 @@
       {
         "word": "ٱلْأَلْبَـٰبِ",
         "start": 10.41,
-        "end": 11.23
+        "end": 13.043
       }
     ],
     "segments": null
@@ -23408,7 +23408,7 @@
       {
         "word": "ٱلْحِسَابِ",
         "start": 37.31,
-        "end": 38.24
+        "end": 40.903
       }
     ],
     "segments": [
@@ -23435,7 +23435,7 @@
       {
         "segmentNumber": 3,
         "start": 34.44,
-        "end": 38.24,
+        "end": 40.903,
         "startWord": 27,
         "endWord": 31,
         "wordCount": 5,

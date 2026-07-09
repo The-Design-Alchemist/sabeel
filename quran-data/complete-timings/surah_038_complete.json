@@ -212,7 +212,7 @@
       {
         "word": "كَذَّابٌ",
         "start": 15.68,
-        "end": 16.25
+        "end": 18.843
       }
     ],
     "segments": [
@@ -229,7 +229,7 @@
       {
         "segmentNumber": 2,
         "start": 10.8,
-        "end": 16.25,
+        "end": 18.843,
         "startWord": 5,
         "endWord": 10,
         "wordCount": 6,
@@ -459,7 +459,7 @@
       {
         "word": "ٱخْتِلَـٰقٌ",
         "start": 8.34,
-        "end": 10.58
+        "end": 11.383
       }
     ],
     "segments": null
@@ -626,7 +626,7 @@
       {
         "word": "ٱلْوَهَّابِ",
         "start": 7.28,
-        "end": 8.34
+        "end": 10.723
       }
     ],
     "segments": null
@@ -689,7 +689,7 @@
       {
         "word": "ٱلْأَسْبَـٰبِ",
         "start": 8.24,
-        "end": 8.98
+        "end": 11.123
       }
     ],
     "segments": [
@@ -706,7 +706,7 @@
       {
         "segmentNumber": 2,
         "start": 6.48,
-        "end": 8.98,
+        "end": 11.123,
         "startWord": 7,
         "endWord": 10,
         "wordCount": 4,
@@ -966,7 +966,7 @@
       {
         "word": "فَوَاقٍ",
         "start": 13.38,
-        "end": 13.91
+        "end": 15.992
       }
     ],
     "segments": null
@@ -1716,12 +1716,12 @@
       {
         "word": "وَأَنَابَ",
         "start": 36.35,
-        "end": 38.06
+        "end": 40.462
       },
       {
         "word": "۩",
-        "start": 38.06,
-        "end": 38.06
+        "start": 40.462,
+        "end": 40.462
       }
     ],
     "segments": [
@@ -1994,7 +1994,7 @@
       {
         "word": "ٱلْحِسَابِ",
         "start": 35.49,
-        "end": 36.15
+        "end": 38.133
       }
     ],
     "segments": [
@@ -2011,7 +2011,7 @@
       {
         "segmentNumber": 2,
         "start": 22.8,
-        "end": 36.15,
+        "end": 38.133,
         "startWord": 17,
         "endWord": 30,
         "wordCount": 14,
@@ -2113,7 +2113,7 @@
       {
         "word": "ٱلنَّارِ",
         "start": 16.36,
-        "end": 18.44
+        "end": 20.433
       }
     ],
     "segments": [
@@ -2140,7 +2140,7 @@
       {
         "segmentNumber": 3,
         "start": 12.97,
-        "end": 18.44,
+        "end": 20.433,
         "startWord": 12,
         "endWord": 17,
         "wordCount": 6,
@@ -2270,7 +2270,7 @@
       {
         "word": "ٱلْأَلْبَـٰبِ",
         "start": 12.59,
-        "end": 13.41
+        "end": 16.023
       }
     ],
     "segments": null
@@ -2323,7 +2323,7 @@
       {
         "word": "أَوَّابٌ",
         "start": 11.26,
-        "end": 12.15
+        "end": 14.312
       }
     ],
     "segments": [
@@ -2350,7 +2350,7 @@
       {
         "segmentNumber": 3,
         "start": 8.06,
-        "end": 12.15,
+        "end": 14.312,
         "startWord": 6,
         "endWord": 8,
         "wordCount": 3,
@@ -2392,7 +2392,7 @@
       {
         "word": "ٱلْجِيَادُ",
         "start": 4.64,
-        "end": 6.3
+        "end": 7.353
       }
     ],
     "segments": null
@@ -2455,7 +2455,7 @@
       {
         "word": "بِٱلْحِجَابِ",
         "start": 11.51,
-        "end": 12.6
+        "end": 14.873
       }
     ],
     "segments": null
@@ -2498,7 +2498,7 @@
       {
         "word": "وَٱلْأَعْنَاقِ",
         "start": 6.1,
-        "end": 7.08
+        "end": 9.533
       }
     ],
     "segments": [
@@ -2515,7 +2515,7 @@
       {
         "segmentNumber": 2,
         "start": 2.54,
-        "end": 7.08,
+        "end": 9.533,
         "startWord": 3,
         "endWord": 6,
         "wordCount": 4,
@@ -2828,7 +2828,7 @@
       {
         "word": "حِسَابٍ",
         "start": 6.57,
-        "end": 7.07
+        "end": 9.002
       }
     ],
     "segments": null
@@ -3051,7 +3051,7 @@
       {
         "word": "ٱلْأَلْبَـٰبِ",
         "start": 15.96,
-        "end": 17.0
+        "end": 19.253
       }
     ],
     "segments": null
@@ -3144,7 +3144,7 @@
       {
         "word": "أَوَّابٌ",
         "start": 16.02,
-        "end": 17.11
+        "end": 19.163
       }
     ],
     "segments": [
@@ -3181,7 +3181,7 @@
       {
         "segmentNumber": 4,
         "start": 12.66,
-        "end": 17.11,
+        "end": 19.163,
         "startWord": 14,
         "endWord": 16,
         "wordCount": 3,
@@ -3299,7 +3299,7 @@
       {
         "word": "ٱلْأَخْيَارِ",
         "start": 5.82,
-        "end": 8.0
+        "end": 9.863
       }
     ],
     "segments": null
@@ -3470,7 +3470,7 @@
       {
         "word": "ٱلْأَبْوَٰبُ",
         "start": 5.8,
-        "end": 6.71
+        "end": 8.732
       }
     ],
     "segments": null
@@ -3579,7 +3579,7 @@
       {
         "word": "ٱلْحِسَابِ",
         "start": 3.6,
-        "end": 4.46
+        "end": 6.732
       }
     ],
     "segments": null
@@ -3622,7 +3622,7 @@
       {
         "word": "نَّفَادٍ",
         "start": 5.38,
-        "end": 6.34
+        "end": 8.852
       }
     ],
     "segments": null
@@ -3660,7 +3660,7 @@
       {
         "word": "مَـَٔابٍ",
         "start": 5.47,
-        "end": 5.73
+        "end": 8.793
       }
     ],
     "segments": [
@@ -3677,7 +3677,7 @@
       {
         "segmentNumber": 2,
         "start": 1.59,
-        "end": 5.73,
+        "end": 8.793,
         "startWord": 2,
         "endWord": 5,
         "wordCount": 4,
@@ -3765,7 +3765,7 @@
       {
         "word": "أَزْوَٰجٌ",
         "start": 4.96,
-        "end": 5.62
+        "end": 8.332
       }
     ],
     "segments": null
@@ -4031,7 +4031,7 @@
       {
         "word": "ٱلنَّارِ",
         "start": 10.24,
-        "end": 11.43
+        "end": 13.822
       }
     ],
     "segments": null
@@ -4233,7 +4233,7 @@
       {
         "word": "ٱلْقَهَّارُ",
         "start": 10.4,
-        "end": 11.08
+        "end": 13.523
       }
     ],
     "segments": [
@@ -4250,7 +4250,7 @@
       {
         "segmentNumber": 2,
         "start": 5.87,
-        "end": 11.08,
+        "end": 13.523,
         "startWord": 4,
         "endWord": 11,
         "wordCount": 8,
@@ -4297,7 +4297,7 @@
       {
         "word": "ٱلْغَفَّـٰرُ",
         "start": 5.81,
-        "end": 6.89
+        "end": 9.613
       }
     ],
     "segments": null

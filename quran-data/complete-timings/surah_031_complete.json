@@ -822,7 +822,7 @@
       {
         "word": "مُّبِينٍ",
         "start": 13.19,
-        "end": 14.77
+        "end": 15.713
       }
     ],
     "segments": [
@@ -839,7 +839,7 @@
       {
         "segmentNumber": 2,
         "start": 8.58,
-        "end": 14.77,
+        "end": 15.713,
         "startWord": 9,
         "endWord": 14,
         "wordCount": 6,

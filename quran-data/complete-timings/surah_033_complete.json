@@ -5096,7 +5096,7 @@
       {
         "word": "كَثِيرًا",
         "start": 6.13,
-        "end": 6.94
+        "end": 8.482
       }
     ],
     "segments": null
@@ -6948,7 +6948,7 @@
       {
         "word": "عَلِيمًا",
         "start": 7.87,
-        "end": 8.97
+        "end": 9.582
       }
     ],
     "segments": null
@@ -7116,7 +7116,7 @@
       {
         "word": "شَهِيدًا",
         "start": 48.35,
-        "end": 49.27
+        "end": 49.962
       }
     ],
     "segments": [
@@ -7143,7 +7143,7 @@
       {
         "segmentNumber": 3,
         "start": 43.49,
-        "end": 49.27,
+        "end": 49.962,
         "startWord": 24,
         "endWord": 31,
         "wordCount": 8,

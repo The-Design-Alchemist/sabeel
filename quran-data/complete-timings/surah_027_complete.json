@@ -699,7 +699,7 @@
       {
         "word": "رَّحِيمٌ",
         "start": 12.81,
-        "end": 13.48
+        "end": 15.332
       }
     ],
     "segments": null
@@ -7174,7 +7174,7 @@
       {
         "word": "تَفْعَلُونَ",
         "start": 21.9,
-        "end": 24.73
+        "end": 25.492
       }
     ],
     "segments": [
@@ -7201,7 +7201,7 @@
       {
         "segmentNumber": 3,
         "start": 17.68,
-        "end": 24.73,
+        "end": 25.492,
         "startWord": 15,
         "endWord": 19,
         "wordCount": 5,
@@ -7652,7 +7652,7 @@
       {
         "word": "تَعْمَلُونَ",
         "start": 12.4,
-        "end": 14.89
+        "end": 15.742
       }
     ],
     "segments": [
@@ -7669,7 +7669,7 @@
       {
         "segmentNumber": 2,
         "start": 7.92,
-        "end": 14.89,
+        "end": 15.742,
         "startWord": 6,
         "endWord": 11,
         "wordCount": 6,

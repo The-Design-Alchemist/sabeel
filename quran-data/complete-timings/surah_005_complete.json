@@ -1119,7 +1119,7 @@
       {
         "word": "ٱلْحِسَابِ",
         "start": 39.31,
-        "end": 39.96
+        "end": 41.712
       }
     ],
     "segments": [
@@ -1176,7 +1176,7 @@
       {
         "segmentNumber": 6,
         "start": 35.77,
-        "end": 39.96,
+        "end": 41.712,
         "startWord": 31,
         "endWord": 35,
         "wordCount": 5,
@@ -6577,7 +6577,7 @@
       {
         "word": "رَّحِيمٌ",
         "start": 14.13,
-        "end": 14.61
+        "end": 16.992
       }
     ],
     "segments": [
@@ -6594,7 +6594,7 @@
       {
         "segmentNumber": 2,
         "start": 10.98,
-        "end": 14.61,
+        "end": 16.992,
         "startWord": 10,
         "endWord": 14,
         "wordCount": 5,
@@ -10909,7 +10909,7 @@
       {
         "word": "ٱلْمُفْسِدِينَ",
         "start": 56.0,
-        "end": 57.22
+        "end": 58.873
       }
     ],
     "segments": [
@@ -10986,7 +10986,7 @@
       {
         "segmentNumber": 8,
         "start": 53.74,
-        "end": 57.22,
+        "end": 58.873,
         "startWord": 49,
         "endWord": 53,
         "wordCount": 5,
@@ -12869,7 +12869,7 @@
       {
         "word": "ٱلسَّبِيلِ",
         "start": 25.39,
-        "end": 26.19
+        "end": 27.503
       }
     ],
     "segments": null

@@ -407,7 +407,7 @@
       {
         "word": "ٱلْقَهَّارُ",
         "start": 16.27,
-        "end": 17.02
+        "end": 19.062
       }
     ],
     "segments": [
@@ -434,7 +434,7 @@
       {
         "segmentNumber": 3,
         "start": 13.97,
-        "end": 17.02,
+        "end": 19.062,
         "startWord": 13,
         "endWord": 17,
         "wordCount": 5,
@@ -581,7 +581,7 @@
       {
         "word": "ٱلْغَفَّـٰرُ",
         "start": 27.14,
-        "end": 27.92
+        "end": 30.073
       }
     ],
     "segments": [
@@ -628,7 +628,7 @@
       {
         "segmentNumber": 5,
         "start": 24.98,
-        "end": 27.92,
+        "end": 30.073,
         "startWord": 22,
         "endWord": 26,
         "wordCount": 5,
@@ -1502,7 +1502,7 @@
       {
         "word": "ٱلْأَلْبَـٰبِ",
         "start": 29.76,
-        "end": 30.55
+        "end": 32.572
       }
     ],
     "segments": [
@@ -1529,7 +1529,7 @@
       {
         "segmentNumber": 3,
         "start": 26.25,
-        "end": 30.55,
+        "end": 32.572,
         "startWord": 21,
         "endWord": 25,
         "wordCount": 5,
@@ -1661,7 +1661,7 @@
       {
         "word": "حِسَابٍ",
         "start": 21.47,
-        "end": 21.94
+        "end": 23.872
       }
     ],
     "segments": [
@@ -1698,7 +1698,7 @@
       {
         "segmentNumber": 4,
         "start": 14.8,
-        "end": 21.94,
+        "end": 23.872,
         "startWord": 17,
         "endWord": 23,
         "wordCount": 7,
@@ -2329,7 +2329,7 @@
       {
         "word": "ٱلْأَلْبَـٰبِ",
         "start": 17.96,
-        "end": 18.78
+        "end": 21.383
       }
     ],
     "segments": [
@@ -2356,7 +2356,7 @@
       {
         "segmentNumber": 3,
         "start": 14.36,
-        "end": 18.78,
+        "end": 21.383,
         "startWord": 10,
         "endWord": 14,
         "wordCount": 5,
@@ -2536,7 +2536,7 @@
       {
         "word": "ٱلْمِيعَادَ",
         "start": 22.6,
-        "end": 23.86
+        "end": 25.973
       }
     ],
     "segments": [
@@ -2563,7 +2563,7 @@
       {
         "segmentNumber": 3,
         "start": 20.29,
-        "end": 23.86,
+        "end": 25.973,
         "startWord": 17,
         "endWord": 21,
         "wordCount": 5,
@@ -2735,7 +2735,7 @@
       {
         "word": "ٱلْأَلْبَـٰبِ",
         "start": 36.54,
-        "end": 37.36
+        "end": 39.252
       }
     ],
     "segments": [
@@ -2752,7 +2752,7 @@
       {
         "segmentNumber": 2,
         "start": 32.66,
-        "end": 37.36,
+        "end": 39.252,
         "startWord": 25,
         "endWord": 31,
         "wordCount": 7,
@@ -4134,7 +4134,7 @@
       {
         "word": "هَادٍ",
         "start": 14.67,
-        "end": 15.18
+        "end": 17.253
       }
     ],
     "segments": [
@@ -4161,7 +4161,7 @@
       {
         "segmentNumber": 3,
         "start": 9.8,
-        "end": 15.18,
+        "end": 17.253,
         "startWord": 9,
         "endWord": 16,
         "wordCount": 8,

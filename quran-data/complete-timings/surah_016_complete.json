@@ -8996,7 +8996,7 @@
       {
         "word": "لِلْمُسْلِمِينَ",
         "start": 33.13,
-        "end": 35.41
+        "end": 36.373
       }
     ],
     "segments": [
@@ -9023,7 +9023,7 @@
       {
         "segmentNumber": 3,
         "start": 20.4,
-        "end": 35.41,
+        "end": 36.373,
         "startWord": 15,
         "endWord": 25,
         "wordCount": 11,
@@ -10710,7 +10710,7 @@
       {
         "word": "ٱلْكَـٰذِبُونَ",
         "start": 13.82,
-        "end": 15.58
+        "end": 17.223
       }
     ],
     "segments": [
@@ -10727,7 +10727,7 @@
       {
         "segmentNumber": 2,
         "start": 10.33,
-        "end": 15.58,
+        "end": 17.223,
         "startWord": 8,
         "endWord": 11,
         "wordCount": 4,

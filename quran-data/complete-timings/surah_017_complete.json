@@ -6364,7 +6364,7 @@
       {
         "word": "رَحِيمًا",
         "start": 11.69,
-        "end": 12.46
+        "end": 13.152
       }
     ],
     "segments": [
@@ -6381,7 +6381,7 @@
       {
         "segmentNumber": 2,
         "start": 9.05,
-        "end": 12.46,
+        "end": 13.152,
         "startWord": 10,
         "endWord": 14,
         "wordCount": 5,

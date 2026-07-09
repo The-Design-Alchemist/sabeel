@@ -450,7 +450,7 @@
       {
         "word": "ٱلنَّارِ",
         "start": 13.66,
-        "end": 14.73
+        "end": 16.302
       }
     ],
     "segments": [
@@ -467,7 +467,7 @@
       {
         "segmentNumber": 2,
         "start": 10.85,
-        "end": 14.73,
+        "end": 16.302,
         "startWord": 9,
         "endWord": 14,
         "wordCount": 6,
@@ -2064,7 +2064,7 @@
       {
         "word": "أَلِيمٌ",
         "start": 12.94,
-        "end": 14.02
+        "end": 15.602
       }
     ],
     "segments": [
@@ -2081,7 +2081,7 @@
       {
         "segmentNumber": 2,
         "start": 5.53,
-        "end": 14.02,
+        "end": 15.602,
         "startWord": 5,
         "endWord": 11,
         "wordCount": 7,

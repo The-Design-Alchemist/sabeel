@@ -3473,7 +3473,7 @@
       {
         "word": "فَـٰسِقِينَ",
         "start": 8.94,
-        "end": 9.79
+        "end": 12.633
       }
     ],
     "segments": [
@@ -3490,7 +3490,7 @@
       {
         "segmentNumber": 2,
         "start": 5.83,
-        "end": 9.79,
+        "end": 12.633,
         "startWord": 3,
         "endWord": 7,
         "wordCount": 5,

@@ -17,7 +17,7 @@
       {
         "word": "يَتَسَآءَلُونَ",
         "start": 1.25,
-        "end": 4.03
+        "end": 6.332
       }
     ],
     "segments": null
@@ -86,7 +86,7 @@
       {
         "word": "سَيَعْلَمُونَ",
         "start": 0.93,
-        "end": 3.02
+        "end": 3.933
       }
     ],
     "segments": null
@@ -155,7 +155,7 @@
       {
         "word": "أَوْتَادًا",
         "start": 1.43,
-        "end": 3.06
+        "end": 3.703
       }
     ],
     "segments": null
@@ -196,7 +196,7 @@
       {
         "word": "سُبَاتًا",
         "start": 2.68,
-        "end": 3.65
+        "end": 4.463
       }
     ],
     "segments": null
@@ -219,7 +219,7 @@
       {
         "word": "لِبَاسًا",
         "start": 2.14,
-        "end": 3.05
+        "end": 3.853
       }
     ],
     "segments": null
@@ -293,7 +293,7 @@
       {
         "word": "وَهَّاجًا",
         "start": 2.39,
-        "end": 4.53
+        "end": 5.312
       }
     ],
     "segments": null
@@ -703,7 +703,7 @@
       {
         "word": "كِذَّابًا",
         "start": 3.48,
-        "end": 4.75
+        "end": 5.492
       }
     ],
     "segments": null
@@ -764,7 +764,7 @@
       {
         "word": "عَذَابًا",
         "start": 5.56,
-        "end": 6.28
+        "end": 7.652
       }
     ],
     "segments": null
@@ -805,7 +805,7 @@
       {
         "word": "وَأَعْنَـٰبًا",
         "start": 2.31,
-        "end": 3.63
+        "end": 4.303
       }
     ],
     "segments": null
@@ -823,7 +823,7 @@
       {
         "word": "أَتْرَابًا",
         "start": 1.5,
-        "end": 2.49
+        "end": 3.103
       }
     ],
     "segments": null
@@ -879,7 +879,7 @@
       {
         "word": "كِذَّٰبًا",
         "start": 4.97,
-        "end": 5.96
+        "end": 7.062
       }
     ],
     "segments": null
@@ -912,7 +912,7 @@
       {
         "word": "حِسَابًا",
         "start": 6.49,
-        "end": 7.52
+        "end": 8.182
       }
     ],
     "segments": null
@@ -975,7 +975,7 @@
       {
         "word": "خِطَابًا",
         "start": 11.43,
-        "end": 12.41
+        "end": 13.232
       }
     ],
     "segments": [
@@ -992,7 +992,7 @@
       {
         "segmentNumber": 2,
         "start": 8.86,
-        "end": 12.41,
+        "end": 13.232,
         "startWord": 6,
         "endWord": 10,
         "wordCount": 5,
@@ -1079,7 +1079,7 @@
       {
         "word": "صَوَابًا",
         "start": 17.65,
-        "end": 18.71
+        "end": 19.363
       }
     ],
     "segments": [
@@ -1096,7 +1096,7 @@
       {
         "segmentNumber": 2,
         "start": 6.1,
-        "end": 18.71,
+        "end": 19.363,
         "startWord": 5,
         "endWord": 14,
         "wordCount": 10,
@@ -1262,7 +1262,7 @@
       {
         "word": "تُرَٰبًۢا",
         "start": 22.57,
-        "end": 26.306
+        "end": 31.602
       }
     ],
     "segments": null

@@ -3058,12 +3058,12 @@
     "words": [
       {
         "word": "قُل",
-        "start": 0.05,
-        "end": 0.08
+        "start": 0.113,
+        "end": 0.313
       },
       {
         "word": "لِّلْمُؤْمِنِينَ",
-        "start": 0.09,
+        "start": 0.313,
         "end": 2.03
       },
       {
@@ -3145,7 +3145,7 @@
     "segments": [
       {
         "segmentNumber": 1,
-        "start": 0.05,
+        "start": 0.113,
         "end": 8.0,
         "startWord": 0,
         "endWord": 6,
@@ -4612,7 +4612,7 @@
       {
         "word": "وَٱلْـَٔاصَالِ",
         "start": 15.39,
-        "end": 17.03
+        "end": 19.413
       }
     ],
     "segments": null
@@ -4968,7 +4968,7 @@
       {
         "word": "ٱلْحِسَابِ",
         "start": 44.97,
-        "end": 45.67
+        "end": 47.102
       }
     ],
     "segments": [
@@ -4985,7 +4985,7 @@
       {
         "segmentNumber": 2,
         "start": 42.91,
-        "end": 45.67,
+        "end": 47.102,
         "startWord": 19,
         "endWord": 22,
         "wordCount": 4,

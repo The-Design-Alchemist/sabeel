@@ -1019,12 +1019,12 @@
     "words": [
       {
         "word": "قُل",
-        "start": 0.06,
-        "end": 0.08
+        "start": 0.102,
+        "end": 0.302
       },
       {
         "word": "لِّمَن",
-        "start": 0.09,
+        "start": 0.302,
         "end": 0.83
       },
       {
@@ -1166,7 +1166,7 @@
     "segments": [
       {
         "segmentNumber": 1,
-        "start": 0.06,
+        "start": 0.102,
         "end": 4.72,
         "startWord": 0,
         "endWord": 5,
@@ -4869,7 +4869,7 @@
       {
         "word": "مُّبْلِسُونَ",
         "start": 28.29,
-        "end": 29.7
+        "end": 31.312
       }
     ],
     "segments": null
@@ -5344,12 +5344,12 @@
     "words": [
       {
         "word": "قُل",
-        "start": 0.2,
-        "end": 0.2
+        "start": 0.163,
+        "end": 0.363
       },
       {
         "word": "لَّآ",
-        "start": 0.2,
+        "start": 0.363,
         "end": 2.33
       },
       {
@@ -5501,7 +5501,7 @@
     "segments": [
       {
         "segmentNumber": 1,
-        "start": 0.2,
+        "start": 0.163,
         "end": 18.35,
         "startWord": 0,
         "endWord": 14,
@@ -6212,12 +6212,12 @@
       },
       {
         "word": "قُل",
-        "start": 11.72,
-        "end": 11.73
+        "start": 11.762,
+        "end": 11.962
       },
       {
         "word": "لَّآ",
-        "start": 11.74,
+        "start": 11.962,
         "end": 12.18
       },
       {
@@ -18331,12 +18331,12 @@
     "words": [
       {
         "word": "قُل",
-        "start": 0.06,
-        "end": 0.08
+        "start": 0.102,
+        "end": 0.302
       },
       {
         "word": "لَّآ",
-        "start": 0.09,
+        "start": 0.302,
         "end": 2.66
       },
       {
@@ -18533,7 +18533,7 @@
     "segments": [
       {
         "segmentNumber": 1,
-        "start": 0.06,
+        "start": 0.102,
         "end": 35.1,
         "startWord": 0,
         "endWord": 28,

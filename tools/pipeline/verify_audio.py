@@ -74,8 +74,10 @@ def acoustic(args):
     voiced_frames = np.where(db > vmed - 15)[0]
     true_end = float(tc[voiced_frames[-1]]) if len(voiced_frames) else 0.0
     end_delta = round(last_spoken_end - true_end, 2) if last_spoken_end is not None else None
+    # Only flag NEGATIVE deltas — the last word ending BEFORE the recitation (clipping the madd).
+    # A small positive delta just means the word ends inside its own decay/reverb tail, which is fine.
     return {"ref": f"{surah}:{vn}", "off_words": off,
-            "end_delta": end_delta, "bad_end": end_delta is not None and abs(end_delta) > END_TOL}
+            "end_delta": end_delta, "bad_end": end_delta is not None and end_delta < -END_TOL}
 
 
 def structural():

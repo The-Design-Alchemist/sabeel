@@ -12,7 +12,7 @@
       {
         "word": "حمٓ",
         "start": 0.04,
-        "end": 3.59
+        "end": 4.522
       }
     ],
     "segments": null
@@ -3929,7 +3929,7 @@
       {
         "word": "كَٱلْأَعْلَـٰمِ",
         "start": 4.09,
-        "end": 5.36
+        "end": 7.263
       }
     ],
     "segments": null
@@ -6041,7 +6041,7 @@
       {
         "word": "مُّسْتَقِيمٍ",
         "start": 32.94,
-        "end": 34.02
+        "end": 36.193
       }
     ],
     "segments": [
@@ -6068,7 +6068,7 @@
       {
         "segmentNumber": 3,
         "start": 26.41,
-        "end": 34.02,
+        "end": 36.193,
         "startWord": 23,
         "endWord": 28,
         "wordCount": 6,

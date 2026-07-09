@@ -1217,7 +1217,7 @@
       {
         "word": "ٱلْعِقَابِ",
         "start": 17.17,
-        "end": 19.83
+        "end": 20.442
       }
     ],
     "segments": [
@@ -1234,7 +1234,7 @@
       {
         "segmentNumber": 2,
         "start": 8.81,
-        "end": 19.83,
+        "end": 20.442,
         "startWord": 5,
         "endWord": 13,
         "wordCount": 9,
@@ -1276,7 +1276,7 @@
       {
         "word": "ٱلنَّارِ",
         "start": 7.24,
-        "end": 8.57
+        "end": 11.602
       }
     ],
     "segments": null
@@ -1339,7 +1339,7 @@
       {
         "word": "ٱلْأَدْبَارَ",
         "start": 14.08,
-        "end": 15.08
+        "end": 16.913
       }
     ],
     "segments": null
@@ -7756,7 +7756,7 @@
       {
         "word": "حَكِيمٌ",
         "start": 12.6,
-        "end": 13.27
+        "end": 15.652
       }
     ],
     "segments": [
@@ -7773,7 +7773,7 @@
       {
         "segmentNumber": 2,
         "start": 10.46,
-        "end": 13.27,
+        "end": 15.652,
         "startWord": 10,
         "endWord": 13,
         "wordCount": 4,

@@ -604,7 +604,7 @@
       {
         "word": "مَّرِيٓـًٔا",
         "start": 18.12,
-        "end": 18.64
+        "end": 20.633
       }
     ],
     "segments": [
@@ -621,7 +621,7 @@
       {
         "segmentNumber": 2,
         "start": 7.19,
-        "end": 18.64,
+        "end": 20.633,
         "startWord": 4,
         "endWord": 14,
         "wordCount": 11,
@@ -5016,7 +5016,7 @@
       {
         "word": "عَظِيمًا",
         "start": 13.08,
-        "end": 13.94
+        "end": 14.793
       }
     ],
     "segments": null
@@ -14237,7 +14237,7 @@
       {
         "word": "عَظِيمًا",
         "start": 31.78,
-        "end": 32.54
+        "end": 33.193
       }
     ],
     "segments": null
@@ -17167,7 +17167,7 @@
       {
         "word": "عَظِيمًا",
         "start": 37.77,
-        "end": 38.82
+        "end": 39.462
       }
     ],
     "segments": [
@@ -17204,7 +17204,7 @@
       {
         "segmentNumber": 4,
         "start": 34.08,
-        "end": 38.82,
+        "end": 39.462,
         "startWord": 30,
         "endWord": 35,
         "wordCount": 6,
@@ -21546,7 +21546,7 @@
       {
         "word": "عَلِيمًا",
         "start": 12.29,
-        "end": 13.32
+        "end": 14.053
       }
     ],
     "segments": [
@@ -21563,7 +21563,7 @@
       {
         "segmentNumber": 2,
         "start": 8.9,
-        "end": 13.32,
+        "end": 14.053,
         "startWord": 7,
         "endWord": 11,
         "wordCount": 5,
