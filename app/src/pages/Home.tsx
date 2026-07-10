@@ -193,7 +193,9 @@ export default function Home() {
                         placeholder="Search for Surah"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
-                        className="h-12 rounded-[12px] border-input pr-12 text-base font-medium"
+                        // ring-inset: the tab-swipe wrapper is overflow-hidden, so an outset
+                        // focus ring would be clipped left/right — draw it inside instead.
+                        className="h-12 rounded-[12px] border-input pr-12 text-base font-medium focus-visible:ring-inset"
                       />
                       <Search
                         className="pointer-events-none absolute right-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground"

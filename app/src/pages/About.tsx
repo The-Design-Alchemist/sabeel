@@ -141,26 +141,11 @@ export default function About() {
               </Row>
               <Row href={`mailto:${SUPPORT_EMAIL}?subject=Sabeel%20feedback`}>
                 <Mail className="size-[18px] shrink-0 text-teal" />
-                Report an error &middot; Contact
+                Contact
                 <ExternalLink className="ml-auto size-4 text-muted-foreground" />
               </Row>
             </div>
           </section>
-
-          {/* TEMPORARY (testing) — reset the first-launch flag and replay the onboarding. */}
-          <button
-            onClick={() => {
-              try {
-                localStorage.removeItem("sabeel_onboarded")
-              } catch {
-                /* ignore */
-              }
-              location.reload()
-            }}
-            className="mx-auto rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-ink outline-none transition-colors hover:bg-ground focus-visible:ring-2 focus-visible:ring-ring/50"
-          >
-            Replay intro
-          </button>
 
           <footer className="flex flex-col items-center gap-1 pt-2 text-center text-[13px] text-muted-foreground">
             <span>
