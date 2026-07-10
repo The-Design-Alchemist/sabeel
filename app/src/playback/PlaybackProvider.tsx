@@ -96,6 +96,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
 
   const [mode, setMode] = useState<Mode>(null)
   const [activeWord, setActiveWord] = useState(-1)
+  const [finished, setFinished] = useState(false) // playback reached the end → hide the mini-player
 
   // ---- surah session state ----
   const [surahId, setSurahId] = useState<number | null>(null)
@@ -264,7 +265,12 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
     }
   }, [mode, surahId, verseIndex, verse, verseNum, started])
 
-  // ---- end-of-track: loop or advance, per mode ---------------------------
+  // Any resumed playback brings the mini-player back after a track has finished.
+  useEffect(() => {
+    if (playing) setFinished(false)
+  }, [playing])
+
+  // ---- end-of-track: loop, advance, or finish, per mode ------------------
   useEffect(() => {
     setOnEnded(() => {
       if (mode === "surah") {
@@ -276,11 +282,15 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
           setVerseIndex(nx)
           setSegmentIndex(0)
           play(srcFor(nx))
+        } else if (!repeat) {
+          setFinished(true) // last verse played through → surah complete, retire the pill
         }
       } else if (mode === "dua") {
         if (duaRepeat) {
           const src = duaSrc(duas[duaIndex])
           if (src) play(src, 0)
+        } else {
+          setFinished(true) // dua finished → retire the pill
         }
       }
     })
@@ -566,7 +576,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
 
   // ---- unified "now playing" for the mini-player -------------------------
   const nowPlaying = useMemo<NowPlaying | null>(() => {
-    if (mode === "surah" && started && data) {
+    if (mode === "surah" && started && data && !finished) {
       return {
         kind: "surah",
         title: data.englishName,
@@ -576,7 +586,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
         atEnd: verseIndex >= verses.length - 1,
       }
     }
-    if (mode === "dua" && duaStarted && duas.length) {
+    if (mode === "dua" && duaStarted && duas.length && !finished) {
       return {
         kind: "dua",
         title: duaTopicName,
@@ -587,7 +597,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       }
     }
     return null
-  }, [mode, started, data, verseNum, verses.length, surahId, verseIndex, duaStarted, duas.length, duaTopicName, duaIndex, duaCategoryId, duaTopicId])
+  }, [mode, started, data, verseNum, verses.length, surahId, verseIndex, duaStarted, duas.length, duaTopicName, duaIndex, duaCategoryId, duaTopicId, finished])
 
   const api = useMemo<PlaybackApi>(
     () => ({

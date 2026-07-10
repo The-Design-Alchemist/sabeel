@@ -1,9 +1,9 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
 import { ArrowLeft, Check, ChevronLeft, ChevronRight, Download, Loader2, WifiOff } from "lucide-react"
 import { isBundledAudio } from "@/data/quran"
-import { downloadSurah, isDownloaded, useDownloads } from "@/lib/downloads"
+import { isDownloaded, queueDownload, useDownloadState, useDownloads } from "@/lib/downloads"
 import {
   Select,
   SelectContent,
@@ -37,11 +37,12 @@ const slide = {
 export default function Reader() {
   const { id } = useParams()
   const surahId = Number(id)
+  const navigate = useNavigate()
   useDownloads() // re-render if this surah's downloaded state changes
+  const dl = useDownloadState(surahId) // live queued/active/error progress from the global store
 
   const pb = usePlayback()
   const [settings, updateSettings] = useReaderSettings()
-  const [dl, setDl] = useState<{ done: number; total: number } | null>(null) // save-for-offline progress
   const [resume, setResume] = useState<{ verse: number; lastPlayed: number } | null>(null)
   const [repeatNotif, setRepeatNotif] = useState<string | null>(null)
 
@@ -84,16 +85,11 @@ export default function Reader() {
     }
   }, [data, surahId, started])
 
-  const saveOffline = async () => {
-    if (dl || !verses.length) return
-    setDl({ done: 0, total: verses.length })
-    try {
-      await downloadSurah(surahId, verses.length, (p) => setDl(p))
-    } catch {
-      /* stay on streaming — user can retry */
-    } finally {
-      setDl(null)
-    }
+  // Kick off (or resume) the download in the global store; progress lives there now, so it
+  // survives leaving this screen and shows up on the Downloads manager too.
+  const saveOffline = () => {
+    if (!verses.length) return
+    queueDownload(surahId, verses.length)
   }
 
   const onToggleRepeat = () => {
@@ -172,11 +168,22 @@ export default function Reader() {
           <div className="flex items-center gap-1">
             {data &&
               !isBundledAudio(surahId) &&
-              (dl ? (
-                <span className="inline-flex items-center gap-1.5 px-2 text-xs tabular-nums text-white/90">
+              (dl && dl.phase !== "error" ? (
+                <button
+                  onClick={() => navigate(`/downloads?focus=${surahId}`)}
+                  aria-label="View download progress and manage downloads"
+                  title="View downloads"
+                  className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-xs font-medium tabular-nums text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
+                >
                   <Loader2 className="size-4 animate-spin" />
-                  <CountUp value={dl.done} />/{dl.total}
-                </span>
+                  {dl.phase === "queued" ? (
+                    "Queued"
+                  ) : (
+                    <span>
+                      <CountUp value={dl.done} />/{dl.total}
+                    </span>
+                  )}
+                </button>
               ) : isDownloaded(surahId) ? (
                 <span
                   className="inline-flex size-10 items-center justify-center text-white/80"

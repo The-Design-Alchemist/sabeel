@@ -30,6 +30,9 @@ const slide = {
 export default function DuaReader() {
   const { categoryId = "", topicId = "" } = useParams()
   const cat = duaCategory(categoryId)
+  // Tint the header to match the category card the user tapped (solid pastel from the
+  // duas data), falling back to the old faded green if the category can't be resolved.
+  const headerColor = cat?.color ?? "#eef4ea"
   const pb = usePlayback()
   const [settings, updateSettings] = useReaderSettings()
 
@@ -42,20 +45,24 @@ export default function DuaReader() {
     pb.openDua(categoryId, topicId)
   }, [categoryId, topicId, pb.openDua])
 
-  // Light header, so flip the status bar to dark icons (and restore on exit).
+  // Header tinted to the category's pastel — all five are light, so keep the status bar on
+  // dark icons; restore the app's teal on exit.
   useEffect(() => {
-    setStatusBar("#eef4ea", false)
+    setStatusBar(headerColor, false)
     return () => {
       setStatusBar("#042a2b", true)
     }
-  }, [])
+  }, [headerColor])
 
   const renderWords = useMemo(() => dua?.words?.map((w) => w.w), [dua])
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden bg-ground">
       {/* Light header — matches the design; status bar flips to dark icons for it. */}
-      <header className="flex shrink-0 flex-col gap-3 bg-[#eef4ea] px-5 pb-4 pt-[max(1rem,env(safe-area-inset-top))]">
+      <header
+        style={{ backgroundColor: headerColor }}
+        className="flex shrink-0 flex-col gap-3 px-5 pb-4 pt-[max(1rem,env(safe-area-inset-top))]"
+      >
         <div className="flex items-center justify-between">
           <Link
             to="/"

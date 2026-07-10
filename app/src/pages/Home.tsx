@@ -1,4 +1,4 @@
-import { type PointerEvent, useMemo, useRef, useState } from "react"
+import { type PointerEvent, useEffect, useMemo, useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
 import { Download, Info, Search } from "lucide-react"
@@ -6,11 +6,13 @@ import { SURAHS, type Surah } from "@/data/surahs"
 import { Logo } from "@/components/Logo"
 import { SurahCard } from "@/components/SurahCard"
 import { DuaCategories } from "@/components/DuaCategories"
+import { MakerDialog } from "@/components/MakerDialog"
 import { RecentSection } from "@/components/RecentSection"
 import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 import { useRecents } from "@/hooks/useRecents"
 import { easeOut, fadeRise, staggerContainer } from "@/lib/motion"
+import { usePlayback } from "@/playback/PlaybackProvider"
 
 function filterSurahs(list: Surah[], q: string): Surah[] {
   const term = q.toLowerCase().trim()
@@ -73,9 +75,33 @@ export default function Home() {
 
   const recents = useRecents()
   const navigate = useNavigate()
+  const pb = usePlayback()
+  const pillVisible = !!pb.nowPlaying // reserve bottom room so the last card clears the floating pill
   const results = useMemo(() => filterSurahs(SURAHS, query), [query])
 
   const openSurah = (id: number) => navigate(`/surah/${id}`)
+
+  // First landing after onboarding → the one-time "about the maker" note.
+  const [makerOpen, setMakerOpen] = useState(false)
+  useEffect(() => {
+    let acked = true
+    try {
+      acked = localStorage.getItem("sabeel_maker_ack") === "1"
+    } catch {
+      /* ignore */
+    }
+    if (acked) return
+    const t = setTimeout(() => setMakerOpen(true), 450)
+    return () => clearTimeout(t)
+  }, [])
+  const closeMaker = () => {
+    try {
+      localStorage.setItem("sabeel_maker_ack", "1")
+    } catch {
+      /* ignore */
+    }
+    setMakerOpen(false)
+  }
 
   return (
     <motion.div
@@ -177,7 +203,12 @@ export default function Home() {
                   </div>
 
                   {/* Scrollable: cards + footer */}
-                  <div className="flex flex-1 flex-col gap-10 overflow-y-auto pb-10">
+                  <div
+                    className={cn(
+                      "flex flex-1 flex-col gap-10 overflow-y-auto",
+                      pillVisible ? "pb-[calc(env(safe-area-inset-bottom)+6.5rem)]" : "pb-10"
+                    )}
+                  >
                     {/* Grid / empty state */}
                     <div className="mx-auto w-full max-w-[1280px] flex-1">
                       {results.length === 0 ? (
@@ -210,7 +241,12 @@ export default function Home() {
                   </div>
                 </>
               ) : (
-                <div className="flex flex-1 flex-col overflow-y-auto pb-10">
+                <div
+                  className={cn(
+                    "flex flex-1 flex-col overflow-y-auto",
+                    pillVisible ? "pb-[calc(env(safe-area-inset-bottom)+6.5rem)]" : "pb-10"
+                  )}
+                >
                   <DuaCategories />
                 </div>
               )}
@@ -218,6 +254,7 @@ export default function Home() {
           </AnimatePresence>
         </div>
       </motion.main>
+      <MakerDialog open={makerOpen} onClose={closeMaker} />
     </motion.div>
   )
 }

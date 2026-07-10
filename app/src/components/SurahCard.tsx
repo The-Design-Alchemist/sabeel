@@ -1,7 +1,9 @@
 import { motion } from "motion/react"
+import { Check, Loader2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { springSnappy, springPress } from "@/lib/motion"
 import { useHasHover } from "@/hooks/useHasHover"
+import { isDownloaded, useDownloadState, useDownloads } from "@/lib/downloads"
 import type { Surah } from "@/data/surahs"
 
 type Props = {
@@ -13,11 +15,15 @@ type Props = {
  *  keyboard-focusable and screen-reader friendly (the old app used a div+onclick). */
 export function SurahCard({ surah, onOpen }: Props) {
   const hasHover = useHasHover()
+  useDownloads() // reflect a surah being saved/deleted
+  const dl = useDownloadState(surah.id)
+  const saved = isDownloaded(surah.id)
+  const downloading = !!dl && dl.phase !== "error"
   return (
     <motion.button
       type="button"
       onClick={() => onOpen(surah.id)}
-      aria-label={`Open Surah ${surah.id}, ${surah.englishName} — ${surah.englishMeaning}, ${surah.verses} verses, ${surah.revelation}`}
+      aria-label={`Open Surah ${surah.id}, ${surah.englishName} — ${surah.englishMeaning}, ${surah.verses} verses, ${surah.revelation}${saved ? ", saved offline" : downloading ? ", downloading" : ""}`}
       whileHover={hasHover ? { y: -3, transition: springSnappy } : undefined}
       whileTap={{ scale: 0.97, transition: springPress }}
       className="group flex w-full flex-col gap-3 rounded-[12px] bg-surface p-3 text-left shadow-card transition-shadow duration-200 hover:shadow-card-hover"
@@ -55,7 +61,14 @@ export function SurahCard({ surah, onOpen }: Props) {
             <span>Verses</span>
           </span>
         </div>
-        <Badge variant="revelation">{surah.revelation}</Badge>
+        <div className="flex items-center gap-2">
+          {downloading ? (
+            <Loader2 className="size-4 shrink-0 animate-spin text-teal-deep" aria-hidden="true" />
+          ) : saved ? (
+            <Check className="size-4 shrink-0 text-teal-deep" aria-hidden="true" />
+          ) : null}
+          <Badge variant="revelation">{surah.revelation}</Badge>
+        </div>
       </div>
     </motion.button>
   )

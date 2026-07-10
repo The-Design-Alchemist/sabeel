@@ -33,7 +33,9 @@ export function MiniPlayer() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
           transition={{ type: "spring", duration: 0.45, bounce: 0.2 }}
-          className="fixed inset-x-0 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-50 px-3"
+          // px matches Home's content container (px-6 md:px-10 xl:px-20) so the pill's
+          // edges line up with the surah cards instead of overhanging them.
+          className="fixed inset-x-0 bottom-[max(2rem,calc(env(safe-area-inset-bottom)_+_1.25rem))] z-50 px-6 md:px-10 xl:px-20"
         >
           <div className="flex w-full items-center justify-between gap-2 rounded-full bg-teal-deep py-1.5 pl-1.5 pr-2 text-white shadow-[0_12px_34px_-8px_rgba(4,42,43,0.65)] ring-1 ring-white/10">
             {/* Left: play/pause + title (tap to return) */}

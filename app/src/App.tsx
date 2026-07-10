@@ -3,8 +3,12 @@ import { AnimatePresence, MotionConfig, motion } from "motion/react"
 import { HashRouter, Routes, Route, useLocation } from "react-router-dom"
 import Home from "@/pages/Home"
 import { useAndroidBackButton } from "@/hooks/useAndroidBackButton"
+import { Toaster } from "sonner"
 import { PlaybackProvider } from "@/playback/PlaybackProvider"
 import { MiniPlayer } from "@/components/MiniPlayer"
+import { DownloadNotifications } from "@/components/DownloadNotifications"
+import { Onboarding } from "@/components/Onboarding"
+import { useOnboarded } from "@/hooks/useOnboarded"
 
 // Code-split the reader so the home screen stays lean (Radix Select/Dialog/Switch,
 // the router, and reader logic load only when a surah is opened).
@@ -90,14 +94,28 @@ export default function App() {
   // reducedMotion="user" makes every animation honor the OS "reduce motion" setting.
   // HashRouter works on GitHub Pages and inside the Capacitor WebView without server
   // rewrites (deep links never 404).
+  const [onboarded, completeOnboarding] = useOnboarded()
   return (
     <MotionConfig reducedMotion="user">
-      <HashRouter>
-        <PlaybackProvider>
-          <AppRoutes />
-          <MiniPlayer />
-        </PlaybackProvider>
-      </HashRouter>
+      {onboarded ? (
+        <HashRouter>
+          <PlaybackProvider>
+            <AppRoutes />
+            <MiniPlayer />
+            <DownloadNotifications />
+          </PlaybackProvider>
+        </HashRouter>
+      ) : (
+        <Onboarding onDone={completeOnboarding} />
+      )}
+      {/* Bottom-center, dark near-black surface; offset clears the home bar / safe area. */}
+      <Toaster
+        position="bottom-center"
+        theme="dark"
+        offset={{ bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}
+        mobileOffset={{ bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}
+        toastOptions={{ style: { borderRadius: "16px", fontFamily: "inherit" } }}
+      />
     </MotionConfig>
   )
 }

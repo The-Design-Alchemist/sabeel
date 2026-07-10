@@ -2,6 +2,7 @@ import { motion } from "motion/react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, Mail, Shield, ExternalLink } from "lucide-react"
 import { fadeRise, staggerContainer } from "@/lib/motion"
+import fullLogo from "@/assets/sabeel-full-logo.png"
 
 // ─── Fill in before publishing ──────────────────────────────────────────────
 // A public support inbox and the hosted privacy-policy URL. The email is a mailto
@@ -77,16 +78,13 @@ export default function About() {
         <div className="mx-auto flex w-full max-w-[640px] flex-col gap-8 px-6 py-10 pb-[max(2.5rem,env(safe-area-inset-bottom))]">
           {/* Identity */}
           <section className="flex flex-col items-center gap-3 text-center">
-            <span dir="rtl" lang="ar" className="font-arabic text-5xl leading-none text-teal-deep">
-              سبيل
-            </span>
-            <div>
-              <h1 className="text-2xl font-semibold text-ink">Sabeel</h1>
-              <p className="mx-auto mt-1.5 max-w-[44ch] text-sm leading-relaxed text-muted-foreground">
-                A calm, word-by-word Qur&rsquo;an reader — recitation, translation, and waqf-segment
-                memorization, fully offline.
-              </p>
-            </div>
+            <h1 className="leading-none">
+              <img src={fullLogo} alt="Sabeel" className="mx-auto size-28" />
+            </h1>
+            <p className="mx-auto max-w-[44ch] text-sm leading-relaxed text-muted-foreground">
+              A calm, word-by-word Qur&rsquo;an reader — recitation, translation, and waqf-segment
+              memorization, fully offline.
+            </p>
             <span className="rounded-full bg-surface px-3 py-1 text-xs font-medium tabular-nums text-muted-foreground">
               Version {APP_VERSION}
             </span>
@@ -148,6 +146,21 @@ export default function About() {
               </Row>
             </div>
           </section>
+
+          {/* TEMPORARY (testing) — reset the first-launch flag and replay the onboarding. */}
+          <button
+            onClick={() => {
+              try {
+                localStorage.removeItem("sabeel_onboarded")
+              } catch {
+                /* ignore */
+              }
+              location.reload()
+            }}
+            className="mx-auto rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-ink outline-none transition-colors hover:bg-ground focus-visible:ring-2 focus-visible:ring-ring/50"
+          >
+            Replay intro
+          </button>
 
           <footer className="flex flex-col items-center gap-1 pt-2 text-center text-[13px] text-muted-foreground">
             <span>
