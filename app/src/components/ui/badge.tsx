@@ -16,7 +16,7 @@ const badgeVariants = cva(
         outline: "text-foreground",
         // Sabeel: the Makki/Madani revelation chip
         revelation:
-          "border-transparent bg-line text-teal-deep uppercase tracking-[0.5px] rounded-[2px] px-1 py-0 text-[10px] font-semibold",
+          "border-transparent bg-line text-teal-deep uppercase tracking-[0.5px] rounded-sm px-1 py-0 text-[10px] font-semibold",
       },
     },
     defaultVariants: {

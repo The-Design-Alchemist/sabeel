@@ -28,8 +28,8 @@ export function useRecents(): RecentEntry[] {
           return {
             surah,
             currentVerse,
-            progressPercent: Math.round((currentVerse / surah.verses) * 100),
-            lastPlayed: Number(p.lastPlayed) || Date.now(),
+            progressPercent: Math.max(0, Math.min(100, Math.round((currentVerse / surah.verses) * 100))),
+            lastPlayed: Number(p.lastPlayed) || 0, // 0 = unknown; the card hides the line
           }
         })
         .filter((e): e is RecentEntry => e !== null)

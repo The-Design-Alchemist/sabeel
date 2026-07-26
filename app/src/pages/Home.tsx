@@ -1,7 +1,7 @@
-import { type PointerEvent, useEffect, useMemo, useRef, useState } from "react"
+import { type PointerEvent, type UIEvent, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
-import { Download, Info, Search } from "lucide-react"
+import { Download, Info, Search, X } from "lucide-react"
 import { SURAHS, type Surah } from "@/data/surahs"
 import { Logo } from "@/components/Logo"
 import { SurahCard } from "@/components/SurahCard"
@@ -11,7 +11,7 @@ import { RecentSection } from "@/components/RecentSection"
 import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 import { useRecents } from "@/hooks/useRecents"
-import { easeOut, fadeRise, staggerContainer } from "@/lib/motion"
+import { easeOut, fadeRise, springPress, springSnappy, staggerContainer } from "@/lib/motion"
 import { usePlayback } from "@/playback/PlaybackProvider"
 
 function filterSurahs(list: Surah[], q: string): Surah[] {
@@ -49,6 +49,8 @@ export default function Home() {
     return sessionStorage.getItem("sabeel.homeTab") === "dua" ? "dua" : "surah"
   })
   const [dir, setDir] = useState(0)
+  // No haptic on the tab switch: the panel slides and the pill moves, so the change is already
+  // unmissable — and this is the most-repeated interaction on the screen.
   const selectTab = (t: HomeTab) => {
     if (t === tab) return
     setDir(t === "dua" ? 1 : -1)
@@ -73,24 +75,48 @@ export default function Home() {
     }
   }
 
+  // Preserve each tab's scroll position across the remount a tab switch causes.
+  const tabRef = useRef(tab)
+  tabRef.current = tab
+  const scrollPos = useRef<Record<HomeTab, number>>({ surah: 0, dua: 0 })
+  const attachScroll = useCallback((el: HTMLDivElement | null) => {
+    if (el) el.scrollTop = scrollPos.current[tabRef.current]
+  }, [])
+  const handleScroll = useCallback((e: UIEvent<HTMLDivElement>) => {
+    scrollPos.current[tabRef.current] = e.currentTarget.scrollTop
+  }, [])
+
   const recents = useRecents()
   const navigate = useNavigate()
   const pb = usePlayback()
   const pillVisible = !!pb.nowPlaying // reserve bottom room so the last card clears the floating pill
   const results = useMemo(() => filterSurahs(SURAHS, query), [query])
 
-  const openSurah = (id: number) => navigate(`/surah/${id}`)
+  // Navigation only — the page transition is the feedback. (Shared by SurahCard and RecentCard.)
+  const openSurah = (id: number) => {
+    navigate(`/surah/${id}`)
+  }
 
-  // First landing after onboarding → the one-time "about the maker" note.
+  // The one-time "about the maker" note — held back to the SECOND app launch so the first
+  // session (onboarding just ran) goes straight to the content.
   const [makerOpen, setMakerOpen] = useState(false)
   useEffect(() => {
     let acked = true
+    let launches = 1
     try {
       acked = localStorage.getItem("sabeel_maker_ack") === "1"
+      // Count launches once per app process (sessionStorage guards in-app navigations).
+      if (!sessionStorage.getItem("sabeel_launch_counted")) {
+        launches = Number(localStorage.getItem("sabeel_launches") || "0") + 1
+        localStorage.setItem("sabeel_launches", String(launches))
+        sessionStorage.setItem("sabeel_launch_counted", "1")
+      } else {
+        launches = Number(localStorage.getItem("sabeel_launches") || "1")
+      }
     } catch {
       /* ignore */
     }
-    if (acked) return
+    if (acked || launches < 2) return
     const t = setTimeout(() => setMakerOpen(true), 450)
     return () => clearTimeout(t)
   }, [])
@@ -118,14 +144,14 @@ export default function Home() {
         <Link
           to="/about"
           aria-label="About Sabeel"
-          className="absolute left-3 top-[max(2.5rem,env(safe-area-inset-top))] inline-flex size-11 items-center justify-center rounded-full text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
+          className="absolute left-3 top-[max(2.5rem,env(safe-area-inset-top))] inline-flex size-11 items-center justify-center rounded-full text-white/90 outline-none transition hover:bg-white/10 active:scale-90 focus-visible:ring-2 focus-visible:ring-white/50"
         >
           <Info className="size-5" />
         </Link>
         <Link
           to="/downloads"
           aria-label="Downloads"
-          className="absolute right-3 top-[max(2.5rem,env(safe-area-inset-top))] inline-flex size-11 items-center justify-center rounded-full text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
+          className="absolute right-3 top-[max(2.5rem,env(safe-area-inset-top))] inline-flex size-11 items-center justify-center rounded-full text-white/90 outline-none transition hover:bg-white/10 active:scale-90 focus-visible:ring-2 focus-visible:ring-white/50"
         >
           <Download className="size-5" />
         </Link>
@@ -141,23 +167,38 @@ export default function Home() {
         variants={fadeRise}
         className="flex flex-1 flex-col overflow-hidden rounded-t-[40px] bg-ground px-6 md:px-10 xl:px-20"
       >
-        {/* Surah / Dua toggle */}
-        <div className="mx-auto flex w-full max-w-[340px] shrink-0 items-center gap-3 pt-8">
-          {(["surah", "dua"] as const).map((t) => (
-            <button
-              key={t}
-              onClick={() => selectTab(t)}
-              aria-pressed={tab === t}
-              className={cn(
-                "flex-1 rounded-full py-2.5 text-center text-[15px] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-teal-deep/30",
-                tab === t
-                  ? "bg-teal-deep font-semibold text-white"
-                  : "bg-white font-medium text-teal-deep"
-              )}
-            >
-              {t === "surah" ? "Surah" : "Dua"}
-            </button>
-          ))}
+        {/* Surah / Dua toggle — a shared-layout pill glides between the two, reinforcing the swipe */}
+        <div
+          role="tablist"
+          aria-label="Browse Surahs or Duas"
+          className="mx-auto flex w-full max-w-[340px] shrink-0 items-center gap-3 pt-8"
+        >
+          {(["surah", "dua"] as const).map((t) => {
+            const selected = tab === t
+            return (
+              <motion.button
+                key={t}
+                type="button"
+                role="tab"
+                aria-selected={selected}
+                onClick={() => selectTab(t)}
+                whileTap={{ scale: 0.97, transition: springPress }}
+                className={cn(
+                  "relative flex-1 rounded-full py-2.5 text-center text-[15px] outline-none focus-visible:ring-2 focus-visible:ring-teal-deep/30",
+                  selected ? "font-semibold text-white" : "bg-white font-medium text-teal-deep"
+                )}
+              >
+                {selected && (
+                  <motion.span
+                    layoutId="homeTabPill"
+                    transition={springSnappy}
+                    className="absolute inset-0 rounded-full bg-teal-deep"
+                  />
+                )}
+                <span className="relative z-10">{t === "surah" ? "Surah" : "Dua"}</span>
+              </motion.button>
+            )
+          })}
         </div>
 
         {/* Swipeable Surah / Dua sections — tap a tab or swipe horizontally to switch. */}
@@ -197,17 +238,33 @@ export default function Home() {
                         // focus ring would be clipped left/right — draw it inside instead.
                         className="h-12 rounded-[12px] border-input pr-12 text-base font-medium focus-visible:ring-inset"
                       />
-                      <Search
-                        className="pointer-events-none absolute right-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground"
-                        aria-hidden="true"
-                      />
+                      {query ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setQuery("")
+                            document.getElementById("surah-search")?.focus()
+                          }}
+                          aria-label="Clear search"
+                          className="absolute right-1.5 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground outline-none transition hover:bg-black/5 active:scale-90 focus-visible:ring-2 focus-visible:ring-teal-deep/30"
+                        >
+                          <X className="size-5" />
+                        </button>
+                      ) : (
+                        <Search
+                          className="pointer-events-none absolute right-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground"
+                          aria-hidden="true"
+                        />
+                      )}
                     </div>
                   </div>
 
                   {/* Scrollable: cards + footer */}
                   <div
+                    ref={attachScroll}
+                    onScroll={handleScroll}
                     className={cn(
-                      "flex flex-1 flex-col gap-10 overflow-y-auto",
+                      "flex flex-1 flex-col gap-10 overflow-y-auto overscroll-contain transition-[padding] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]",
                       pillVisible ? "pb-[calc(env(safe-area-inset-bottom)+6.5rem)]" : "pb-10"
                     )}
                   >
@@ -244,8 +301,10 @@ export default function Home() {
                 </>
               ) : (
                 <div
+                  ref={attachScroll}
+                  onScroll={handleScroll}
                   className={cn(
-                    "flex flex-1 flex-col overflow-y-auto",
+                    "flex flex-1 flex-col overflow-y-auto overscroll-contain transition-[padding] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]",
                     pillVisible ? "pb-[calc(env(safe-area-inset-bottom)+6.5rem)]" : "pb-10"
                   )}
                 >

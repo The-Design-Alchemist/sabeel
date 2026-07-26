@@ -20,7 +20,7 @@ export function RecentCard({ entry, onOpen }: Props) {
       aria-label={`Continue Surah ${surah.id}, ${surah.englishName}, verse ${currentVerse} of ${surah.verses}`}
       whileHover={hasHover ? { y: -3, transition: springSnappy } : undefined}
       whileTap={{ scale: 0.97, transition: springPress }}
-      className="flex w-full flex-col gap-3 rounded-[12px] bg-surface p-3 text-left shadow-card transition-shadow duration-200 hover:shadow-card-hover"
+      className="flex w-full flex-col gap-3 rounded-[12px] bg-surface p-3 text-left shadow-card outline-none transition-shadow duration-200 hover:shadow-card-hover focus-visible:ring-2 focus-visible:ring-teal-deep/40"
     >
       <div className="flex w-full items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2">
@@ -56,7 +56,7 @@ export function RecentCard({ entry, onOpen }: Props) {
         </div>
         <div className="flex items-center justify-between text-xs font-medium text-ink/80">
           <span>Current Verse: {currentVerse} of {surah.verses}</span>
-          <span>Last Played: {formatTimeAgo(lastPlayed)}</span>
+          {lastPlayed > 0 && <span>Last Played: {formatTimeAgo(lastPlayed)}</span>}
         </div>
       </div>
     </motion.button>

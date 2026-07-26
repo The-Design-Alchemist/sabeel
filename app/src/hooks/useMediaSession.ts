@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { MediaSession, type MediaSessionAction } from "@capgo/capacitor-media-session"
+import { getArtworkDataUri } from "@/lib/artwork"
 
 type Opts = {
   title: string
@@ -24,11 +25,24 @@ export function useMediaSession({ title, artist, playing, onPlay, onPause, onNex
   const cbs = useRef({ onPlay, onPause, onNext, onPrev })
   cbs.current = { onPlay, onPause, onNext, onPrev }
 
-  // Now-playing metadata. Artwork is omitted for now: the native loader fetches the URL
-  // over HTTP and can't reach the WebView's bundled assets — a data-URI cover comes later.
+  // App cover for the lock screen — built once (a data-URI, so the native loader doesn't need
+  // to fetch a bundled asset over HTTP). Metadata re-sets when it resolves.
+  const [artwork, setArtwork] = useState<string | undefined>(undefined)
   useEffect(() => {
-    MediaSession.setMetadata({ title, artist, album: "Sabeel" }).catch(() => {})
-  }, [title, artist])
+    getArtworkDataUri()
+      .then(setArtwork)
+      .catch(() => {})
+  }, [])
+
+  // Now-playing metadata.
+  useEffect(() => {
+    MediaSession.setMetadata({
+      title,
+      artist,
+      album: "Sabeel",
+      artwork: artwork ? [{ src: artwork, sizes: "512x512", type: "image/png" }] : undefined,
+    }).catch(() => {})
+  }, [title, artist, artwork])
 
   // Transport controls — register stable wrappers once; each calls the freshest callback.
   useEffect(() => {

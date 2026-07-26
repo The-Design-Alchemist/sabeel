@@ -1,12 +1,14 @@
-import { lazy, Suspense, useEffect, useMemo } from "react"
+import { lazy, Suspense, useEffect, useMemo, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import { duaCategory } from "@/data/duas"
 import { useReaderSettings } from "@/hooks/useReaderSettings"
 import { usePlayback } from "@/playback/PlaybackProvider"
 import { AudioControls } from "@/components/reader/AudioControls"
 import { VerseView } from "@/components/reader/VerseView"
+import { VerseSkeleton } from "@/components/reader/ReaderSkeleton"
+import { NavButton } from "@/components/reader/NavButton"
 import {
   Select,
   SelectContent,
@@ -15,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { setStatusBar } from "@/lib/native"
-import { easeOut, springPress } from "@/lib/motion"
+import { easeOut } from "@/lib/motion"
 
 const SettingsDialog = lazy(() =>
   import("@/components/reader/SettingsDialog").then((m) => ({ default: m.SettingsDialog }))
@@ -35,12 +37,24 @@ export default function DuaReader() {
   const headerColor = cat?.color ?? "#eef4ea"
   const pb = usePlayback()
   const [settings, updateSettings] = useReaderSettings()
+  const [repeatNotif, setRepeatNotif] = useState<string | null>(null)
 
   const { duas, duaTopicName, duaArabicName, duaLoading, duaError, duaIndex, duaDir, activeWord } = pb
+
+  const onToggleRepeat = () => {
+    pb.toggleRepeat()
+    setRepeatNotif(!pb.repeat ? "Repeat mode on" : "Repeat mode off")
+  }
+  useEffect(() => {
+    if (!repeatNotif) return
+    const t = setTimeout(() => setRepeatNotif(null), 2000)
+    return () => clearTimeout(t)
+  }, [repeatNotif])
   const total = duas.length
   const dua = duas[duaIndex]
 
   // Make this the active dua topic (keeps playing if it already is — e.g. from the pill).
+  // pb.openDua (stable), not pb — see the same note in Reader.tsx.
   useEffect(() => {
     pb.openDua(categoryId, topicId)
   }, [categoryId, topicId, pb.openDua])
@@ -66,10 +80,10 @@ export default function DuaReader() {
         <div className="flex items-center justify-between">
           <Link
             to="/"
-            className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-medium text-teal-deep shadow-sm outline-none transition-opacity hover:opacity-80 focus-visible:ring-2 focus-visible:ring-teal-deep/30"
+            className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-medium text-teal-deep shadow-sm outline-none transition hover:opacity-80 active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-teal-deep/30"
           >
             <ArrowLeft className="size-4" />
-            Back to List
+            Back to Duas
           </Link>
           <Suspense fallback={<div className="size-10" aria-hidden="true" />}>
             <SettingsDialog
@@ -89,18 +103,45 @@ export default function DuaReader() {
       <AudioControls
         playing={pb.playing}
         repeat={pb.repeat}
+        pending={pb.pending}
         onTogglePlay={pb.togglePlay}
         onStartOver={pb.startOver}
-        onToggleRepeat={pb.toggleRepeat}
+        onToggleRepeat={onToggleRepeat}
       />
 
-      <main className="flex-1 overflow-y-auto bg-ground">
+      <AnimatePresence>
+        {repeatNotif && (
+          <motion.div
+            role="status"
+            aria-live="polite"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={easeOut}
+            className="shrink-0 overflow-hidden bg-gradient-to-r from-teal to-teal-deep text-center text-sm font-medium text-white"
+          >
+            <div className="py-2.5">{repeatNotif}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <main className="flex-1 overflow-y-auto overscroll-contain bg-ground">
         {duaError ? (
-          <div className="flex h-full items-center justify-center px-6 text-center text-sm text-muted-foreground">
+          <div
+            role="alert"
+            className="flex h-full items-center justify-center px-6 text-center text-sm text-muted-foreground"
+          >
             Couldn&rsquo;t load these duas.
           </div>
         ) : duaLoading || !dua ? (
-          <div className="flex h-full items-center justify-center text-sm text-muted-foreground">Loading&hellip;</div>
+          <div
+            role="status"
+            aria-busy="true"
+            aria-label="Loading"
+            className="flex h-full items-center justify-center py-10"
+          >
+            <VerseSkeleton />
+          </div>
         ) : (
           <div className="flex min-h-full items-center justify-center px-6 py-10">
             <div className="mx-auto w-full max-w-[632px]">
@@ -136,15 +177,12 @@ export default function DuaReader() {
 
       {/* Bottom navigation — mirrors the Qur'an reader. */}
       <div className="flex shrink-0 items-center justify-center gap-3 border-t border-line bg-white px-4 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:gap-6">
-        <motion.button
-          whileTap={{ scale: 0.97, transition: springPress }}
+        <NavButton
+          dir="prev"
+          label="Previous Dua"
           onClick={() => pb.goDua(duaIndex - 1)}
           disabled={duaIndex === 0}
-          className="flex size-[60px] shrink-0 items-center justify-center gap-1 rounded-full bg-teal-deep text-[15px] font-medium uppercase tracking-[0.3px] text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:bg-[#c0c0c0] [&_svg]:size-6 sm:h-12 sm:w-[200px] sm:flex-none sm:gap-1 sm:rounded-[30px] sm:px-3 sm:[&_svg]:size-5"
-        >
-          <ChevronLeft />
-          <span className="hidden sm:inline">Previous Dua</span>
-        </motion.button>
+        />
 
         <Select value={String(duaIndex)} onValueChange={(v) => pb.goDua(Number(v))}>
           <SelectTrigger aria-label="Jump to dua" className="h-[60px] flex-1 rounded-[30px] px-4 sm:h-12 sm:flex-none">
@@ -163,15 +201,12 @@ export default function DuaReader() {
           </SelectContent>
         </Select>
 
-        <motion.button
-          whileTap={{ scale: 0.97, transition: springPress }}
+        <NavButton
+          dir="next"
+          label="Next Dua"
           onClick={() => pb.goDua(duaIndex + 1)}
           disabled={total === 0 || duaIndex >= total - 1}
-          className="flex size-[60px] shrink-0 items-center justify-center gap-1 rounded-full bg-teal-deep text-[15px] font-medium uppercase tracking-[0.3px] text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:bg-[#c0c0c0] [&_svg]:size-6 sm:h-12 sm:w-[200px] sm:flex-none sm:gap-1 sm:rounded-[30px] sm:px-3 sm:[&_svg]:size-5"
-        >
-          <span className="hidden sm:inline">Next Dua</span>
-          <ChevronRight />
-        </motion.button>
+        />
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
-import { ArrowLeft, Check, ChevronLeft, ChevronRight, Download, Loader2, WifiOff } from "lucide-react"
+import { ArrowLeft, Check, Download, Loader2, WifiOff } from "lucide-react"
 import { isBundledAudio } from "@/data/quran"
 import { isDownloaded, queueDownload, useDownloadState, useDownloads } from "@/lib/downloads"
 import {
@@ -16,6 +16,8 @@ import { VerseView } from "@/components/reader/VerseView"
 import { SegmentNav } from "@/components/reader/SegmentNav"
 import { AudioControls } from "@/components/reader/AudioControls"
 import { BismillahScreen } from "@/components/reader/BismillahScreen"
+import { VerseSkeleton } from "@/components/reader/ReaderSkeleton"
+import { NavButton } from "@/components/reader/NavButton"
 import { CountUp } from "@/components/motion/CountUp"
 import { useReaderSettings } from "@/hooks/useReaderSettings"
 import { usePlayback } from "@/playback/PlaybackProvider"
@@ -26,7 +28,7 @@ const SettingsDialog = lazy(() =>
   import("@/components/reader/SettingsDialog").then((m) => ({ default: m.SettingsDialog }))
 )
 import { ResumeDialog } from "@/components/reader/ResumeDialog"
-import { easeOut, springPress } from "@/lib/motion"
+import { easeOut } from "@/lib/motion"
 
 const slide = {
   enter: (dir: number) => ({ opacity: 0, x: dir >= 0 ? 28 : -28 }),
@@ -48,6 +50,8 @@ export default function Reader() {
 
   // Make this the active surah (fresh Bismillah), unless it's already the one playing —
   // reopening the currently-playing surah (e.g. from the mini-player) keeps it going.
+  // Depends on pb.open (stable), NOT pb — the whole context object changes identity on every
+  // playback tick, and re-running open() would reset the reader mid-recitation.
   useEffect(() => {
     pb.open(surahId)
   }, [surahId, pb.open])
@@ -159,7 +163,7 @@ export default function Reader() {
         <div className="flex items-center justify-between">
           <Link
             to="/"
-            className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-medium text-teal-deep shadow-sm outline-none transition-opacity hover:opacity-80 focus-visible:ring-2 focus-visible:ring-white/50"
+            className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-medium text-teal-deep shadow-sm outline-none transition hover:opacity-80 active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-white/50"
           >
             <ArrowLeft className="size-4" />
             Back to List
@@ -223,13 +227,21 @@ export default function Reader() {
 
       {/* States */}
       {loading && (
-        <div className="flex flex-1 items-center justify-center rounded-t-[40px] bg-ground">
-          <p className="text-sm text-muted-foreground">Loading surah…</p>
+        <div
+          role="status"
+          aria-busy="true"
+          aria-label="Loading surah"
+          className="flex flex-1 items-center justify-center rounded-t-[40px] bg-ground"
+        >
+          <VerseSkeleton />
         </div>
       )}
 
       {error && (
-        <div className="flex flex-1 flex-col items-center justify-center gap-4 rounded-t-[40px] bg-ground text-center">
+        <div
+          role="alert"
+          className="flex flex-1 flex-col items-center justify-center gap-4 rounded-t-[40px] bg-ground text-center"
+        >
           <p className="text-sm text-ink">Couldn't load this surah. {error}</p>
           <Button asChild variant="outline">
             <Link to="/">Back to Home</Link>
@@ -257,6 +269,7 @@ export default function Reader() {
             <AudioControls
               playing={isPlaying}
               repeat={repeat}
+              pending={pb.pending}
               onTogglePlay={pb.togglePlay}
               onStartOver={pb.startOver}
               onToggleRepeat={onToggleRepeat}
@@ -264,13 +277,15 @@ export default function Reader() {
           ) : (
             <div className="flex w-full shrink-0 items-center justify-center gap-2 border-b border-line bg-white px-4 py-4 text-center text-sm font-medium text-muted-foreground">
               <WifiOff className="size-4 shrink-0 opacity-70" />
-              <span>Reading mode — you're offline and this surah isn't saved</span>
+              <span>Reading mode — you're offline. Reconnect to listen, or save it from Downloads next time.</span>
             </div>
           )}
 
           <AnimatePresence>
             {repeatNotif && (
               <motion.div
+                role="status"
+                aria-live="polite"
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
@@ -282,7 +297,7 @@ export default function Reader() {
             )}
           </AnimatePresence>
 
-          <main className="flex-1 overflow-y-auto bg-ground">
+          <main className="flex-1 overflow-y-auto overscroll-contain bg-ground">
             <div className="flex min-h-full items-center justify-center px-6 py-10">
               <div className="mx-auto w-full max-w-[632px]">
                 <AnimatePresence mode="wait" custom={dir} initial={false}>
@@ -300,6 +315,7 @@ export default function Reader() {
                       words={settings.highlighting && canPlay ? renderWords : undefined}
                       activeWord={activeLocal}
                       onWordClick={pb.playWordAt}
+                      interactive={!pb.looping}
                       highlight={settings.highlighting && canPlay}
                       transliteration={view.transliteration}
                       translation={view.translation}
@@ -325,15 +341,12 @@ export default function Reader() {
 
           {/* Bottom verse navigation */}
           <div className="flex shrink-0 items-center justify-center gap-3 border-t border-line bg-white px-4 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:gap-6">
-            <motion.button
-              whileTap={{ scale: 0.97, transition: springPress }}
+            <NavButton
+              dir="prev"
+              label="Previous Verse"
               onClick={() => pb.goVerse(verseIndex - 1)}
               disabled={verseIndex === 0}
-              className="flex size-[60px] shrink-0 items-center justify-center gap-1 rounded-full bg-teal-deep text-[15px] font-medium uppercase tracking-[0.3px] text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:bg-[#c0c0c0] [&_svg]:size-6 sm:h-12 sm:w-[200px] sm:flex-none sm:gap-1 sm:rounded-[30px] sm:px-3 sm:[&_svg]:size-5"
-            >
-              <ChevronLeft />
-              <span className="hidden sm:inline">Previous Verse</span>
-            </motion.button>
+            />
 
             <Select value={String(verseIndex)} onValueChange={(v) => pb.goVerse(Number(v))}>
               <SelectTrigger
@@ -368,15 +381,12 @@ export default function Reader() {
               </SelectContent>
             </Select>
 
-            <motion.button
-              whileTap={{ scale: 0.97, transition: springPress }}
+            <NavButton
+              dir="next"
+              label="Next Verse"
               onClick={() => pb.goVerse(verseIndex + 1)}
               disabled={verseIndex === verses.length - 1}
-              className="flex size-[60px] shrink-0 items-center justify-center gap-1 rounded-full bg-teal-deep text-[15px] font-medium uppercase tracking-[0.3px] text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:bg-[#c0c0c0] [&_svg]:size-6 sm:h-12 sm:w-[200px] sm:flex-none sm:gap-1 sm:rounded-[30px] sm:px-3 sm:[&_svg]:size-5"
-            >
-              <span className="hidden sm:inline">Next Verse</span>
-              <ChevronRight />
-            </motion.button>
+            />
           </div>
         </div>
       )}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Android 11 and below (android:fullBackupContent).
+
+  Downloaded recitation audio lives in files/audio and can run to hundreds of megabytes — far
+  past Auto Backup's 25MB quota, so it can never actually be restored. Excluding it stops the OS
+  repeatedly uploading data it will only discard, on the user's bandwidth.
+
+  Everything else (reading progress, recents, settings — all localStorage) still backs up, so a
+  new device restores where you left off. The download manifest is reconciled against the real
+  filesystem at startup (see reconcileManifest in src/lib/downloads.ts), so a restored manifest
+  can never claim a surah is saved when its audio isn't there.
+-->
+<full-backup-content>
+    <exclude domain="file" path="audio" />
+</full-backup-content>

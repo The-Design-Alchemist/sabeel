@@ -181,6 +181,8 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
     setStatusBar("#f6f6f6", false)
   }, [])
 
+  // No haptics anywhere in onboarding. Every step already animates visibly, and buzzing on each
+  // of the five advances — then twice more on "Get started" — was the loudest offender.
   const go = (n: number) => {
     const c = Math.max(0, Math.min(total - 1, n))
     if (c === i) return

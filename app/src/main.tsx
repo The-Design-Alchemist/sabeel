@@ -5,6 +5,10 @@ import './index.css'
 import App from './App.tsx'
 import { initNative } from '@/lib/native'
 import { initDownloads } from '@/lib/downloads'
+import { installGlobalErrorHandlers } from '@/lib/errorLog'
+
+// Record async throws / rejected promises that never reach the React error boundary.
+installGlobalErrorHandlers()
 
 // On native, the WebView can restore the last hash across cold starts, dropping the
 // user on an inner screen (e.g. /downloads). Force a clean Home landing on cold start;

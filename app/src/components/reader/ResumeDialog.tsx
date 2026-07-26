@@ -1,5 +1,5 @@
 import { PlayCircle } from "lucide-react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { formatTimeAgo } from "@/lib/utils"
 
@@ -21,9 +21,9 @@ export function ResumeDialog({ open, verse, lastPlayed, onContinue, onStartOver 
           </div>
           <DialogTitle>Continue where you left off?</DialogTitle>
         </DialogHeader>
-        <p className="text-sm text-muted-foreground">
+        <DialogDescription>
           You were at <b className="text-ink">Verse {verse}</b> · {formatTimeAgo(lastPlayed)}
-        </p>
+        </DialogDescription>
         <div className="mt-2 flex gap-3">
           <Button variant="outline" className="h-11 flex-1 rounded-[14px]" onClick={onStartOver}>
             Start Over

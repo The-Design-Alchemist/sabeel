@@ -3,18 +3,26 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!-- Portrait-only: the reader, Home and the floating player are all built around a tall
+             viewport (h-dvh, fixed pill, safe-area insets) and landscape is not a supported
+             layout. Note this is a phone-level guarantee only — apps targeting SDK 36 have
+             orientation restrictions ignored on large screens (>600dp), so tablets/foldables can
+             still land in landscape. -->
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation|density"
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBarLaunch"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:exported="true">
 
             <intent-filter>

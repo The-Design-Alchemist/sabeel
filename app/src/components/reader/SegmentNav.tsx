@@ -41,8 +41,10 @@ export function SegmentNav({ total, index, onSelect, onPrev, onNext }: Props) {
               aria-current={i === index}
               whileHover={{ scale: 1.2 }}
               animate={{ backgroundColor: i === index ? "#2b2b2b" : "rgba(0,0,0,0)" }}
-              transition={springSnappy}
-              className="size-2 rounded-full border-2 border-[#2b2b2b]"
+              transition={{ backgroundColor: { duration: 0.15 }, scale: springSnappy }}
+              // 8px visual dot, but a ~24px invisible tap target (before pseudo) so the jump
+              // control isn't a sub-44px mis-tap trap.
+              className="relative size-2 rounded-full border-2 border-[#2b2b2b] outline-none before:absolute before:-inset-2 before:content-[''] focus-visible:ring-2 focus-visible:ring-teal-deep/40"
             />
           ))}
         </div>

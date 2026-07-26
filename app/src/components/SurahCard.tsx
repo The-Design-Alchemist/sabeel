@@ -26,7 +26,7 @@ export function SurahCard({ surah, onOpen }: Props) {
       aria-label={`Open Surah ${surah.id}, ${surah.englishName} — ${surah.englishMeaning}, ${surah.verses} verses, ${surah.revelation}${saved ? ", saved offline" : downloading ? ", downloading" : ""}`}
       whileHover={hasHover ? { y: -3, transition: springSnappy } : undefined}
       whileTap={{ scale: 0.97, transition: springPress }}
-      className="group flex w-full flex-col gap-3 rounded-[12px] bg-surface p-3 text-left shadow-card transition-shadow duration-200 hover:shadow-card-hover"
+      className="group flex w-full flex-col gap-3 rounded-[12px] bg-surface p-3 text-left shadow-card outline-none transition-shadow duration-200 hover:shadow-card-hover focus-visible:ring-2 focus-visible:ring-teal-deep/40"
     >
       <div className="flex w-full items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2">

@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react"
+import { useReducedMotion } from "motion/react"
 import { Divider } from "./Divider"
 import { cn } from "@/lib/utils"
 
@@ -7,6 +9,9 @@ type Props = {
   words?: string[]
   activeWord?: number
   onWordClick?: (i: number) => void
+  /** Whether tapping a word seeks to it. False while a segment loop is running (tap is a
+   *  no-op then), so we don't advertise a dead pointer/hover affordance. */
+  interactive?: boolean
   highlight?: boolean
   transliteration?: string
   translation?: string
@@ -45,6 +50,7 @@ export function VerseView({
   words,
   activeWord = -1,
   onWordClick,
+  interactive = true,
   highlight = false,
   transliteration,
   translation,
@@ -53,24 +59,60 @@ export function VerseView({
   showTransliteration,
 }: Props) {
   const arabicCls = "font-arabic text-[clamp(32px,7vw,48px)] leading-[1.7] text-ink"
+  // Words seek-on-tap only when a handler exists AND we're not mid-loop (tap would no-op).
+  const clickable = interactive && !!onWordClick
+  const reduce = useReducedMotion()
+  const activeRef = useRef<HTMLElement | null>(null)
+  const setActiveRef = (el: HTMLElement | null) => {
+    activeRef.current = el
+  }
+
+  // Keep the recited word in view on long verses. block:'nearest' is inert when it already
+  // fits on screen, so short verses never jump.
+  useEffect(() => {
+    activeRef.current?.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" })
+  }, [activeWord, reduce])
+
+  const wordCls = (active: boolean) =>
+    cn(
+      "inline rounded-md px-0.5 align-baseline transition-colors duration-150 outline-none motion-reduce:transition-none",
+      clickable && "cursor-pointer hover:bg-teal/10 focus-visible:bg-teal/10",
+      active ? "bg-teal/10 text-teal" : "text-ink"
+    )
 
   return (
     <div className="flex flex-col items-center gap-1 text-center">
       {highlight && words && words.length ? (
         <p dir="rtl" lang="ar" className={arabicCls}>
-          {words.map((w, i) => (
-            <span
-              key={i}
-              onClick={() => onWordClick?.(i)}
-              className={cn(
-                "cursor-pointer rounded-md px-0.5 transition-colors duration-150 hover:bg-teal/10 motion-reduce:transition-none",
-                i === activeWord ? "text-teal" : "text-ink"
-              )}
-            >
-              {w}
-              {i < words.length - 1 ? " " : ""}
-            </span>
-          ))}
+          {words.map((w, i) => {
+            const active = i === activeWord
+            const space = i < words.length - 1 ? " " : ""
+            return (
+              <span key={i}>
+                {clickable ? (
+                  <button
+                    type="button"
+                    ref={active ? setActiveRef : undefined}
+                    onClick={() => onWordClick?.(i)}
+                    aria-label={`Play from “${w}”`}
+                    aria-current={active ? "true" : undefined}
+                    className={wordCls(active)}
+                  >
+                    {w}
+                  </button>
+                ) : (
+                  <span
+                    ref={active ? setActiveRef : undefined}
+                    aria-current={active ? "true" : undefined}
+                    className={wordCls(active)}
+                  >
+                    {w}
+                  </span>
+                )}
+                {space}
+              </span>
+            )
+          })}
           {verseNumber != null && <VerseEndMark n={verseNumber} />}
         </p>
       ) : (

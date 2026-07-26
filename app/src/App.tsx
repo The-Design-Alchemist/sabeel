@@ -8,6 +8,8 @@ import { PlaybackProvider } from "@/playback/PlaybackProvider"
 import { MiniPlayer } from "@/components/MiniPlayer"
 import { DownloadNotifications } from "@/components/DownloadNotifications"
 import { Onboarding } from "@/components/Onboarding"
+import { ErrorBoundary } from "@/components/ErrorBoundary"
+import { ReaderSkeleton } from "@/components/reader/ReaderSkeleton"
 import { useOnboarded } from "@/hooks/useOnboarded"
 
 // Code-split the reader so the home screen stays lean (Radix Select/Dialog/Switch,
@@ -32,7 +34,7 @@ function Page({ children }: { children: ReactNode }) {
   )
 }
 
-const readerFallback = <div className="min-h-screen bg-teal-deep" aria-busy="true" />
+const readerFallback = <ReaderSkeleton />
 const groundFallback = <div className="min-h-screen bg-ground" aria-busy="true" />
 
 // Inside the router so it can drive navigation (Android hardware back → history).
@@ -97,17 +99,21 @@ export default function App() {
   const [onboarded, completeOnboarding] = useOnboarded()
   return (
     <MotionConfig reducedMotion="user">
-      {onboarded ? (
-        <HashRouter>
-          <PlaybackProvider>
-            <AppRoutes />
-            <MiniPlayer />
-            <DownloadNotifications />
-          </PlaybackProvider>
-        </HashRouter>
-      ) : (
-        <Onboarding onDone={completeOnboarding} />
-      )}
+      {/* Wraps everything: a throw in any route (or in onboarding) shows a recoverable screen
+          instead of a blank WebView the user can't reload. */}
+      <ErrorBoundary>
+        {onboarded ? (
+          <HashRouter>
+            <PlaybackProvider>
+              <AppRoutes />
+              <MiniPlayer />
+              <DownloadNotifications />
+            </PlaybackProvider>
+          </HashRouter>
+        ) : (
+          <Onboarding onDone={completeOnboarding} />
+        )}
+      </ErrorBoundary>
       {/* Bottom-center, dark near-black surface; offset clears the home bar / safe area. */}
       <Toaster
         position="bottom-center"

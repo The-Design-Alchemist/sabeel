@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Android 12+ (android:dataExtractionRules). Same intent as backup_rules.xml: keep the
+  multi-hundred-megabyte downloaded audio out of both cloud backup and device-to-device
+  transfer, since it exceeds the backup quota and is re-downloadable on demand anyway.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="file" path="audio" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="file" path="audio" />
+    </device-transfer>
+</data-extraction-rules>

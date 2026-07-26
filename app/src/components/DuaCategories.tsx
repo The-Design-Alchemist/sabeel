@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
 import { ArrowRight, X } from "lucide-react"
 import { DUA_CATEGORIES, loadDuaCategory, type DuaTopic } from "@/data/duas"
-import { useHaptics } from "@/hooks/useHaptics"
 import { easeOut } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 
@@ -16,7 +15,6 @@ const OPEN_KEY = "sabeel.duaOpenCat"
  */
 export function DuaCategories() {
   const navigate = useNavigate()
-  const haptics = useHaptics()
   // Remember which card was open for this session, so returning from a dua re-opens it.
   const [expanded, setExpanded] = useState<string | null>(() => sessionStorage.getItem(OPEN_KEY))
   const [topics, setTopics] = useState<Record<string, DuaTopic[]>>({})
@@ -36,8 +34,14 @@ export function DuaCategories() {
     if (expanded && !topics[expanded]) loadTopics(expanded)
   }, [expanded, topics, loadTopics])
 
+  // Warm every category once when the Dua tab mounts, so opening a card is instant (tiny JSON).
+  useEffect(() => {
+    DUA_CATEGORIES.forEach((c) => {
+      if (c.available) loadTopics(c.id)
+    })
+  }, [loadTopics])
+
   const toggle = (id: string) => {
-    haptics.tap()
     const next = expanded === id ? null : id
     setExpanded(next)
     if (next) sessionStorage.setItem(OPEN_KEY, next)
@@ -89,7 +93,17 @@ export function DuaCategories() {
                         Duas for this section are coming soon, in shā&rsquo; Allah.
                       </p>
                     ) : loading === cat.id ? (
-                      <p className="px-1 py-3 text-[13px] text-ink/60">Loading&hellip;</p>
+                      <div className="flex animate-pulse flex-col gap-2.5" aria-hidden="true">
+                        {[0, 1, 2].map((k) => (
+                          <div key={k} className="flex items-center gap-3 rounded-2xl bg-white p-4">
+                            <div className="flex flex-1 flex-col gap-1.5">
+                              <div className="h-3.5 w-2/3 rounded bg-black/[0.07]" />
+                              <div className="h-2.5 w-2/5 rounded bg-black/[0.05]" />
+                            </div>
+                            <div className="size-9 rounded-xl bg-black/[0.06]" />
+                          </div>
+                        ))}
+                      </div>
                     ) : (
                       (cardTopics ?? []).map((t) => (
                         <button

@@ -1,7 +1,9 @@
+import { useState } from "react"
 import { motion } from "motion/react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, Mail, Shield, ExternalLink } from "lucide-react"
+import { ArrowLeft, Mail, Shield, ExternalLink, LifeBuoy } from "lucide-react"
 import { fadeRise, staggerContainer } from "@/lib/motion"
+import { formatErrorLog, readErrorLog } from "@/lib/errorLog"
 import fullLogo from "@/assets/sabeel-full-logo.png"
 
 // ─── Fill in before publishing ──────────────────────────────────────────────
@@ -11,7 +13,23 @@ const SUPPORT_EMAIL = "aaqil.jamal98@gmail.com"
 const PRIVACY_URL = "https://the-design-alchemist.github.io/sabeel/privacy"
 // ────────────────────────────────────────────────────────────────────────────
 
-const APP_VERSION = "2.0"
+const APP_VERSION = "1.0" // keep in sync with versionName in android/app/build.gradle
+
+/** mailto: for a bug report, pre-filled with whatever errors this device actually recorded. */
+function reportUrl(): string {
+  const body = [
+    "Describe what happened (what screen were you on, what did you tap?):",
+    "",
+    "",
+    "---",
+    `Sabeel ${APP_VERSION}`,
+    navigator.userAgent,
+    "",
+    "Recent errors:",
+    formatErrorLog(),
+  ].join("\n")
+  return `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent("Sabeel problem report")}&body=${encodeURIComponent(body)}`
+}
 
 type Credit = { role: string; name: string; detail?: string; href?: string }
 
@@ -55,6 +73,9 @@ function Row({ children, href }: { children: React.ReactNode; href?: string }) {
 }
 
 export default function About() {
+  // Only offer the report row when this device has actually recorded something — otherwise it's
+  // a dead end. Read once on mount; the log only changes when something breaks.
+  const [hasErrors] = useState(() => readErrorLog().length > 0)
   return (
     <motion.div
       variants={staggerContainer}
@@ -75,7 +96,7 @@ export default function About() {
       </header>
 
       <motion.main variants={fadeRise} className="flex-1 overflow-y-auto rounded-t-[40px] bg-ground">
-        <div className="mx-auto flex w-full max-w-[640px] flex-col gap-8 px-6 py-10 pb-[max(2.5rem,env(safe-area-inset-bottom))]">
+        <div className="mx-auto flex w-full max-w-[640px] flex-col gap-8 px-6 py-10 pb-[calc(max(2.5rem,env(safe-area-inset-bottom))+var(--miniplayer-clearance))]">
           {/* Identity */}
           <section className="flex flex-col items-center gap-3 text-center">
             <h1 className="leading-none">
@@ -108,7 +129,7 @@ export default function About() {
                       href={c.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-1 inline-flex w-fit items-center gap-1 text-[13px] text-teal underline-offset-2 hover:underline"
+                      className="mt-1 inline-flex w-fit items-center gap-1 rounded text-[13px] text-teal underline-offset-2 outline-none hover:underline focus-visible:underline focus-visible:ring-2 focus-visible:ring-teal/40"
                     >
                       {c.href.replace(/^https?:\/\//, "")}
                       <ExternalLink className="size-3" />
@@ -144,6 +165,15 @@ export default function About() {
                 Contact
                 <ExternalLink className="ml-auto size-4 text-muted-foreground" />
               </Row>
+              {/* Appears only after something has actually gone wrong on this device. Attaches the
+                  recorded errors so a report is useful without asking the user to explain a stack. */}
+              {hasErrors && (
+                <Row href={reportUrl()}>
+                  <LifeBuoy className="size-[18px] shrink-0 text-teal" />
+                  Report a problem
+                  <ExternalLink className="ml-auto size-4 text-muted-foreground" />
+                </Row>
+              )}
             </div>
           </section>
 

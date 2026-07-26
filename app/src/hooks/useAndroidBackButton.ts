@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react"
 import { App } from "@capacitor/app"
 import { Capacitor } from "@capacitor/core"
 import { useLocation, useNavigate } from "react-router-dom"
+import { toast } from "sonner"
 
 /**
  * Maps the Android hardware back button to in-app router history:
@@ -21,6 +22,9 @@ export function useAndroidBackButton() {
   const atHome = useRef(location.pathname === "/")
   atHome.current = location.pathname === "/"
 
+  // Timestamp of the last "back at Home" press, driving the double-tap-to-exit guard.
+  const lastBackAtHome = useRef(0)
+
   useEffect(() => {
     if (!Capacitor.isNativePlatform()) return
     let cancelled = false
@@ -28,7 +32,14 @@ export function useAndroidBackButton() {
 
     void App.addListener("backButton", () => {
       if (atHome.current) {
-        void App.exitApp()
+        // Double-back-to-exit — a lone stray press shouldn't hard-kill the app.
+        const now = Date.now()
+        if (now - lastBackAtHome.current < 2000) {
+          void App.exitApp()
+        } else {
+          lastBackAtHome.current = now
+          toast("Press back again to exit") // the toast is the feedback; no buzz needed
+        }
         return
       }
       // React Router tracks its stack position in history.state.idx; 0 = nothing to pop

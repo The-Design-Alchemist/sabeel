@@ -92,8 +92,8 @@ export function RecentSection({ recents, onOpen }: Props) {
                 backgroundColor:
                   i === clampedPage ? "rgb(255 255 255)" : "rgba(255,255,255,0.3)",
               }}
-              transition={springSnappy}
-              className={cn("size-2.5 rounded-full")}
+              transition={{ backgroundColor: { duration: 0.15 }, scale: springSnappy }}
+              className={cn("size-2.5 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-white/60")}
             />
           ))}
         </div>

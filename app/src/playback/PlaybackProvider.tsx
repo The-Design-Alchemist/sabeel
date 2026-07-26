@@ -7,10 +7,13 @@ import {
   useRef,
   useState,
   type ReactNode,
+  type RefObject,
 } from "react"
+import { toast } from "sonner"
 import { loadSurah, loadTimings, isSegmented, type SurahData, type TimingVerse } from "@/data/quran"
 import { loadDuaCategory, type Dua } from "@/data/duas"
 import { audioSrc, isAvailableOffline } from "@/lib/downloads"
+import { ensureNotifyPermission } from "@/lib/notify"
 import { useVerseAudio } from "@/hooks/useVerseAudio"
 import { useSegmentLoop } from "@/hooks/useSegmentLoop"
 import { useMediaSession } from "@/hooks/useMediaSession"
@@ -22,6 +25,10 @@ const REPEAT_GAP_MS = 150
 
 type Verse = SurahData["verses"][number]
 type Mode = "surah" | "dua" | null
+
+// Stable empty fallbacks — see the `verses`/`segments` derivation in the provider.
+const NO_VERSES: Verse[] = []
+const NO_SEGMENTS: NonNullable<Verse["segments"]> = []
 
 export type NowPlaying = {
   kind: "surah" | "dua"
@@ -36,14 +43,19 @@ export type PlaybackApi = {
   // ---- shared ----
   mode: Mode
   playing: boolean
+  pending: boolean
+  looping: boolean
   repeat: boolean
   activeWord: number
   nowPlaying: NowPlaying | null
+  audioRef: RefObject<HTMLAudioElement | null>
+  getProgress: () => number
   togglePlay: () => void
   startOver: () => void
   toggleRepeat: () => void
   next: () => void
   prev: () => void
+  dismiss: () => void
   // ---- surah session ----
   surahId: number | null
   started: boolean
@@ -89,7 +101,7 @@ const duaSrc = (d: Dua | undefined) =>
   d && d.surah != null && d.ayah != null ? audioSrc(d.surah, d.ayah) : ""
 
 export function PlaybackProvider({ children }: { children: ReactNode }) {
-  const { playing, play, pause, stop, seek, setOnEnded, audioRef } = useVerseAudio()
+  const { playing, pending, play, pause, stop, seek, setOnEnded, setOnError, audioRef } = useVerseAudio()
   const loop = useSegmentLoop()
   const haptics = useHaptics()
   const online = useOnline()
@@ -97,6 +109,8 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
   const [mode, setMode] = useState<Mode>(null)
   const [activeWord, setActiveWord] = useState(-1)
   const [finished, setFinished] = useState(false) // playback reached the end → hide the mini-player
+  const [dismissed, setDismissed] = useState(false) // user swiped/closed the pill → hide until next play
+  const [loopPending, setLoopPending] = useState(false) // decoding a segment-loop buffer
 
   // ---- surah session state ----
   const [surahId, setSurahId] = useState<number | null>(null)
@@ -123,12 +137,15 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
   const [duaRepeat, setDuaRepeat] = useState(false)
   const [duaStarted, setDuaStarted] = useState(false)
 
-  const verses = data?.verses ?? []
+  // Shared empty fallbacks: `?? []` would mint a fresh array on every render whenever the surah
+  // hasn't loaded (or the verse has no segments), which changes the identity of `verses`/`segments`
+  // and re-creates every transport callback below them — during the word-highlight rAF loop.
+  const verses = data?.verses ?? NO_VERSES
   const verse = verses[verseIndex]
   const verseNum = verse ? Number(verse.key.split(":")[1]) : 0
   const timing = timings.get(verseNum)
   const segmented = verse ? isSegmented(verse) : false
-  const segments = verse?.segments ?? []
+  const segments = verse?.segments ?? NO_SEGMENTS
   const savedOffline = surahId != null && isAvailableOffline(surahId)
   const canPlay = savedOffline || online
 
@@ -227,9 +244,14 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       if (!seg) return
       pause()
       loop.unlock()
-      loop.startLoop(srcFor(verseIndex), seg.start, seg.end, { gapMs: gapMs() }).catch(() => {
-        play(srcFor(verseIndex), seg.start)
-      })
+      setLoopPending(true)
+      loop
+        .startLoop(srcFor(verseIndex), seg.start, seg.end, { gapMs: gapMs() })
+        .then(() => setLoopPending(false))
+        .catch(() => {
+          setLoopPending(false)
+          play(srcFor(verseIndex), seg.start)
+        })
     },
     [segmentIndex, timing, pause, loop, srcFor, verseIndex, play]
   )
@@ -246,6 +268,24 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
   repeatRef.current = repeat
   segmentedRef.current = segmented
   getPosRef.current = loop.getPosition
+
+  // Playback progress 0..1 for the mini-player. While a waqf segment is looping, this is the
+  // position WITHIN that segment (fills, resets, fills — mirroring the loop); otherwise it's the
+  // <audio> element's position through the verse/dua. Reads live refs, so it's stable.
+  const getProgress = useCallback((): number => {
+    const fromLoop = repeatRef.current && segmentedRef.current
+    if (fromLoop) {
+      const seg = timingRef.current?.segments?.[segIdxRef.current]
+      const pos = getPosRef.current()
+      if (seg && pos != null) {
+        const span = seg.end - seg.start
+        return span > 0 ? Math.min(1, Math.max(0, (pos - seg.start) / span)) : 0
+      }
+      return 0
+    }
+    const a = audioRef.current
+    return a && a.duration ? Math.min(1, a.currentTime / a.duration) : 0
+  }, [audioRef])
 
   // ---- surah: progress persistence ---------------------------------------
   useEffect(() => {
@@ -265,10 +305,24 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
     }
   }, [mode, surahId, verseIndex, verse, verseNum, started])
 
-  // Any resumed playback brings the mini-player back after a track has finished.
+  // Any (re)started playback brings the mini-player back after it finished or was dismissed.
   useEffect(() => {
-    if (playing) setFinished(false)
-  }, [playing])
+    if (isPlaying) {
+      setFinished(false)
+      setDismissed(false)
+    }
+  }, [isPlaying])
+
+  // Ask for notification permission the first time audio actually plays — that's the moment it
+  // buys the user something (lock-screen + background controls are gated behind POST_NOTIFICATIONS
+  // on Android 13+). It used to be requested in MainActivity.onCreate, which put a system dialog
+  // over the first onboarding slide, before the user knew what Sabeel even was.
+  const askedNotify = useRef(false)
+  useEffect(() => {
+    if (!isPlaying || askedNotify.current) return
+    askedNotify.current = true
+    void ensureNotifyPermission()
+  }, [isPlaying])
 
   // ---- end-of-track: loop, advance, or finish, per mode ------------------
   useEffect(() => {
@@ -314,8 +368,8 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
         if (!fromLoop && tm.segments && tm.segments.length > 1) {
           const si = tm.segments.findIndex((s) => t >= s.start && t < s.end)
           if (si >= 0 && si !== segIdxRef.current) {
+            setDir(si > segIdxRef.current ? 1 : -1) // slide direction from the actual delta
             segIdxRef.current = si
-            setDir(1)
             setSegmentIndex(si)
           }
         }
@@ -359,9 +413,14 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       if (!seg) return false
       pause()
       loop.unlock()
-      loop.startLoop(srcFor(vIdx), seg.start, seg.end, { gapMs: gapMs() }).catch(() => {
-        play(srcFor(vIdx), seg.start)
-      })
+      setLoopPending(true)
+      loop
+        .startLoop(srcFor(vIdx), seg.start, seg.end, { gapMs: gapMs() })
+        .then(() => setLoopPending(false))
+        .catch(() => {
+          setLoopPending(false)
+          play(srcFor(vIdx), seg.start)
+        })
       return true
     },
     [verses, timings, pause, loop, srcFor, play]
@@ -372,7 +431,6 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       if (!verses.length) return
       const clamped = Math.max(0, Math.min(verses.length - 1, i))
       if (clamped === verseIndex) return
-      haptics.tap()
       setDir(clamped > verseIndex ? 1 : -1)
       setVerseIndex(clamped)
       setSegmentIndex(0)
@@ -383,13 +441,12 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       if (repeat && isSegmented(verses[clamped]) && loopVerseAt(clamped, 0)) return
       play(srcFor(clamped))
     },
-    [verses, verseIndex, haptics, isPlaying, loop, repeat, loopVerseAt, play, srcFor]
+    [verses, verseIndex, isPlaying, loop, repeat, loopVerseAt, play, srcFor]
   )
 
   const goSegment = useCallback(
     (i: number) => {
       const clamped = Math.max(0, Math.min(segments.length - 1, i))
-      if (clamped !== segmentIndex) haptics.tap()
       setDir(clamped >= segmentIndex ? 1 : -1)
       setSegmentIndex(clamped)
       segIdxRef.current = clamped
@@ -401,7 +458,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
         play(srcFor(verseIndex))
       }
     },
-    [segments.length, segmentIndex, haptics, timing, loop, startSegLoop, playing, seek, play, srcFor, verseIndex]
+    [segments.length, segmentIndex, timing, loop, startSegLoop, playing, seek, play, srcFor, verseIndex]
   )
 
   const start = useCallback(() => {
@@ -442,7 +499,6 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       if (!duas.length) return
       const clamped = Math.max(0, Math.min(duas.length - 1, i))
       if (clamped === duaIndex) return
-      haptics.tap()
       setDuaDir(clamped > duaIndex ? 1 : -1)
       setDuaIndex(clamped)
       setActiveWord(-1)
@@ -454,7 +510,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
         play(src, 0)
       }
     },
-    [duas, duaIndex, haptics, isPlaying, play]
+    [duas, duaIndex, isPlaying, play]
   )
 
   // ============================ mode switching =============================
@@ -480,6 +536,8 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
   )
 
   // ============================ shared transport ===========================
+  // Kept haptic: play/pause is the core transport state change, and it's routinely pressed
+  // without looking — from the mini-player, or with the reader only half in view.
   const togglePlay = useCallback(() => {
     haptics.tap()
     if (mode === "surah") {
@@ -523,6 +581,9 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
   }, [mode, loop, repeat, verses, loopVerseAt, play, srcFor, duas, duaIndex])
 
   const toggleRepeat = useCallback(() => {
+    // Kept haptic: repeat is a sticky mode you can leave on by accident. One light tap either
+    // way — the old success() buzz was a two-pulse Android pattern, i.e. a double vibration.
+    haptics.tap()
     if (mode === "dua") {
       setDuaRepeat((p) => !p)
       return
@@ -541,7 +602,8 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       }
       return next
     })
-  }, [mode, segmented, canPlay, loop, srcFor, verseIndex, isPlaying, startSegLoop, play, timing, segmentIndex])
+    // repeat/duaRepeat are read through the functional updaters, so they aren't deps.
+  }, [haptics, mode, segmented, canPlay, loop, srcFor, verseIndex, isPlaying, startSegLoop, play, timing, segmentIndex])
 
   const next = useCallback(() => {
     if (mode === "surah") goVerse(verseIndex + 1)
@@ -552,6 +614,29 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
     if (mode === "surah") goVerse(verseIndex - 1)
     else if (mode === "dua") goDua(duaIndex - 1)
   }, [mode, goVerse, verseIndex, goDua, duaIndex])
+
+  // Re-attempt the current track after a playback error.
+  const retryPlayback = useCallback(() => {
+    if (mode === "surah") play(srcFor(verseIndex))
+    else if (mode === "dua") {
+      const src = duaSrc(duas[duaIndex])
+      if (src) play(src)
+    }
+  }, [mode, play, srcFor, verseIndex, duas, duaIndex])
+
+  // Surface swallowed <audio> load/network failures as a toast with Retry (mirrors the
+  // download flow). Offline gets a distinct message and no dead retry button.
+  useEffect(() => {
+    setOnError(() => {
+      if (online) {
+        toast.error("Couldn't play this recitation.", {
+          action: { label: "Retry", onClick: retryPlayback },
+        })
+      } else {
+        toast.error("You're offline — reconnect to listen.")
+      }
+    })
+  }, [setOnError, online, retryPlayback])
 
   // ---- lock-screen / background transport --------------------------------
   useMediaSession({
@@ -569,18 +654,31 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
     onPrev: prev,
   })
 
-  // warm the decoded buffer so the first surah repeat starts instantly
+  // warm the decoded buffer so the first surah repeat starts instantly.
+  // Depends on loop.prefetch (stable), not the loop object, which changes as playback advances.
   useEffect(() => {
     if (useLoop && canPlay) loop.prefetch(srcFor(verseIndex))
   }, [useLoop, canPlay, verseIndex, srcFor, loop.prefetch])
 
+  // Close the floating pill (swipe-down / ×): stop audio and hide until the next play.
+  const dismiss = useCallback(() => {
+    stopAll()
+    setFinished(true)
+    setDismissed(true)
+  }, [stopAll])
+
   // ---- unified "now playing" for the mini-player -------------------------
   const nowPlaying = useMemo<NowPlaying | null>(() => {
+    if (dismissed) return null
     if (mode === "surah" && started && data && !finished) {
       return {
         kind: "surah",
         title: data.englishName,
-        subtitle: `Verse ${verseNum} of ${verses.length}`,
+        // Multi-waqf verse → name the segment so the pill mirrors the reader's "Part X of Z".
+        subtitle:
+          segmented && segments.length > 1
+            ? `Verse ${verseNum} · Waqf ${segmentIndex + 1} of ${segments.length}`
+            : `Verse ${verseNum} of ${verses.length}`,
         route: `/surah/${surahId}`,
         atStart: verseIndex === 0,
         atEnd: verseIndex >= verses.length - 1,
@@ -597,20 +695,25 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       }
     }
     return null
-  }, [mode, started, data, verseNum, verses.length, surahId, verseIndex, duaStarted, duas.length, duaTopicName, duaIndex, duaCategoryId, duaTopicId, finished])
+  }, [mode, started, data, verseNum, verses.length, segmented, segmentIndex, segments.length, surahId, verseIndex, duaStarted, duas.length, duaTopicName, duaIndex, duaCategoryId, duaTopicId, finished, dismissed])
 
   const api = useMemo<PlaybackApi>(
     () => ({
       mode,
       playing: isPlaying,
+      pending: pending || loopPending,
+      looping: loop.playing,
       repeat: mode === "dua" ? duaRepeat : repeat,
       activeWord,
       nowPlaying,
+      audioRef,
+      getProgress,
       togglePlay,
       startOver,
       toggleRepeat,
       next,
       prev,
+      dismiss,
       surahId,
       started,
       loading,
@@ -642,7 +745,8 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       goDua,
     }),
     [
-      mode, isPlaying, duaRepeat, repeat, activeWord, nowPlaying, togglePlay, startOver,
+      mode, isPlaying, pending, loopPending, loop.playing, duaRepeat, repeat, activeWord,
+      nowPlaying, audioRef, getProgress, dismiss, togglePlay, startOver,
       toggleRepeat, next, prev, surahId, started, loading, error, canPlay, data, verses,
       timing, verseNum, segmented, segments, verseIndex, segmentIndex, dir, open, start,
       resumeAt, goVerse, goSegment, playWordAt, duas, duaTopicName, duaArabicName, duaIndex,

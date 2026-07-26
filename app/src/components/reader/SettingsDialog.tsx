@@ -56,7 +56,7 @@ export function SettingsDialog({ settings, onChange, triggerClassName }: Props) 
           <Settings />
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>Settings</DialogTitle>
         </DialogHeader>

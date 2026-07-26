@@ -19,7 +19,8 @@ function Switch({
       <SwitchPrimitive.Thumb
         data-slot="switch-thumb"
         className={cn(
-          "pointer-events-none block size-5 rounded-full bg-white shadow-sm ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"
+          // App ease-out (not the browser default) + size-4 for even ~2px insets in the h-6 track.
+          "pointer-events-none block size-4 rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] data-[state=checked]:translate-x-6 data-[state=unchecked]:translate-x-0"
         )}
       />
     </SwitchPrimitive.Root>

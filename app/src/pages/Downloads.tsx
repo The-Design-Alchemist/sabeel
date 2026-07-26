@@ -15,8 +15,10 @@ import {
   useActiveDownloadCount,
   useDownloadState,
   useDownloads,
+  useDownloadTotals,
 } from "@/lib/downloads"
 import { usePlayback } from "@/playback/PlaybackProvider"
+import { useHaptics } from "@/hooks/useHaptics"
 import { CountUp } from "@/components/motion/CountUp"
 import { fadeRise, staggerContainer } from "@/lib/motion"
 import { cn } from "@/lib/utils"
@@ -47,6 +49,7 @@ function DownloadRow({ surah, native, focused }: { surah: Surah; native: boolean
   const dl = useDownloadState(surah.id)
   const ref = useRef<HTMLLIElement>(null)
   const [glow, setGlow] = useState(focused)
+  const haptics = useHaptics()
 
   // Deep-linked from the reader's progress counter (/downloads?focus=<id>): scroll this row
   // into view and flash a soft ring so the user lands on the right surah.
@@ -61,6 +64,7 @@ function DownloadRow({ surah, native, focused }: { surah: Surah; native: boolean
   const done = isDownloaded(surah.id)
 
   const remove = () => {
+    haptics.tap() // kept: deleting saved audio is destructive and irreversible without a re-download
     void deleteSurah(surah.id)
     toast(`Removed ${surah.englishName}`, {
       action: { label: "Re-download", onClick: () => queueDownload(surah.id, surah.verses) },
@@ -71,7 +75,7 @@ function DownloadRow({ surah, native, focused }: { surah: Surah; native: boolean
     <li
       ref={ref}
       className={cn(
-        "flex items-center gap-3 px-4 py-3 transition-colors duration-700",
+        "relative flex items-center gap-3 px-4 py-3 transition-colors duration-700",
         glow && "bg-teal-deep/[0.06]"
       )}
     >
@@ -109,7 +113,7 @@ function DownloadRow({ surah, native, focused }: { surah: Surah; native: boolean
           <button
             onClick={() => queueDownload(surah.id, surah.verses)}
             aria-label={`Retry ${surah.englishName} download`}
-            className="inline-flex items-center gap-1.5 rounded-full bg-teal-deep px-3 py-1.5 text-sm font-medium text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-2 focus-visible:ring-ring/50"
+            className="inline-flex items-center gap-1.5 rounded-full bg-teal-deep px-3 py-1.5 text-sm font-medium text-white outline-none transition-colors hover:bg-teal-deep-hover focus-visible:ring-2 focus-visible:ring-ring/50"
           >
             <RotateCw className="size-4" /> Retry
           </button>
@@ -118,23 +122,35 @@ function DownloadRow({ surah, native, focused }: { surah: Surah; native: boolean
           </IconButton>
         </div>
       ) : done ? (
-        <button
-          onClick={remove}
-          aria-label={`Delete ${surah.englishName} audio`}
-          className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-teal-deep outline-none hover:bg-teal-deep/5 focus-visible:ring-2 focus-visible:ring-ring/50"
-        >
-          <Check className="size-4" /> Saved
-          <Trash2 className="size-4 opacity-70" />
-        </button>
+        // Status and the destructive action are separated so a scan-and-tap can't delete by mistake.
+        <div className="flex items-center gap-1.5">
+          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-teal-deep">
+            <Check className="size-4" /> Saved
+          </span>
+          <IconButton onClick={remove} label={`Delete ${surah.englishName} audio`}>
+            <Trash2 className="size-4" />
+          </IconButton>
+        </div>
       ) : (
         <button
           disabled={!native}
           onClick={() => queueDownload(surah.id, surah.verses)}
           aria-label={`Download ${surah.englishName} audio`}
-          className="inline-flex items-center gap-1.5 rounded-full bg-teal-deep px-3 py-1.5 text-sm font-medium text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-2 focus-visible:ring-ring/50 disabled:opacity-40"
+          title={native ? undefined : "Downloads run in the installed app"}
+          className="inline-flex items-center gap-1.5 rounded-full bg-teal-deep px-3 py-1.5 text-sm font-medium text-white outline-none transition-colors hover:bg-teal-deep-hover focus-visible:ring-2 focus-visible:ring-ring/50 disabled:opacity-40"
         >
           <Download className="size-4" /> Download
         </button>
+      )}
+
+      {/* Determinate per-surah progress so a long download never looks frozen. */}
+      {dl && dl.phase === "active" && (
+        <span className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] bg-line/60">
+          <span
+            className="block h-full origin-left bg-teal-deep transition-transform duration-300"
+            style={{ transform: `scaleX(${dl.total ? dl.done / dl.total : 0})` }}
+          />
+        </span>
       )}
     </li>
   )
@@ -143,6 +159,7 @@ function DownloadRow({ surah, native, focused }: { surah: Surah; native: boolean
 export default function Downloads() {
   useDownloads() // re-render the list when a surah finishes saving or is deleted
   const activeCount = useActiveDownloadCount()
+  const totals = useDownloadTotals()
   const pb = usePlayback()
   const pillVisible = !!pb.nowPlaying // the floating mini-player overlaps the bottom of the list
   const [params] = useSearchParams()
@@ -173,7 +190,7 @@ export default function Downloads() {
         <Link
           to="/"
           aria-label="Back to Home"
-          className="absolute left-3 inline-flex items-center gap-1 rounded-full px-2 py-1.5 text-sm font-medium text-white/90 outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/50"
+          className="absolute left-3 inline-flex items-center gap-1 rounded-full px-2 py-1.5 text-sm font-medium text-white/90 outline-none transition hover:bg-white/10 active:scale-95 focus-visible:ring-2 focus-visible:ring-white/50"
         >
           <ArrowLeft className="size-5" />
           <span className="hidden sm:inline">Back</span>
@@ -181,10 +198,10 @@ export default function Downloads() {
         <span className="text-base font-semibold">Downloads</span>
       </header>
 
-      <motion.main variants={fadeRise} className="flex-1 overflow-y-auto rounded-t-[40px] bg-ground">
+      <motion.main variants={fadeRise} className="flex-1 overflow-y-auto overscroll-contain rounded-t-[40px] bg-ground">
         <div
           className={cn(
-            "mx-auto flex w-full max-w-[640px] flex-col gap-8 px-6 py-10",
+            "mx-auto flex w-full max-w-[640px] flex-col gap-8 px-6 py-10 transition-[padding] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]",
             // Extra bottom room so the last surah can scroll clear of the floating pill.
             pillVisible
               ? "pb-[calc(env(safe-area-inset-bottom)+6.5rem)]"
@@ -206,6 +223,24 @@ export default function Downloads() {
             <span className="rounded-full bg-surface px-3 py-1 text-xs font-medium tabular-nums text-muted-foreground">
               {savedCount} of {downloadable.length} saved
             </span>
+
+            {/* Overall progress across the whole batch, so "Download all" never looks frozen. */}
+            {totals.active > 0 && totals.total > 0 && (
+              <div className="w-full max-w-[320px]" role="status" aria-live="polite">
+                <div className="mb-1.5 flex items-center justify-between text-xs font-medium tabular-nums text-muted-foreground">
+                  <span>
+                    Downloading {totals.active} {totals.active === 1 ? "surah" : "surahs"}
+                  </span>
+                  <span>{Math.round((totals.done / totals.total) * 100)}%</span>
+                </div>
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-line">
+                  <div
+                    className="h-full rounded-full bg-teal-deep transition-[width] duration-300"
+                    style={{ width: `${(totals.done / totals.total) * 100}%` }}
+                  />
+                </div>
+              </div>
+            )}
             {activeCount > 0 ? (
               <button
                 onClick={cancelAll}
@@ -216,7 +251,7 @@ export default function Downloads() {
             ) : native && remaining > 0 ? (
               <button
                 onClick={downloadAll}
-                className="mt-1 inline-flex items-center gap-2 rounded-full bg-teal-deep px-4 py-2 text-sm font-semibold text-white outline-none transition-colors hover:bg-[#063a3c] focus-visible:ring-2 focus-visible:ring-ring/50"
+                className="mt-1 inline-flex items-center gap-2 rounded-full bg-teal-deep px-4 py-2 text-sm font-semibold text-white outline-none transition-colors hover:bg-teal-deep-hover focus-visible:ring-2 focus-visible:ring-ring/50"
               >
                 <Download className="size-4" /> Download all ({remaining})
               </button>

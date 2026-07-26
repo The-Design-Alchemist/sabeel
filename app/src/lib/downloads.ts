@@ -64,10 +64,30 @@ const queue: number[] = []
 let running: number | null = null
 const cancelRequested = new Set<number>()
 
+// Aggregate progress across every queued/active surah (for the "Download all" overall bar).
+// Cached and only replaced when the numbers change, so useSyncExternalStore gets a stable ref.
+export type DownloadTotals = { done: number; total: number; active: number }
+let totalsCache: DownloadTotals = { done: 0, total: 0, active: 0 }
+function recomputeTotals() {
+  let done = 0
+  let total = 0
+  let act = 0
+  for (const s of active.values()) {
+    if (s.phase === "error") continue
+    done += s.done
+    total += s.total
+    act++
+  }
+  if (done !== totalsCache.done || total !== totalsCache.total || act !== totalsCache.active) {
+    totalsCache = { done, total, active: act }
+  }
+}
+
 // No version counter here: useDownloadState keys off the per-surah state object's identity
 // (a fresh object on each change), so subscribers only need the notify signal.
 const progListeners = new Set<() => void>()
 function commitProgress() {
+  recomputeTotals()
   progListeners.forEach((l) => l())
 }
 function subscribeProgress(l: () => void) {
@@ -141,10 +161,41 @@ export async function initDownloads(): Promise<void> {
   } catch {
     /* ignore — audioSrc falls back to bundled/CDN */
   }
+  await reconcileManifest()
   // Auto-resume anything still downloading when the app was last closed.
   for (const [surah, total] of loadPending()) {
     if (!downloaded.has(surah)) queueDownload(surah, total)
   }
+}
+
+/**
+ * Drop any surah the manifest claims is saved but whose audio isn't actually on disk.
+ *
+ * The manifest lives in localStorage while the audio lives in Directory.Data, and the two can
+ * drift apart. The nastiest case is Android's Auto Backup: it restores localStorage onto a new
+ * device but cannot restore ~880MB of audio (the backup quota is 25MB), so every surah shows a
+ * "Saved" badge and then fails to play — audioSrc() would hand <audio> a file:// URI that doesn't
+ * exist, and because it already committed to the local branch it never falls back to the CDN.
+ * The user is left with a Retry button that can never succeed. The OS reclaiming app files, or a
+ * partial storage clear, produce the same dead state.
+ *
+ * One stat per *downloaded* surah (not per verse) is enough to detect it, and cheap.
+ */
+async function reconcileManifest(): Promise<void> {
+  if (!downloaded.size) return
+  const missing: number[] = []
+  await Promise.all(
+    [...downloaded].map(async (surah) => {
+      try {
+        await Filesystem.stat({ path: `${AUDIO_DIR}/${relPath(surah, 1)}`, directory: Directory.Data })
+      } catch {
+        missing.push(surah) // no verse 1 on disk → this surah isn't really saved
+      }
+    }),
+  )
+  if (!missing.length) return
+  missing.forEach((s) => downloaded.delete(s))
+  commitSet() // persist the corrected manifest and re-render every "is this saved?" subscriber
 }
 
 /** <audio> src for a verse: the local file if downloaded, the bundled asset for Al-Fatiha,
@@ -322,4 +373,9 @@ export function useActiveDownloadCount(): number {
     for (const s of active.values()) if (s.phase !== "error") n++
     return n
   })
+}
+
+/** Aggregate done/total/active across all in-flight downloads — for the overall progress bar. */
+export function useDownloadTotals(): DownloadTotals {
+  return useSyncExternalStore(subscribeProgress, () => totalsCache)
 }
