@@ -2,9 +2,10 @@
 
 _Last updated: 26 July 2026_
 
-Sabeel ("the app") is a Qur'an reading and listening app published by **The Design Alchemist**
-(the "developer", "we"). This policy explains what the app does and does not do with your data.
-It is written to be honest and plain; if anything here is unclear, contact us (below).
+Sabeel ("the app") is a Qur'an reading and listening app published by **Zeqil Flux LLP**, trading
+as **11pixels** (the "developer", "we"). This policy explains what the app does and does not do
+with your data. It is written to be honest and plain; if anything here is unclear, contact us
+(below).
 
 ## The short version
 **Sabeel does not collect, store, or share any personal information.** There is no account, no
